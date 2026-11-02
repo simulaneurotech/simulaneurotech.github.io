@@ -3,7 +3,9 @@
 An overview page for the Centre for Digital Neurotechnology: the
 investigators, key figures on publications and co-authors, and the projects.
 
-**Page:** open `centre_page.html` locally in a browser.
+**Page:** <https://meg-simula.github.io/centre-for-digital-neurotechnology/>,
+published from [`../site/index.html`](../site/index.html). You can also open
+that file locally in a browser.
 
 The page is built from the data in [`../nva/`](../nva/) and
 [`../partners/`](../partners/), so update those first.
@@ -12,9 +14,8 @@ The page is built from the data in [`../nva/`](../nva/) and
 
 | File | Contents |
 |---|---|
-| `build_centre_page.py` | Builds `centre_page.html` |
+| `build_centre_page.py` | Builds `../site/index.html` |
 | `centre_page_template.html` | Page template: layout, key figures, investigators and project timeline |
-| `centre_page.html` | The overview page (generated) |
 | `investigator_pages.csv` | **Checked by hand**: each investigator's page on simula.no, linked from their name |
 
 ## Usage
@@ -23,7 +24,7 @@ Requires Python 3 (standard library only). Run from this folder:
 
 ```sh
 cd centre
-python3 build_centre_page.py   # writes centre_page.html
+python3 build_centre_page.py   # writes ../site/index.html
 ```
 
 ## Key figures
@@ -60,6 +61,9 @@ same as on the partners page: `../partners/centre_projects.csv`,
 projects that started in 2016 or later, with Research Council funding from
 `../partners/prosjektbanken_projects.csv`.
 
+The links to the co-authorship and partners pages are hidden too
+(`SHOW_LINKS = False`), until those pages are published on the website.
+
 ## Tests
 
 ```sh
@@ -67,5 +71,7 @@ cd centre
 python3 -m pytest
 ```
 
-The tests use small made-up inputs and need no network access. They run
+The tests use small made-up inputs and need no network access. One test also
+checks that the template and `../site/index.html` load nothing from other
+sites, only files in `../site/`. All of them run
 daily on GitHub Actions with the tests in `../nva/` and `../partners/`.

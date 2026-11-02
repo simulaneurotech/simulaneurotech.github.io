@@ -1,3 +1,5 @@
+import re
+
 import build_centre_page as bcp
 
 
@@ -121,3 +123,27 @@ def test_surname_first_names_are_turned_round():
     assert bcp.author_lists(contributors, set())["1"] == [
         ["Ludmil T. Zikatanov", False]
     ]
+
+
+def test_page_loads_nothing_from_other_sites():
+    # Fonts and scripts are served from ../site/assets, so that visitors'
+    # browsers make no requests elsewhere (links the reader follows are fine)
+    site = bcp.OUTPUT.parent
+    for page in [bcp.TEMPLATE, bcp.OUTPUT]:
+        html = page.read_text(encoding="utf-8")
+        tags = [
+            t for t in re.findall(r"<[a-z]+\b[^>]*>", html) if not t.startswith("<a ")
+        ]
+        loaded = [u for t in tags for u in re.findall(r'\b(?:src|href)="([^"]*)"', t)]
+        assert "@import" not in html and "url(http" not in html, page.name
+        for url in loaded:
+            assert not re.match(r"[a-z]+:|//", url) or url.startswith("data:"), (
+                page.name,
+                url,
+            )
+            assert url.startswith("data:") or (site / url).exists(), (page.name, url)
+    css = (site / "assets" / "fonts.css").read_text(encoding="utf-8")
+    fonts = re.findall(r"url\(([^)]*)\)", css)
+    assert fonts
+    for url in fonts:
+        assert (site / "assets" / url).exists(), url

@@ -2,6 +2,9 @@
 
 Usage: python build_centre_page.py [output.html]
 
+Writes ../site/index.html by default, the page published on GitHub Pages,
+which loads its fonts and d3 from ../site/assets.
+
 Reads the investigators and their publications from ../nva (after merging
 duplicates), the co-authors and their institutions from
 ../partners/openalex_affiliations.csv, and the projects from
@@ -34,9 +37,13 @@ HERE = Path(__file__).resolve().parent
 NVA_DIR = HERE.parent / "nva"
 PARTNERS_DIR = HERE.parent / "partners"
 TEMPLATE = HERE / "centre_page_template.html"
+OUTPUT = HERE.parent / "site" / "index.html"
 SINCE = [2024, 2021, 2016]
 # The project timeline is hidden for now; set to True to show it again
 SHOW_PROJECTS = False
+# The links to the co-authorship and partners pages are hidden until those
+# pages are published too; set to True to show them again
+SHOW_LINKS = False
 AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
@@ -254,6 +261,7 @@ def collect():
             exclusions,
         ),
         "showProjects": SHOW_PROJECTS,
+        "showLinks": SHOW_LINKS,
         "projects": projects(
             read_csv(PARTNERS_DIR / "centre_projects.csv"),
             prosjektbanken=prosjektbanken,
@@ -262,7 +270,7 @@ def collect():
 
 
 def main():
-    output = Path(sys.argv[1] if len(sys.argv) > 1 else HERE / "centre_page.html")
+    output = Path(sys.argv[1]) if len(sys.argv) > 1 else OUTPUT
     data = collect()
     html = TEMPLATE.read_text(encoding="utf-8").replace(
         "__DATA__", json.dumps(data, ensure_ascii=False)
