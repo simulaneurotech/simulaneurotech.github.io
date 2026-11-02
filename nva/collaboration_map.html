@@ -1,0 +1,672 @@
+<title>Centre Co-authorship Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; network + detail panel side by side on wide screens, then matrix and timeline below */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #141820;
+  --ink-2: #4a5260;
+  --muted: #6b7380;
+  --line: #dfe3e9;
+  --edge: #8d95a3;
+  --srl: #2a78d6;
+  --srl-soft: #c8d3e0;
+  --ext: #1baf7a;
+  --met: #eb6834;
+  --hi: #141820;
+  --seq-0: #f0f3f7;
+  --seq-ink-dark: #0b0b0b;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+    --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+  --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 var(--font-body);
+}
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid;
+  gap: 48px;
+}
+h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 2.1rem; line-height: 1.15; }
+h2 { font-size: 1.4rem; line-height: 1.25; }
+p { margin: 0; }
+a { color: var(--srl); }
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid var(--srl); outline-offset: 2px; }
+.eyebrow { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { max-width: 65ch; color: var(--ink-2); }
+header { display: grid; gap: 12px; }
+
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 8px; }
+.fact { display: grid; gap: 2px; }
+.fact b { font: 600 1.5rem/1.1 var(--font-display); }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+section { display: grid; gap: 16px; }
+.section-head { display: grid; gap: 6px; }
+.section-head p { max-width: 65ch; color: var(--ink-2); }
+
+.findings { display: grid; gap: 10px; max-width: 70ch; padding: 0; margin: 0; list-style: none; }
+.findings li { padding-left: 18px; position: relative; }
+.findings li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+
+/* Network + panel */
+.explore { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .explore { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.net-card { padding: 12px; min-width: 0; }
+.net-card svg { display: block; width: 100%; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 4px 8px 8px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.edge-key { width: 22px; height: 0; border-top: 6px solid var(--edge); border-radius: 3px; display: inline-block; }
+
+.node circle { stroke: var(--surface); stroke-width: 2; cursor: pointer; }
+.node text { font: 500 15px var(--font-body); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+.onode circle { fill: var(--ext); stroke: var(--surface); stroke-width: 1.5; cursor: pointer; }
+.onode text { font: 500 12px var(--font-body); fill: var(--ink-2); paint-order: stroke; stroke: var(--surface); stroke-width: 3.5px; stroke-linejoin: round; pointer-events: none; }
+.onode line { stroke: var(--ext); stroke-dasharray: 3 3; opacity: 0.45; }
+svg.focus .onode { opacity: 0.12; }
+svg.focus .onode.on { opacity: 1; }
+svg.focus .onode.on line { opacity: 0.9; }
+.net-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0 8px 8px; font-size: 0.82rem; color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { font: 500 0.78rem var(--font-body); background: none; border: 0; padding: 4px 10px; color: var(--ink-2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--seq-0); color: var(--ink); }
+.node .count { font: 500 10.5px var(--font-data); fill: var(--muted); }
+.edge line.vis { stroke: var(--edge); stroke-linecap: round; opacity: 0.55; transition: opacity 120ms, stroke 120ms; }
+.edge line.hit { stroke: transparent; stroke-width: 18; cursor: pointer; }
+.edge text { font: 500 13px var(--font-data); fill: var(--ink-2); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; pointer-events: none; }
+svg.focus .edge line.vis { opacity: 0.12; }
+svg.focus .edge.on line.vis { opacity: 1; stroke: var(--hi); }
+svg.focus .edge text { opacity: 0.15; }
+svg.focus .edge.on text { opacity: 1; fill: var(--ink); }
+svg.focus .node { opacity: 0.3; }
+svg.focus .node.on { opacity: 1; }
+.isolated-box { fill: none; stroke: var(--line); stroke-dasharray: 4 4; }
+.isolated-label { font: 500 11.5px var(--font-data); fill: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+@media (prefers-reduced-motion: reduce) { .edge line.vis { transition: none; } }
+
+.panel { padding: 18px; display: grid; gap: 14px; min-width: 0; max-height: 640px; overflow-y: auto; }
+.panel h3 { margin: 0; font: 600 1.15rem/1.3 var(--font-display); }
+.panel .sub { font-size: 0.85rem; color: var(--muted); }
+.panel button.reset { justify-self: start; font: 500 0.8rem var(--font-body); color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.panel button.reset:hover { background: var(--seq-0); }
+.rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.rows button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 60px 28px; gap: 10px; align-items: center; padding: 5px 6px; border-radius: 6px; cursor: pointer; font-size: 0.88rem; }
+.rows button:hover, .rows button:focus-visible { background: var(--seq-0); }
+.rows .bar { height: 6px; border-radius: 3px; background: var(--edge); }
+.rows.ext .bar { background: var(--ext); }
+.people { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.people li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; font-size: 0.88rem; }
+.people .meta { color: var(--muted); font-size: 0.8rem; }
+.people .n { font: 500 0.78rem/1.6 var(--font-data); color: var(--ink-2); text-align: right; white-space: nowrap; }
+.panel button.link { justify-self: start; font: 500 0.82rem var(--font-body); color: var(--srl); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.rows .n { font: 500 0.8rem var(--font-data); text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.papers { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.papers li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 0.88rem; }
+.papers .yr { font: 500 0.8rem/1.6 var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+.papers .meta { color: var(--muted); font-size: 0.8rem; }
+.papers .t { overflow-wrap: anywhere; }
+
+/* Matrix */
+.matrices { display: flex; flex-wrap: wrap; gap: 20px; }
+.matrix-card { flex: 1 1 460px; min-width: 0; padding: 16px; display: grid; gap: 10px; align-content: start; }
+.matrix-card h3 { margin: 0; font: 600 1rem/1.3 var(--font-display); display: flex; align-items: center; gap: 8px; }
+.matrix-card p { margin: 0; font-size: 0.82rem; color: var(--muted); }
+.matrix-wrap { overflow-x: auto; }
+table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78rem; }
+.matrix th { font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+.matrix thead th { height: 104px; vertical-align: bottom; padding: 0; }
+.matrix thead th div { writing-mode: vertical-rl; transform: rotate(180deg); padding: 4px 0; margin: 0 auto; }
+.matrix tbody th { text-align: right; padding-right: 6px; }
+.matrix td { width: 27px; min-width: 27px; height: 27px; text-align: center; border-radius: 4px; font: 500 0.78rem var(--font-data); font-variant-numeric: tabular-nums; background: var(--seq-0); color: var(--muted); }
+.matrix td.v { cursor: pointer; }
+.matrix td.v:hover { outline: 2px solid var(--ink); outline-offset: -2px; }
+.matrix td.diag { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+.matrix-note { font-size: 0.82rem; color: var(--muted); }
+
+/* Timeline */
+.time-card { padding: 16px 12px 8px; position: relative; }
+.time-card svg { display: block; width: 100%; height: auto; overflow: visible; }
+.axis text { font: 400 10.5px var(--font-data); fill: var(--muted); }
+.grid line { stroke: var(--line); }
+.baseline { stroke: var(--edge); }
+.time-card .chart-label { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 0 0 6px 4px; }
+.time-card .legend { padding: 0 4px 10px; }
+.swatch.sq { border-radius: 2px; }
+.yb rect.co { fill: var(--srl); }
+.yb rect.other { fill: var(--srl-soft); }
+.yb rect.hit { fill: transparent; cursor: default; }
+.yb.partial rect.co, .yb.partial rect.other { opacity: 0.55; }
+.yb:hover rect.co { fill: var(--ink); opacity: 1; }
+.yb:hover rect.other { fill: var(--muted); opacity: 1; }
+.share-line { fill: none; stroke: var(--srl); stroke-width: 2; stroke-linejoin: round; }
+.share-dot { fill: var(--srl); stroke: var(--surface); stroke-width: 2; }
+.yb:hover .share-dot { fill: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); }
+
+.method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
+.method h2 { font-size: 1.1rem; }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">Centre for Digital Neurotechnology · Simula</div>
+    <h1>Who publishes with whom</h1>
+    <p class="lede">Shared publications between the twelve centre investigators, from their records in NVA (Nasjonalt vitenarkiv, which replaced Cristin): journal articles, conference papers, book chapters and books. Talks, posters, theses and reports are left out.</p>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Investigators publication network</h2>
+      <p>Each line is a pair with at least one shared publication; thicker lines mean more. Circle size follows each person's total publications in NVA. Teal circles are co-authors outside the centre who link investigators: they have published with each of them on separate papers. Select a person, a line or a teal circle to see the details.</p>
+    </div>
+    <div class="explore">
+      <div class="card net-card">
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--srl)"></i>Simula Research Laboratory</span>
+          <span><i class="swatch" style="background:var(--met)"></i>SimulaMet</span>
+          <span><i class="edge-key"></i>number = shared publications</span>
+          <span><i class="swatch" style="background:var(--ext)"></i>Outside co-author</span>
+        </div>
+        <div class="net-controls">
+          <span id="seg-label">Outside co-authors:</span>
+          <div class="seg" role="group" aria-labelledby="seg-label" id="outside-seg"></div>
+        </div>
+        <svg id="net" viewBox="0 0 820 560" role="img" aria-label="Co-authorship network of centre investigators"></svg>
+      </div>
+      <div class="card panel" id="panel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>All pairs</h2>
+      <p>Direct links on the left, indirect links on the right. Stronger colour means more. Select a cell to see the details.</p>
+    </div>
+    <div class="matrices">
+      <div class="card matrix-card">
+        <h3><i class="swatch sq" style="background:var(--srl)"></i>Shared publications</h3>
+        <p>Publications both have authored. The dashed diagonal is each person's own total.</p>
+        <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+      </div>
+      <div class="card matrix-card">
+        <h3><i class="swatch sq" style="background:var(--ext)"></i>Shared outside co-authors</h3>
+        <p>People outside the centre who have published with each of the two on separate papers. Co-authors only on the pair's joint papers are not counted.</p>
+        <div class="matrix-wrap"><table class="matrix" id="matrix-ext"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Over time</h2>
+      <p>All publications by the twelve investigators per year, and how many of them have at least two investigators as authors. Each paper counts once, however many investigators are on it. The lower chart shows the co-authored share of each year's total.</p>
+    </div>
+    <div class="card time-card" id="timecard">
+      <div class="legend">
+        <span><i class="swatch sq" style="background:var(--srl)"></i>Co-authored by 2+ investigators</span>
+        <span><i class="swatch sq" style="background:var(--srl-soft)"></i>Other publications</span>
+      </div>
+      <div class="chart-label">Publications per year</div>
+      <svg id="time" viewBox="0 0 800 230" role="img" aria-label="Total and co-authored publications per year"></svg>
+      <div class="chart-label" style="padding-top:14px">Share co-authored</div>
+      <svg id="share" viewBox="0 0 800 140" role="img" aria-label="Share of each year's publications that are co-authored"></svg>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>What stands out</h2></div>
+    <ul class="findings" id="findings"></ul>
+  </section>
+
+  <section class="method">
+    <h2>How this was made</h2>
+    <p>Each investigator's publications were fetched from the API of <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a>, which replaced Cristin, on 30 October 2026, using the profile with a Simula affiliation (and a second profile where one exists). Duplicate records of the same paper, including preprints and their published versions, are counted once. Two investigators share a publication when both are among its authors, recognised by Cristin ID or, where the ID is missing, by name. Some Cristin records list a book's editors as authors of every chapter; editors are removed from chapters they did not write. Outside co-authors are people outside the centre on the investigators' publications, identified by Cristin ID or, mostly for authors abroad, by name.</p>
+    <p>NVA, like Cristin before it, only holds work registered through Norwegian institutions, so work from before someone joined Simula, or from abroad, may be missing. A missing line means no shared publication <em>in NVA</em>, not necessarily no collaboration. 2026 covers January to October only.</p>
+  </section>
+</div>
+
+<script>
+const DATA = {"people": [{"name": "Evrim Acar Ataman", "aff": "SimulaMet", "total": 23, "shared": 0, "cristin": "1873486"}, {"name": "Baltasar Beferull-Lozano", "aff": "SimulaMet", "total": 112, "shared": 0, "cristin": "588528"}, {"name": "Cécile Daversin-Catty", "aff": "SRL", "total": 15, "shared": 6, "cristin": "1873484"}, {"name": "Ada Johanne Ellingsrud", "aff": "SRL", "total": 12, "shared": 10, "cristin": "555693"}, {"name": "Karoline Horgmo Jæger", "aff": "SRL", "total": 33, "shared": 33, "cristin": "812512"}, {"name": "Miroslav Kuchta", "aff": "SRL", "total": 47, "shared": 36, "cristin": "512611"}, {"name": "Mikkel Lepperød", "aff": "SRL", "total": 25, "shared": 0, "cristin": "625566"}, {"name": "Kent-Andre Mardal", "aff": "SRL", "total": 175, "shared": 62, "cristin": "23105"}, {"name": "Klas H. Pettersen", "aff": "SimulaMet", "total": 34, "shared": 3, "cristin": "8811"}, {"name": "Marie E. Rognes", "aff": "SRL", "total": 81, "shared": 32, "cristin": "17829"}, {"name": "Aslak Tveito", "aff": "SRL", "total": 133, "shared": 42, "cristin": "24032"}, {"name": "Kristian Valen-Sendstad", "aff": "SRL", "total": 60, "shared": 10, "cristin": "5643"}], "papers": {"41894": {"year": "2009", "title": "Implementing a k-e Turbulence Model in the FEniCS Finite Element Programming Environment", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc5b09c5-db690646-46b7-43aa-8617-d7f59e5e1dbb", "venue": "In: Proceedings of MekIT'09", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "42927": {"year": "2010", "title": "Can ECG recordings and mathematics tell the condition of your heart?", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc4aa823-0c617c05-e1e5-4439-9f84-c34b1fe28b8d", "venue": "In: Simula Research Laboratory - by thinking constantly about it", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "375150": {"year": "2006", "title": "On the computational complexity of the bidomain and the monodomain models of electrophysiology", "category": "Academic article", "journal": "Annals of Biomedical Engineering", "doi": "", "nva_id": "0198cc80a042-6ee3eaf7-e4ed-48ff-b748-69f2d6c915e8", "venue": "Annals of Biomedical Engineering", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "397038": {"year": "2002", "title": "Multigrid block preconditioning for a coupled system of partial differential equations modeling the electrical activity in the heart", "category": "Academic article", "journal": "Computer Methods in Biomechanics and Biomedical Engineering", "doi": "", "nva_id": "0198cc84b549-4af03b83-53e4-4e85-8cbb-07e31bd8fff2", "venue": "Computer Methods in Biomechanics and Biomedical Engineering", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "873457": {"year": "2011", "title": "Flow characteristics in a canine aneurysm model: A comparison of 4D accelerated phase-contrast MR measurements and computational fluid dynamics simulations", "category": "Academic article", "journal": "Medical Physics", "doi": "https://doi.org/10.1118/1.3652917", "nva_id": "0198cc73ba8f-808f7d24-7c78-4611-be45-63372d50d4c3", "venue": "Medical Physics", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "905590": {"year": "2011", "title": "Direct numerical simulation of transitional flow in a patient-specific intracranial aneurysm", "category": "Academic article", "journal": "Journal of Biomechanics", "doi": "https://doi.org/10.1016/j.jbiomech.2011.08.015", "nva_id": "0198cc49ec6b-eb1f78cc-a43c-45b0-9043-84ae4bd37b52", "venue": "Journal of Biomechanics", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "908163": {"year": "2011", "title": "On The Complexity of Stationary Flow in Patient–Specific Aneurysms", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc6c37ef-35564128-f00d-429b-9d4f-aefc1af84db6", "venue": "In: MekIT'11: Sixth National Conference on Computational Mechanics, Trondheim 23-24 May 2011", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "948899": {"year": "2012", "title": "AN ANALYSIS OF THE SHOCK STRENGTH NEEDED TO ACHIEVE DEFIBRILLATION IN A SIMPLIFIED MATHEMATICAL MODEL OF CARDIAC TISSUE", "category": "Academic article", "journal": "International Journal of Numerical Analysis & Modeling", "doi": "", "nva_id": "0198cc4602dc-2db6bb20-111d-415f-a092-067f4e826d04", "venue": "International Journal of Numerical Analysis & Modeling", "authors": ["Aslak Tveito", "Marie E. Rognes"]}, "999042": {"year": "2012", "title": "A comparison of finite element schemes for the incompressible Navier–Stokes equations", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc8889b3-b19a0dc2-4fdb-4072-9ede-a47993dcd2e1", "venue": "In: Automated Solution of Differential Equations by the Finite Element Method (Lecture Notes in Computational Science and Engineering)", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "999050": {"year": "2012", "title": "Computational hemodynamics", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc8623d6-6dc4d336-375a-4951-a8ec-c0b002c4b8d5", "venue": "In: Automated Solution of Differential Equations by the Finite Element Method (Lecture Notes in Computational Science and Engineering)", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "1100285": {"year": "2013", "title": "A study of wall shear stress in 12 aneurysms with respect to different viscosity models and flow conditions", "category": "Academic article", "journal": "Journal of Biomechanics", "doi": "https://doi.org/10.1016/j.jbiomech.2013.09.004", "nva_id": "0198cc778a43-d41057f1-8165-4f9a-8320-088bb4d79770", "venue": "Journal of Biomechanics", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "1100901": {"year": "2013", "title": "High-resolution computational fluid dynamics detects high-frequency velocity fluctuations in bifurcation, but not sidewall, aneurysms of the middle cerebral artery", "category": "Academic article", "journal": "Journal of Biomechanics", "doi": "https://doi.org/10.1016/j.jbiomech.2012.10.042", "nva_id": "0198cc6d9565-f904cee0-178d-4e3f-b357-e493dabf6445", "venue": "Journal of Biomechanics", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "1303952": {"year": "2015", "title": "BEND|P|Y: Python framework for computing bending of complex plate-beam systems", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc40fd74-c6234c41-d303-4d31-abf0-a3a5492f206f", "venue": "In: Proceedings of MekIT'15 Eighth National Conference on Computational Mechanics", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1303957": {"year": "2015", "title": "Characterization of the space of rigid motions in arbitrary domains", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc40e544-32bede6c-08f4-4bdc-80d7-cba763ab3f12", "venue": "In: Proceedings of MekIT'15 Eighth National Conference on Computational Mechanics", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1385470": {"year": "2016", "title": "Preconditioners for saddle point systems with trace constraints coupling 2D and 1D domains", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/15M1052822", "nva_id": "0198cc741016-d8ab8fa7-5d8e-465a-9d00-f9823f95f079", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1459960": {"year": "2017", "title": "A numerical investigation of intrathecal isobaric drug dispersion within the cervical subarachnoid space", "category": "Academic article", "journal": "PLOS ONE", "doi": "https://doi.org/10.1371/journal.pone.0173680", "nva_id": "0198cc576da9-7386286e-9597-4ee5-942f-cca20fedbd71", "venue": "PLOS ONE", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1499040": {"year": "2017", "title": "An evaluation of the accuracy of classical models for computing the membrane potential and extracellular potential for neurons", "category": "Academic article", "journal": "Frontiers in Computational Neuroscience", "doi": "https://doi.org/10.3389/fncom.2017.00027", "nva_id": "0198cc6c2d6a-c873ffac-8bc7-49ab-bff7-57f327c19710", "venue": "Frontiers in Computational Neuroscience", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1503524": {"year": "2017", "title": "A cell-based framework for numerical modeling of electrical conduction in cardiac tissue", "category": "Academic article", "journal": "Frontiers in Physics", "doi": "https://doi.org/10.3389/fphy.2017.00048", "nva_id": "0198cc444d9f-6476a119-9cb8-4850-a821-caf63bb166c0", "venue": "Frontiers in Physics", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger", "Kent-Andre Mardal", "Marie E. Rognes", "Miroslav Kuchta"]}, "1503525": {"year": "2017", "title": "Interstitial solute transport in 3D reconstructed neuropil occurs by diffusion rather than bulk flow", "category": "Academic article", "journal": "Proceedings of the National Academy of Sciences of the United States of America (PNAS)", "doi": "https://doi.org/10.1073/pnas.1706942114", "nva_id": "0198cc41ea90-66723c03-c619-49ec-9d89-d3fa207a5bf0", "venue": "Proceedings of the National Academy of Sciences of the United States of America (PNAS)", "authors": ["Kent-Andre Mardal", "Klas H. Pettersen"]}, "1505214": {"year": "2017", "title": "Numerical study of intrathecal drug delivery to a permeable spinal cord: effect of catheter position and angle", "category": "Academic article", "journal": "Computer Methods in Biomechanics and Biomedical Engineering", "doi": "https://doi.org/10.1080/10255842.2017.1393805", "nva_id": "0198cc80ae56-8b162a3c-54ca-4327-8c5a-4229ff728395", "venue": "Computer Methods in Biomechanics and Biomedical Engineering", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1581164": {"year": "2006", "title": "Computing the electrical activity in the heart", "category": "Academic monograph", "journal": "", "doi": "", "nva_id": "0198cc80d4e9-c46f5e38-c0ce-4d86-aa9e-b52f2d026bcc", "venue": "Springer", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "1594685": {"year": "2019", "title": "Preconditioning trace coupled 3d-1d systems using fractional Laplacian", "category": "Academic article", "journal": "Numerical Methods for Partial Differential Equations", "doi": "https://doi.org/10.1002/num.22304", "nva_id": "0198cc69abca-00088014-472d-45e2-a16c-5f3e14f688be", "venue": "Numerical Methods for Partial Differential Equations", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1602059": {"year": "2019", "title": "On the singular Neumann problem in linear elasticity", "category": "Academic article", "journal": "Numerical Linear Algebra with Applications", "doi": "https://doi.org/10.1002/nla.2212", "nva_id": "0198cc690f68-206c8753-c7ff-4fbc-9786-db3778ed329b", "venue": "Numerical Linear Algebra with Applications", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1602060": {"year": "2018", "title": "Fluid dynamics in syringomyelia cavities: Effects of heart rate, CSF velocity, CSF velocity waveform and craniovertebral decompression", "category": "Academic article", "journal": "The Neuroradiology Journal (NRJ)", "doi": "https://doi.org/10.1177/1971400918795482", "nva_id": "0198cc68ff57-c655b20a-e982-4281-aeaa-62b1220a19bb", "venue": "The Neuroradiology Journal (NRJ)", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1671828": {"year": "2018", "title": "Inversion and computational maturation of drug response using human stem cell\nderived cardiomyocytes in microphysiological systems", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-018-35858-7", "nva_id": "0198cc44d6f3-40a54d59-887e-4e6c-8afa-6c6755527be7", "venue": "Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1672266": {"year": "2019", "title": "Multigrid Methods for Discrete Fractional Sobolev Spaces", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/18M1191488", "nva_id": "0198cc77c481-b7416fde-c162-4000-a10b-c3e80e7498c7", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1684227": {"year": "2018", "title": "Real-world variability in the prediction of intracranial aneurysm wall shear stress: The 2015 international aneurysm CFD challenge", "category": "Academic article", "journal": "Cardiovascular Engineering and Technology", "doi": "https://doi.org/10.1007/s13239-018-00374-2", "nva_id": "0198cc465ef3-75310959-d9e8-4646-b27d-b5db640f5ca4", "venue": "Cardiovascular Engineering and Technology", "authors": ["Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, "1686572": {"year": "2019", "title": "A mixed finite element method for nearly incompressible multiple-network poroelasticity", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/18M1182395", "nva_id": "0198cc565696-4348495c-8d6e-4c35-bd46-9f7c852e8210", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1704814": {"year": "2019", "title": "How does the presence of neural probes affect extracellular potentials?", "category": "Academic article", "journal": "Journal of Neural Engineering", "doi": "https://doi.org/10.1088/1741-2552/ab03a1", "nva_id": "0198cc4d4e2f-b69f7b33-f192-47b1-b3ba-e98affa2fbbf", "venue": "Journal of Neural Engineering", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger", "Kent-Andre Mardal", "Miroslav Kuchta"]}, "1714010": {"year": "2019", "title": "Respiratory influence on cerebrospinal fluid flow – a computational study based on long-term intracranial pressure measurements", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-019-46055-5", "nva_id": "0198cc4ac531-2162cbcb-776d-4acb-89a0-7ed9d644664e", "venue": "Scientific Reports", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1720447": {"year": "2019", "title": "Detecting undetectables: Can conductances of action potential models be changed without appreciable change in the transmembrane potential?", "category": "Academic article", "journal": "Chaos", "doi": "https://doi.org/10.1063/1.5087629", "nva_id": "0198cc6a5ab1-0f9864e3-eb84-40cc-a41e-0d358dee0991", "venue": "Chaos", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1750307": {"year": "2019", "title": "Astrocytic Ion Dynamics: Implications for Potassium Buffering and Liquid Flow", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-00817-8_14", "nva_id": "0198cc47063d-7150f02a-5049-4f3a-b88a-e329c26b0d0b", "venue": "In: Computational Glioscience (Springer Series in Computational Neuroscience)", "authors": ["Klas H. Pettersen", "Marie E. Rognes"]}, "1791247": {"year": "2019", "title": "Sub-voxel Perfusion Modeling in Terms of Coupled 3d-1d Problem", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-319-96415-7_2", "nva_id": "0198cc92de3d-6bcb82ac-4164-4662-8f9d-33a19a6bccc6", "venue": "In: Numerical Mathematics and Advanced Applications ENUMATH 2017 (Lecture Notes in Computational Science and Engineering)", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1808092": {"year": "2020", "title": "Intracranial pressure elevation alters CSF clearance pathways", "category": "Academic article", "journal": "Fluids and Barriers of the CNS", "doi": "https://doi.org/10.1186/s12987-020-00189-1", "nva_id": "0198cc3c050f-f8f06014-11c8-478f-a8c0-94b4643d403d", "venue": "Fluids and Barriers of the CNS", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1817208": {"year": "2020", "title": "Finite element simulation of ionic electrodiffusion in cellular geometries", "category": "Academic article", "journal": "Frontiers in Neuroinformatics", "doi": "https://doi.org/10.3389/fninf.2020.00011", "nva_id": "0198cc66ba00-5f3aca71-024a-4bcc-9e05-1382c705544e", "venue": "Frontiers in Neuroinformatics", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes"]}, "1819228": {"year": "2020", "title": "An observation on the uniform preconditioners for the mixed Darcy problem", "category": "Academic article", "journal": "Numerical Methods for Partial Differential Equations", "doi": "https://doi.org/10.1002/num.22500", "nva_id": "0198cc63eae6-188a465a-ff77-4a7e-a72e-80f59b85b673", "venue": "Numerical Methods for Partial Differential Equations", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1833869": {"year": "2020", "title": "Robust preconditioning for coupled Stokes–Darcy problems with the Darcy problem in primal form", "category": "Academic article", "journal": "Computers and Mathematics with Applications", "doi": "https://doi.org/10.1016/j.camwa.2020.08.021", "nva_id": "0198cc7c3109-fa4a0242-06f3-47f5-8923-12fe59c7fd63", "venue": "Computers and Mathematics with Applications", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1884557": {"year": "2020", "title": "Operator Splitting and Finite Difference Schemes for Solving the EMI Model", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-61157-6_4", "nva_id": "0198cc510980-f45c3283-1e5b-4351-b9c9-c9d2ab6185fa", "venue": "In: Modeling Excitable Tissue --\nThe EMI Framework (Simula SpringerBriefs on Computing)", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1884566": {"year": "2021", "title": "Efficient numerical solution of the EMI model representing the extracellular space (E), cell membrane (M) and intracellular space (I) of a collection of cardiac cells", "category": "Academic article", "journal": "Frontiers in Physics", "doi": "https://doi.org/10.3389/fphy.2020.579461", "nva_id": "0198cc53b079-e3314f47-2f15-4c9b-8685-c68f099c5e79", "venue": "Frontiers in Physics", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1889821": {"year": "2020", "title": "The mechanisms behind perivascular fluid flow", "category": "Academic article", "journal": "PLOS ONE", "doi": "https://doi.org/10.1371/journal.pone.0244442", "nva_id": "0198cc5d1b1b-86c1ab3f-e918-402e-b64f-1f1ccfdaafa1", "venue": "PLOS ONE", "authors": ["Cécile Daversin-Catty", "Kent-Andre Mardal", "Marie E. Rognes"]}, "1896315": {"year": "2021", "title": "Identifying drug response by combining measurements of the membrane potential, the cytosolic calcium concentration, and the extracellular potential in microphysiological systems", "category": "Academic article", "journal": "Frontiers in Pharmacology", "doi": "https://doi.org/10.3389/fphar.2020.569489", "nva_id": "0198cc75a8b4-32a2d107-f35a-4491-b3e6-a2bc2c52bdbf", "venue": "Frontiers in Pharmacology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "1897000": {"year": "2021", "title": "Analysis and approximation of mixed-dimensional\npdes on 3d-1d domains coupled with lagrange\nmultipliers", "category": "Academic article", "journal": "SIAM Journal on Numerical Analysis", "doi": "https://doi.org/10.1137/20M1329664", "nva_id": "0198cc6011c2-8b6412c1-d241-4bc1-9385-40a78028dae8", "venue": "SIAM Journal on Numerical Analysis", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1910158": {"year": "2021", "title": "Accurate discretization of poroelasticity without Darcy stability --\n\nStokes–Biot stability revisited", "category": "Academic article", "journal": "BIT Numerical Mathematics", "doi": "https://doi.org/10.1007/s10543-021-00849-0", "nva_id": "0198cc511dcb-4f90089c-37b1-478c-8c52-8fcb09c3444b", "venue": "BIT Numerical Mathematics", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1934071": {"year": "2021", "title": "Robust preconditioners for perturbed saddle-point problems and conservative discretizations of Biot's equations utilizing total pressure", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/20M1379708", "nva_id": "0198cc5a343b-e68904f2-ce30-4781-a812-639a7a4a50b6", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "1934082": {"year": "2021", "title": "Parameter robust preconditioning by congruence for multiple-network poroelasticity", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/20M1326751", "nva_id": "0198cc5ca19e-c2cb2f5d-f859-4d23-9e9f-786481d798c6", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "1999033": {"year": "2021", "title": "Computational prediction of drug response in short QT syndrome type 1 based on measurements of compound effect in stem cell-derived cardiomyocytes", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/JOURNAL.PCBI.1008089", "nva_id": "0198cc6b2290-079cb179-eb29-4174-a8c2-974ccd795783", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "2025246": {"year": "2022", "title": "Deriving the Bidomain Model of Cardiac Electrophysiology From a Cell-Based Model; Properties and Comparisons", "category": "Academic article", "journal": "Frontiers in Physiology", "doi": "https://doi.org/10.3389/fphys.2021.811029", "nva_id": "0198cc4096e1-1906d9a6-90f1-421e-b734-bb38b9186b75", "venue": "Frontiers in Physiology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "2039931": {"year": "2022", "title": "Parameter-robust methods for the Biot–Stokes interfacial coupling without Lagrange multipliers", "category": "Academic article", "journal": "Journal of Computational Physics", "doi": "https://doi.org/10.1016/j.jcp.2022.111464", "nva_id": "0198cc5bcf5f-509f3d5b-ef6a-4445-8deb-180d04d2e73b", "venue": "Journal of Computational Physics", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2039937": {"year": "2022", "title": "Encoder–decoder neural networks for predicting future FTIR spectra – application to enzymatic protein hydrolysis", "category": "Academic article", "journal": "Journal of Biophotonics", "doi": "https://doi.org/10.1002/jbio.202200097", "nva_id": "0198cc5bcfbe-e0a82ddf-9d59-41d8-9d97-63f016431876", "venue": "Journal of Biophotonics", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2040383": {"year": "2022", "title": "Mathematical Modeling of the Human Brain - \nFrom Magnetic Resonance Images to Finite Element Simulation", "category": "Academic monograph", "journal": "", "doi": "", "nva_id": "0198cc68331b-53d7ce2f-7da6-42a4-bdb6-f28de6241666", "venue": "Springer Nature, Simula SpringerBriefs on Computing", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "2047932": {"year": "2022", "title": "Geometrically Reduced Modelling of Pulsatile Flow in Perivascular Networks", "category": "Academic article", "journal": "Frontiers in Physics", "doi": "https://doi.org/10.3389/fphy.2022.882260", "nva_id": "0198cc7aa0e6-bcd2589d-3b90-4f18-95af-8cf1ce24d856", "venue": "Frontiers in Physics", "authors": ["Cécile Daversin-Catty", "Marie E. Rognes"]}, "2057446": {"year": "2022", "title": "Investigating molecular transport in the human brain from MRI with physics-informed neural networks", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-022-19157-w", "nva_id": "0198cc6c8b96-6a112230-12db-408f-85ac-15ffcb96320c", "venue": "Scientific Reports", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2062561": {"year": "2022", "title": "Validating a Computational Framework for Ionic Electrodiffusion with Cortical Spreading Depression as a Case Study", "category": "Academic article", "journal": "eNeuro", "doi": "https://doi.org/10.1523/ENEURO.0408-21.2022", "nva_id": "0198cc4e4d3a-9bad3bd3-8d3f-40ee-a170-57c72dcf0436", "venue": "eNeuro", "authors": ["Ada Johanne Ellingsrud", "Klas H. Pettersen", "Marie E. Rognes"]}, "2065253": {"year": "2022", "title": "CSF circulation and dispersion yield rapid clearance from intracranial compartments", "category": "Academic article", "journal": "Frontiers in Bioengineering and Biotechnology", "doi": "https://doi.org/10.3389/fbioe.2022.932469", "nva_id": "0198cc6e52b3-e93c4d91-7c8f-49fa-bd7a-9456cee4b6dd", "venue": "Frontiers in Bioengineering and Biotechnology", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "2081325": {"year": "2022", "title": "Robust Monolithic Solvers for the Stokes--Darcy Problem with the Darcy Equation in Primal Form", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/21M1452974", "nva_id": "0198cc4279eb-6f7c6f60-ad37-4d0c-a521-183e1e9802ba", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2087159": {"year": "2022", "title": "Robust Approximation of Generalized Biot-Brinkman Problems", "category": "Academic article", "journal": "Journal of Scientific Computing", "doi": "https://doi.org/10.1007/s10915-022-02029-w", "nva_id": "0198cc4d8b5d-34afbe2f-231a-4cec-97fb-90af1f5ac978", "venue": "Journal of Scientific Computing", "authors": ["Kent-Andre Mardal", "Marie E. Rognes", "Miroslav Kuchta"]}, "2150673": {"year": "2023", "title": "Sleep cycle-dependent vascular dynamics in male mice and the predicted effects on perivascular cerebrospinal fluid flow and solute transport", "category": "Academic article", "journal": "Nature Communications", "doi": "https://doi.org/10.1038/s41467-023-36643-5", "nva_id": "0198cc3d1106-66a5f09c-01c4-4af3-a85f-4cd1c89d0ab2", "venue": "Nature Communications", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2184297": {"year": "2023", "title": "Human brain solute transport quantified by glymphatic MRI-informed biophysics during sleep and sleep deprivation", "category": "Academic article", "journal": "Fluids and Barriers of the CNS", "doi": "https://doi.org/10.1186/s12987-023-00459-8", "nva_id": "0198cc8f898c-6c22c3b0-2dd2-4aaf-b0ff-9aa6e682522e", "venue": "Fluids and Barriers of the CNS", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "2188624": {"year": "2023", "title": "HAZniCS – Software Components for Multiphysics Problems", "category": "Academic article", "journal": "ACM Transactions on Mathematical Software", "doi": "https://doi.org/10.1145/3625561", "nva_id": "0198cc58eccb-d21324ca-80cf-4f58-8258-1b5198640692", "venue": "ACM Transactions on Mathematical Software", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2188630": {"year": "2024", "title": "Algebraic multigrid methods for metric-perturbed coupled problems", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/23M1572076", "nva_id": "0198cc5b7999-8c191903-e0c1-4009-a369-79f5da034071", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2255992": {"year": "2023", "title": "Rational Approximation Preconditioners for Multiphysics Problems", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "0198cc64e995-c4faacc7-a251-4c77-be60-08a7e41745b5", "venue": "In: Numerical Methods and Applications\n10th International Conference, NMA 2022, Borovets, Bulgaria, August 22–26, 2022, Proceedings (Lecture Notes in Computer Science (LNCS))", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "2297656": {"year": "2024", "title": "Evaluating computational efforts and physiological resolution of mathematical models of cardiac tissue", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-024-67431-w", "nva_id": "0198cc7b38d0-dc279e76-01e3-4dad-8d72-a509f079d9fd", "venue": "Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "2312295": {"year": "2024", "title": "Modeling CSF circulation and the glymphatic system during infusion using subject specific intracranial pressures and brain geometries", "category": "Academic article", "journal": "Fluids and Barriers of the CNS", "doi": "https://doi.org/10.1186/s12987-024-00582-0", "nva_id": "0198cc5fe0a2-b8d9716e-a8d1-4dd9-b18a-d67c2a586a31", "venue": "Fluids and Barriers of the CNS", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "2323703": {"year": "2024", "title": "Directional flow in perivascular networks: mixed finite elements for reduced-dimensional models on graphs", "category": "Academic article", "journal": "Journal of Mathematical Biology", "doi": "https://doi.org/10.1007/s00285-024-02154-0", "nva_id": "0198cc763488-2bc6b1ca-5fe9-44ab-8765-5e9f9b0bf6d9", "venue": "Journal of Mathematical Biology", "authors": ["Marie E. Rognes", "Miroslav Kuchta"]}, "2335053": {"year": "2024", "title": "Robust Preconditioning of Mixed-Dimensional PDEs on 3d-1d Domains Coupled with Lagrange Multipliers", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-031-58519-7_6", "nva_id": "0198cc9042d0-34e377ce-f134-4ccc-8437-3bd9a39ee035", "venue": "In: Quantitative Approaches to Microcirculation (SEMA SIMAI Springer Series)", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10309054": {"year": "2025", "title": "Advection versus diffusion in brain ventricular transport", "category": "Academic article", "journal": "Fluids and Barriers of the CNS", "doi": "https://doi.org/10.1186/s12987-025-00692-3", "nva_id": "019b94722999-07d597a2-d061-4be0-8110-7d8f30216abc", "venue": "Fluids and Barriers of the CNS", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes", "Miroslav Kuchta"]}, "10347787": {"year": "2025", "title": "Reduced gap junction coupling amplifies the effects of cardiomyocyte variability and destabilizes the heartbeat", "category": "Academic article", "journal": "Physiological Reports", "doi": "https://doi.org/10.14814/phy2.70461", "nva_id": "019c8afa3cd4-84628cf4-c254-46ce-ad2f-c6f6d1fc6316", "venue": "Physiological Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10348054": {"year": "2026", "title": "Parameter-Robust Preconditioners for a Four-Field Thermo-Poroelasticity Model", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/25m1726923", "nva_id": "019c8edce2d5-4f4007a3-e080-4afd-a50d-f37c1ae112e1", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10352010": {"year": "2025", "title": "Electrodiffusion dynamics in the cardiomyocyte dyad at nano-scale resolution using the Poisson-Nernst-Planck (PNP) equations", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/journal.pcbi.1013149", "nva_id": "019c8f5b7a40-72686d44-46ae-4c03-b03d-8130157bd067", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10352522": {"year": "2025", "title": "Determining properties of human-induced pluripotent stem cell-derived cardiomyocytes using spatially resolved electromechanical metrics", "category": "Academic article", "journal": "Journal of Physiology", "doi": "https://doi.org/10.1113/JP287275", "nva_id": "019c8f68808a-35c7be57-64c6-4a2c-b9fd-6ecb3f0549b1", "venue": "Journal of Physiology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10419162": {"year": "2025", "title": "A SPLITTING, DISCONTINUOUS GALERKIN SOLVER FOR THE CELL-BY-CELL ELECTRONEUTRAL NERNST-PLANCK FRAMEWORK", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/24M1653367", "nva_id": "019ce1691aef-40a01502-6885-4084-beaa-9db5ce75f1ec", "venue": "SIAM Journal on Scientific Computing", "authors": ["Ada Johanne Ellingsrud", "Miroslav Kuchta"]}, "10427852": {"year": "2025", "title": "From brain physiology to brain physics", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-032-00679-0_1", "nva_id": "019d4e31c511-c33343de-87c2-4126-878f-70a27a33cde4", "venue": "In: Mathematical Modelling of the Human Brain II: From Glymphatics to Deep Learning | Springer Nature Link", "authors": ["Kent-Andre Mardal", "Marie E. Rognes"]}, "10432868": {"year": "2026", "title": "Extracellular stimulation and ephaptic coupling of neurons in a fully coupled finite element-based Extracellular—Membrane—Intracellular (EMI) model", "category": "Academic article", "journal": "Frontiers in Computational Neuroscience", "doi": "https://doi.org/10.3389/fncom.2026.1755548", "nva_id": "019daf2bf34a-ccf4def1-5a1e-43cd-afa4-756bed65fa6a", "venue": "Frontiers in Computational Neuroscience", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10442744": {"year": "2026", "title": "PARAMETER-ROBUST PRECONDITIONER FOR STOKES-DARCY COUPLED PROBLEM WITH LAGRANGE MULTIPLIER<sup>\\ast</sup>", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/25M1744393", "nva_id": "019e4eb2b282-26704923-fc97-447e-9ec5-4a1ee4605d2d", "venue": "SIAM Journal on Scientific Computing", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10444171": {"year": "2007", "title": "An Order Optimal Solver for the Discretized Bidomain Equations", "category": "Academic article", "journal": "Numerical Linear Algebra with Applications", "doi": "", "nva_id": "019e68145d4f-90be3044-e51c-4a9a-beef-4ce514b8f59c", "venue": "Numerical Linear Algebra with Applications", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "10444574": {"year": "2003", "title": "Multigrid Methods in Diffpack", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "019e684b5390-46187132-9552-4f14-9fe7-f388655f4cbd", "venue": "In: Advanced topics in computational partial differential equations. Numerical methods and Diffpack programming", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "10444575": {"year": "2003", "title": "Mixed Elements in Diffpack", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "019e684b562a-92065c12-905a-485c-9997-4b6ae97d6cca", "venue": "In: Advanced topics in computational partial differential equations. Numerical methods and Diffpack programming", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "10444629": {"year": "2003", "title": "Block Preconditioning and Systems of PDEs", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "019e684fe9b4-b47346c1-7a40-4b64-8571-abc9abd153c5", "venue": "In: Advanced topics in computational partial differential equations. Numerical methods and Diffpack programming", "authors": ["Aslak Tveito", "Kent-Andre Mardal"]}, "10445783": {"year": "2019", "title": "Properties of cardiac conduction in a cell-based computational model", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/journal.pcbi.1007042", "nva_id": "019e68dc0a62-28c2233f-5b2d-460c-9738-246f06dccef7", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10445894": {"year": "2020", "title": "Improved computational identification of drug response using optical measurements of human stem cell derived cardiomyocytes in microphysiological systems", "category": "Academic article", "journal": "Frontiers in Pharmacology", "doi": "https://doi.org/10.3389/fphar.2019.01648", "nva_id": "019e68e6082b-5f4e98b1-7ff7-4c9c-81bb-601643dbc30b", "venue": "Frontiers in Pharmacology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10445961": {"year": "2021", "title": "A cell-based model for ionic electrodiffusion in excitable tissue", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "019e69060f46-c09d867b-9616-4077-a1a3-7e81c5ec22be", "venue": "In: Modeling Excitable Tissue --\nThe EMI Framework (Simula SpringerBriefs on Computing)", "authors": ["Ada Johanne Ellingsrud", "Cécile Daversin-Catty", "Marie E. Rognes"]}, "10445975": {"year": "2020", "title": "Computational translation of drug effects from animal experiments to human ventricular myocytes", "category": "Academic article", "journal": "Nature Scientific Reports", "doi": "https://doi.org/10.1038/s41598-018-35858-7", "nva_id": "019e6906fe0a-e80a54f6-f485-49c0-98ca-340b976c737a", "venue": "Nature Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446004": {"year": "2021", "title": "Derivation of a Cell-Based Mathematical Model of Excitable Cells", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-61157-6_1", "nva_id": "019e6909b0cd-2535899b-6294-4daf-8a3b-7da60b6f7c69", "venue": "In: Modeling Excitable Tissue: The EMI Framework", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446028": {"year": "2021", "title": "Iterative Solvers for EMI Models", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-61157-6_6", "nva_id": "019e690b8d7c-0df137c9-d29d-4e53-be90-f91d76e14a2b", "venue": "", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10446029": {"year": "2021", "title": "Improving Neural Simulations with the EMI Model", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-61157-6_7", "nva_id": "019e690b9033-22830a21-9270-416e-b6a1-1e2c0e24a507", "venue": "", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10446030": {"year": "2021", "title": "Solving the EMI Equations using Finite Element Methods", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-030-61157-6_5", "nva_id": "019e690b934b-3eacf8a4-2e14-4138-bd71-55aaee90479a", "venue": "", "authors": ["Kent-Andre Mardal", "Marie E. Rognes", "Miroslav Kuchta"]}, "10446086": {"year": "2021", "title": "Accurate numerical simulation of electrodiffusion and water movement in brain tissue", "category": "Academic article", "journal": "IMA Mathematical Medicine and Biology", "doi": "", "nva_id": "019e69110857-849d3622-930f-499b-81de-848c5f1ce34a", "venue": "IMA Mathematical Medicine and Biology", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes"]}, "10446126": {"year": "2021", "title": "A computational method for identifying an optimal combination of existing drugs to repair the action potentials of SQT1 ventricular myocytes", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/journal.pcbi.1009233", "nva_id": "019e6913e9be-876b410a-86d2-4c10-90c4-2e9fe1d4ace1", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446146": {"year": "2021", "title": "From Millimeters to Micrometers; Re-introducing Myocytes in Models of Cardiac Electrophysiology", "category": "Academic article", "journal": "Frontiers in Physiology", "doi": "https://doi.org/10.3389/fphys.2021.763584", "nva_id": "019e6915a528-763b9ec3-ca95-42b8-9c8e-f8c15fece55c", "venue": "Frontiers in Physiology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446270": {"year": "2022", "title": "Arrhythmogenic influence of mutations in a myocyte‑based computational model of the pulmonary vein sleeve", "category": "Academic article", "journal": "Nature Scientific Reports", "doi": "https://doi.org/10.1038/s41598-022-11110-1", "nva_id": "019e69198da5-ddea5c72-2d86-4dbd-b86b-2d2166ee3ebd", "venue": "Nature Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446325": {"year": "2022", "title": "Metabolically driven maturation of human-induced-pluripotent-stem-cell-derived cardiac microtissues on microfluidic chips", "category": "Academic article", "journal": "Nature Biomedical Engineering", "doi": "https://doi.org/10.1038/s41551-022-00884-4", "nva_id": "019e691cff7f-eb2fcc51-6567-4d76-b95b-8112aead69b8", "venue": "Nature Biomedical Engineering", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446437": {"year": "2022", "title": "Encoder–decoder neural networks for predicting future", "category": "Academic article", "journal": "Journal of Biophotonics", "doi": "https://doi.org/10.1002/jbio.v15.910.1002/jbio.202200097", "nva_id": "019e6934c8f3-b2975404-1fd3-455c-9d02-fe8182c9daab", "venue": "Journal of Biophotonics", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}, "10446458": {"year": "2024", "title": "On The Importance of Fundamental Computational Fluid Dynamics Toward a Robust and Reliable Model of Left Atrial Flows", "category": "Academic article", "journal": "International Journal for Numerical Methods in Biomedical Engineering", "doi": "https://doi.org/10.1002/cnm.3804", "nva_id": "019e6937808d-617a5850-18e0-4768-91ec-a3cb18179e04", "venue": "International Journal for Numerical Methods in Biomedical Engineering", "authors": ["Cécile Daversin-Catty", "Kristian Valen-Sendstad"]}, "10446479": {"year": "2022", "title": "Validating the Arrhythmogenic Potential of High-, Intermediate-, and Low-Risk Drugs in a Human-Induced Pluripotent Stem Cell-Derived Cardiac Microphysiological System", "category": "Academic article", "journal": "ACS Pharmacology & Translational Science", "doi": "https://doi.org/10.1021/acsptsci.2c00088", "nva_id": "019e693956a0-47049043-922c-4011-96a6-79c6c4c58ca7", "venue": "ACS Pharmacology & Translational Science", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446491": {"year": "2023", "title": "Nano-scale solution of the Poisson-Nernst-Planck (PNP) equations in a fraction of two neighboring cells reveals the magnitude of intercellular electrochemical waves", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "", "nva_id": "019e693a41a7-7f9113b6-a7db-46ef-90c9-9b39039ba0a2", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446499": {"year": "2024", "title": "The modelling error in multi-dimensional time-dependent solute transport models", "category": "Academic article", "journal": "ESAIM: Mathematical Modelling and Numerical Analysis", "doi": "https://doi.org/10.1051/m2an/2024060", "nva_id": "019e693b2c7f-0eedc558-9925-4eba-902b-f471f6b8a319", "venue": "ESAIM: Mathematical Modelling and Numerical Analysis", "authors": ["Marie E. Rognes", "Miroslav Kuchta"]}, "10446524": {"year": "2023", "title": "Differential Equations for Studies in Computational Electrophysiology", "category": "Academic monograph", "journal": "", "doi": "https://doi.org/10.1007/978-3-031-30852-9", "nva_id": "019e693cfd2b-1403cdb9-643f-4315-b896-2b632ea94705", "venue": "Springer", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446527": {"year": "2024", "title": "Finite Element Software and Performance for Network Models with Multipliers", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "", "nva_id": "019e693d0c8c-e64f4a6a-b114-4217-8756-7aaad37aa4fc", "venue": "", "authors": ["Cécile Daversin-Catty", "Marie E. Rognes"]}, "10446539": {"year": "2023", "title": "Neural activity induces strongly coupled electro-chemo-mechanical interactions and fluid flow in astrocyte networks and extracellular space – a computational study", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/journal.pcbi.1010996", "nva_id": "019e693e0134-59123297-0cd7-4e3d-8583-af66bedb4896", "venue": "PLoS Computational Biology", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes"]}, "10446554": {"year": "2023", "title": "Efficient, cell-based simulations of cardiac electrophysiology; The Kirchhoff Network Model (KNM)", "category": "Academic article", "journal": "npj Systems Biology and Applications", "doi": "https://doi.org/10.1038/s41540-023-00288-3", "nva_id": "019e693fb9a9-6f5153ad-97d0-43be-b5c9-b0edf137dc0a", "venue": "npj Systems Biology and Applications", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446600": {"year": "2023", "title": "The simplified Kirchhoff network model (SKNM): a cell‐based reaction–diffusion model of excitable tissue", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-023-43444-9", "nva_id": "019e69437764-b3c6b75e-4355-4253-ab0d-ad5f3230ea56", "venue": "Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446705": {"year": "2021", "title": "Abstractions and Automated Algorithms for Mixed Domain Finite Element Methods", "category": "Academic article", "journal": "ACM Transactions on Mathematical Software", "doi": "https://doi.org/10.1145/3471138", "nva_id": "019e694c9d84-cc099b2c-5d1f-4bf0-b6be-4c54cfc9a4b7", "venue": "ACM Transactions on Mathematical Software", "authors": ["Ada Johanne Ellingsrud", "Cécile Daversin-Catty", "Marie E. Rognes"]}, "10446744": {"year": "2024", "title": "Do calcium channel blockers applied to cardiomyocytes cause increased channel expression resulting in reduced efficacy?", "category": "Academic article", "journal": "npj Systems Biology and Applications", "doi": "https://doi.org/10.1038/s41540-024-00347-3", "nva_id": "019e69503e0b-4627316a-f44d-46ba-bb12-7fbacfef5819", "venue": "npj Systems Biology and Applications", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10446751": {"year": "2024", "title": "Scalable approximation and solvers for ionic electrodiffusion in cellular geometries", "category": "Academic article", "journal": "SIAM Journal on Scientific Computing", "doi": "https://doi.org/10.1137/24M1644717", "nva_id": "019e6951207a-3110c7ea-d913-478f-96bd-68eb966e463a", "venue": "SIAM Journal on Scientific Computing", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes"]}, "10446791": {"year": "2024", "title": "A possible path to persistent re-entry waves at the outlet of the left pulmonary vein", "category": "Academic article", "journal": "npj Systems Biology and Applications", "doi": "https://doi.org/10.1038/s41540-024-00406-9", "nva_id": "019e6953eea1-cfe438b2-c8d5-4afe-ac72-648bd4d1f4d4", "venue": "npj Systems Biology and Applications", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10453364": {"year": "2026", "title": "Accurate computation of ionic concentrations in the synaptic cleft requires the full Poisson–Nernst–Planck (PNP) equations", "category": "Academic article", "journal": "PLoS Computational Biology", "doi": "https://doi.org/10.1371/journal.pcbi.1014341", "nva_id": "019ecf7dac2a-9434ccd0-0b30-469c-a7ff-14720a58eccc", "venue": "PLoS Computational Biology", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10459898": {"year": "2026", "title": "Sometimes extracellular recordings fail for good reasons", "category": "Academic article", "journal": "npj Systems Biology and Applications", "doi": "https://doi.org/10.1038/s41540-026-00730-2", "nva_id": "019f40e8f88d-418bedc8-1f9b-456a-aad5-d20ffd462ad9", "venue": "npj Systems Biology and Applications", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10459903": {"year": "2026", "title": "Wave propagation enhances extracellular signal strength in small excitable tissues", "category": "Academic article", "journal": "Scientific Reports", "doi": "https://doi.org/10.1038/s41598-026-51791-6", "nva_id": "019f40ed453c-7b20c959-2f4b-47be-b894-257d6bf6cf80", "venue": "Scientific Reports", "authors": ["Aslak Tveito", "Karoline Horgmo Jæger"]}, "10493231": {"year": "2026", "title": "In-silico solute transport via perivascular networks in the human intracranial space", "category": "Academic article", "journal": "Nature Communications", "doi": "https://doi.org/10.1038/s41467-026-77174-z", "nva_id": "01a0902a9b0e-dda63504-a338-435a-bd85-ec35f13b3835", "venue": "Nature Communications", "authors": ["Marie E. Rognes", "Miroslav Kuchta"]}, "10493237": {"year": "2026", "title": "Computing for Life: Modeling and Simulation of Electrodiffusion in Dense Reconstructions of Cerebral Tissue", "category": "Academic chapter/article/Conference paper", "journal": "", "doi": "https://doi.org/10.1007/978-3-032-33428-2_14", "nva_id": "01a0902d2def-0c489cd5-12f9-41a5-8cc3-357e7f01d871", "venue": "In: Numerical Analysis and Scientific Computing: an Anthology (Lecture Notes in Computational Science and Engineering)", "authors": ["Ada Johanne Ellingsrud", "Marie E. Rognes"]}, "10498323": {"year": "2025", "title": "On a robust inf-sup condition for the Stokes problem in slender domains - with application to preconditioning", "category": "Compendium", "journal": "", "doi": "https://arxiv.org/abs/2510.24590", "nva_id": "01a0c3d18a2c-eb751543-b60d-424b-8e1a-e5070d8f6934", "venue": "", "authors": ["Kent-Andre Mardal", "Miroslav Kuchta"]}}, "pairs": [{"a": "Aslak Tveito", "b": "Karoline Horgmo Jæger", "ids": ["10459903", "10459898", "10453364", "10432868", "10352522", "10352010", "10347787", "10446791", "10446744", "2297656", "10446600", "10446554", "10446524", "10446491", "10446479", "10446325", "10446270", "2025246", "10446146", "10446126", "10446004", "1999033", "1896315", "1884566", "10445975", "10445894", "1884557", "10445783", "1720447", "1704814", "1671828", "1503524", "1499040"]}, {"a": "Kent-Andre Mardal", "b": "Miroslav Kuchta", "ids": ["10442744", "10348054", "10498323", "2335053", "2188630", "2255992", "2188624", "2150673", "10446437", "2087159", "2081325", "2057446", "2039937", "2039931", "10446030", "10446029", "10446028", "1934071", "1897000", "1833869", "1819228", "1791247", "1704814", "1672266", "1602059", "1594685", "1503524", "1459960", "1385470", "1303957", "1303952"]}, {"a": "Kent-Andre Mardal", "b": "Marie E. Rognes", "ids": ["10427852", "2312295", "2184297", "2087159", "2065253", "2040383", "10446030", "1934082", "1910158", "1889821", "1808092", "1714010", "1686572", "1602060", "1505214", "1503524"]}, {"a": "Aslak Tveito", "b": "Kent-Andre Mardal", "ids": ["1704814", "1503524", "42927", "10444171", "1581164", "375150", "10444629", "10444575", "10444574", "397038"]}, {"a": "Ada Johanne Ellingsrud", "b": "Marie E. Rognes", "ids": ["10493237", "10309054", "10446751", "10446539", "2062561", "10446705", "10446086", "10445961", "1817208"]}, {"a": "Kent-Andre Mardal", "b": "Kristian Valen-Sendstad", "ids": ["1684227", "1100901", "1100285", "999050", "999042", "908163", "905590", "873457", "41894"]}, {"a": "Marie E. Rognes", "b": "Miroslav Kuchta", "ids": ["10493231", "10309054", "10446499", "2323703", "2087159", "10446030", "1503524"]}, {"a": "Cécile Daversin-Catty", "b": "Marie E. Rognes", "ids": ["10446527", "2047932", "10446705", "10445961", "1889821"]}, {"a": "Ada Johanne Ellingsrud", "b": "Cécile Daversin-Catty", "ids": ["10446705", "10445961"]}, {"a": "Ada Johanne Ellingsrud", "b": "Miroslav Kuchta", "ids": ["10419162", "10309054"]}, {"a": "Aslak Tveito", "b": "Marie E. Rognes", "ids": ["1503524", "948899"]}, {"a": "Aslak Tveito", "b": "Miroslav Kuchta", "ids": ["1704814", "1503524"]}, {"a": "Karoline Horgmo Jæger", "b": "Kent-Andre Mardal", "ids": ["1704814", "1503524"]}, {"a": "Karoline Horgmo Jæger", "b": "Miroslav Kuchta", "ids": ["1704814", "1503524"]}, {"a": "Klas H. Pettersen", "b": "Marie E. Rognes", "ids": ["2062561", "1750307"]}, {"a": "Ada Johanne Ellingsrud", "b": "Klas H. Pettersen", "ids": ["2062561"]}, {"a": "Cécile Daversin-Catty", "b": "Kent-Andre Mardal", "ids": ["1889821"]}, {"a": "Cécile Daversin-Catty", "b": "Kristian Valen-Sendstad", "ids": ["10446458"]}, {"a": "Karoline Horgmo Jæger", "b": "Marie E. Rognes", "ids": ["1503524"]}, {"a": "Kent-Andre Mardal", "b": "Klas H. Pettersen", "ids": ["1503525"]}], "byYear": {"2002": 1, "2003": 3, "2006": 2, "2007": 1, "2009": 1, "2010": 1, "2011": 3, "2012": 3, "2013": 2, "2015": 2, "2016": 1, "2017": 5, "2018": 3, "2019": 10, "2020": 8, "2021": 16, "2022": 14, "2023": 9, "2024": 11, "2025": 7, "2026": 8}, "totalByYear": {"1988": 1, "1989": 1, "1990": 4, "1991": 5, "1992": 4, "1993": 2, "1995": 5, "1996": 2, "1997": 3, "1998": 3, "1999": 2, "2000": 3, "2001": 1, "2002": 6, "2003": 14, "2004": 2, "2005": 4, "2006": 9, "2007": 12, "2008": 5, "2009": 19, "2010": 13, "2011": 16, "2012": 23, "2013": 24, "2014": 20, "2015": 24, "2016": 22, "2017": 29, "2018": 34, "2019": 38, "2020": 34, "2021": 43, "2022": 40, "2023": 40, "2024": 36, "2025": 47, "2026": 37}, "outside": [{"name": "Vegard Vinje", "inst": "Simula", "links": {"Cécile Daversin-Catty": 1, "Kent-Andre Mardal": 11, "Marie E. Rognes": 14}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Anders Bernhard Logg", "inst": "Simula", "links": {"Kent-Andre Mardal": 7, "Marie E. Rognes": 12, "Kristian Valen-Sendstad": 2}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes", "Kristian Valen-Sendstad"]}, {"name": "Travis Thompson", "inst": "Simula", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 4, "Marie E. Rognes": 5}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Joakim Sundnes", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 1, "Miroslav Kuchta": 1, "Kent-Andre Mardal": 4, "Marie E. Rognes": 4, "Aslak Tveito": 17, "Kristian Valen-Sendstad": 4}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes", "Aslak Tveito", "Kristian Valen-Sendstad"]}, {"name": "Martin Sandve Alnæs", "inst": "Simula", "links": {"Kent-Andre Mardal": 10, "Marie E. Rognes": 3}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Simon Wolfgang Funke", "inst": "Simula", "links": {"Miroslav Kuchta": 2, "Kent-Andre Mardal": 3, "Marie E. Rognes": 6}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Benjamin Dam Kehlet", "inst": "Simula", "links": {"Kent-Andre Mardal": 2, "Klas H. Pettersen": 1, "Marie E. Rognes": 3}, "linked": ["Kent-Andre Mardal", "Klas H. Pettersen", "Marie E. Rognes"]}, {"name": "Ragnar Winther", "inst": "University of Oslo", "links": {"Kent-Andre Mardal": 10, "Marie E. Rognes": 1, "Aslak Tveito": 20}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "André Jürgen Massing", "inst": "Norwegian University of Science and Technology", "links": {"Kent-Andre Mardal": 1, "Marie E. Rognes": 4}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Glenn Terje Lines", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 1, "Kent-Andre Mardal": 4, "Marie E. Rognes": 1, "Aslak Tveito": 34}, "linked": ["Karoline Horgmo Jæger", "Kent-Andre Mardal", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Garth N. Wells", "inst": "University of Cambridge", "links": {"Kent-Andre Mardal": 1, "Marie E. Rognes": 3}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Johan Elon Hake", "inst": "Simula", "links": {"Kent-Andre Mardal": 1, "Marie E. Rognes": 3, "Aslak Tveito": 2}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Jorgen S. Dokken", "inst": "Simula", "links": {"Cécile Daversin-Catty": 1, "Kent-Andre Mardal": 1, "Marie E. Rognes": 3, "Kristian Valen-Sendstad": 3}, "linked": ["Cécile Daversin-Catty", "Kent-Andre Mardal", "Marie E. Rognes", "Kristian Valen-Sendstad"]}, {"name": "R.C. Kirby", "inst": "Texas Tech University", "links": {"Kent-Andre Mardal": 1, "Marie E. Rognes": 2}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Rami Masri", "inst": "Simula", "links": {"Miroslav Kuchta": 2, "Kent-Andre Mardal": 1, "Marie E. Rognes": 2}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Rune Enger", "inst": "University of Oslo", "links": {"Ada Johanne Ellingsrud": 1, "Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 7, "Marie E. Rognes": 2}, "linked": ["Ada Johanne Ellingsrud", "Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen", "Marie E. Rognes"]}, {"name": "Barbara Wohlmuth", "inst": "Technical University of Munich", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Nanna Berre", "inst": "Norwegian University of Science and Technology", "links": {"Kent-Andre Mardal": 1, "Marie E. Rognes": 1}, "linked": ["Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Henrik Finsberg", "inst": "Simula", "links": {"Cécile Daversin-Catty": 5, "Karoline Horgmo Jæger": 2, "Miroslav Kuchta": 1, "Marie E. Rognes": 5, "Aslak Tveito": 2}, "linked": ["Cécile Daversin-Catty", "Karoline Horgmo Jæger", "Miroslav Kuchta", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Samuel Wall", "inst": "Simula", "links": {"Cécile Daversin-Catty": 5, "Karoline Horgmo Jæger": 10, "Miroslav Kuchta": 1, "Marie E. Rognes": 2, "Aslak Tveito": 10}, "linked": ["Cécile Daversin-Catty", "Karoline Horgmo Jæger", "Miroslav Kuchta", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Ingeborg Gåseby Gjerde", "inst": "Simula", "links": {"Cécile Daversin-Catty": 1, "Miroslav Kuchta": 1, "Marie E. Rognes": 3}, "linked": ["Cécile Daversin-Catty", "Miroslav Kuchta"]}, {"name": "Hermenegild Arevalo", "inst": "Simula", "links": {"Cécile Daversin-Catty": 5, "Karoline Horgmo Jæger": 1, "Aslak Tveito": 1}, "linked": ["Cécile Daversin-Catty", "Karoline Horgmo Jæger", "Aslak Tveito"]}, {"name": "Xing Cai", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 3, "Miroslav Kuchta": 1, "Kent-Andre Mardal": 3, "Aslak Tveito": 17}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "James David Trotter", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 1, "Miroslav Kuchta": 1, "Aslak Tveito": 1}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Aslak Tveito"]}, {"name": "Åshild Telle", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 1, "Miroslav Kuchta": 1, "Aslak Tveito": 1}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Aslak Tveito"]}, {"name": "Mary Maleckar", "inst": "Simula", "links": {"Karoline Horgmo Jæger": 2, "Marie E. Rognes": 3, "Aslak Tveito": 9}, "linked": ["Karoline Horgmo Jæger", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Geir Halnes", "inst": "Norwegian University of Life Sciences", "links": {"Ada Johanne Ellingsrud": 3, "Karoline Horgmo Jæger": 1, "Klas H. Pettersen": 8, "Marie E. Rognes": 4, "Aslak Tveito": 1}, "linked": ["Ada Johanne Ellingsrud", "Karoline Horgmo Jæger", "Klas H. Pettersen", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Gaute Einevoll", "inst": "Norwegian University of Life Sciences", "links": {"Ada Johanne Ellingsrud": 2, "Karoline Horgmo Jæger": 1, "Mikkel Lepperød": 1, "Klas H. Pettersen": 25, "Marie E. Rognes": 3, "Aslak Tveito": 1}, "linked": ["Ada Johanne Ellingsrud", "Karoline Horgmo Jæger", "Mikkel Lepperød", "Klas H. Pettersen", "Marie E. Rognes", "Aslak Tveito"]}, {"name": "Marius Causemann", "inst": "Simula", "links": {"Ada Johanne Ellingsrud": 1, "Miroslav Kuchta": 2, "Marie E. Rognes": 5}, "linked": ["Ada Johanne Ellingsrud", "Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Geir Ringstad", "inst": "Oslo University Hospital", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 22, "Marie E. Rognes": 3}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Per Kristian Eide", "inst": "Oslo University Hospital", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 21, "Marie E. Rognes": 3}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Jeonghun Lee", "inst": "Baylor University", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 4, "Marie E. Rognes": 2}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Marie E. Rognes"]}, {"name": "Pietro Benedusi", "inst": "Simula", "links": {"Ada Johanne Ellingsrud": 2, "Miroslav Kuchta": 1, "Marie E. Rognes": 2}, "linked": ["Ada Johanne Ellingsrud", "Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Bastian Zapf", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 4, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Bryn A. Martin", "inst": "University of Idaho", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 3, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Edoardo Sinibaldi", "inst": "Istituto Italiano di Tecnologia", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 2, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Giulia Pizzichelli", "inst": "Istituto Italiano di Tecnologia", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 2, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Martin Hornkjøl", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 3, "Marie E. Rognes": 1}, "linked": ["Miroslav Kuchta", "Marie E. Rognes"]}, {"name": "Olav Lysne", "inst": "Simula", "links": {"Miroslav Kuchta": 1, "Aslak Tveito": 3}, "linked": ["Miroslav Kuchta", "Aslak Tveito"]}, {"name": "Mikael Mortensen", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 7, "Kent-Andre Mardal": 13, "Kristian Valen-Sendstad": 5}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Kristian Valen-Sendstad"]}, {"name": "Johannes Ring", "inst": "Simula", "links": {"Marie E. Rognes": 1, "Kristian Valen-Sendstad": 3}, "linked": ["Marie E. Rognes", "Kristian Valen-Sendstad"]}, {"name": "Øyvind Evju", "inst": "Simula", "links": {"Kent-Andre Mardal": 6, "Marie E. Rognes": 1, "Kristian Valen-Sendstad": 1}, "linked": ["Marie E. Rognes", "Kristian Valen-Sendstad"]}, {"name": "Torbjørn V Ness", "inst": "Norwegian University of Life Sciences", "links": {"Karoline Horgmo Jæger": 1, "Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 2, "Aslak Tveito": 1}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen", "Aslak Tveito"]}, {"name": "Tuomo Mäki-Marttunen", "inst": "University of Oslo", "links": {"Karoline Horgmo Jæger": 1, "Klas H. Pettersen": 2, "Aslak Tveito": 1}, "linked": ["Karoline Horgmo Jæger", "Klas H. Pettersen", "Aslak Tveito"]}, {"name": "Alessio Paolo Buccino", "inst": "University of Oslo", "links": {"Karoline Horgmo Jæger": 1, "Miroslav Kuchta": 2, "Mikkel Lepperød": 3, "Kent-Andre Mardal": 2, "Aslak Tveito": 1}, "linked": ["Karoline Horgmo Jæger", "Miroslav Kuchta", "Mikkel Lepperød", "Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Daniel Marelius Bjørnstad", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 3}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen"]}, {"name": "Celine Cunen", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 2}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen"]}, {"name": "Karl Erik Holter", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 2, "Kent-Andre Mardal": 3, "Klas H. Pettersen": 1}, "linked": ["Miroslav Kuchta", "Klas H. Pettersen"]}, {"name": "Laura Bojarskaite", "inst": "University of Oslo", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 2}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen"]}, {"name": "Kjell Heuser", "inst": "Oslo University Hospital", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1, "Klas H. Pettersen": 1}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal", "Klas H. Pettersen"]}, {"name": "Anders M. Dale", "inst": "University of California, San Diego", "links": {"Kent-Andre Mardal": 2, "Klas H. Pettersen": 4}, "linked": ["Kent-Andre Mardal", "Klas H. Pettersen"]}, {"name": "Hans Petter Langtangen", "inst": "University of Oslo", "links": {"Kent-Andre Mardal": 23, "Aslak Tveito": 16, "Kristian Valen-Sendstad": 3}, "linked": ["Kent-Andre Mardal", "Aslak Tveito", "Kristian Valen-Sendstad"]}, {"name": "Bjørn Fredrik Nielsen", "inst": "University of Oslo", "links": {"Kent-Andre Mardal": 9, "Aslak Tveito": 22}, "linked": ["Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Ola Skavhaug", "inst": "University of Oslo", "links": {"Kent-Andre Mardal": 3, "Aslak Tveito": 9}, "linked": ["Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Svein Linge", "inst": "University of South-Eastern Norway", "links": {"Kent-Andre Mardal": 9, "Aslak Tveito": 3}, "linked": ["Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Trygve Kastberg Nilssen", "inst": "University of Agder", "links": {"Kent-Andre Mardal": 4, "Aslak Tveito": 1}, "linked": ["Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Achim Schroll", "inst": "", "links": {"Kent-Andre Mardal": 1, "Aslak Tveito": 1}, "linked": ["Kent-Andre Mardal", "Aslak Tveito"]}, {"name": "Sebastian Mitusch", "inst": "Simula", "links": {"Miroslav Kuchta": 1, "Kent-Andre Mardal": 1}, "linked": ["Miroslav Kuchta", "Kent-Andre Mardal"]}], "indirect": [{"a": "Kent-Andre Mardal", "b": "Marie E. Rognes", "people": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]}, {"a": "Cécile Daversin-Catty", "b": "Miroslav Kuchta", "people": [18, 19, 20]}, {"a": "Cécile Daversin-Catty", "b": "Karoline Horgmo Jæger", "people": [19, 18, 21]}, {"a": "Cécile Daversin-Catty", "b": "Marie E. Rognes", "people": [18, 19, 12]}, {"a": "Cécile Daversin-Catty", "b": "Aslak Tveito", "people": [19, 18, 21]}, {"a": "Karoline Horgmo Jæger", "b": "Miroslav Kuchta", "people": [19, 22, 18, 23, 3, 24]}, {"a": "Karoline Horgmo Jæger", "b": "Marie E. Rognes", "people": [19, 18, 25, 26, 3, 27, 9]}, {"a": "Miroslav Kuchta", "b": "Marie E. Rognes", "people": [5, 28, 18, 2, 3, 29, 30, 31, 32, 15, 19, 33, 34, 35, 36, 37]}, {"a": "Miroslav Kuchta", "b": "Aslak Tveito", "people": [3, 22, 19, 38, 18, 23, 24]}, {"a": "Marie E. Rognes", "b": "Aslak Tveito", "people": [3, 25, 19, 18, 11, 7, 26, 27]}, {"a": "Cécile Daversin-Catty", "b": "Kent-Andre Mardal", "people": [12]}, {"a": "Cécile Daversin-Catty", "b": "Kristian Valen-Sendstad", "people": [12]}, {"a": "Kent-Andre Mardal", "b": "Kristian Valen-Sendstad", "people": [39, 3, 12]}, {"a": "Marie E. Rognes", "b": "Kristian Valen-Sendstad", "people": [3, 12, 1, 40, 41]}, {"a": "Ada Johanne Ellingsrud", "b": "Karoline Horgmo Jæger", "people": [26, 27]}, {"a": "Ada Johanne Ellingsrud", "b": "Klas H. Pettersen", "people": [26, 27]}, {"a": "Ada Johanne Ellingsrud", "b": "Aslak Tveito", "people": [26, 27]}, {"a": "Karoline Horgmo Jæger", "b": "Klas H. Pettersen", "people": [27, 26, 42, 43]}, {"a": "Klas H. Pettersen", "b": "Marie E. Rognes", "people": [26, 27, 15, 6]}, {"a": "Klas H. Pettersen", "b": "Aslak Tveito", "people": [27, 26, 42, 43]}, {"a": "Ada Johanne Ellingsrud", "b": "Mikkel Lepperød", "people": [27]}, {"a": "Karoline Horgmo Jæger", "b": "Mikkel Lepperød", "people": [44, 27]}, {"a": "Mikkel Lepperød", "b": "Klas H. Pettersen", "people": [27]}, {"a": "Mikkel Lepperød", "b": "Marie E. Rognes", "people": [27]}, {"a": "Mikkel Lepperød", "b": "Aslak Tveito", "people": [44, 27]}, {"a": "Ada Johanne Ellingsrud", "b": "Miroslav Kuchta", "people": [28, 15]}, {"a": "Ada Johanne Ellingsrud", "b": "Kent-Andre Mardal", "people": [15]}, {"a": "Miroslav Kuchta", "b": "Klas H. Pettersen", "people": [15, 45, 46, 47, 48, 42, 49]}, {"a": "Kent-Andre Mardal", "b": "Klas H. Pettersen", "people": [50, 15, 45, 46, 48, 42, 49]}, {"a": "Ada Johanne Ellingsrud", "b": "Marie E. Rognes", "people": [32]}, {"a": "Karoline Horgmo Jæger", "b": "Kent-Andre Mardal", "people": [22, 9, 3]}, {"a": "Kent-Andre Mardal", "b": "Aslak Tveito", "people": [51, 7, 52, 9, 53, 54, 55, 11, 56]}, {"a": "Karoline Horgmo Jæger", "b": "Kristian Valen-Sendstad", "people": [3]}, {"a": "Miroslav Kuchta", "b": "Kent-Andre Mardal", "people": [39, 5, 31, 3, 22, 14, 16, 57]}, {"a": "Miroslav Kuchta", "b": "Kristian Valen-Sendstad", "people": [39, 3]}, {"a": "Aslak Tveito", "b": "Kristian Valen-Sendstad", "people": [3, 51]}, {"a": "Miroslav Kuchta", "b": "Mikkel Lepperød", "people": [44]}, {"a": "Mikkel Lepperød", "b": "Kent-Andre Mardal", "people": [44]}]};
+
+const SHORT = {
+  "Evrim Acar Ataman": "Acar Ataman", "Baltasar Beferull-Lozano": "Beferull-Lozano",
+  "Cécile Daversin-Catty": "Daversin-Catty", "Ada Johanne Ellingsrud": "Ellingsrud",
+  "Karoline Horgmo Jæger": "Jæger", "Miroslav Kuchta": "Kuchta", "Mikkel Lepperød": "Lepperød",
+  "Kent-Andre Mardal": "Mardal", "Klas H. Pettersen": "Pettersen", "Marie E. Rognes": "Rognes",
+  "Aslak Tveito": "Tveito", "Kristian Valen-Sendstad": "Valen-Sendstad",
+};
+// Hand-placed positions: connected cluster on the left and centre, people with no shared publications boxed at bottom right.
+// lx/ly: label offset from the node centre; anchor: text-anchor.
+const POS = {
+  "Miroslav Kuchta":         { x: 200, y: 110, lx: 0, ly: -26, anchor: "middle" },
+  "Kent-Andre Mardal":       { x: 330, y: 230, lx: 0, ly: -34, anchor: "middle" },
+  "Kristian Valen-Sendstad": { x: 120, y: 290, lx: 0, ly: 34, anchor: "middle" },
+  "Aslak Tveito":            { x: 330, y: 400, lx: 34, ly: 18, anchor: "start" },
+  "Karoline Horgmo Jæger":   { x: 160, y: 470, lx: 0, ly: 34, anchor: "middle" },
+  "Marie E. Rognes":         { x: 490, y: 190, lx: 0, ly: -30, anchor: "middle" },
+  "Ada Johanne Ellingsrud":  { x: 650, y: 90, lx: 0, ly: -22, anchor: "middle" },
+  "Cécile Daversin-Catty":   { x: 690, y: 280, lx: 0, ly: 30, anchor: "middle" },
+  "Klas H. Pettersen":       { x: 520, y: 420, lx: 0, ly: 34, anchor: "middle" },
+  "Evrim Acar Ataman":       { x: 660, y: 422, lx: 18, ly: 4, anchor: "start" },
+  "Baltasar Beferull-Lozano":{ x: 650, y: 470, lx: 24, ly: 4, anchor: "start" },
+  "Mikkel Lepperød":         { x: 660, y: 518, lx: 18, ly: 4, anchor: "start" },
+};
+const ORDER = ["Kent-Andre Mardal", "Miroslav Kuchta", "Kristian Valen-Sendstad", "Aslak Tveito",
+  "Karoline Horgmo Jæger", "Marie E. Rognes", "Ada Johanne Ellingsrud", "Cécile Daversin-Catty",
+  "Klas H. Pettersen", "Evrim Acar Ataman", "Baltasar Beferull-Lozano", "Mikkel Lepperød"];
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const person = Object.fromEntries(DATA.people.map(p => [p.name, p]));
+const pairKey = (a, b) => [a, b].sort().join("|");
+const pairs = Object.fromEntries(DATA.pairs.map(p => [pairKey(p.a, p.b), p]));
+// Outside co-authors who link investigators through separate papers; n is how
+// many investigators each links
+const OUT = DATA.outside.map((o, i) => ({ ...o, id: i, n: o.linked.length }));
+const indirectPairs = Object.fromEntries(DATA.indirect.map(p => [pairKey(p.a, p.b), p.people.map(i => OUT[i])]));
+// Outside co-authors linking a and b, strongest first
+const outsideFor = (a, b) => indirectPairs[pairKey(a, b)] || [];
+const radius = n => 7 + Math.sqrt(n) * 1.3;
+const width = n => 1.5 + 2 * Math.sqrt(n);
+const affColor = aff => aff === "SimulaMet" ? "var(--met)" : "var(--srl)";
+const affName = aff => aff === "SimulaMet" ? "SimulaMet" : "Simula Research Laboratory";
+
+function el(tag, attrs = {}, parent, ns) {
+  const e = ns ? document.createElementNS(SVGNS, tag) : document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "text") e.textContent = v; else e.setAttribute(k, v);
+  }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const s = (tag, attrs, parent) => el(tag, attrs, parent, true);
+function activate(node, fn) {
+  node.addEventListener("click", fn);
+  node.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
+}
+
+// Facts and findings
+const connected = new Set(DATA.pairs.flatMap(p => [p.a, p.b]));
+const isolated = DATA.people.filter(p => !connected.has(p.name)).map(p => p.name);
+const strongest = DATA.pairs[0];
+const facts = [
+  [Object.keys(DATA.papers).length, "publications with 2+ investigators"],
+  [DATA.pairs.length, "of 66 possible pairs have published together"],
+  [`${connected.size} of ${DATA.people.length}`, "investigators linked to someone else"],
+];
+const factsEl = document.getElementById("facts");
+for (const [v, label] of facts) {
+  const f = el("div", { class: "fact" }, factsEl);
+  el("b", { text: v }, f); el("span", { text: label }, f);
+}
+const degree = name => DATA.pairs.filter(p => p.a === name || p.b === name).length;
+const allPairCounts = DATA.pairs.reduce((n, p) => n + p.ids.length, 0);
+const topTwo = strongest.ids.length + DATA.pairs[1].ids.length;
+const shareOf = test => {
+  const years = Object.keys(DATA.totalByYear).filter(y => test(+y));
+  const co = years.reduce((n, y) => n + (DATA.byYear[y] || 0), 0);
+  const all = years.reduce((n, y) => n + DATA.totalByYear[y], 0);
+  return Math.round((100 * co) / all);
+};
+const [peakYear, peakCount] = Object.entries(DATA.byYear).reduce((a, b) => (b[1] > a[1] ? b : a));
+const pettersen = DATA.pairs
+  .filter(p => p.a === "Klas H. Pettersen" || p.b === "Klas H. Pettersen")
+  .map(p => `${p.ids.length} with ${SHORT[p.a === "Klas H. Pettersen" ? p.b : p.a]}`);
+const indirectOnly = [];
+ORDER.forEach((a, i) => ORDER.slice(i + 1).forEach(b => {
+  const list = outsideFor(a, b);
+  if (!pairs[pairKey(a, b)] && list.length) {
+    indirectOnly.push({ a, b, list, strong: list.filter(o => o.links[a] >= 2 && o.links[b] >= 2) });
+  }
+}));
+indirectOnly.sort((x, y) => y.strong.length - x.strong.length || y.list.length - x.list.length);
+const bestIndirect = indirectOnly[0];
+const maxLinked = Math.max(...OUT.map(o => o.n));
+const topBridges = OUT.filter(o => o.n === maxLinked).map(o => o.name);
+const noOutside = ORDER.filter(n => !OUT.some(o => o.linked.includes(n)));
+const findings = [
+  `Kent-Andre Mardal and Marie E. Rognes sit at the centre, with shared publications with ${degree("Kent-Andre Mardal")} and ${degree("Marie E. Rognes")} of the other 11 investigators. Miroslav Kuchta follows with ${degree("Miroslav Kuchta")}.`,
+  `The strongest pairs are ${SHORT[strongest.a]}–${SHORT[strongest.b]} (${strongest.ids.length}) and ${SHORT[DATA.pairs[1].a]}–${SHORT[DATA.pairs[1].b]} (${DATA.pairs[1].ids.length}). Together they make up ${Math.round((100 * topTwo) / allPairCounts)}% of all pairwise counts.`,
+  `SimulaMet is barely connected. Klas H. Pettersen is the only SimulaMet investigator with shared publications: ${pettersen.join(", ")}. Evrim Acar Ataman and Baltasar Beferull-Lozano have none with anyone in the centre.`,
+  `Mikkel Lepperød, at Simula Research Laboratory, also has no shared publications with the other investigators in NVA.`,
+  `Through outside co-authors on separate papers, ${indirectOnly.length} pairs without a shared publication are linked indirectly. The strongest is ${SHORT[bestIndirect.a]}–${SHORT[bestIndirect.b]}: ${bestIndirect.strong.length} outside co-authors have published at least twice with each (${bestIndirect.strong.map(o => o.name).join(", ")}). ${topBridges.join(" and ")} link the most investigators (${maxLinked} each). ${noOutside.map(n => n).join(" and ")} share no outside co-authors with anyone in the centre.`,
+  `Co-authorship within the group picked up from 2019 and peaked in ${peakYear}, with ${peakCount} of that year's ${DATA.totalByYear[peakYear]} publications (${Math.round((100 * peakCount) / DATA.totalByYear[peakYear])}%). Before 2019, ${shareOf(y => y < 2019)}% of the investigators' publications were co-authored; since then, ${shareOf(y => y >= 2019)}%.`,
+];
+const fl = document.getElementById("findings");
+for (const t of findings) el("li", { text: t }, fl);
+
+// Network
+const net = document.getElementById("net");
+s("rect", { class: "isolated-box", x: 630, y: 390, width: 182, height: 156, rx: 8 }, net);
+s("text", { class: "isolated-label", x: 642, y: 384, text: "No shared publications" }, net);
+const edgeEls = {}, nodeEls = {};
+const eg = s("g", {}, net), og = s("g", {}, net), ng = s("g", {}, net);
+for (const p of DATA.pairs) {
+  const A = POS[p.a], B = POS[p.b], n = p.ids.length;
+  const g = s("g", { class: "edge", tabindex: 0, role: "button", "aria-label": `${p.a} and ${p.b}: ${n} shared publications` }, eg);
+  s("line", { class: "vis", x1: A.x, y1: A.y, x2: B.x, y2: B.y, "stroke-width": width(n) }, g);
+  s("line", { class: "hit", x1: A.x, y1: A.y, x2: B.x, y2: B.y }, g);
+  if (n >= 3) s("text", { x: (A.x + B.x) / 2 + 6, y: (A.y + B.y) / 2 - 6, text: n }, g);
+  s("title", { text: `${SHORT[p.a]} – ${SHORT[p.b]}: ${n} shared` }, g);
+  activate(g, () => showPair(p.a, p.b));
+  edgeEls[pairKey(p.a, p.b)] = g;
+}
+for (const name of ORDER) {
+  const p = person[name], P = POS[name];
+  const g = s("g", { class: "node", tabindex: 0, role: "button", "aria-label": `${name}, ${p.total} publications` }, ng);
+  s("circle", { cx: P.x, cy: P.y, r: radius(p.total), fill: affColor(p.aff) }, g);
+  const t = s("text", { x: P.x + P.lx, y: P.y + P.ly, "text-anchor": P.anchor }, g);
+  t.textContent = SHORT[name];
+  s("title", { text: `${name} · ${p.total} publications` }, g);
+  activate(g, () => showPerson(name));
+  nodeEls[name] = g;
+}
+
+function highlight(names, keys, outs = []) {
+  net.classList.toggle("focus", names.length > 0);
+  for (const [n, g] of Object.entries(nodeEls)) g.classList.toggle("on", names.includes(n));
+  for (const [k, g] of Object.entries(edgeEls)) g.classList.toggle("on", keys.includes(k));
+  for (const { o, g } of outsideEls) g.classList.toggle("on", outs.includes(o.id));
+}
+
+// Outside co-authors, placed near the investigators they link and pushed apart
+let outsideEls = [];
+function layoutOutside(list) {
+  const fixed = ORDER.map(n => ({ x: POS[n].x, y: POS[n].y, r: radius(person[n].total) + 16 }));
+  const pts = list.map((o, i) => {
+    let x = 0, y = 0, w = 0;
+    for (const [n, c] of Object.entries(o.links)) {
+      const k = Math.sqrt(c);
+      x += POS[n].x * k; y += POS[n].y * k; w += k;
+    }
+    const angle = i * 2.39996;
+    return { o, cx: x / w, cy: y / w, x: x / w + 18 * Math.cos(angle), y: y / w + 18 * Math.sin(angle) };
+  });
+  const push = (p, x, y, min, k, d) => {
+    const vx = p.x - x, vy = p.y - y, dist = Math.hypot(vx, vy) || 0.01;
+    if (dist < min) { d.x += (vx / dist) * (min - dist) * k; d.y += (vy / dist) * (min - dist) * k; }
+  };
+  for (let it = 0; it < 300; it++) {
+    for (const p of pts) {
+      const d = { x: (p.cx - p.x) * 0.01, y: (p.cy - p.y) * 0.01 };
+      for (const f of fixed) push(p, f.x, f.y, f.r, 0.5, d);
+      for (const q of pts) if (q !== p) push(p, q.x, q.y, 40, 0.25, d);
+      p.x = Math.min(804, Math.max(16, p.x + d.x));
+      p.y = Math.min(544, Math.max(16, p.y + d.y));
+      // keep clear of the "No shared publications" box
+      if (p.x > 616 && p.y > 372) { if (p.x - 616 < p.y - 372) p.x = 616; else p.y = 372; }
+    }
+  }
+  return pts;
+}
+function drawOutside(min) {
+  og.replaceChildren();
+  outsideEls = [];
+  const list = min ? OUT.filter(o => o.n >= min) : [];
+  for (const p of layoutOutside(list)) {
+    const o = p.o;
+    const g = s("g", { class: "onode", tabindex: 0, role: "button", "aria-label": `${o.name}, outside co-author linking ${o.n} investigators` }, og);
+    for (const [n, c] of Object.entries(o.links)) {
+      s("line", { x1: p.x, y1: p.y, x2: POS[n].x, y2: POS[n].y, "stroke-width": 1 + 0.4 * Math.sqrt(c) }, g);
+    }
+    s("circle", { cx: p.x, cy: p.y, r: 3 + 1.5 * Math.sqrt(o.n) }, g);
+    if (list.length <= 20) s("text", { x: p.x + 9, y: p.y + 4, text: o.name.split(" ").slice(-1)[0] }, g);
+    s("title", { text: `${o.name}${o.inst ? ", " + o.inst : ""} · links ${o.n} investigators` }, g);
+    activate(g, () => showOutside(o));
+    outsideEls.push({ o, g });
+  }
+}
+const seg = document.getElementById("outside-seg");
+const segOptions = [[0, "Off"], [4, "Linking 4+ investigators"], [3, "Linking 3+"]];
+for (const [min, label] of segOptions) {
+  const count = OUT.filter(o => o.n >= min).length;
+  const b = el("button", { type: "button", "aria-pressed": String(min === 4), text: min ? `${label} (${count})` : label }, seg);
+  b.addEventListener("click", () => {
+    for (const x of seg.children) x.setAttribute("aria-pressed", String(x === b));
+    drawOutside(min);
+    showOverview();
+  });
+}
+drawOutside(4);
+
+// Panel
+const panel = document.getElementById("panel");
+function clear() { panel.replaceChildren(); }
+function resetButton() {
+  const b = el("button", { class: "reset", type: "button", text: "← All pairs" }, panel);
+  b.addEventListener("click", showOverview);
+}
+function barRows(items, parent, label, value, open, cls = "") {
+  const max = Math.max(...items.map(value));
+  const ul = el("ul", { class: `rows ${cls}` }, parent);
+  for (const item of items) {
+    const li = el("li", {}, ul);
+    const b = el("button", { type: "button" }, li);
+    el("span", { text: label(item) }, b);
+    const bar = el("span", { class: "bar" }, b);
+    bar.style.width = `${(value(item) / max) * 100}%`;
+    el("span", { class: "n", text: value(item) }, b);
+    b.addEventListener("click", () => open(item));
+  }
+}
+function pairRows(list, parent, label) {
+  barRows(list, parent, label, p => p.ids.length, p => showPair(p.a, p.b));
+}
+function showOutside(o) {
+  clear();
+  const names = Object.keys(o.links);
+  highlight(names, [], [o.id]);
+  resetButton();
+  el("h3", { text: o.name }, panel);
+  el("p", { class: "sub", text: `${o.inst || "Institution not in NVA"} · links ${o.n} investigators through separate papers` }, panel);
+  el("p", { class: "sub", text: "Shared publications with each:" }, panel);
+  barRows(Object.entries(o.links).sort((x, y) => y[1] - x[1]), panel, ([n]) => n, ([, c]) => c, ([n]) => showPerson(n), "ext");
+}
+function showIndirect(a, b) {
+  clear();
+  const list = outsideFor(a, b);
+  const direct = pairs[pairKey(a, b)];
+  highlight([a, b], direct ? [pairKey(a, b)] : [], list.map(o => o.id));
+  resetButton();
+  el("h3", { text: `${a} & ${b}` }, panel);
+  el("p", { class: "sub", text: `${list.length} shared outside co-author${list.length === 1 ? "" : "s"} · ${direct ? `${direct.ids.length} shared publication${direct.ids.length === 1 ? "" : "s"}` : "no shared publications"}` }, panel);
+  if (direct) {
+    const btn = el("button", { class: "link", type: "button", text: "Show shared publications" }, panel);
+    btn.addEventListener("click", () => showPair(a, b));
+  }
+  const ul = el("ul", { class: "people" }, panel);
+  for (const o of list) {
+    const li = el("li", {}, ul);
+    const body = el("div", {}, li);
+    el("div", { text: o.name }, body);
+    if (o.inst) el("div", { class: "meta", text: o.inst }, body);
+    el("span", { class: "n", text: `${SHORT[a]} ${o.links[a]} · ${SHORT[b]} ${o.links[b]}` }, li);
+  }
+}
+function showOverview() {
+  clear(); highlight([], []);
+  el("h3", { text: "Strongest collaborations" }, panel);
+  el("p", { class: "sub", text: "Shared publications per pair. Select one to see the papers." }, panel);
+  pairRows(DATA.pairs, panel, p => `${SHORT[p.a]} – ${SHORT[p.b]}`);
+}
+function showPerson(name) {
+  clear();
+  const p = person[name];
+  const mine = DATA.pairs.filter(q => q.a === name || q.b === name);
+  highlight([name, ...mine.map(q => q.a === name ? q.b : q.a)], mine.map(q => pairKey(q.a, q.b)), OUT.filter(o => o.linked.includes(name)).map(o => o.id));
+  resetButton();
+  el("h3", { text: name }, panel);
+  const sub = el("p", { class: "sub" }, panel);
+  sub.append(`${affName(p.aff)} · ${p.total} publications in NVA, ${p.shared} with another investigator · `);
+  el("a", { href: `https://nva.sikt.no/research-profile?id=${encodeURIComponent(`https://api.nva.unit.no/cristin/person/${p.cristin}`)}`, target: "_blank", rel: "noopener", text: "NVA profile" }, sub);
+  if (mine.length) {
+    el("p", { class: "sub", text: `Shared publications with ${mine.length} other investigator${mine.length > 1 ? "s" : ""}:` }, panel);
+    pairRows(mine, panel, q => (q.a === name ? q.b : q.a));
+  } else {
+    el("p", { text: "No shared publications with other centre investigators in NVA." }, panel);
+  }
+  const indirect = ORDER.filter(n => n !== name)
+    .map(n => [n, outsideFor(name, n).length])
+    .filter(([, c]) => c)
+    .sort((x, y) => y[1] - x[1]);
+  if (indirect.length) {
+    el("p", { class: "sub", text: `Shared outside co-authors with ${indirect.length} investigator${indirect.length > 1 ? "s" : ""}:` }, panel);
+    barRows(indirect, panel, ([n]) => n, ([, c]) => c, ([n]) => showIndirect(name, n), "ext");
+  } else {
+    el("p", { class: "sub", text: "No outside co-authors shared with other centre investigators." }, panel);
+  }
+}
+function showPair(a, b) {
+  clear();
+  const p = pairs[pairKey(a, b)];
+  highlight([a, b], [pairKey(a, b)]);
+  resetButton();
+  el("h3", { text: `${a} & ${b}` }, panel);
+  const years = p.ids.map(id => +DATA.papers[id].year);
+  el("p", { class: "sub", text: `${p.ids.length} shared publication${p.ids.length > 1 ? "s" : ""}, ${Math.min(...years)}–${Math.max(...years)}` }, panel);
+  const ul = el("ul", { class: "papers" }, panel);
+  for (const id of p.ids) {
+    const r = DATA.papers[id];
+    const li = el("li", {}, ul);
+    el("span", { class: "yr", text: r.year }, li);
+    const body = el("div", {}, li);
+    const t = el("div", { class: "t" }, body);
+    el("a", { href: r.doi || `https://nva.sikt.no/registration/${r.nva_id}`, target: "_blank", rel: "noopener", text: r.title }, t);
+    const others = r.authors.filter(n => n !== a && n !== b).map(n => SHORT[n]);
+    const meta = [r.journal || r.category, others.length ? `also ${others.join(", ")}` : ""].filter(Boolean).join(" · ");
+    el("div", { class: "meta", text: meta }, body);
+  }
+}
+showOverview();
+
+// Matrices: shared publications (blue) and shared outside co-authors (teal)
+function buildMatrix(table, value, color, diag, describe, open) {
+  const max = Math.max(1, ...ORDER.flatMap(a => ORDER.filter(b => b !== a).map(b => value(a, b))));
+  const hr = el("tr", {}, el("thead", {}, table));
+  el("th", {}, hr);
+  for (const n of ORDER) { const th = el("th", { scope: "col" }, hr); el("div", { text: SHORT[n] }, th); }
+  const tbody = el("tbody", {}, table);
+  for (const a of ORDER) {
+    const tr = el("tr", {}, tbody);
+    el("th", { scope: "row", text: SHORT[a] }, tr);
+    for (const b of ORDER) {
+      if (a === b) { el("td", { class: "diag", text: diag(a) }, tr); continue; }
+      const n = value(a, b);
+      const td = el("td", { text: n || "" }, tr);
+      if (!n) continue;
+      // Sequential: mix toward the colour by share of the maximum
+      const t = 0.18 + 0.82 * Math.sqrt(n / max);
+      td.style.background = `color-mix(in oklab, var(${color}) ${Math.round(t * 100)}%, var(--seq-0))`;
+      td.style.color = t > 0.55 ? "#ffffff" : "var(--ink)";
+      td.className = "v"; td.tabIndex = 0;
+      td.title = `${SHORT[a]} – ${SHORT[b]}: ${describe(n)}`;
+      activate(td, () => { open(a, b); panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+    }
+  }
+}
+buildMatrix(document.getElementById("matrix"), (a, b) => (pairs[pairKey(a, b)] || { ids: [] }).ids.length,
+  "--srl", a => person[a].total, n => `${n} shared publication${n === 1 ? "" : "s"}`, showPair);
+buildMatrix(document.getElementById("matrix-ext"), (a, b) => outsideFor(a, b).length,
+  "--ext", () => "", n => `${n} shared outside co-author${n === 1 ? "" : "s"}`, showIndirect);
+
+// Timeline: stacked bars (co-authored + other = total) and the co-authored share
+const years = Object.keys(DATA.totalByYear).map(Number);
+const Y0 = Math.min(...years), Y1 = Math.max(...years);
+const W = 800, L = 34, R = 8, T = 10, B = 26;
+const bw = (W - L - R) / (Y1 - Y0 + 1);
+const card = document.getElementById("timecard");
+const tip = el("div", { class: "tip", hidden: "" }, card);
+const yearLabel = y => {
+  const n = DATA.byYear[y] || 0, total = DATA.totalByYear[y] || 0;
+  const share = total ? Math.round((100 * n) / total) : 0;
+  return `${y}: ${n} of ${total} publications co-authored (${share}%)${y === Y1 ? ", to October" : ""}`;
+};
+const niceMax = v => Math.ceil(v / 10) * 10;
+
+function yearChart(svg, H, ymax, ticks, format, draw) {
+  const yScale = v => T + (H - T - B) * (1 - v / ymax);
+  const grid = s("g", { class: "grid" }, svg), axis = s("g", { class: "axis" }, svg);
+  for (const v of ticks) {
+    if (v) s("line", { x1: L, x2: W - R, y1: yScale(v), y2: yScale(v) }, grid);
+    s("text", { x: L - 8, y: yScale(v) + 3.5, "text-anchor": "end", text: format(v) }, axis);
+  }
+  for (let y = Y0; y <= Y1; y++) {
+    const x = L + (y - Y0) * bw;
+    const g = s("g", { class: "yb" + (y === Y1 ? " partial" : "") }, svg);
+    const top = draw(g, y, x, yScale);
+    if (y % 5 === 0 || (y === Y1 && y % 5 >= 3)) s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle", text: y }, axis);
+    const hit = s("rect", { class: "hit", x, y: T, width: bw, height: H - T - B }, g);
+    hit.addEventListener("mouseenter", () => {
+      const box = svg.getBoundingClientRect(), k = box.width / W, cb = card.getBoundingClientRect();
+      tip.textContent = yearLabel(y); tip.hidden = false;
+      tip.style.left = `${box.left - cb.left + (x + bw / 2) * k}px`;
+      tip.style.top = `${box.top - cb.top + top * k}px`;
+    });
+    hit.addEventListener("mouseleave", () => { tip.hidden = true; });
+    s("title", { text: yearLabel(y) }, hit);
+  }
+  s("line", { class: "baseline", x1: L, x2: W - R, y1: yScale(0), y2: yScale(0) }, svg);
+  return yScale;
+}
+
+const maxTotal = niceMax(Math.max(...years.map(y => DATA.totalByYear[y])));
+yearChart(document.getElementById("time"), 230, maxTotal,
+  Array.from({ length: maxTotal / 10 + 1 }, (_, i) => i * 10), v => v,
+  (g, y, x, yScale) => {
+    const co = DATA.byYear[y] || 0, total = DATA.totalByYear[y] || 0;
+    const w = Math.max(bw - 4, 2);
+    if (co) s("rect", { class: "co", x: x + 2, y: yScale(co), width: w, height: yScale(0) - yScale(co) }, g);
+    if (total > co) {
+      // 2px gap between the two segments
+      const top = yScale(total), bottom = yScale(co) - (co ? 2 : 0);
+      if (bottom > top) s("rect", { class: "other", x: x + 2, y: top, width: w, height: bottom - top, rx: 2 }, g);
+    }
+    return yScale(total);
+  });
+
+const shares = years.filter(y => DATA.totalByYear[y]).map(y => [y, (DATA.byYear[y] || 0) / DATA.totalByYear[y]]);
+const shareSvg = document.getElementById("share");
+const shareMax = Math.max(0.5, Math.ceil(Math.max(...shares.map(d => d[1])) * 4) / 4);
+const shareTicks = Array.from({ length: Math.round(shareMax / 0.25) + 1 }, (_, i) => i * 0.25);
+const shareScale = yearChart(shareSvg, 140, shareMax, shareTicks, v => `${Math.round(v * 100)}%`,
+  (g, y, x, yScale) => {
+    const total = DATA.totalByYear[y] || 0;
+    if (!total) return yScale(0);
+    const v = (DATA.byYear[y] || 0) / total;
+    s("circle", { class: "share-dot", cx: x + bw / 2, cy: yScale(v), r: 4 }, g);
+    return yScale(v);
+  });
+const line = s("path", {
+  class: "share-line",
+  d: shares.map(([y, v], i) => `${i ? "L" : "M"}${L + (y - Y0) * bw + bw / 2},${shareScale(v)}`).join(""),
+});
+shareSvg.insertBefore(line, shareSvg.querySelector(".yb"));
+</script>

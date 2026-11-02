@@ -1,0 +1,17 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff.lint.isort]
+# Our own modules, so imports sort the same from any working directory
+known-first-party = [
+    "build_partners_page",
+    "coauthorship",
+    "collaboration_map",
+    "external_collaborators",
+    "fetch_nva",
+    "fetch_nva_projects",
+    "fetch_openalex",
+    "fetch_simula_projects",
+    "publication_data",
+]

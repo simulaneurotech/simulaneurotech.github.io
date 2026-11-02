@@ -1,0 +1,622 @@
+openalex_author_id,main_field
+A5000248222,Neuroscience
+A5000412243,"Biochemistry, Genetics and Molecular Biology"
+A5000501516,Mathematics
+A5000842916,Neuroscience
+A5000852147,Computer Science
+A5000887310,Medicine
+A5000967857,Physics and Astronomy
+A5001068711,Computer Science
+A5001322330,Mathematics
+A5001362069,Medicine
+A5002024736,"Biochemistry, Genetics and Molecular Biology"
+A5002165073,Engineering
+A5002194680,Engineering
+A5002362942,Computer Science
+A5002548844,Medicine
+A5002560487,"Biochemistry, Genetics and Molecular Biology"
+A5002761598,Medicine
+A5002850063,Physics and Astronomy
+A5002869751,Medicine
+A5003075535,Medicine
+A5003352639,Neuroscience
+A5003483167,Medicine
+A5003537956,Chemistry
+A5003691743,Medicine
+A5004326339,Computer Science
+A5004443001,Environmental Science
+A5005387965,Medicine
+A5005623079,Engineering
+A5005786276,Engineering
+A5005846663,Medicine
+A5006075006,Neuroscience
+A5006145806,Engineering
+A5006417559,Engineering
+A5006597723,Medicine
+A5006601601,Engineering
+A5006835667,Engineering
+A5007115769,"Biochemistry, Genetics and Molecular Biology"
+A5007417082,Engineering
+A5007481525,Computer Science
+A5007571348,"Biochemistry, Genetics and Molecular Biology"
+A5007725533,Engineering
+A5008433865,Computer Science
+A5008867452,Medicine
+A5008925868,Medicine
+A5009091322,Medicine
+A5009298184,Medicine
+A5009460108,Computer Science
+A5009476735,Medicine
+A5009683283,Medicine
+A5009764977,Neuroscience
+A5009783365,Neuroscience
+A5010318999,Medicine
+A5010457069,Neuroscience
+A5010584176,Medicine
+A5011296330,Engineering
+A5011330036,Neuroscience
+A5011473530,Neuroscience
+A5011606620,Engineering
+A5011716508,"Biochemistry, Genetics and Molecular Biology"
+A5011937138,Medicine
+A5011952233,Medicine
+A5012184061,Medicine
+A5012268400,Computer Science
+A5012579504,Engineering
+A5012744598,Computer Science
+A5012935165,Computer Science
+A5013048120,Computer Science
+A5013129400,Medicine
+A5013346955,Medicine
+A5013378126,Environmental Science
+A5013471227,"Biochemistry, Genetics and Molecular Biology"
+A5013534678,Medicine
+A5013746019,Medicine
+A5013806448,Engineering
+A5013807015,Engineering
+A5013812064,Physics and Astronomy
+A5013951479,Medicine
+A5014109419,"Biochemistry, Genetics and Molecular Biology"
+A5014122373,Computer Science
+A5014199804,Mathematics
+A5014288820,Engineering
+A5014378909,Engineering
+A5014399331,Medicine
+A5014777604,Immunology and Microbiology
+A5014825828,Medicine
+A5014847103,Neuroscience
+A5014987374,"Biochemistry, Genetics and Molecular Biology"
+A5015009224,Engineering
+A5015018618,Neuroscience
+A5015059547,Engineering
+A5015088981,Neuroscience
+A5015195398,Medicine
+A5015709227,Neuroscience
+A5016012179,Computer Science
+A5016088947,Neuroscience
+A5016503957,Neuroscience
+A5016523886,Medicine
+A5016536397,"Biochemistry, Genetics and Molecular Biology"
+A5016809695,Neuroscience
+A5016920851,Medicine
+A5017177841,Engineering
+A5017225260,Physics and Astronomy
+A5017510225,Medicine
+A5018287424,Medicine
+A5018380170,Engineering
+A5018466318,Neuroscience
+A5018647306,Physics and Astronomy
+A5018668287,Mathematics
+A5018841476,Engineering
+A5019247098,Physics and Astronomy
+A5019302177,Medicine
+A5019418847,Medicine
+A5019425630,Mathematics
+A5020000711,Medicine
+A5020092884,Computer Science
+A5020215901,Medicine
+A5020229588,Engineering
+A5020270505,Engineering
+A5020323142,Physics and Astronomy
+A5020443049,Medicine
+A5020965295,Engineering
+A5021132496,Medicine
+A5021303231,Medicine
+A5021410309,Neuroscience
+A5021411120,Engineering
+A5021683360,Medicine
+A5021823634,Engineering
+A5022018944,Medicine
+A5022034999,Neuroscience
+A5022186041,Engineering
+A5022501133,Mathematics
+A5022611002,Neuroscience
+A5022646297,Computer Science
+A5022838957,Medicine
+A5023021950,Computer Science
+A5023217909,Engineering
+A5023446037,Medicine
+A5023483425,Engineering
+A5023539990,Neuroscience
+A5023718960,Computer Science
+A5023956602,Medicine
+A5024309954,Medicine
+A5024361484,Neuroscience
+A5024560083,Neuroscience
+A5024636007,Engineering
+A5025047782,Medicine
+A5025163024,Computer Science
+A5025168652,Engineering
+A5025169590,Social Sciences
+A5025487512,Computer Science
+A5025663981,Computer Science
+A5025750693,"Biochemistry, Genetics and Molecular Biology"
+A5025943458,Neuroscience
+A5026047018,Medicine
+A5026054273,Engineering
+A5026237672,Neuroscience
+A5026496282,Medicine
+A5026745144,"Biochemistry, Genetics and Molecular Biology"
+A5027042571,Neuroscience
+A5027536170,Engineering
+A5027564445,Computer Science
+A5027652388,Physics and Astronomy
+A5027726576,Medicine
+A5027914303,Medicine
+A5028042731,Neuroscience
+A5028056149,Computer Science
+A5028094666,"Biochemistry, Genetics and Molecular Biology"
+A5028158467,Medicine
+A5028450473,Engineering
+A5028560813,Neuroscience
+A5028775093,Physics and Astronomy
+A5029010802,Medicine
+A5029270343,Engineering
+A5029601648,Engineering
+A5029703589,Medicine
+A5030247773,Medicine
+A5030293383,Medicine
+A5030408094,Engineering
+A5030636329,Medicine
+A5030677256,"Biochemistry, Genetics and Molecular Biology"
+A5030783497,Medicine
+A5030842321,Computer Science
+A5031204363,Medicine
+A5031228439,Medicine
+A5031414961,Medicine
+A5031830539,Engineering
+A5031999645,Chemistry
+A5032090130,Neuroscience
+A5032272694,Neuroscience
+A5032327878,Engineering
+A5032452029,Neuroscience
+A5032518890,Engineering
+A5032715711,Neuroscience
+A5032819771,Medicine
+A5032822233,Medicine
+A5032850756,Neuroscience
+A5033024512,Medicine
+A5033168903,Computer Science
+A5033213039,Medicine
+A5033650303,Mathematics
+A5033694340,Medicine
+A5033779364,Engineering
+A5033811596,Medicine
+A5033902651,Engineering
+A5033984993,Engineering
+A5034172411,Computer Science
+A5034206752,Computer Science
+A5034291915,Medicine
+A5034403639,Neuroscience
+A5034506020,Engineering
+A5034900017,Engineering
+A5034917067,Engineering
+A5035005269,Medicine
+A5035451982,Medicine
+A5035495121,Earth and Planetary Sciences
+A5035665648,Engineering
+A5035673068,Engineering
+A5035678454,Engineering
+A5035975242,Engineering
+A5035987989,Medicine
+A5036347886,Computer Science
+A5036457394,Medicine
+A5036502035,Medicine
+A5036514025,Engineering
+A5036674779,Medicine
+A5036682648,Computer Science
+A5036785568,Neuroscience
+A5036803091,Medicine
+A5037115377,Neuroscience
+A5037439443,Computer Science
+A5037755067,Medicine
+A5037830010,Engineering
+A5037834652,Medicine
+A5037842816,Medicine
+A5037843994,"Biochemistry, Genetics and Molecular Biology"
+A5038099031,Medicine
+A5038341430,Engineering
+A5038491248,"Biochemistry, Genetics and Molecular Biology"
+A5038648317,Computer Science
+A5038936036,"Biochemistry, Genetics and Molecular Biology"
+A5039049556,Neuroscience
+A5039161334,Neuroscience
+A5039244326,Medicine
+A5039523910,Medicine
+A5039644798,Mathematics
+A5039685797,Engineering
+A5039714502,Computer Science
+A5039890331,Medicine
+A5040240513,Medicine
+A5040379244,Neuroscience
+A5040577411,Medicine
+A5040684079,Engineering
+A5040693671,"Biochemistry, Genetics and Molecular Biology"
+A5040875269,Computer Science
+A5040921493,Medicine
+A5041657451,Medicine
+A5041866356,Neuroscience
+A5041917146,Neuroscience
+A5042079525,Physics and Astronomy
+A5042230262,Medicine
+A5042256078,Medicine
+A5042374611,Engineering
+A5042785751,Mathematics
+A5042828641,Engineering
+A5043139152,Engineering
+A5043359460,Computer Science
+A5043449184,Neuroscience
+A5043462150,Neuroscience
+A5043692408,Neuroscience
+A5043885663,Neuroscience
+A5044141636,Neuroscience
+A5044418795,Engineering
+A5044464680,Medicine
+A5044479141,Medicine
+A5044701434,"Biochemistry, Genetics and Molecular Biology"
+A5044798530,Medicine
+A5044986793,Neuroscience
+A5045057754,Medicine
+A5045062365,Earth and Planetary Sciences
+A5045125526,Medicine
+A5045268014,Medicine
+A5045344892,Engineering
+A5045406087,Medicine
+A5045633584,Engineering
+A5045646606,Engineering
+A5046387940,Computer Science
+A5046573623,Medicine
+A5046582471,Computer Science
+A5046602123,Neuroscience
+A5046769638,Computer Science
+A5046894223,Neuroscience
+A5047005486,Medicine
+A5047068178,Computer Science
+A5047452055,Engineering
+A5047485244,Engineering
+A5047674365,Neuroscience
+A5047678893,Medicine
+A5047769246,Neuroscience
+A5048002936,Computer Science
+A5048067129,Medicine
+A5048165082,Medicine
+A5048362259,Medicine
+A5048387728,Computer Science
+A5048613858,Neuroscience
+A5048982998,Neuroscience
+A5049192404,Medicine
+A5049200988,Medicine
+A5049210319,Medicine
+A5049405544,Physics and Astronomy
+A5049434318,Medicine
+A5049472930,Medicine
+A5049570563,Medicine
+A5050008382,Computer Science
+A5050349803,Neuroscience
+A5050384418,"Biochemistry, Genetics and Molecular Biology"
+A5050435328,"Biochemistry, Genetics and Molecular Biology"
+A5050447461,Engineering
+A5050460031,Medicine
+A5050747402,Medicine
+A5050912607,Engineering
+A5050930640,"Biochemistry, Genetics and Molecular Biology"
+A5051145611,Engineering
+A5051173198,Neuroscience
+A5051233189,Environmental Science
+A5051321266,Medicine
+A5051488609,Medicine
+A5051887695,Neuroscience
+A5051938848,Computer Science
+A5051992516,Engineering
+A5052178721,"Biochemistry, Genetics and Molecular Biology"
+A5052352029,Medicine
+A5053268193,Computer Science
+A5053271304,"Biochemistry, Genetics and Molecular Biology"
+A5053456178,Computer Science
+A5053476878,Medicine
+A5053528006,Medicine
+A5054232425,Medicine
+A5054573550,Medicine
+A5054582413,Chemistry
+A5054763364,"Biochemistry, Genetics and Molecular Biology"
+A5055001344,Neuroscience
+A5055133594,"Biochemistry, Genetics and Molecular Biology"
+A5055137353,Medicine
+A5055233009,Physics and Astronomy
+A5056848361,Engineering
+A5056861456,Medicine
+A5057020281,Medicine
+A5057337420,Medicine
+A5057557031,Neuroscience
+A5057757569,Medicine
+A5057769142,Medicine
+A5058139448,Medicine
+A5058329828,Engineering
+A5058654315,Medicine
+A5059006474,"Biochemistry, Genetics and Molecular Biology"
+A5059013717,Engineering
+A5059106455,Medicine
+A5059840085,Neuroscience
+A5059982278,"Biochemistry, Genetics and Molecular Biology"
+A5060201059,Engineering
+A5060208736,"Biochemistry, Genetics and Molecular Biology"
+A5060254628,Medicine
+A5060292166,Medicine
+A5060388738,Computer Science
+A5060541292,Physics and Astronomy
+A5060660907,Engineering
+A5060798483,Computer Science
+A5060836778,Computer Science
+A5061001231,Computer Science
+A5061281382,Computer Science
+A5061493031,Medicine
+A5061986461,Earth and Planetary Sciences
+A5062076053,Neuroscience
+A5062179566,Medicine
+A5062403856,Neuroscience
+A5062490533,Medicine
+A5062578724,Engineering
+A5062641668,Medicine
+A5063066986,Engineering
+A5063380571,Medicine
+A5063676325,Medicine
+A5063889547,Computer Science
+A5063892805,Earth and Planetary Sciences
+A5064034989,"Biochemistry, Genetics and Molecular Biology"
+A5064052983,Chemistry
+A5064154590,Neuroscience
+A5064607349,Neuroscience
+A5064670047,Computer Science
+A5065073451,"Biochemistry, Genetics and Molecular Biology"
+A5065131949,Physics and Astronomy
+A5065204712,Medicine
+A5065285206,Engineering
+A5065400077,Neuroscience
+A5065456836,Neuroscience
+A5065487078,"Biochemistry, Genetics and Molecular Biology"
+A5065520583,Medicine
+A5065742678,Mathematics
+A5065838227,Engineering
+A5066220093,Neuroscience
+A5066413716,Neuroscience
+A5066693329,Engineering
+A5066804571,Engineering
+A5067193132,Computer Science
+A5067302268,Medicine
+A5067473170,Engineering
+A5067734351,Engineering
+A5067926365,Chemistry
+A5068185413,Medicine
+A5068242450,Engineering
+A5068535353,Neuroscience
+A5068635066,Medicine
+A5068760571,Engineering
+A5068805432,"Biochemistry, Genetics and Molecular Biology"
+A5068806959,Mathematics
+A5068845525,Medicine
+A5069095076,Engineering
+A5069156155,Physics and Astronomy
+A5069198136,Engineering
+A5069220813,Mathematics
+A5069520836,Engineering
+A5069564994,Medicine
+A5069818774,Neuroscience
+A5069885195,Medicine
+A5070013751,Medicine
+A5070133237,Medicine
+A5070322443,Medicine
+A5070464050,Computer Science
+A5070863677,Medicine
+A5071057982,Neuroscience
+A5071469682,Engineering
+A5071565812,Medicine
+A5071597522,Medicine
+A5071818847,Engineering
+A5071819361,Medicine
+A5071820821,Computer Science
+A5071864910,Medicine
+A5071893221,Computer Science
+A5071912617,Medicine
+A5072047827,Neuroscience
+A5072267566,Neuroscience
+A5072533636,Medicine
+A5072678613,Computer Science
+A5073099395,Neuroscience
+A5073133450,"Biochemistry, Genetics and Molecular Biology"
+A5073185963,Medicine
+A5073471976,Engineering
+A5073602990,Medicine
+A5073766550,Neuroscience
+A5073935438,Neuroscience
+A5074291379,Medicine
+A5074491458,Medicine
+A5074500166,Neuroscience
+A5074536850,Computer Science
+A5074615107,Medicine
+A5074707381,Medicine
+A5075256268,Medicine
+A5075362641,Neuroscience
+A5075527189,Neuroscience
+A5075539430,Psychology
+A5075559424,Medicine
+A5075672443,Computer Science
+A5075928959,Computer Science
+A5076108872,Engineering
+A5076197765,Chemistry
+A5076482076,Medicine
+A5076560213,Engineering
+A5077174469,Earth and Planetary Sciences
+A5077285752,Computer Science
+A5077305002,Medicine
+A5077520144,Medicine
+A5077614976,Engineering
+A5077843387,Medicine
+A5077859759,"Biochemistry, Genetics and Molecular Biology"
+A5078157470,Computer Science
+A5078206222,Medicine
+A5078441502,Medicine
+A5078452073,Medicine
+A5078568598,Medicine
+A5078716521,Medicine
+A5078759748,Neuroscience
+A5078977456,Medicine
+A5079111668,Physics and Astronomy
+A5079125582,Medicine
+A5079413352,Engineering
+A5079457109,Medicine
+A5079495549,Engineering
+A5079605567,Medicine
+A5079782030,Engineering
+A5079840701,Engineering
+A5080018105,Medicine
+A5080697350,Engineering
+A5080784469,"Biochemistry, Genetics and Molecular Biology"
+A5081024969,Neuroscience
+A5081206618,Engineering
+A5081596859,Neuroscience
+A5081768886,Engineering
+A5081978298,Computer Science
+A5082067628,Chemistry
+A5082146901,Medicine
+A5082633387,Neuroscience
+A5083006635,Medicine
+A5083251527,Mathematics
+A5083668294,Neuroscience
+A5083670263,Mathematics
+A5083818499,Medicine
+A5083916488,Medicine
+A5083933752,Medicine
+A5084088636,Computer Science
+A5084127493,Computer Science
+A5084159640,Engineering
+A5084243843,Medicine
+A5084254511,Medicine
+A5084482336,Computer Science
+A5084566386,Mathematics
+A5084653980,Computer Science
+A5084702232,Medicine
+A5084730907,Neuroscience
+A5084832937,Engineering
+A5085022144,Computer Science
+A5085092252,Medicine
+A5085406263,"Biochemistry, Genetics and Molecular Biology"
+A5085503354,Computer Science
+A5085677100,Neuroscience
+A5086200651,Computer Science
+A5086301324,Earth and Planetary Sciences
+A5086404594,Medicine
+A5086543419,Medicine
+A5086845658,Mathematics
+A5086862536,Mathematics
+A5086921805,Engineering
+A5087096006,Neuroscience
+A5087334968,Medicine
+A5087626511,Medicine
+A5087637488,Neuroscience
+A5087731830,Medicine
+A5087748408,Medicine
+A5087790536,Medicine
+A5088200659,Environmental Science
+A5088446288,Medicine
+A5088656822,Computer Science
+A5088701022,Neuroscience
+A5088803594,Engineering
+A5088846739,Medicine
+A5088947950,Computer Science
+A5089101522,Engineering
+A5089254856,Medicine
+A5089277321,Engineering
+A5089294420,Engineering
+A5089352370,Engineering
+A5089447861,"Biochemistry, Genetics and Molecular Biology"
+A5089570555,Medicine
+A5089681484,Earth and Planetary Sciences
+A5090108985,Neuroscience
+A5090129110,Chemistry
+A5090166143,Medicine
+A5090270823,Medicine
+A5090296288,Medicine
+A5090571318,Medicine
+A5091410521,"Biochemistry, Genetics and Molecular Biology"
+A5091548308,Physics and Astronomy
+A5091584657,Medicine
+A5091647722,Medicine
+A5092103186,Engineering
+A5092491263,Computer Science
+A5093661180,Medicine
+A5093751179,Computer Science
+A5093854303,Medicine
+A5094311202,Medicine
+A5094330604,Engineering
+A5096199384,Computer Science
+A5096365553,Computer Science
+A5098727626,Engineering
+A5100018989,Mathematics
+A5100386312,Engineering
+A5100386334,"Biochemistry, Genetics and Molecular Biology"
+A5100455195,Medicine
+A5100658324,Engineering
+A5100678297,Engineering
+A5100695234,Medicine
+A5101465310,Medicine
+A5101782477,Computer Science
+A5101887294,Computer Science
+A5101973289,Computer Science
+A5102725795,Medicine
+A5102751327,Medicine
+A5102855060,Engineering
+A5102855953,"Biochemistry, Genetics and Molecular Biology"
+A5102920426,Medicine
+A5102977764,Engineering
+A5103091224,Computer Science
+A5103214077,Earth and Planetary Sciences
+A5103556949,Medicine
+A5104360531,Medicine
+A5105939076,Medicine
+A5106621415,Engineering
+A5106922687,Engineering
+A5107522172,Neuroscience
+A5107887809,"Biochemistry, Genetics and Molecular Biology"
+A5108117366,Computer Science
+A5108619539,Medicine
+A5108635445,Medicine
+A5108643666,Medicine
+A5110042617,Computer Science
+A5110664854,"Biochemistry, Genetics and Molecular Biology"
+A5111163978,Computer Science
+A5111330108,Engineering
+A5111682286,Medicine
+A5111707831,Medicine
+A5111939228,Medicine
+A5112398125,Medicine
+A5112528622,Medicine
+A5114482292,Medicine
+A5114816737,Medicine
+A5115057310,Engineering
+A5116053824,Computer Science
+A5119749897,Neuroscience
+A5120164821,"Biochemistry, Genetics and Molecular Biology"
+A5121790172,Engineering
+A5133266020,Computer Science
+A5140617625,Engineering
+A5143584248,Medicine

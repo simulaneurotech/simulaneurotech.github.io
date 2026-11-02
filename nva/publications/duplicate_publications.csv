@@ -1,0 +1,72 @@
+kept_result_id,merged_result_ids,year,title
+30712,31019;10444214,2002,"Einfuhrung in partielle differentalgleichungen, Ein numerischer zugang"
+42927,10444619,2010,Can ECG recordings and mathematics tell the condition of your heart?
+61220,10444609,2003,Performance Modeling of PDE Solvers
+61221,10444572,2003,Parallel Computing
+73912,10444625,2000,How should we prepare the Students of Science and Technology for Life in the Computer Age?
+345276,667700,2009,Synchronizing Computer Simulations with Measurement Data for a Case of Atrial Flutter
+348087,10444194,2010,Characterization of Cyclic CSF Flow in the Foramen Magnum and Upper Cervical Spinal Canal with MR Flow Imaging and Computational Fluid Dynamics
+350493,10444181,2009,A Second-Order Algorithm for Solving Dynamic Cell Membrane Equations
+353960,357472;10444177,2009,Unified Finite Element Discretizations of Coupled Darcy-Stokes Flow
+354595,10444165,2009,Preconditioning by inverting the Laplacian: an analysis of the eigenvalues
+393093,10444166,2006,An observation on Korn's inequality for nonconforming finite element methods
+397038,436472,2002,Multigrid block preconditioning for a coupled system of partial differential equations modeling the electrical activity in the heart
+423074,10444021,2004,Uniform preconditioners for the time dependent Stokes problem
+436177,10444015,2002,A robust finite element method for Darcy-Stokes flow
+442107,10444016,2002,Penalty and front-fixing methods for the numerical solution of American option problems
+442469,10444096,1992,Instability of Buckley-Leverett flow in heterogenuous media
+442472,10444092,1992,RILU-preconditioning; A computational study
+442474,10444091,1993,Box-splines; A computational study
+447259,447444,1999,On the zero relaxation limit for a system modeling the motions of a viscoelastic solid
+500989,343812;667699,2009,Numerical solution of the bidomain equations
+532074,10444192,2010,Mixed finite element methods for linear viscoelasticity using weak symmetry
+667979,10444189,2010,CSF Flow Dynamics at the Craniovertebral Junction Studied with an Idealized Model of the Subarachnoid Space and Computational Flow Analysis
+761652,760032,2007,Laminar population analysis: Estimating firing rates and evoked synaptic activity from multielectrode recordings in rat barrel cortex
+848293,532434,2011,Order Optimal Preconditioners for Fully Implicit Runge-Kutta Schemes Applied to the Bidomain Equations
+849313,10444070,2011,Unstable eigenmodes are possible drivers for cardiac arrhythmias
+859907,10444193,2011,DEFINING CANDIDATE DRUG CHARACTERISTICS FOR LONG-QT (LQT3) SYNDROME
+863400,10444065,2011,Effect of Tonsillar Herniation on Cyclic CSF Flow Studied with Computational Flow Analysis
+873457,10444068,2011,Flow characteristics in a canine aneurysm model: A comparison of 4D accelerated phase-contrast MR measurements and computational fluid dynamics simulations
+929647,10444076,2012,Note on a Possible Proarrhythmic Property of Antiarrhythmic Drugs Aimed at Improving Gap-Junction Coupling
+999042,10444602,2012,A comparison of finite element schemes for the incompressible Navier–Stokes equations
+1039167,10444013,2013,Analysis of the Minimal Residual Method Applied to Ill Posed Optimality Systems
+1315208,10444991,2016,Transitional flow in intracranial aneurysms - A space and time refinement study below the Kolmogorov scales using Lattice Boltzmann Method
+1367550,10444985,2016,Adjoint multi-start-based estimation of cardiac hyperelastic material parameters using shear data
+1388764,10445168,2016,Cerebrospinal fluid flow in adults
+1433123,10445169,2017,Direct numerical simulation of transitional hydrodynamcis of the cerebrospinal fluid in Chiari I malformation: The role of cranio-vertebral junction
+1479389,10445451,2017,Robustness of common hemodynamic indicators with respect to numerical resolution in 38 middle cerebral artery aneurysms
+1503524,10445447,2017,A cell-based framework for numerical modeling of electrical conduction in cardiac tissue
+1528984,10445144;10446704,2017,High-resolution data assimilation of cardiac mechanics applied to a dyssynchronous ventricle
+1633947,2000771,2018,Self-Powered IoT Device for Indoor Applications
+1636854,10445793,2018,Magnitude and direction of aqueductal cerebrospinal fluid flow: large variations in patients with intracranial aneurysms with or without a previous subarachnoid hemorrhage
+1679366,1632058,2019,Artificial neural networks trained through deep reinforcement learning discover control strategies for active flow control
+1805264,10445973,2020,Dynamics of a neuron-glia system: the occurrence of seizures and the influence of electroconvulsive stimuli
+1871142,1879826,2021,RippleNet: a Recurrent Neural Network for Sharp Wave Ripple (SPW-R) Detection
+1910158,10445985,2021,"Accurate discretization of poroelasticity without Darcy stability --
+
+Stokes–Biot stability revisited"
+1922896,1773836,2021,Fast Decentralized Linear Functions Via Successive Graph Shift Operators
+1974278,10446237,2021,Quantization Analysis and Robust Design for Distributed Graph Filters
+2013207,1859730,2019,Design and implementation of a long-range low-power wake-up radio and customized DC-MAC protocol for LoRaWAN
+2013208,1859732,2019,Phase-noise Impact on the Performance of mmWave-radars
+2039942,10446249,2022,ROBUST PRECONDITIONING AND ERROR ESTIMATES FOR OPTIMAL CONTROL OF THE CONVECTION-DIFFUSION-REACTION EQUATION WITH LIMITED OBSERVATION IN ISOGEOMETRIC ANALYSIS
+2040383,10446081,2022,"Mathematical Modeling of the Human Brain - 
+From Magnetic Resonance Images to Finite Element Simulation"
+2062561,1981807;10446142,2022,Validating a Computational Framework for Ionic Electrodiffusion with Cortical Spreading Depression as a Case Study
+2075640,10446292,2022,Resource Allocation for Underlay Interfering D2D Networks With Multiantenna and Imperfect CSI
+2161289,10446788,2023,Exploring New Electroencephalogram Parameters in Electroconvulsive Therapy
+2163300,10446528,2023,A posteriori error estimation and adaptivity for multiple-network poroelasticity
+2195180,10446917,2023,Coherently remapping toroidal cells but not Grid cells are responsible for path integration in virtual agents
+2292825,10446531,2024,THE ROLE OF CLEARANCE IN NEURODEGENERATIVE DISEASES
+2375512,10447145,2025,U-Net-Based Prediction of Cerebrospinal Fluid Distribution and Ventricular Reflux Grading
+10345367,2080845,2025,Isometric representations in neural networks improve robustness
+10348070,10447144,2026,A robust and time-parallel preconditioner for parabolic reconstruction problems using Isogeometric analysis
+10427852,10446772,2025,From brain physiology to brain physics
+10444019,432811,2003,Mathematical Models and Numerical Methods for the Forward Problem in Cardiac Electrophysiology
+10444162,442507,1997,On the Rate of Convergence to Equilibrium for a System of Conservation Laws Including a Relaxation Term
+10444168,61500,2006,Preconditioning of Fully Implicit Runge-Kutta Schemes for Parabolic PDEs
+10445961,10446708,2021,A cell-based model for ionic electrodiffusion in excitable tissue
+10446028,1848938,2021,Iterative Solvers for EMI Models
+10446029,1848939,2021,Improving Neural Simulations with the EMI Model
+10446030,1848937,2021,Solving the EMI Equations using Finite Element Methods
+10446705,10445834,2021,Abstractions and Automated Algorithms for Mixed Domain Finite Element Methods

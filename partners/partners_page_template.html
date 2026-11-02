@@ -1,0 +1,687 @@
+<title>Digital Neurotechnology Partnerships</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; map with a country list beside it, partner types and projects below. Same language as "Who publishes with whom". */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #141820;
+  --ink-2: #4a5260;
+  --muted: #6b7380;
+  --line: #dfe3e9;
+  --land: #e8ecf1;
+  --land-edge: #d3d9e1;
+  --soft: #f0f3f7;
+  /* partner groups on the map */
+  --uni: #2a78d6;
+  --hosp: #eb6834;
+  --other: #1baf7a;
+  /* funders on the project timeline */
+  --f-rcn: #6250d6;
+  --f-eu: #eda100;
+  --f-found: #e87ba4;
+  --f-other: #9aa3ae;
+  --today: #141820;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+    --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
+    --uni: #3987e5; --hosp: #d95926; --other: #199e70;
+    --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+  --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
+  --uni: #3987e5; --hosp: #d95926; --other: #199e70;
+  --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body); }
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid; gap: 48px;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 2.1rem; line-height: 1.15; }
+h2 { font-size: 1.4rem; line-height: 1.25; }
+h3 { font-size: 1.05rem; line-height: 1.3; }
+p { margin: 0; }
+a { color: var(--uni); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--uni); outline-offset: 2px; }
+.eyebrow { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { max-width: 65ch; color: var(--ink-2); }
+header { display: grid; gap: 12px; }
+.draft { justify-self: start; font-size: 0.82rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.84rem; color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.seg button { font: 500 0.8rem var(--font-body); background: none; border: 0; padding: 5px 11px; color: var(--ink-2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--soft); color: var(--ink); }
+
+.facts { display: flex; flex-wrap: wrap; gap: 8px 32px; }
+.fact { display: grid; gap: 2px; }
+.fact b { font: 600 1.6rem/1.1 var(--font-display); }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+section { display: grid; gap: 16px; }
+.section-head { display: grid; gap: 6px; }
+.section-head p { max-width: 65ch; color: var(--ink-2); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.sq { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+
+/* Map */
+.map-layout { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .map-layout { grid-template-columns: minmax(0, 1fr); } }
+.map-card { padding: 12px; display: grid; gap: 8px; position: relative; min-width: 0; }
+.map-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; padding: 0 4px; }
+#map { display: block; width: 100%; height: auto; }
+#map .land { fill: var(--land); stroke: var(--land-edge); stroke-width: 0.5; }
+#map .home { fill: var(--soft); stroke: var(--muted); stroke-width: 0.8; }
+#map circle { stroke: var(--surface); stroke-width: 1; fill-opacity: 0.85; cursor: pointer; }
+#map circle.uni { fill: var(--uni); }
+#map circle.hosp { fill: var(--hosp); }
+#map circle.other { fill: var(--other); }
+#map circle:hover { fill-opacity: 1; stroke: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; line-height: 1.4; padding: 8px 10px; border-radius: 6px; max-width: 280px; transform: translate(-50%, calc(-100% - 10px)); z-index: 2; }
+.tip b { font-weight: 600; }
+.list-card { padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.bars { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.bars li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) 3.2rem; gap: 10px; align-items: center; font-size: 0.86rem; }
+.bars .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bars .track { display: block; height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
+.bars .fill { display: block; height: 100%; border-radius: 4px; background: var(--ink-2); }
+.bars .n { font: 500 0.8rem var(--font-data); text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.note { font-size: 0.8rem; color: var(--muted); }
+
+/* Partner types and tables */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th { text-align: left; font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.n { font: 500 0.8rem var(--font-data); text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+th.n { text-align: right; }
+td .sub { color: var(--muted); font-size: 0.8rem; }
+tr:last-child td { border-bottom: 0; }
+tbody tr.clickable { cursor: pointer; }
+tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--soft); }
+.inst-card { padding: 18px; display: grid; gap: 12px; }
+.inst-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.inst-head .sub { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+.close { font: 500 0.8rem var(--font-body); color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.papers { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.papers li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; font-size: 0.88rem; }
+.papers .yr { font: 500 0.8rem/1.6 var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+.papers .t { overflow-wrap: anywhere; }
+.papers .meta { color: var(--muted); font-size: 0.8rem; }
+.place-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip.ended { color: var(--muted); }
+
+/* Projects */
+.timeline-card { padding: 16px; display: grid; gap: 12px; }
+.timeline-wrap { overflow-x: auto; }
+#timeline { display: block; width: 100%; min-width: 640px; height: auto; }
+#timeline .axis text { font: 400 11px var(--font-data); fill: var(--muted); }
+#timeline .grid line { stroke: var(--line); }
+#timeline .label { font: 500 12.5px var(--font-body); fill: var(--ink); }
+#timeline .who { font: 400 11.5px var(--font-body); fill: var(--muted); }
+#timeline .bar { cursor: pointer; }
+#timeline .bar rect { rx: 4; }
+#timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
+#timeline .today line { stroke: var(--today); stroke-dasharray: 3 3; }
+#timeline .today text { font: 500 11px var(--font-data); fill: var(--ink); }
+.undated { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.86rem; color: var(--ink-2); }
+.chip { font: 500 0.82rem var(--font-body); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.details { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 0.9rem; }
+.details dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
+.details dt { color: var(--muted); font-size: 0.82rem; }
+.details dd { margin: 0; overflow-wrap: anywhere; }
+.pill { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--ink-2); }
+
+.method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
+.method h2 { font-size: 1.1rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">Centre for Digital Neurotechnology · Simula</div>
+    <h1>Who we work with</h1>
+    <p class="lede">The centre's investigators publish with researchers at universities, hospitals and research institutes in Norway and abroad, and run projects funded by the Research Council of Norway, the European Union and private foundations.</p>
+    <p class="draft">Draft for review. The data has not yet been checked by the investigators.</p>
+    <div class="controls">
+      <span id="period-label">Publications from:</span>
+      <div class="seg" role="group" aria-labelledby="period-label" id="period"></div>
+    </div>
+    <div class="controls">
+      <span id="field-label">Co-authors in:</span>
+      <div class="seg" role="group" aria-labelledby="field-label" id="field"></div>
+    </div>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Where our co-authors are</h2>
+      <p>Each circle is a city with institutions where the centre's investigators have co-authors. Larger circles mean more joint publications. Select a circle, or an institution in the tables below, to see the publications.</p>
+    </div>
+    <div class="map-layout">
+      <div class="card map-card" id="map-card">
+        <div class="map-top">
+          <div class="legend">
+            <span><i class="dot" style="background:var(--uni)"></i>Universities</span>
+            <span><i class="dot" style="background:var(--hosp)"></i>Hospitals</span>
+            <span><i class="dot" style="background:var(--other)"></i>Institutes and others</span>
+          </div>
+          <div class="seg" role="group" aria-label="Map area" id="zoom"></div>
+        </div>
+        <svg id="map" viewBox="0 0 960 500" role="img" aria-label="Map of collaborating institutions"></svg>
+      </div>
+      <div class="card list-card">
+        <h3>Countries</h3>
+        <p class="note">Collaborating institutions per country.</p>
+        <ul class="bars" id="countries"></ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="card inst-card" id="inst-details" hidden aria-live="polite"></div>
+
+  <section>
+    <div class="section-head">
+      <h2>Who we collaborate with</h2>
+      <p>Institutions where the centre's investigators have co-authors, by kind. Members of the Simula Group, and the investigators' own other affiliations, are not counted.</p>
+    </div>
+    <div class="card list-card">
+      <h3>Collaborations by field</h3>
+      <p class="note">Each co-author is placed in a field by their department on the paper (or, if that says nothing, the field of their own research). Bars count collaborating institutions with co-authors in each field; an institution can count in several fields. Use "Co-authors in" at the top to show one field only.</p>
+      <ul class="bars" id="fields"></ul>
+    </div>
+    <div class="two">
+      <div class="card list-card">
+        <h3>Kinds of institution</h3>
+        <p class="note">Number of collaborating institutions of each kind.</p>
+        <ul class="bars" id="kinds"></ul>
+      </div>
+      <div class="card list-card">
+        <h3>Clinical collaborators</h3>
+        <p class="note">Hospitals and health trusts, by joint publications in the period: publications with at least one co-author at the hospital. Select a row to see them.</p>
+        <div class="table-wrap"><table id="hospitals"></table></div>
+      </div>
+    </div>
+    <div class="card list-card">
+      <h3>Leading collaborating institutions</h3>
+      <p class="note">The 15 institutions with most joint publications. A publication counts once for each institution its co-authors are at, so the numbers overlap. Investigators lists up to four centre investigators on these publications. Select a row to see them.</p>
+      <div class="table-wrap"><table id="leading"></table></div>
+    </div>
+    <div class="card list-card">
+      <h3>Project partners</h3>
+      <p class="note">Institutions that are partners on the centre's projects, from Simula's project pages and the NVA project register. These are formal project partnerships, separate from the co-authorship counts above. Select a project to see it in the timeline.</p>
+      <div class="table-wrap"><table id="project-partners"></table></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p>Research projects with the centre's investigators that started in 2016 or later, coloured by main funder. Select a project for details.</p>
+      <p class="note" id="rcn-summary"></p>
+    </div>
+    <div class="card timeline-card">
+      <div class="map-top">
+        <div class="legend" id="funder-legend"></div>
+        <div class="seg" role="group" aria-label="Which projects" id="project-view"></div>
+      </div>
+      <div class="timeline-wrap"><svg id="timeline" role="img" aria-label="Project timeline"></svg></div>
+      <div class="undated" id="undated"></div>
+      <div class="details" id="details" hidden></div>
+    </div>
+  </section>
+
+  <section class="method">
+    <h2>How this was made</h2>
+    <p>Co-authors and their institutions come from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, looked up by DOI for the investigators' publications in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv). Publications without a DOI, mostly older ones, are not included. Collaborating institutions are the co-authors' institutions. Members of the Simula Group, and the investigators' own other affiliations on their papers (such as a professorship at a university), are not counted.</p>
+    <p>Projects come from Simula's project pages and the NVA project register, selected and checked by hand. Funders are shown as listed on the project pages.</p>
+    <p id="coverage"></p>
+    <p id="generated"></p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+const DATA = __DATA__;
+const WORLD = __WORLD__;
+
+const LAST_YEAR = +DATA.generated.slice(0, 4);
+const PERIODS = [["2024", "Since 2024", 2024], ["2021", "Since 2021", 2021]];
+const GROUP = { Universities: "uni", Hospitals: "hosp" };
+// Clinical collaborations need at least this many joint publications
+const MIN_CLINICAL = 1;
+const FUNDERS = [
+  ["Research Council of Norway", "--f-rcn"],
+  ["European Union", "--f-eu"],
+  ["Foundations", "--f-found"],
+  ["Other", "--f-other"],
+];
+const countryName = (() => {
+  try { const d = new Intl.DisplayNames(["en"], { type: "region" }); return c => (c ? d.of(c) : "Unknown"); }
+  catch (e) { return c => c || "Unknown"; }
+})();
+const surname = n => n.split(" ").slice(-1)[0];
+const state = { period: "2021", field: "all", zoom: "world", projects: "active", selected: null, institution: null };
+const FIELD_SHORT = { math: "maths & technology", basic: "experimental & basic medicine", clinical: "clinical medicine", unclassified: "unclassified" };
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "text") e.textContent = v; else e.setAttribute(k, v); }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function segmented(container, options, key, onChange) {
+  for (const [value, label] of options) {
+    const b = el("button", { type: "button", "aria-pressed": String(state[key] === value), text: label }, container);
+    b.addEventListener("click", () => {
+      state[key] = value;
+      for (const x of container.children) x.setAttribute("aria-pressed", String(x === b));
+      onChange();
+    });
+  }
+}
+
+// Partner institutions within the selected period
+function partners() {
+  const from = PERIODS.find(p => p[0] === state.period)[2];
+  return DATA.institutions
+    .filter(i => !i.own)
+    .map(i => {
+      const keep = i.pubs
+        .map((k, j) => [k, i.coauthors[j].filter(([, g]) => state.field === "all" || g === state.field)])
+        .filter(([k, who]) => (DATA.publications[k].year || 0) >= from && who.length);
+      return { ...i, n: keep.length, inPeriod: keep.map(x => x[0]), who: new Map(keep) };
+    })
+    .filter(i => i.n > 0)
+    .sort((a, b) => b.n - a.n || a.name.localeCompare(b.name));
+}
+function investigatorsOf(inst) {
+  const counts = new Map();
+  for (const k of inst.inPeriod) for (const j of DATA.publications[k].inv) counts.set(j, (counts.get(j) || 0) + 1);
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).map(([j]) => surname(DATA.investigators[j]));
+}
+
+// Publications of one institution, or the institutions in one place
+const details = document.getElementById("inst-details");
+const periodLabel = () => PERIODS.find(p => p[0] === state.period)[1].toLowerCase();
+function detailHead(title, sub) {
+  details.replaceChildren();
+  details.hidden = false;
+  const head = el("div", { class: "inst-head" }, details);
+  const left = el("div", {}, head);
+  el("h3", { text: title }, left);
+  el("div", { class: "sub", text: sub }, left);
+  const close = el("button", { type: "button", class: "close", text: "Close" }, head);
+  close.addEventListener("click", () => { details.hidden = true; state.institution = null; });
+}
+function showInstitution(name, scroll = true) {
+  const i = partners().find(x => x.name === name);
+  if (!i) { details.hidden = true; state.institution = null; return; }
+  state.institution = name;
+  detailHead(i.name, `${i.type} · ${i.city ? i.city + ", " : ""}${countryName(i.country)} · ${i.n} joint publication${i.n === 1 ? "" : "s"} ${periodLabel()}`);
+  const ul = el("ul", { class: "papers" }, details);
+  const order = i.inPeriod.slice().sort((a, b) => (DATA.publications[b].year || 0) - (DATA.publications[a].year || 0));
+  for (const k of order) {
+    const pub = DATA.publications[k];
+    const li = el("li", {}, ul);
+    el("span", { class: "yr", text: pub.year || "" }, li);
+    const body = el("div", {}, li);
+    const t = el("div", { class: "t" }, body);
+    if (pub.url) el("a", { href: pub.url, target: "_blank", rel: "noopener", text: pub.title }, t); else t.textContent = pub.title;
+    const inv = pub.inv.map(j => DATA.investigators[j]).join(", ");
+    const who = i.who.get(k).map(([name, g]) => `${name} (${FIELD_SHORT[g]})`).join(", ");
+    el("div", { class: "meta", text: `Investigators: ${inv} · Co-authors at this institution: ${who}` }, body);
+  }
+  if (scroll) details.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function showPlace(place) {
+  if (place.insts.length === 1) return showInstitution(place.insts[0].name);
+  state.institution = null;
+  detailHead(`${place.city}, ${countryName(place.country)}`, `${place.insts.length} institutions · ${place.pubs.size} joint publications ${periodLabel()}. Select one to see its publications.`);
+  const box = el("div", { class: "place-list" }, details);
+  for (const i of place.insts.slice().sort((a, b) => b.n - a.n)) {
+    const b = el("button", { type: "button", class: "chip", text: `${i.name} (${i.n})` }, box);
+    b.addEventListener("click", () => showInstitution(i.name));
+  }
+  details.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Headline numbers
+function renderFacts(list) {
+  const facts = document.getElementById("facts");
+  facts.replaceChildren();
+  const active = DATA.projects.filter(p => p.status === "active").length;
+  const items = [
+    [list.length, "collaborating institutions"],
+    [new Set(list.map(i => i.country)).size, "countries"],
+    [list.filter(i => i.type === "Hospitals" && i.n >= MIN_CLINICAL).length, "hospitals"],
+    [active, "active projects"],
+  ];
+  for (const [v, label] of items) {
+    const f = el("div", { class: "fact" }, facts);
+    el("b", { text: v }, f); el("span", { text: label }, f);
+  }
+}
+
+// Map
+const svg = d3.select("#map");
+const W = 960, H = 500;
+const land = topojson.feature(WORLD, WORLD.objects.countries);
+const mapCard = document.getElementById("map-card");
+const tip = el("div", { class: "tip", hidden: "" }, mapCard);
+const gLand = svg.append("g"), gDots = svg.append("g");
+function renderMap(list) {
+  const projection = d3.geoEqualEarth();
+  if (state.zoom === "europe") {
+    projection.fitExtent([[10, 10], [W - 10, H - 10]], { type: "MultiPoint", coordinates: [[-11, 35], [32, 35], [-11, 70], [32, 70]] });
+  } else {
+    projection.fitExtent([[10, 10], [W - 10, H - 10]], { type: "Sphere" });
+  }
+  const path = d3.geoPath(projection);
+  gLand.selectAll("path").data(land.features).join("path")
+    .attr("class", d => (d.id === "578" ? "land home" : "land"))
+    .attr("d", path);
+
+  // One circle per city and group, larger ones drawn first
+  const byPlace = new Map();
+  for (const i of list) {
+    if (i.lat == null) continue;
+    const group = GROUP[i.type] || "other";
+    const key = `${i.city}|${i.country}|${group}`;
+    if (!byPlace.has(key)) byPlace.set(key, { city: i.city, country: i.country, group, lat: i.lat, lon: i.lon, insts: [], pubs: new Set() });
+    const place = byPlace.get(key);
+    place.insts.push(i);
+    for (const k of i.inPeriod) place.pubs.add(k);
+  }
+  const places = [...byPlace.values()].sort((a, b) => b.pubs.size - a.pubs.size);
+  const r = d3.scaleSqrt().domain([1, d3.max(places, p => p.pubs.size) || 1]).range([state.zoom === "europe" ? 3.5 : 2.5, state.zoom === "europe" ? 26 : 18]);
+  gDots.selectAll("circle").data(places, p => `${p.city}|${p.country}|${p.group}`).join("circle")
+    .attr("class", p => p.group)
+    .attr("cx", p => projection([p.lon, p.lat])[0])
+    .attr("cy", p => projection([p.lon, p.lat])[1])
+    .attr("r", p => r(p.pubs.size))
+    .attr("tabindex", 0)
+    .attr("aria-label", p => `${p.city}, ${countryName(p.country)}: ${p.pubs.size} publications`)
+    .on("mouseenter focus", (event, p) => {
+      tip.replaceChildren();
+      el("b", { text: `${p.city}, ${countryName(p.country)}` }, tip);
+      el("div", { text: `${p.pubs.size} joint publication${p.pubs.size === 1 ? "" : "s"}` }, tip);
+      for (const i of p.insts.slice().sort((a, b) => b.n - a.n).slice(0, 6)) el("div", { text: `${i.name} (${i.n})` }, tip);
+      if (p.insts.length > 6) el("div", { text: `and ${p.insts.length - 6} more` }, tip);
+      const box = document.getElementById("map").getBoundingClientRect(), card = mapCard.getBoundingClientRect(), k = box.width / W;
+      const [x, y] = projection([p.lon, p.lat]);
+      tip.style.left = `${box.left - card.left + x * k}px`;
+      tip.style.top = `${box.top - card.top + (y - r(p.pubs.size)) * k}px`;
+      tip.hidden = false;
+    })
+    .on("mouseleave blur", () => { tip.hidden = true; })
+    .on("click", (event, p) => showPlace(p))
+    .on("keydown", (event, p) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); showPlace(p); } });
+}
+
+// Country list
+function bars(ul, rows, colorVar) {
+  ul.replaceChildren();
+  const max = Math.max(1, ...rows.map(r => r[1]));
+  for (const [label, n] of rows) {
+    const li = el("li", {}, ul);
+    el("span", { class: "name", text: label, title: label }, li);
+    const track = el("span", { class: "track" }, li);
+    const fill = el("span", { class: "fill" }, track);
+    fill.style.width = `${(100 * n) / max}%`;
+    if (colorVar) fill.style.background = `var(${colorVar})`;
+    el("span", { class: "n", text: n }, li);
+  }
+}
+function renderCountries(list) {
+  const counts = d3.rollups(list, v => v.length, i => i.country).sort((a, b) => b[1] - a[1]);
+  const rows = counts.slice(0, 14).map(([c, n]) => [countryName(c), n]);
+  if (counts.length > 14) rows.push([`${counts.length - 14} more countries`, d3.sum(counts.slice(14), d => d[1])]);
+  bars(document.getElementById("countries"), rows);
+}
+
+// Partner kinds and tables
+function renderKinds(list) {
+  const order = ["Universities", "Hospitals", "Research institutes", "Companies", "Non-profits", "Government", "Other"];
+  const counts = d3.rollup(list, v => v.length, i => i.type);
+  bars(document.getElementById("kinds"), order.filter(t => counts.get(t)).map(t => [t, counts.get(t)]));
+}
+function table(id, headers, rows, names) {
+  const t = document.getElementById(id);
+  t.replaceChildren();
+  const tr = el("tr", {}, el("thead", {}, t));
+  for (const [h, cls] of headers) el("th", { text: h, class: cls || "" }, tr);
+  const tbody = el("tbody", {}, t);
+  rows.forEach((cells, n) => {
+    const r = el("tr", { class: "clickable", tabindex: 0 }, tbody);
+    r.addEventListener("click", () => showInstitution(names[n]));
+    r.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showInstitution(names[n]); } });
+    cells.forEach(([main, sub, cls]) => {
+      const td = el("td", { class: cls || "" }, r);
+      el("div", { text: main }, td);
+      if (sub) el("div", { class: "sub", text: sub }, td);
+    });
+  });
+}
+function renderTables(list) {
+  const hospitals = list.filter(i => i.type === "Hospitals" && i.n >= MIN_CLINICAL);
+  table("hospitals", [["Hospital"], ["Joint publications", "n"]],
+    hospitals.map(i => [[i.name, `${i.city ? i.city + ", " : ""}${countryName(i.country)}`], [i.n, "", "n"]]), hospitals.map(i => i.name));
+  const leading = list.slice(0, 15);
+  table("leading", [["Institution"], ["Kind"], ["Investigators"], ["Joint publications", "n"]],
+    leading.map(i => [
+      [i.name, `${i.city ? i.city + ", " : ""}${countryName(i.country)}`],
+      [i.type],
+      [investigatorsOf(i).slice(0, 4).join(", ")],
+      [i.n, "", "n"],
+    ]), leading.map(i => i.name));
+}
+
+// Projects timeline
+const funderColor = g => `var(${(FUNDERS.find(f => f[0] === g) || FUNDERS[3])[1]})`;
+const legend = document.getElementById("funder-legend");
+for (const [name, color] of FUNDERS) {
+  const s = el("span", {}, legend);
+  const sw = el("i", { class: "sq" }, s); sw.style.background = `var(${color})`;
+  s.append(name);
+}
+function renderProjects() {
+  const today = LAST_YEAR + (new Date(DATA.generated).getMonth() + 1) / 12;
+  const shown = DATA.projects.filter(p => state.projects === "all" || p.status !== "ended");
+  const dated = shown.filter(p => p.start != null).sort((a, b) => a.start - b.start || (a.end ?? today) - (b.end ?? today));
+  const undated = shown.filter(p => p.start == null);
+  const svgT = d3.select("#timeline");
+  svgT.selectAll("*").remove();
+  const L = 200, R = 190, T = 26, row = 30, B = 24;
+  const Wt = 960, Ht = T + dated.length * row + B;
+  svgT.attr("viewBox", `0 0 ${Wt} ${Ht}`);
+  const x0 = Math.floor(Math.min(today - 1, ...dated.map(p => p.start)));
+  const x1 = Math.ceil(Math.max(today + 1, ...dated.map(p => p.end ?? today)));
+  const x = d3.scaleLinear().domain([x0, x1]).range([L, Wt - R]);
+  const step = x1 - x0 > 12 ? 2 : 1;
+  const ticks = d3.range(Math.ceil(x0 / step) * step, x1 + 1, step);
+  const grid = svgT.append("g").attr("class", "grid");
+  const axis = svgT.append("g").attr("class", "axis");
+  for (const t of ticks) {
+    grid.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", T - 6).attr("y2", Ht - B);
+    axis.append("text").attr("x", x(t)).attr("y", 14).attr("text-anchor", "middle").text(t);
+  }
+  dated.forEach((p, i) => {
+    const y = T + i * row;
+    const g = svgT.append("g").attr("class", "bar").attr("tabindex", 0).attr("role", "button")
+      .attr("aria-label", `${p.title}, ${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
+    g.append("text").attr("class", "label").attr("x", L - 10).attr("y", y + 16).attr("text-anchor", "end").text(p.short.length > 28 ? p.short.slice(0, 27) + "…" : p.short);
+    const end = p.end ?? today;
+    g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
+      .attr("fill", funderColor(p.funderGroup));
+    const who = p.investigators.map(surname).join(", ");
+    g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16).text(p.end == null ? `ongoing · ${who}` : who);
+    g.append("title").text(`${p.title} · ${p.funders.join(", ") || "funder not listed"}`);
+    g.on("click", () => select(p)).on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p); } });
+    if (state.selected === p.title) g.classed("on", true);
+  });
+  const t = svgT.append("g").attr("class", "today");
+  t.append("line").attr("x1", x(today)).attr("x2", x(today)).attr("y1", T - 6).attr("y2", Ht - B + 4);
+  t.append("text").attr("x", x(today)).attr("y", Ht - 8).attr("text-anchor", "middle").text("Today");
+
+  const und = document.getElementById("undated");
+  und.replaceChildren();
+  if (undated.length) {
+    el("span", { text: "Ongoing, dates not listed:" }, und);
+    for (const p of undated) {
+      const c = el("button", { type: "button", class: "chip" }, und);
+      const sw = el("i", { class: "sq" }, c); sw.style.background = funderColor(p.funderGroup);
+      c.append(p.short);
+      c.addEventListener("click", () => select(p));
+    }
+  }
+}
+function select(p) {
+  state.selected = p.title;
+  renderProjects();
+  const d = document.getElementById("details");
+  d.replaceChildren();
+  d.hidden = false;
+  const head = el("div", {}, d);
+  const a = el("a", { href: p.url, target: "_blank", rel: "noopener", text: p.title }, el("h3", {}, head));
+  a.style.color = "inherit";
+  const dl = el("dl", {}, d);
+  const row = (k, v) => { if (v) { el("dt", { text: k }, dl); el("dd", { text: v }, dl); } };
+  row("Status", p.status === "active" ? "Active" : p.status === "upcoming" ? "Starting soon" : "Ended");
+  row("Years", p.start == null ? "Not listed" : `${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
+  row("Investigators", p.investigators.join(", "));
+  row("Funding", [p.funders.join(", "), p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
+  row("Partners", p.partners.join(", "));
+  if (p.rcn) {
+    const r = p.rcn;
+    row("Research Council funding", [
+      r.funding ? `NOK ${(r.funding / 1e6).toFixed(1)} million for the whole project` : "Amount not yet listed",
+      [r.programmes.join(", "), r.scheme].filter(Boolean).join(" · "),
+    ].filter(Boolean).join(" · "));
+    if (!r.ledHere) row("Led by", `${r.lead}, ${r.institution}`);
+    if (r.effects) row("Results reported", r.effects);
+    const link = el("a", { href: `https://prosjektbanken.forskningsradet.no/project/FORISS/${r.grant}`, target: "_blank", rel: "noopener", text: `Project ${r.grant} in the Research Council's project bank` }, d);
+    link.style.fontSize = "0.85rem";
+  }
+}
+
+function renderFields() {
+  const saved = state.field;
+  state.field = "all";
+  const list = partners();
+  state.field = saved;
+  const rows = ["math", "basic", "clinical", "unclassified"].map(g => {
+    const insts = list.filter(i => i.inPeriod.some(k => i.who.get(k).some(([, x]) => x === g)));
+    const pubs = new Set(insts.flatMap(i => i.inPeriod.filter(k => i.who.get(k).some(([, x]) => x === g))));
+    return [`${DATA.fields[g]} · ${pubs.size} joint publications`, insts.length];
+  }).filter(r => r[1] > 0);
+  bars(document.getElementById("fields"), rows);
+}
+
+function renderCoverage(list) {
+  const from = PERIODS.find(p => p[0] === state.period)[2];
+  const inPeriod = DATA.publications.filter(p => (p.year || 0) >= from).length;
+  const withPartner = new Set(list.flatMap(i => i.inPeriod)).size;
+  const field = state.field === "all" ? "" : ` in ${FIELD_SHORT[state.field]}`;
+  document.getElementById("coverage").textContent =
+    `Only publications relevant to the centre are used: core mathematical, computational and technological research, and methods work with a physiological application (${DATA.relevance.used} of the ${DATA.relevance.total} publications found in OpenAlex). ` +
+    `${periodLabel()[0].toUpperCase() + periodLabel().slice(1)}, ${inPeriod} of these were published, and ${withPartner} of them have at least one co-author${field} at a collaborating institution. ` +
+    (state.field === "all"
+      ? "The others are by centre investigators only, or with colleagues in the Simula Group."
+      : "The others have no co-authors in this field outside the Simula Group.");
+}
+
+// Institutions that are partners on projects, with their projects
+function renderProjectPartners() {
+  const byInstitution = new Map();
+  for (const p of DATA.projects) {
+    for (const name of p.partners) {
+      if (!byInstitution.has(name)) byInstitution.set(name, []);
+      byInstitution.get(name).push(p);
+    }
+  }
+  const rows = [...byInstitution.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+  const t = document.getElementById("project-partners");
+  t.replaceChildren();
+  const hr = el("tr", {}, el("thead", {}, t));
+  el("th", { text: "Institution" }, hr);
+  el("th", { text: "Projects" }, hr);
+  const tbody = el("tbody", {}, t);
+  for (const [name, projects] of rows) {
+    const tr = el("tr", {}, tbody);
+    el("td", { text: name }, tr);
+    const chips = el("div", { class: "chips" }, el("td", {}, tr));
+    for (const p of projects.sort((a, b) => (a.status === "ended") - (b.status === "ended") || a.short.localeCompare(b.short))) {
+      const c = el("button", { type: "button", class: `chip${p.status === "ended" ? " ended" : ""}`, text: p.status === "ended" ? `${p.short} (ended)` : p.short }, chips);
+      c.addEventListener("click", () => {
+        if (p.status === "ended" && state.projects !== "all") {
+          state.projects = "all";
+          for (const b of document.getElementById("project-view").children) b.setAttribute("aria-pressed", String(b.textContent !== "Active"));
+        }
+        select(p);
+        document.getElementById("details").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
+  }
+}
+
+// Research Council of Norway funding to projects led at Simula
+function renderRcnSummary() {
+  const rcnProjects = DATA.projects.filter(p => p.funderGroup === "Research Council of Norway");
+  const counted = rcnProjects.filter(p => p.rcn && p.rcn.ledHere && p.rcn.funding);
+  const total = counted.reduce((n, p) => n + p.rcn.funding, 0);
+  const rest = rcnProjects.length - counted.length;
+  document.getElementById("rcn-summary").textContent = counted.length
+    ? `Research Council of Norway funding listed in its project bank for projects led at Simula: NOK ${(total / 1e6).toFixed(1)} million (${counted.map(p => p.short).join(", ")}). ` +
+      `Amounts for the other ${rest} Research Council project${rest === 1 ? "" : "s"} are not included: some are new or led elsewhere, and some grant numbers are still missing.`
+    : "";
+}
+
+function renderAll() {
+  const list = partners();
+  renderFields();
+  renderCoverage(list);
+  renderFacts(list);
+  renderMap(list);
+  renderCountries(list);
+  renderKinds(list);
+  renderTables(list);
+  if (state.institution) showInstitution(state.institution, false);
+}
+segmented(document.getElementById("period"), PERIODS.map(p => [p[0], p[1]]), "period", renderAll);
+segmented(document.getElementById("field"), [["all", "All fields"], ["math", "Maths & technology"], ["basic", "Experimental & basic medicine"], ["clinical", "Clinical medicine"]], "field", renderAll);
+segmented(document.getElementById("zoom"), [["world", "World"], ["europe", "Europe"]], "zoom", () => renderMap(partners()));
+segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
+document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+renderAll();
+renderProjects();
+renderProjectPartners();
+renderRcnSummary();
+</script>

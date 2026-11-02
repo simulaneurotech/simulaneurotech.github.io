@@ -1,0 +1,3034 @@
+cristin_result_id,order,cristin_person_id,first_name,surname,institutions
+10505053,1,,Gaute,Johannessen,
+10505053,2,,Geert Roelof,van der Ploeg,7498
+10505053,3,1873486,Evrim,Acar,7498
+10505043,1,,Camilo,Rivera,
+10505043,2,,Jeremy E.,Cohen,11705901
+10505043,3,1873486,Evrim,Acar,7498
+10505043,4,,David,Hong,
+10504485,1,1873580,Christos,Chatzis,7498;215
+10504485,2,,David,Horner,10100065
+10504485,3,,Rasmus,Bro,10100065
+10504485,4,,Ann-Marie Malby,Schoos,10101907;10100065
+10504485,5,,Morten A,Rasmussen,10100065
+10504485,6,1873486,Evrim,Acar,20277
+10459781,1,1873614,Balázs,Erdős,7498
+10459781,2,1873580,Christos,Chatzis,215;7498
+10459781,3,,Jonathan,Thorsen,10100065
+10459781,4,,Jakob,Stokholm,10100065
+10459781,5,,Age K.,Smilde,12700076
+10459781,6,,Morten A.,Rasmussen,10100065
+10459781,7,1873486,Evrim,Acar,7498
+10447025,1,,Morten,Mørup,10100014
+10447025,2,1873486,Evrim,Acar,7498
+10447025,3,,Tulay,Adali,68400679
+10446763,1,1873580,Christos,Chatzis,215;20277
+10446763,2,,Max,Pfeffer,
+10446763,3,1068271,Pedro,Lind,
+10446763,4,1873486,Evrim,Acar,7498
+10446676,1,390618,Lu,Li,7498
+10446676,2,8873,Shi,Yan,
+10446676,3,,David,Horner,
+10446676,4,852071,Morten,Rasmussen,
+10446676,5,,Age K.,Smilde,7498;12700076
+10446676,6,1873486,Evrim,Acar,7498
+10446640,1,8873,Shi,Yan,20277
+10446640,2,390618,Lu,Li,20277
+10446640,3,,David,Horner,
+10446640,4,,Parvaneh,Ebrahimi,
+10446640,5,,Bo,Chawes,
+10446640,6,852071,Morten,Rasmussen,
+10446640,7,,Lars O,Dragsted,10100065
+10446640,8,,Age K.,Smilde,20277;12700076
+10446640,9,1873486,Evrim,Acar,7498
+10446639,1,390618,Lu,Li,20277
+10446639,2,8873,Shi,Yan,20277
+10446639,3,,Barbara,Bakker,
+10446639,4,,Huub,Hoefsloot,12700076
+10446639,5,,Bo,Chawes,
+10446639,6,,David,Horner,
+10446639,7,852071,Morten,Rasmussen,
+10446639,8,,Age K.,Smilde,
+10446639,9,1873486,Evrim,Acar,7498
+10446468,1,1172756,Carla,Schenker,215;20277
+10446468,2,,Xiulin,Wang,
+10446468,3,1873486,Evrim,Acar,7498
+10446268,1,,T.,Adali,
+10446268,2,1873486,Evrim,Ataman,
+10446239,1,,Isabell,Lehmann,
+10446239,2,1873486,Evrim,Acar,7498
+10446239,3,,T.,Hasija,
+10446239,4,,M.A.B.S.,Akhonda,
+10446239,5,,V. D.,Calhoun,
+10446239,6,,P. J.,Schreier,
+10446239,7,,Tulay,Adali,
+10446171,1,390618,Lu,Li,
+10446171,2,,Huub,Hoefsloot,
+10446171,3,1873486,Evrim,Ataman,
+10445978,1,1876886,Jose,Camacho,
+10445978,2,1873486,Evrim,Ataman,
+10445978,3,852071,Morten,Rasmussen,
+10445978,4,593536,Rasmus,Bro,
+10445965,1,,Giorgio,Tomasi,
+10445965,2,1873486,Evrim,Ataman,
+10445965,3,593536,Rasmus,Bro,
+10445965,4,333531,Steven,Brown,
+10445748,1,1873486,Evrim,Ataman,
+10445748,2,1172756,Carla,Schenker,
+10445748,3,,Yuri,Levin-Schwartz,
+10445658,1,1873486,Evrim,Ataman,
+10445658,2,,Gözde,Gürdeniz,
+10445658,3,1133544,Louise,Hansen,
+10445658,4,1021992,Anja,Olsen,
+10445658,5,593536,Rasmus,Bro,
+10445656,1,1873486,Evrim,Ataman,
+10445656,2,,Gozde,Gurdeniz,
+10445656,3,448881,Thomas,Larsen,
+10445655,1,,Urban,Wünsch,
+10445655,2,1873486,Evrim,Ataman,
+10425681,1,1172756,Carla,Schenker,7498
+10425681,2,,Xiulin,Wang,48400131
+10425681,3,,David,Horner,10101918
+10425681,4,,Morten A.,Rasmussen,10100065
+10425681,5,1873486,Evrim Acar,Ataman,7498
+10425521,1,,Lu,Li,7498;48400680
+10425521,2,,Huub,Hoefsloot,12700076
+10425521,3,,Barbara M.,Bakker,12701913
+10425521,4,,David,Horner,10101918
+10425521,5,,Morten A.,Rasmussen,10101918
+10425521,6,,Age K.,Smilde,12700076;7498
+10425521,7,1873486,Evrim Acar,Ataman,7498
+10423013,1,1873580,Christos,Chatzis,7498;215
+10423013,2,1172756,Carla,Schenker,7498
+10423013,3,,Max,Pfeffer,14400133
+10423013,4,1873486,Evrim Acar,Ataman,7498
+10346137,1,1873580,Christos,Chatzis,7498;215
+10346137,2,1172756,Carla,Schenker,7498
+10346137,3,,Jérémy E.,Cohen,11700576
+10346137,4,1873486,Evrim Acar,Ataman,7498
+10505457,1,1071323,Emilio Ruiz,Moreno,7498;201
+10505457,2,,"Slavakis,",Konstantinos,
+10505457,3,588528,Baltasar,Beferull-Lozano,7498;201;158
+10457559,1,,Chengen,Liu,12700069
+10457559,2,1154508,Rohan Thekkemarickal,Money,7498
+10457559,3,,Ting,Gao,12700069
+10457559,4,,Mohammad,Sabbaqi,12700069
+10457559,5,588528,Baltasar,Beferull-Lozano,7498
+10457559,6,,Elvin,Isufi,12700069
+10457556,1,1873615,Abdullah,Canbolat,7498
+10457556,2,1154508,Rohan Thekkemarickal,Money,7498
+10457556,3,588528,Baltasar,Beferull-Lozano,7498
+10446764,1,1154511,Joshin,Krishnan,
+10446764,2,1154508,Rohan,Money,7498
+10446764,3,588528,Baltasar,Beferull-Lozano,7498
+10446764,4,,Elvin,Isufi,
+10446292,1,901236,Mohamed,Elnourani,7498
+10446292,2,,Siddharth,Deskmukh,
+10446292,3,588528,Baltasar,Beferull-Lozano,7498
+10446237,1,836911,Leila Ben,Saad,
+10446237,2,588528,Baltasar,Beferull-Lozano,7498
+10446237,3,,Elvin,Isufi,
+10428900,1,1071323,Emilio Ruiz,Moreno,7498
+10428900,2,948529,Luis M.,Lopez-Ramos,7498
+10428900,3,588528,Baltasar,Beferull-Lozano,7498
+10427145,1,1071323,Emilio Ruiz,Moreno,7498
+10427145,2,588528,Baltasar,Beferull-Lozano,7498
+10427039,1,1873615,Abdullah,Canbolat,7498
+10427039,2,1154508,Rohan Thekkemarickal,Money,7498
+10427039,3,588528,Baltasar,Beferull-Lozano,7498
+10427037,1,1873615,Abdullah,Canbolat,7498
+10427037,2,1154508,Rohan Thekkemarickal,Money,7498
+10427037,3,588528,Baltasar,Beferull-Lozano,7498
+10425584,1,,Elvin,Isufi,12700069
+10425584,2,,Geert,Leus,12700069
+10425584,3,588528,Baltasar,Beferull-Lozano,7498
+10425584,4,,Sergio,Barbarossa,12300059
+10425584,5,,Paolo,Di Lorenzo,12300059
+10267477,1,1154510,Rahul Kumar,Jaiswal,201
+10267477,2,901236,Mohamed,Elnourani,7498
+10267477,3,1139855,Siddharth,Deshmukh,44400269
+10267477,4,588528,Baltasar,Beferull-Lozano,7498;201
+2292507,1,1326081,Ajay Nagendra,Nama,201
+2292507,2,588528,Baltasar,Beferull-Lozano,20277;201
+2292507,3,836911,Leila Ben,Saad,222
+2292507,4,29750,Jing,Zhou,201
+1740295,1,1074325,Anders,Frøytlog,201
+1740295,2,329215,Magne Arild,Haglund,201
+1740295,3,39740,Linga Reddy,Cenkeramaddi,201
+1740295,4,923453,Thomas,Jordbru,201
+1740295,5,1030334,Rolf Arne,Kjellby,201
+1740295,6,588528,Baltasar,Beferull-Lozano,201
+1740289,1,836911,Leila Ben,Saad,201
+1740289,2,588528,Baltasar,Beferull-Lozano,201
+1974522,1,1182528,Ravi,Sharan,201
+1974522,2,1139855,Siddharth,Deshmukh,201
+1974522,3,,Sibi Raj B.,Pillai,44400077
+1974522,4,588528,Baltasar,Beferull-Lozano,201
+1740306,1,1030334,Rolf Arne,Kjellby,201
+1740306,2,39740,Linga Reddy,Cenkeramaddi,201
+1740306,3,1074325,Anders,Frøytlog,201
+1740306,4,588528,Baltasar,Beferull-Lozano,201
+1740306,5,,J.,Soumya,44400000
+1740306,6,,Meghana,Bhange,44400223
+2199762,1,764401,Bakht,Zaman,7498;201
+2199762,2,948529,Luis M.,Lopez-Ramos,20277;201
+2199762,3,588528,Baltasar,Beferull-Lozano,20277;201
+2292504,1,1378652,Jayant,Singh,201
+2292504,2,29750,Jing,Zhou,201
+2292504,3,588528,Baltasar,Beferull-Lozano,201
+2292504,4,,Shijun,Yan,54800000
+2292504,5,,Shalman,Khan,54800000
+1829844,1,901236,Mohamed,Elnourani,201
+1829844,2,1139855,Siddharth,Deshmukh,201
+1829844,3,588528,Baltasar,Beferull-Lozano,201
+1829844,4,885612,Daniel,Romero,201
+1740246,1,901236,Mohamed,Elnourani,201
+1740246,2,588528,Baltasar,Beferull-Lozano,201
+1740246,3,885612,Daniel,Romero,201
+1740246,4,1139855,Siddharth,Deshmukh,201
+2197166,1,1378652,Jayant,Singh,201
+2197166,2,29750,Jing,Zhou,201
+2197166,3,588528,Baltasar,Beferull-Lozano,201
+2066095,1,1378652,Jayant,Singh,201
+2066095,2,29750,Jing,Zhou,201
+2066095,3,588528,Baltasar,Beferull-Lozano,201
+2066095,4,423285,Ilya,Tyapin,201
+1829852,1,901236,Mohamed,Elnourani,201
+1829852,2,1139855,Siddharth,Deshmukh,201
+1829852,3,588528,Baltasar,Beferull-Lozano,201
+1680560,1,1069118,Siavash Mollaebrahim,Ghari,201
+1680560,2,638568,César,Asensio-Marco,201
+1680560,3,885612,Daniel,Romero,201
+1680560,4,588528,Baltasar,Beferull-Lozano,201
+2052097,1,1154510,Rahul Kumar,Jaiswal,201
+2052097,2,1139855,Siddharth,Deshmukh,201
+2052097,3,901236,Mohamed,Elnourani,201
+2052097,4,588528,Baltasar,Beferull-Lozano,201
+2154534,1,1154508,Rohan Thekkemarickal,Money,201
+2154534,2,1154511,Joshin Parakkulangarayil,Krishnan,20277
+2154534,3,588528,Baltasar,Beferull-Lozano,20277;201
+2154534,4,,Elvin,Isufi,12700069
+1168916,1,,Cesar,Asensio-Marco,13700062
+1168916,2,588528,Baltasar,Beferull-Lozano,201
+1279972,1,,G,Tzagkarakis,11900000
+1279972,2,,G,Tsagkatakis,11900000
+1279972,3,661765,Daniel,Alonso,13700062
+1279972,4,638568,César,Asensio-Marco,13700062
+1279972,5,660590,Eugenio Celada,Funes,13700062
+1279972,6,,A,Panousopoulou,11900000
+1279972,7,,P.,Tsakalides,11900000
+1279972,8,588528,Baltasar,Beferull-Lozano,13700062;201
+1168912,1,,Eugenio,Celada-Funes,13700062
+1168912,2,588528,Baltasar,Beferull-Lozano,13700062;201
+1168920,1,,Cesar,Asensio-Marco,13700062
+1168920,2,,Daniel,Alonso-Román,13700062
+1168920,3,588528,Baltasar,Beferull-Lozano,201
+1928799,1,901236,Mohamed,Elnourani,201
+1928799,2,1139855,Siddharth,Deshmukh,44420068;201
+1928799,3,588528,Baltasar,Beferull-Lozano,201
+1873960,1,,Sanjeev,Sharma,44400000
+1873960,2,,Kuntal,Deka,44400060
+1873960,3,588528,Baltasar,Beferull-Lozano,201
+2056057,1,836911,Leila Ben,Saad,222
+2056057,2,1326081,Ajay Nagendra,Nama,201
+2056057,3,588528,Baltasar,Beferull-Lozano,7498;201
+1680902,1,948529,Luis M.,Lopez-Ramos,201
+1680902,2,885612,Daniel,Romero,201
+1680902,3,764401,Bakht,Zaman,201
+1680902,4,588528,Baltasar,Beferull-Lozano,201
+2052086,1,1154510,Rahul Kumar,Jaiswal,201
+2052086,2,901236,Mohamed,Elnourani,201
+2052086,3,1139855,Siddharth,Deshmukh,201
+2052086,4,588528,Baltasar,Beferull-Lozano,201
+1922896,1,1069118,Siavash Mollaebrahim,Ghari,201
+1922896,2,885612,Daniel,Romero,201
+1922896,3,588528,Baltasar,Beferull-Lozano,201
+2177554,1,1154510,Rahul Kumar,Jaiswal,201
+2177554,2,901236,Mohamed,Elnourani,201
+2177554,3,1139855,Siddharth,Deshmukh,44420068
+2177554,4,588528,Baltasar,Beferull-Lozano,20277;201
+1619683,1,836911,Leila Ben,Saad,201
+1619683,2,588528,Baltasar,Beferull-Lozano,201
+1619691,1,638568,César,Asensio-Marco,201
+1619691,2,588528,Baltasar,Beferull-Lozano,201
+1540041,1,836911,Leila Ben,Saad,201
+1540041,2,638568,César,Asensio-Marco,201
+1540041,3,588528,Baltasar,Beferull-Lozano,201
+2198931,1,1071323,Emilio Ruiz,Moreno,201
+2198931,2,588528,Baltasar,Beferull-Lozano,20277;201
+1619685,1,638568,César,Asensio-Marco,201
+1619685,2,588528,Baltasar,Beferull-Lozano,201
+1619689,1,764045,Mohamed,Hamid,201
+1619689,2,588528,Baltasar,Beferull-Lozano,201
+1739783,1,948644,Yves,Teganya,201
+1739783,2,885612,Daniel,Romero,201
+1739783,3,948529,Luis M.,Lopez-Ramos,201
+1739783,4,588528,Baltasar,Beferull-Lozano,201
+1405558,1,,Grigoris,Tsagkatakis,11900000
+1405558,2,588528,Baltasar,Beferull-Lozano,201
+1405558,3,,Panagiotis,Tsakalides,11900011
+1974169,1,836911,Leila Ben,Saad,201
+1974169,2,588528,Baltasar,Beferull-Lozano,201
+1334074,1,638568,César,Asensio-Marco,201
+1334074,2,661765,Daniel,Alonso,201
+1334074,3,588528,Baltasar,Beferull-Lozano,201
+1334083,1,661765,Daniel,Alonso,201
+1334083,2,638568,César,Asensio-Marco,201
+1334083,3,660590,Eugenio Celada,Funes,201
+1334083,4,588528,Baltasar,Beferull-Lozano,201
+1972436,1,1071328,Jyotirmoy,Bhardwaj,201
+1972436,2,1154511,Joshin Parakkulangarayil,Krishnan,201
+1972436,3,588528,Baltasar,Beferull-Lozano,201
+1681834,1,661765,Daniel,Alonso,201
+1681834,2,638568,César,Asensio-Marco,201
+1681834,3,588528,Baltasar,Beferull-Lozano,201
+1201498,1,638568,César,Asensio-Marco,13700062
+1201498,2,588528,Baltasar,Beferull-Lozano,201
+1773836,1,1069118,Siavash Mollaebrahim,Ghari,201
+1773836,2,885612,Daniel,Romero,201
+1773836,3,588528,Baltasar,Beferull-Lozano,201
+1184030,1,638568,César,Asensio-Marco,201
+1184030,2,588528,Baltasar,Beferull-Lozano,13700062;201
+2013207,1,1074325,Anders,Frøytlog,201
+2013207,2,329215,Magne Arild,Haglund,201
+2013207,3,39740,Linga Reddy,Cenkeramaddi,201
+2013207,4,588528,Baltasar,Beferull-Lozano,201
+2013208,1,,Henning,Idsoe,201
+2013208,2,39740,Linga Reddy,Cenkeramaddi,201
+2013208,3,588528,Baltasar,Beferull-Lozano,201
+2013208,4,,J.,Soumya,44400030
+1793194,1,836911,Leila Ben,Saad,201
+1793194,2,,Elvin,Isufi,12700069
+1793194,3,588528,Baltasar,Beferull-Lozano,201
+2075640,1,901236,Mohamed,Elnourani,201
+2075640,2,1139855,Siddharth,Deshmukh,44420068;201
+2075640,3,588528,Baltasar,Beferull-Lozano,20277;201
+1524811,1,836911,Leila Ben,Saad,201
+1524811,2,758660,Thilina Nuwan,Weerasinghe,201
+1524811,3,588528,Baltasar,Beferull-Lozano,201
+1619664,1,638568,César,Asensio-Marco,201
+1619664,2,661765,Daniel,Alonso-Román,201
+1619664,3,588528,Baltasar,Beferull-Lozano,201
+1853072,1,764401,Bakht,Zaman,201
+1853072,2,948529,Luis M.,Lopez-Ramos,201
+1853072,3,588528,Baltasar,Beferull-Lozano,201
+1892212,1,1069118,Siavash Mollaebrahim,Ghari,201
+1892212,2,588528,Baltasar,Beferull-Lozano,201
+1892212,3,1071323,Emilio Ruiz,Moreno,201
+1572730,1,764050,Mahmoud,Ramezani-Mayiami,201
+1572730,2,588528,Baltasar,Beferull-Lozano,201
+1619658,1,758660,Thilina Nuwan,Weerasinghe,201
+1619658,2,885612,Daniel,Romero,201
+1619658,3,638568,César,Asensio-Marco,201
+1619658,4,588528,Baltasar,Beferull-Lozano,201
+1619648,1,901236,Mohamed,Elnourani,201
+1619648,2,764045,Mohamed,Hamid,201
+1619648,3,885612,Daniel,Romero,201
+1619648,4,588528,Baltasar,Beferull-Lozano,201
+1619655,1,948644,Yves,Teganya,201
+1619655,2,948529,Luis M.,Lopez-Ramos,201
+1619655,3,885612,Daniel,Romero,201
+1619655,4,588528,Baltasar,Beferull-Lozano,201
+1950961,1,1154508,Rohan Thekkemarickal,Money,201
+1950961,2,1154511,Joshin Parakkulangarayil,Krishnan,201
+1950961,3,588528,Baltasar,Beferull-Lozano,201
+1572732,1,764401,Bakht,Zaman,201
+1572732,2,948529,Luis M.,Lopez-Ramos,201
+1572732,3,885612,Daniel,Romero,201
+1572732,4,588528,Baltasar,Beferull-Lozano,201
+2054749,1,1154513,Juan Diego,Cardenas,201
+2054749,2,901236,Mohamed Gafar Ahmed,Elnourani,201
+2054749,3,588528,Baltasar,Beferull-Lozano,201
+2077605,1,1154508,Rohan Thekkemarickal,Money,201
+2077605,2,1154511,Joshin Parakkulangarayil,Krishnan,20277;201
+2077605,3,588528,Baltasar,Beferull-Lozano,20277;201
+2186926,1,1154511,Joshin Parakkulangarayil,Krishnan,20277
+2186926,2,1154508,Rohan Thekkemarickal,Money,201
+2186926,3,588528,Baltasar,Beferull-Lozano,20277;201
+2186926,4,,Elvin,Isufi,12700069
+2017218,1,901236,Mohamed,Elnourani,201
+2017218,2,1139855,Siddharth,Deshmukh,44420068
+2017218,3,588528,Baltasar,Beferull-Lozano,7498;201
+2017218,4,885612,Daniel,Romero,201
+1820413,1,,Kuntal,Deka,44400060
+1820413,2,,Minerva,Priyadarsini,44400060
+1820413,3,,Sanjeev,Sharma,44400000
+1820413,4,588528,Baltasar,Beferull-Lozano,201
+1820414,1,836911,Leila Ben,Saad,201
+1820414,2,588528,Baltasar,Beferull-Lozano,201
+1538202,1,884686,Henning,Idsøe,201
+1538202,2,764045,Mohamed,Hamid,201
+1538202,3,923453,Thomas,Jordbru,201
+1538202,4,39740,Linga Reddy,Cenkeramaddi,201
+1538202,5,588528,Baltasar,Beferull-Lozano,201
+1297635,1,,Vinay-Prasad,Chowdappa,13700062
+1297635,2,,Carmen,Botella,13700062
+1297635,3,588528,Baltasar,Beferull-Lozano,13700062;201
+2000777,1,,Rolf Arne,Kjellby,201
+2000777,2,39740,Linga Reddy,Cenkeramaddi,201
+2000777,3,,Thor Eirik,Johnsrud,201
+2000777,4,,Svein Erik,Løtveit,201
+2000777,5,636828,Geir,Jevne,201
+2000777,6,588528,Baltasar,Beferull-Lozano,201
+2000777,7,,Soumya,J,44400030
+2000777,8,,Anders,Frøytlog,201
+2000777,9,923453,Thomas,Jordbru,201
+2000777,10,,Meghana,Bhange,44400223
+2000775,1,,Rolf Arne,Kjellby,201
+2000775,2,39740,Linga Reddy,Cenkeramaddi,201
+2000775,3,,Thor Eirik,Johnsrud,201
+2000775,4,,Svein Erik,Løtveit,201
+2000775,5,636828,Geir,Jevne,201
+2000775,6,588528,Baltasar,Beferull-Lozano,201
+2000775,7,,Soumya,J,44400030
+2077352,1,1154508,Rohan Thekkemarickal,Money,201
+2077352,2,1154511,Joshin Parakkulangarayil,Krishnan,20277
+2077352,3,588528,Baltasar,Beferull-Lozano,20277;201
+2077352,4,,Elvin,Isufi,12700069
+2000771,1,,Rolf Arne,Kjellby,201
+2000771,2,,Thor Eirik,Johnsrud,201
+2000771,3,,Svein Erik,Løtveit,201
+2000771,4,39740,Linga Reddy,Cenkeramaddi,201
+2000771,5,,Hamid,Mohamed,201
+2000771,6,588528,Baltasar,Beferull-Lozano,201
+1576810,1,884686,Henning,Idsøe,201
+1576810,2,764045,Mohamed,Hamid,201
+1576810,3,39740,Linga Reddy,Cenkeramaddi,201
+1576810,4,923453,Thomas,Jordbru,201
+1576810,5,588528,Baltasar,Beferull-Lozano,201
+1576821,1,923453,Thomas,Jordbru,201
+1576821,2,764045,Mohamed,Hamid,201
+1576821,3,39740,Linga Reddy,Cenkeramaddi,201
+1576821,4,884686,Henning,Idsøe,201
+1576821,5,588528,Baltasar,Beferull-Lozano,201
+1974278,1,836911,Leila Ben,Saad,222;201
+1974278,2,588528,Baltasar,Beferull-Lozano,7498;201
+1974278,3,,Elvin,Isufi,12700069
+1829896,1,901236,Mohamed,Elnourani,201
+1829896,2,1139855,Siddharth,Deshmukh,201
+1829896,3,588528,Baltasar,Beferull-Lozano,201
+2202103,1,1326081,Ajay Nagendra,Nama,201
+2202103,2,836911,Leila Ben,Saad,222
+2202103,3,588528,Baltasar,Beferull-Lozano,20277;201
+2202103,4,29750,Jing,Zhou,201
+1872279,1,764401,Bakht,Zaman,201
+1872279,2,948529,Luis Miguel Lopez,Ramos,201
+1872279,3,885612,Daniel,Romero,201
+1872279,4,588528,Baltasar,Beferull-Lozano,201
+1633947,1,1030334,Rolf Arne,Kjellby,201
+1633947,2,1077168,Thor Eirik,Johnsrud,201
+1633947,3,1077170,Svein Erik,Løtveit,201
+1633947,4,39740,Linga Reddy,Cenkeramaddi,201
+1633947,5,764045,Mohamed,Hamid,201
+1633947,6,588528,Baltasar,Beferull-Lozano,201
+1098946,1,,Santosh,Shah,13700062
+1098946,2,588528,Baltasar,Beferull-Lozano,13700062;201
+2384030,1,1154510,Rahul Kumar,Jaiswal,201
+2384030,2,901236,Mohamed,Elnourani,7498
+2384030,3,1139855,Siddharth,Deshmukh,44400000
+2384030,4,588528,Baltasar,Beferull-Lozano,201
+1424754,1,661765,Daniel,Alonso,201
+1424754,2,588528,Baltasar,Beferull-Lozano,201
+1859732,1,884686,Henning,Idsøe,201
+1859732,2,39740,Linga Reddy,Cenkeramaddi,201
+1859732,3,,Soumya,J,44400031
+1859732,4,588528,Baltasar,Beferull-Lozano,201
+2044533,1,948529,Luis M.,Lopez-Ramos,201
+2044533,2,1223063,Kevin,Roy,201
+2044533,3,588528,Baltasar,Beferull-Lozano,201
+1454746,1,661765,Daniel,Alonso,201
+1454746,2,588528,Baltasar,Beferull-Lozano,201
+1525047,1,661765,Daniel,Alonso,201
+1525047,2,638568,César,Asensio-Marco,201
+1525047,3,588528,Baltasar,Beferull-Lozano,201
+1885157,1,948529,Luis Miguel Lopez,Ramos,201
+1885157,2,948644,Yves,Teganya,201
+1885157,3,588528,Baltasar,Beferull-Lozano,201
+1885157,4,,Seung-Jun,Kim,68400679
+1859730,1,1074325,Anders,Frøytlog,201
+1859730,2,329215,Magne Arild,Haglund,201
+1859730,3,39740,Linga Reddy,Cenkeramaddi,201
+1859730,4,588528,Baltasar,Beferull-Lozano,201
+1856003,1,885612,Daniel,Romero,201
+1856003,2,1069118,Siavash Mollaebrahim,Ghari,201
+1856003,3,588528,Baltasar,Beferull-Lozano,201
+1856003,4,638568,Cesar Asensio,Marco,13700000
+1972930,1,1154508,Rohan Thekkemarickal,Money,201
+1972930,2,1154511,Joshin Parakkulangarayil,Krishnan,201
+1972930,3,588528,Baltasar,Beferull-Lozano,201
+1972927,1,1071323,Emilio Ruiz,Moreno,201
+1972927,2,588528,Baltasar,Beferull-Lozano,201
+2193244,1,1071323,Emilio Ruiz,Moreno,201
+2193244,2,948529,Luis M.,Lopez-Ramos,201
+2193244,3,588528,Baltasar,Beferull-Lozano,201
+1923199,1,1069118,Siavash Mollaebrahim,Ghari,201
+1923199,2,588528,Baltasar,Beferull-Lozano,201
+2140384,1,,Aditya,Singh,44400079
+2140384,2,,Surender,Redhu,20977
+2140384,3,588528,Baltasar,Beferull-Lozano,201
+2140384,4,,Rajesh M.,Hegde,44400079
+1972936,1,1312567,Surender,Redhu,201
+1972936,2,,Amrendra P.,Singh,
+1972936,3,,Rajesh M,Hedge,44400179
+1972936,4,588528,Baltasar,Beferull-Lozano,201
+1859722,1,1154808,Ajit,Jha,201
+1859722,2,1154809,Dipendra,Subedi,201
+1859722,3,,Per-Ove,Løvsland,9198
+1859722,4,423285,Ilya,Tyapin,201
+1859722,5,39740,Linga Reddy,Cenkeramaddi,201
+1859722,6,588528,Baltasar,Beferull-Lozano,201
+1859722,7,329893,Geir,Hovland,201
+1984413,1,,Poorva,Sironja,44400079
+1984413,2,1312567,Surender,Redhu,201
+1984413,3,,Rajesh M.,Hegde,44400079
+1984413,4,588528,Baltasar,Beferull-Lozano,201
+2288919,1,1716131,Dinsha,Vinod,201
+2288919,2,29750,Jing,Zhou,201
+2288919,3,588528,Baltasar,Beferull-Lozano,201
+2288919,4,39740,Linga Reddy,Cenkeramaddi,201
+2133134,1,1154513,Juan Diego,Cardenas,201
+2133134,2,588528,Baltasar,Beferull-Lozano,201
+2133134,3,901236,Mohamed,Elnourani,201
+2133134,4,885612,Daniel,Romero,201
+1966835,1,1071328,Jyotirmoy,Bhardwaj,7464;201
+1966835,2,1154511,Joshin Parakkulangarayil,Krishnan,201
+1966835,3,,Diego F. Larios,Marin,13700061
+1966835,4,588528,Baltasar,Beferull-Lozano,201
+1966835,5,39740,Linga Reddy,Cenkeramaddi,201
+1966835,6,12814,Christopher Peter,Harman,7464
+1539744,1,923453,Thomas,Jordbru,201
+1539744,2,884686,Henning,Idsøe,201
+1539744,3,39740,Linga Reddy,Cenkeramaddi,201
+1539744,4,588528,Baltasar,Beferull-Lozano,201
+1539744,5,764045,Mohamed,Hamid,201
+2147699,1,1069118,Siavash Mollaebrahim,Ghari,201
+2147699,2,588528,Baltasar,Beferull-Lozano,20277;201
+1223206,1,660590,Eugenio Celada,Funes,13700062
+1223206,2,661765,Daniel,Alonso,13700062
+1223206,3,638568,César,Asensio-Marco,13700062
+1223206,4,588528,Baltasar,Beferull-Lozano,13700062;201
+1253422,1,,Iker,Alustiza,13700057
+1253422,2,,Pedro M.,Crespo,13700057
+1253422,3,588528,Baltasar,Beferull-Lozano,201
+2115980,1,1223065,Sarang,Kumar,201
+2115980,2,901236,Mohamed,Elnourani,201
+2115980,3,588528,Baltasar,Beferull-Lozano,7498;201
+2115980,4,1312567,Surender,Redhu,201
+1740318,1,1030334,Rolf Arne,Kjellby,201
+1740318,2,39740,Linga Reddy,Cenkeramaddi,201
+1740318,3,1077168,Thor Eirik,Johnsrud,201
+1740318,4,1077170,Svein Erik,Løtveit,201
+1740318,5,636828,Geir,Jevne,201
+1740318,6,588528,Baltasar,Beferull-Lozano,201
+1740318,7,,Soumya,J,44400030
+2148057,1,1223063,Kevin,Roy,201
+2148057,2,948529,Luis Miguel Lopez,Ramos,201
+2148057,3,588528,Baltasar,Beferull-Lozano,201
+2148088,1,1154508,Rohan Thekkemarickal,Money,201
+2148088,2,1154511,Joshin Parakkulangarayil,Krishnan,20277
+2148088,3,588528,Baltasar,Beferull-Lozano,20277;201
+1494742,1,764045,Mohamed,Hamid,201
+1494742,2,588528,Baltasar,Beferull-Lozano,201
+1853574,1,948529,Luis M.,Lopez-Ramos,201
+1853574,2,588528,Baltasar,Beferull-Lozano,201
+10446709,1,,Philippe,Sala,
+10446709,2,1873484,Cécile,Daversin-Catty,
+10446708,1,555693,Ada,Ellingsrud,7498
+10446708,2,1873484,Cécile,Daversin-Catty,7498
+10446708,3,17829,Marie,Rognes,7498
+10446707,1,1873484,Cécile,Daversin-Catty,
+10446707,2,,Christophe,Prudhomme,
+10446705,1,1873484,Cécile,Daversin-Catty,7498
+10446705,2,,Chris,Richardson,
+10446705,3,555693,Ada,Ellingsrud,7498
+10446705,4,17829,Marie,Rognes,7498
+10446702,1,31826,Henrik,Finsberg,7498
+10446702,2,777873,Ilsbeth,van Herck,
+10446702,3,1873484,Cécile,Daversin-Catty,7498
+10446702,4,825297,Hermenegild,Arevalo,7498
+10446702,5,428848,Samuel,Wall,7498
+10446527,1,1873484,Cécile,Daversin-Catty,7498
+10446527,2,,Joseph,Dean,
+10446527,3,17829,Marie,Rognes,7498
+10446458,1,640066,Ehsan,Khalili,
+10446458,2,1873484,Cécile,Daversin-Catty,7498
+10446458,3,,Andy,Olivares,
+10446458,4,5643,Kristian,Valen-Sendstad,7498
+10445961,1,555693,Ada,Ellingsrud,7498
+10445961,2,1873484,Cécile,Daversin-Catty,7498
+10445961,3,17829,Marie,Rognes,7498
+10445961,4,23105,Kent-Andre,Mardal,7498
+10445961,5,24032,Aslak,Tveito,7498
+10445862,1,1873484,Cécile,Daversin-Catty,
+10445862,2,,Christophe,Prud'homme,
+10445861,1,1873484,Cécile,Daversin-Catty,
+10445861,2,,Christophe,Prud'homme,
+10445834,1,1873484,Cécile,Daversin-Catty,7498
+10445834,2,,Chris,Richardson,
+10445834,3,555693,Ada,Ellingsrud,7498
+10445834,4,17829,Marie,Rognes,7498
+10425747,1,,Jordi,Llopis-Lorente,13700028
+10425747,2,777873,Ilsbeth Gerarda Maria,Van Herck,7498
+10425747,3,,María Teresa,Mora,13700028
+10425747,4,31826,Henrik Nicolay Topnes,Finsberg,7498
+10425747,5,1873484,Cécile,Daversin-Catty,7498
+10425747,6,795721,Jorgen S.,Dokken,7498
+10425747,7,428848,Samuel Thomas,Wall,7498
+10425747,8,,Javier,Saiz,13700028
+10425747,9,,Hermenegild,Arevalo,13700028
+10425747,10,,Beatriz,Trenor,13700028
+10268047,1,,Lucia,Priego,13700062
+10268047,2,,Maria Teresa,Mora,13700062
+10268047,3,,Jordi,Llopis-Lorente,13700062
+10268047,4,31826,Henrik Nicolay Topnes,Finsberg,7498
+10268047,5,1873484,Cécile,Daversin-Catty,7498
+10268047,6,777873,Ilsbeth Gerarda Maria,Van Herck,7498
+10268047,7,428848,Samuel Thomas,Wall,7498
+10268047,8,825297,Hermenegild,Arevalo,7498
+10268047,9,,Francisco Javier,Saiz,13700062
+10268047,10,,Beatriz,Trenor,13700062
+10268043,1,973616,Lena,Myklebust,7498
+10268043,2,825297,Hermenegild,Arevalo,7498
+10268043,3,1873484,Cécile,Daversin-Catty,7498
+10268043,4,428848,Samuel Thomas,Wall,7498
+10268043,5,31826,Henrik Nicolay Topnes,Finsberg,7498
+10254139,1,,Maria Teresa,Mora,13700028
+10254139,2,777873,Ilsbeth Gerarda Maria,Van Herck,7498
+10254139,3,1873484,Cécile,Daversin-Catty,7498
+10254139,4,31826,Henrik Nicolay Topnes,Finsberg,7498
+10254139,5,,Jordi,Llopis-Lorente,13700028
+10254139,6,,Javier,Saiz,13700028
+10254139,7,825297,Hermenegild,Arevalo,7498
+10254139,8,428848,Samuel Thomas,Wall,7498
+10254139,9,,Beatriz,Trenor,13700028
+10493237,1,909244,Halvor,Herlyng,7498
+10493237,2,1504736,Marius,Causemann,7498
+10493237,3,,Gaute T.,Einevoll,
+10493237,4,555693,Ada Johanne,Ellingsrud,7498
+10493237,5,317471,Geir,Halnes,
+10493237,6,17829,Marie E.,Rognes,7498
+10446948,1,1318692,Nigar,Abbasova,
+10446948,2,,Adyant,Balaji,
+10446948,3,555693,Ada,Ellingsrud,7498
+10446948,4,485332,Marte,Sætra,
+10446751,1,1884079,Pietro,Benedusi,
+10446751,2,555693,Ada,Ellingsrud,7498
+10446751,3,909244,Halvor,Herlyng,7498
+10446751,4,17829,Marie,Rognes,7498
+10446539,1,485332,Marte,Sætra,
+10446539,2,555693,Ada,Ellingsrud,7498
+10446539,3,17829,Marie,Rognes,7498
+10446142,1,555693,Ada,Ellingsrud,7498
+10446142,2,589460,Didrik,Dukefoss,
+10446142,3,10829,Rune,Enger,
+10446142,4,317471,Geir,Halnes,
+10446142,5,8811,Klas,Pettersen,
+10446142,6,17829,Marie,Rognes,7498
+10446086,1,555693,Ada,Ellingsrud,7498
+10446086,2,,Nicolas,Boullé,
+10446086,3,17829,Marie,Rognes,7498
+10419162,1,555693,Ada Johanne,Ellingsrud,7498
+10419162,2,1884079,Pietro,Benedusi,7498
+10419162,3,512611,Miroslav,Kuchta,7498
+10309054,1,909244,Halvor,Herlyng,7498
+10309054,2,555693,Ada Johanne,Ellingsrud,7498
+10309054,3,512611,Miroslav,Kuchta,7498
+10309054,4,1316548,Inyoung,Jeong,194
+10309054,5,17829,Marie Elisabeth,Rognes,185;7498
+10309054,6,650393,Nathalie,Jurisch-Yaksi,194
+1900913,1,,Barbara,Genocchi,10300039
+1900913,2,951575,Andrè Bastos,da Cunha,185
+1900913,3,,Soumil,Jain,68400196
+1900913,4,,Jari,Hyttinen,10300039
+1900913,5,,Kerstin,Lenk,10300039
+1900913,6,555693,Ada Johanne,Ellingsrud,7498
+1817208,1,555693,Ada Johanne,Ellingsrud,7498
+1817208,2,3281,Andreas Våvang,Solbrå,185
+1817208,3,8695,Gaute,Einevoll,192;185
+1817208,4,317471,Geir,Halnes,192
+1817208,5,17829,Marie Elisabeth,Rognes,7498
+1981807,1,555693,Ada Johanne,Ellingsrud,7498
+1981807,2,10829,Rune,Enger,185
+1981807,3,589460,Didrik Bakke,Dukefoss,185
+1981807,4,317471,Geir,Halnes,192
+1981807,5,8811,Klas Henning,Pettersen,185
+1981807,6,17829,Marie Elisabeth,Rognes,7498
+2062561,1,555693,Ada Johanne,Ellingsrud,7498
+2062561,2,589460,Didrik Bakke,Dukefoss,185
+2062561,3,10829,Rune,Enger,185
+2062561,4,317471,Geir,Halnes,192
+2062561,5,8811,Klas Henning,Pettersen,185
+2062561,6,17829,Marie Elisabeth,Rognes,7498;184
+10459903,1,812512,Karoline Horgmo,Jæger,7498
+10459903,2,24032,Aslak,Tveito,7498
+10459898,1,812512,Karoline Horgmo,Jæger,7498
+10459898,2,24032,Aslak,Tveito,7498
+10453364,1,812512,Karoline Horgmo,Jæger,7498
+10453364,2,24032,Aslak,Tveito,7498
+10446791,1,812512,Karoline,Jæger,7498
+10446791,2,24032,Aslak,Tveito,7498
+10446744,1,812512,Karoline,Jæger,7498
+10446744,2,,Verena,Charwat,
+10446744,3,428848,Samuel,Wall,7498
+10446744,4,,Kevin E.,Healy,
+10446744,5,24032,Aslak,Tveito,7498
+10446600,1,812512,Karoline,Jæger,7498
+10446600,2,24032,Aslak,Tveito,7498
+10446554,1,812512,Karoline,Jæger,7498
+10446554,2,24032,Aslak,Tveito,7498
+10446524,1,812512,Karoline,Jæger,7498
+10446524,2,24032,Aslak,Tveito,7498
+10446491,1,812512,Karoline,Jæger,7498
+10446491,2,,Ena,Ivanovic,
+10446491,3,,Jan P.,Kucera,
+10446491,4,24032,Aslak,Tveito,7498
+10446479,1,,Verena,Charwat,
+10446479,2,,Bérénice,Charrez,
+10446479,3,,Brian A,Siemons,
+10446479,4,31826,Henrik,Finsberg,7498
+10446479,5,812512,Karoline,Jæger,7498
+10446479,6,618603,Andrew,Edwards,7498
+10446479,7,,Nathaniel,Huebsch,
+10446479,8,428848,Samuel,Wall,7498
+10446479,9,,Evan,Miller,
+10446479,10,24032,Aslak,Tveito,7498
+10446479,11,,Kevin E.,Healy,
+10446325,1,,Nathaniel,Huebsch,
+10446325,2,,Berenice,Charrez,
+10446325,3,,Gabriel,Neiman,
+10446325,4,,Brian,Siemons,
+10446325,5,,Steven C.,Boggess,
+10446325,6,428848,Samuel,Wall,7498
+10446325,7,,Verena,Charwat,
+10446325,8,812512,Karoline,Jæger,7498
+10446325,9,,David,Cleres,
+10446325,10,1884476,Åshild,Telle,7498
+10446325,11,,Felipe T.,Lee-Montiel,
+10446325,12,,Nicholas C.,Jeffreys,
+10446325,13,,Nikhil,Deveshwar,
+10446325,14,618603,Andrew,Edwards,7498
+10446325,15,56589,Jonathan,Serrano,
+10446325,16,,Matija,Snuderl,
+10446325,17,,Andreas,Stahl,
+10446325,18,24032,Aslak,Tveito,7498
+10446325,19,,Evan W,Miller,
+10446325,20,,Kevin E,Healy,
+10446270,1,812512,Karoline,Jæger,7498
+10446270,2,618603,Andrew,Edwards,7498
+10446270,3,,Wayne,Giles,
+10446270,4,24032,Aslak,Tveito,7498
+10446146,1,812512,Karoline,Jæger,7498
+10446146,2,618603,Andrew,Edwards,7498
+10446146,3,,Wayne,Giles,
+10446146,4,24032,Aslak,Tveito,7498
+10446126,1,812512,Karoline,Jæger,7498
+10446126,2,618603,Andrew,Edwards,7498
+10446126,3,,Wayne,Giles,
+10446126,4,24032,Aslak,Tveito,7498
+10446004,1,812512,Karoline,Jæger,7498
+10446004,2,24032,Aslak,Tveito,7498
+10445975,1,24032,Aslak,Tveito,7498
+10445975,2,812512,Karoline,Jæger,7498
+10445975,3,386037,Molly,Maleckar,7498
+10445975,4,,Wayne,Giles,
+10445975,5,428848,Samuel,Wall,7498
+10445894,1,812512,Karoline,Jæger,7498
+10445894,2,,Verena,Charwat,
+10445894,3,31826,Henrik,Finsberg,7498
+10445894,4,386037,Molly,Maleckar,7498
+10445894,5,428848,Samuel,Wall,7498
+10445894,6,24032,Aslak,Tveito,7498
+10445783,1,812512,Karoline,Jæger,7498
+10445783,2,618603,Andrew,Edwards,7498
+10445783,3,,Andrew,McCulloch,
+10445783,4,24032,Aslak,Tveito,7498
+10445447,1,24032,Aslak,Tveito,7498
+10445447,2,812512,Karoline,Jæger,7498
+10445447,3,512611,Miroslav,Kuchta,7498
+10445447,4,23105,Kent-Andre,Mardal,7498
+10445447,5,17829,Marie,Rognes,7498
+10432868,1,812512,Karoline Horgmo,Jæger,7498
+10432868,2,24032,Aslak,Tveito,7498
+10352522,1,812512,Karoline Horgmo,Jæger,7498
+10352522,2,,Verena,Charwat,15300042
+10352522,3,,Kevin E.,Healy,
+10352522,4,428848,Samuel Thomas,Wall,7498
+10352522,5,24032,Aslak,Tveito,7498
+10352010,1,812512,Karoline Horgmo,Jæger,7498
+10352010,2,24032,Aslak,Tveito,7498
+10347787,1,812512,Karoline Horgmo,Jæger,7498
+10347787,2,13504,William Edward,Louch,2012;185
+10347787,3,24032,Aslak,Tveito,7498
+2297656,1,812512,Karoline Horgmo,Jæger,7498
+2297656,2,2343,James David,Trotter,7498
+2297656,3,24001,Xing,Cai,7498
+2297656,4,825297,Hermenegild,Arevalo,7498
+2297656,5,24032,Aslak,Tveito,7498
+1896315,1,812512,Karoline Horgmo,Jæger,7498
+1896315,2,,Verena,Charwat,68400189
+1896315,3,,Samuel,Wall,7498
+1896315,4,,Kevin E.,Healy,68400189
+1896315,5,24032,Aslak,Tveito,7498;185
+1499040,1,24032,Aslak,Tveito,7498;185
+1499040,2,812512,Karoline Horgmo,Jæger,7498
+1499040,3,21673,Glenn Terje,Lines,7498
+1499040,4,,Lukasz,Paszkowski,13100000
+1499040,5,22862,Joakim,Sundnes,7498;185
+1499040,6,618603,Andrew,Edwards,7498;185
+1499040,7,605325,Tuomo,Mäki-Marttunen,185
+1499040,8,317471,Geir,Halnes,192
+1499040,9,8695,Gaute,Einevoll,192;185
+1999033,1,812512,Karoline Horgmo,Jæger,7498
+1999033,2,428848,Samuel Thomas,Wall,7498
+1999033,3,24032,Aslak,Tveito,7498;185
+1720447,1,812512,Karoline Horgmo,Jæger,7498
+1720447,2,428848,Samuel Thomas,Wall,7498
+1720447,3,24032,Aslak,Tveito,7498;185
+1884566,1,812512,Karoline Horgmo,Jæger,7498
+1884566,2,1021927,Kristian Gregorius,Hustad,7498
+1884566,3,24001,Xing,Cai,7498;185
+1884566,4,24032,Aslak,Tveito,7498;185
+1884557,1,812512,Karoline Horgmo,Jæger,7498
+1884557,2,1021927,Kristian Gregorius,Hustad,7498;185
+1884557,3,24001,Xing,Cai,7498;185
+1884557,4,24032,Aslak,Tveito,7498;185
+1704814,1,753375,Alessio Paolo,Buccino,68400196;185
+1704814,2,512611,Miroslav,Kuchta,185
+1704814,3,812512,Karoline Horgmo,Jæger,7498
+1704814,4,9002,Torbjørn V,Ness,192;185
+1704814,5,967710,Pierre,Berthet,185
+1704814,6,23105,Kent-Andre,Mardal,7498;185
+1704814,7,,Gert,Cauwenberghs,68400196
+1704814,8,24032,Aslak,Tveito,7498
+1671828,1,24032,Aslak,Tveito,7498
+1671828,2,812512,Karoline Horgmo,Jæger,7498
+1671828,3,,Nathaniel,Huebsch,68400189
+1671828,4,,Berenice,Charrez,68400189
+1671828,5,618603,Andrew,Edwards,7498;185
+1671828,6,428848,Samuel Thomas,Wall,7498
+1671828,7,,Kevin,Healy,68400189
+1503524,1,24032,Aslak,Tveito,7498;185
+1503524,2,812512,Karoline Horgmo,Jæger,7498
+1503524,3,512611,Miroslav,Kuchta,7498;185
+1503524,4,23105,Kent-Andre,Mardal,7498;185
+1503524,5,17829,Marie Elisabeth,Rognes,7498
+10498323,1,31804,Espen,Sande,7498
+10498323,2,1241271,Timo,Koch,
+10498323,3,512611,Miroslav,Kuchta,7498
+10498323,4,23105,Kent-Andre,Mardal,7498;185
+10493231,1,1504736,Marius,Causemann,
+10493231,2,512611,Miroslav,Kuchta,7498
+10493231,3,,Rami,Masri,
+10493231,4,17829,Marie E.,Rognes,
+10493213,1,1504736,Marius,Causemann,7498
+10493213,2,512611,Miroslav,Kuchta,7498
+10483495,1,,Samuele,Ferri,12300029
+10483495,2,1473178,Chiara,Giraudo,185
+10483495,3,,Valerio,Loi,12300029
+10483495,4,512611,Miroslav,Kuchta,7498
+10483495,5,,Stefano,Serra-Capizzano,10600049;12300029
+10446499,1,,Rami,Masri,
+10446499,2,512611,Miroslav,Kuchta,7498
+10446499,3,17829,Marie,Rognes,7498
+10446438,1,8576,Ahmed,Elmokashfi,
+10446438,2,619107,Simon,Funke,
+10446438,3,793854,Timo,Klock,
+10446438,4,512611,Miroslav,Kuchta,7498
+10446438,5,589484,Valeriya,Naumova,
+10446438,6,1832615,Julie,Uv,
+10446438,7,21894,Olav,Lysne,7498
+10446437,1,512611,Miroslav,Kuchta,7498
+10446437,2,802250,Sileshi,Wubshet,
+10446437,3,29224,Nils,Afseth,
+10446437,4,23105,Kent-Andre,Mardal,7498
+10446437,5,317641,Kristian,Liland,
+10446030,1,512611,Miroslav,Kuchta,7498
+10446030,2,23105,Kent-Andre,Mardal,7498
+10446030,3,17829,Marie,Rognes,7498
+10446030,4,24032,Aslak,Tveito,7498
+10446029,1,753375,Alessio,Buccino,
+10446029,2,512611,Miroslav,Kuchta,7498
+10446029,3,563557,Jakob,Schreiner,
+10446029,4,23105,Kent-Andre,Mardal,7498
+10446029,5,24032,Aslak,Tveito,7498
+10446029,6,17829,Marie,Rognes,7498
+10446028,1,512611,Miroslav,Kuchta,7498
+10446028,2,23105,Kent-Andre,Mardal,7498
+10446028,3,24032,Aslak,Tveito,7498
+10446028,4,17829,Marie,Rognes,7498
+10442744,1,,Xiaozhe,Hu,68400748
+10442744,2,512611,Miroslav,Kuchta,7498
+10442744,3,23105,Kent-Andre,Mardal,185;7498
+10442744,4,,Xue,Wang,48400446
+10419153,1,,Aycil,Cesmelioglu,68400804
+10419153,2,512611,Miroslav,Kuchta,7498
+10419153,3,618605,Jeonghun,Lee,68401609
+10419153,4,,Sander,Rhebergen,61200067
+10348054,1,,Mingchao,Cai,68400668
+10348054,2,512611,Miroslav,Kuchta,7498
+10348054,3,,Jingzhi,Li,9127
+10348054,4,,Ziliang,Li,9127
+10348054,5,23105,Kent-Andre,Mardal,7498
+1249379,1,512611,Miroslav,Kuchta,15800012
+1249379,2,,Gabriel,Tobie,11705901;11700449
+1249379,3,,Katarina,Miljkovic,68400724;11700396
+1249379,4,,Marie,Behounkova,15800012
+1249379,5,,Ondrej,Soucek,15800012
+1249379,6,,Gael,Choblet,11705901;11700449
+1249379,7,,Ondrej,Cadek,15800012
+1679366,1,657895,Jean,Rabault,185
+1679366,2,512611,Miroslav,Kuchta,185
+1679366,3,24727,Atle,Jensen,185
+1679366,4,1153016,Ulysse Antoine,Reglade,11707476;185
+1679366,5,1152685,Nicolas,Cerardi,11707476;185
+1791247,1,498288,Karl Erik,Holter,7498;185
+1791247,2,512611,Miroslav,Kuchta,185
+1791247,3,23105,Kent-Andre,Mardal,7498;185
+2335053,1,,Nunzio,Dimola,12300012
+2335053,2,512611,Miroslav,Kuchta,7498
+2335053,3,23105,Kent-Andre,Mardal,7498;185
+2335053,4,,Paolo,Zunino,12300012
+1632058,1,657895,Jean,Rabault,185
+1632058,2,512611,Miroslav,Kuchta,185
+1632058,3,24727,Atle,Jensen,185
+1632058,4,,Ulysse,Reglade,
+1632058,5,,Nicolas,Cerardi,
+1632049,1,657895,Jean,Rabault,185
+1632049,2,512611,Miroslav,Kuchta,185
+1632049,3,24727,Atle,Jensen,185
+1632049,4,,Ulysse,Reglade,
+1632049,5,,Cerardi,Nicolas,
+1833869,1,498288,Karl Erik,Holter,185
+1833869,2,512611,Miroslav,Kuchta,7498
+1833869,3,23105,Kent-Andre,Mardal,7498;185
+1672266,1,402488,Trygve,Bærland,185
+1672266,2,512611,Miroslav,Kuchta,185
+1672266,3,23105,Kent-Andre,Mardal,185
+2323703,1,798631,Ingeborg Gåseby,Gjerde,7498;7452
+2323703,2,512611,Miroslav,Kuchta,7498
+2323703,3,17829,Marie Elisabeth,Rognes,7498
+2323703,4,848319,Barbara Irmgard,Wohlmuth,14400263
+1385470,1,512611,Miroslav,Kuchta,185
+1385470,2,619181,Magne,Nordaas,7498
+1385470,3,28825,Joris C. G.,Verschaeve,185
+1385470,4,59906,Mikael,Mortensen,7498;185
+1385470,5,23105,Kent-Andre,Mardal,7498;185
+2057446,1,1173163,Bastian,Zapf,185
+2057446,2,,Johannes,Haubner,7498
+2057446,3,512611,Miroslav,Kuchta,7498
+2057446,4,16486,Geir,Ringstad,2012;1965
+2057446,5,4931,Per Kristian,Eide,2012;185
+2057446,6,23105,Kent-Andre,Mardal,7498;185
+1594685,1,512611,Miroslav,Kuchta,185
+1594685,2,23105,Kent-Andre,Mardal,7498;185
+1594685,3,59906,Mikael,Mortensen,185
+1848938,1,512611,Miroslav,Kuchta,7498
+1848938,2,23105,Kent-Andre,Mardal,7498;185
+1848937,1,512611,Miroslav,Kuchta,7498
+1848937,2,23105,Kent-Andre,Mardal,7498;185
+1848937,3,17829,Marie Elisabeth,Rognes,7498
+1602059,1,512611,Miroslav,Kuchta,185
+1602059,2,23105,Kent-Andre,Mardal,7498;185
+1602059,3,59906,Mikael,Mortensen,185
+1848939,1,753375,Alessio Paolo,Buccino,14100003;185
+1848939,2,512611,Miroslav,Kuchta,7498
+1848939,3,563557,Jakob Emil,Schreiner,7498
+1848939,4,23105,Kent-Andre,Mardal,7498;185
+2255992,1,,Ana,Budisa,7498
+2255992,2,,Xiaozhe,Hu,68400748
+2255992,3,512611,Miroslav,Kuchta,7498
+2255992,4,23105,Kent-Andre,Mardal,7498;185
+2255992,5,,Ludmil,Zikatanov,68401442
+1819228,1,402488,Trygve,Bærland,185
+1819228,2,512611,Miroslav,Kuchta,7498
+1819228,3,23105,Kent-Andre,Mardal,7498;185
+1819228,4,,Travis,Thompson,7498
+1940056,1,512611,Miroslav,Kuchta,
+1940048,1,,Sebastian,Mitusch,
+1940048,2,619107,Simon Wolfgang,Funke,
+1940048,3,512611,Miroslav,Kuchta,
+1897000,1,512611,Miroslav,Kuchta,7498
+1897000,2,,Federica,Laurino,12300012
+1897000,3,23105,Kent-Andre,Mardal,185
+1897000,4,,Paolo,Zunino,12300012
+2039937,1,512611,Miroslav,Kuchta,7498
+2039937,2,802250,Sileshi Gizachew,Wubshet,7543
+2039937,3,29224,Nils Kristian,Afseth,7543
+2039937,4,23105,Kent-Andre,Mardal,7498;185
+2039937,5,317641,Kristian Hovde,Liland,192
+2039931,1,630688,Wietse,Boon,10600027
+2039931,2,706417,Martin,Hornkjøl,185
+2039931,3,512611,Miroslav,Kuchta,7498
+2039931,4,23105,Kent-Andre,Mardal,7498;185
+2039931,5,,Ricardo,Ruiz-Baier,80500047;72500106;14000276
+2188630,1,,Ana,Budisa,7498
+2188630,2,,Xiaozhe,Hu,68400748
+2188630,3,512611,Miroslav,Kuchta,7498
+2188630,4,23105,Kent-Andre,Mardal,7498;185
+2188630,5,,Ludmil,Zikatanov,68401442
+1934071,1,630688,Wietse,Boon,10600027
+1934071,2,512611,Miroslav,Kuchta,7498
+1934071,3,23105,Kent-Andre,Mardal,7498;185
+1934071,4,,Ricardo,Ruiz-Baier,80500047;72500106;14000276
+2188624,1,,Ana,Budisa,7498
+2188624,2,,Xiaozhe,Hu,68400748
+2188624,3,512611,Miroslav,Kuchta,7498
+2188624,4,23105,Kent-Andre,Mardal,185
+2188624,5,,Ludmil,Zikatanov,68401442
+1459960,1,,Per Thomas,Haga,7498
+1459960,2,,Giulia,Pizzichelli,12307456
+1459960,3,59906,Mikael,Mortensen,7498;185
+1459960,4,512611,Miroslav,Kuchta,185
+1459960,5,,Soroush Heidari,Pahlavian,68401287
+1459960,6,,Edoardo,Sinibaldi,12307456
+1459960,7,,Bryn A.,Martin,68400395
+1459960,8,23105,Kent-Andre,Mardal,7498;185
+2137672,1,,Åshild,Telle,7498
+2137672,2,2343,James David,Trotter,7498
+2137672,3,24001,Xing,Cai,7498;185
+2137672,4,31826,Henrik Nicolay Topnes,Finsberg,7498
+2137672,5,512611,Miroslav,Kuchta,7498
+2137672,6,22862,Joakim,Sundnes,7498
+2137672,7,428848,Samuel Thomas,Wall,7498
+2087159,1,,Qingguo,Hong,68401442
+2087159,2,,Johannes,Kraus,14400313
+2087159,3,512611,Miroslav,Kuchta,7498
+2087159,4,,Maria,Lymbery,14400313
+2087159,5,23105,Kent-Andre,Mardal,7498;185
+2087159,6,17829,Marie Elisabeth,Rognes,7498
+2081325,1,630688,Wietse,Boon,10600027
+2081325,2,1241271,Timo,Koch,185
+2081325,3,512611,Miroslav,Kuchta,7498
+2081325,4,23105,Kent-Andre,Mardal,7498;185
+1102723,1,512611,Miroslav,Kuchta,185
+1102723,2,59906,Mikael,Mortensen,185
+1303952,1,59906,Mikael,Mortensen,7498;185
+1303952,2,512611,Miroslav,Kuchta,185
+1303952,3,23105,Kent-Andre,Mardal,7498;185
+1303952,4,28825,Joris C. G.,Verschaeve,185
+1303957,1,512611,Miroslav,Kuchta,185
+1303957,2,23105,Kent-Andre,Mardal,7498;185
+1303957,3,59906,Mikael,Mortensen,7498;185
+2150673,1,730505,Laura,Bojarskaite,2012;185
+2150673,2,1234697,Alexandra Honorine Emilie,Vallet,185
+2150673,3,689593,Daniel Marelius,Bjørnstad,185
+2150673,4,1513571,Kristin Maria Gullestad,Binder,185
+2150673,5,618850,Celine,Cunen,7467;185
+2150673,6,7742,Kjell,Heuser,2012
+2150673,7,512611,Miroslav,Kuchta,7498
+2150673,8,23105,Kent-Andre,Mardal,7498;185
+2150673,9,10829,Rune,Enger,185
+10447042,1,1866223,Markus,Pettersen,
+10447042,2,1335608,Frederik,Rogge,
+10447042,3,625566,Mikkel,Lepperød,7498
+10446917,1,1218175,Vemund,Schøyen,
+10446917,2,1866223,Markus,Pettersen,
+10446917,3,1329296,Konstantin,Holzhausen,
+10446917,4,2767,Marianne,Fyhn,
+10446917,5,24365,Anders,Malthe-Sørenssen,
+10446917,6,625566,Mikkel,Lepperød,7498
+10446869,1,,Marc,de Kamps,
+10446869,2,625566,Mikkel,Lepperød,7498
+10446869,3,1348529,Yi,Lai,
+10446860,1,811287,Jakob,Sønstebø,
+10446860,2,,Herman,Brunborg,
+10446860,3,625566,Mikkel,Lepperød,7498
+10432858,1,1474141,Krubeal,Danieli,185
+10432858,2,625566,Mikkel Elle,Lepperød,7498
+10431959,1,1448351,Mia-Katrin Ose,Kvalsund,185
+10431959,2,33506,Kai Olav,Ellefsen,185
+10431959,3,16358,Kyrre,Glette,185
+10431959,4,998574,Sidney,Pontes-Filho,7498
+10431959,5,625566,Mikkel Elle,Lepperød,185;7498
+10428953,1,,Etienne,Guichard,
+10428953,2,,Felix,Reimers,
+10428953,3,,Mia,Kvalsund,
+10428953,4,625566,Mikkel Elle,Lepperød,7498
+10428953,5,,Stefano,Nichele,
+10425601,1,998574,Sidney,Pontes-Filho,7498
+10425601,2,34224,Stefano,Nichele,224;215
+10425601,3,625566,Mikkel Elle,Lepperød,7498
+10422613,1,1559036,Markus Borud,Pettersen,7498;185
+10422613,2,1218175,Vemund Sigmundson,Schøyen,185
+10422613,3,24365,Anders,Malthe-Sørenssen,185
+10422613,4,625566,Mikkel Elle,Lepperød,185;7498
+10345367,1,1408338,Kosio,Beshkov,185
+10345367,2,1243120,Jonas,Verhellen,10100065
+10345367,3,625566,Mikkel Elle,Lepperød,7498
+10287770,1,1111535,Ingeborg,Nymoen,185
+10287770,2,1335608,Frederik Sebastian,Rogge,185
+10287770,3,,Anna Hjertvik,Aasen,185
+10287770,4,871337,Sverre,Grødem,185
+10287770,5,24365,Anders,Malthe-Sørenssen,185
+10287770,6,625566,Mikkel Elle,Lepperød,185;7498
+10287770,7,14332,Torkel,Hafting,185
+10287770,8,2767,Marianne,Fyhn,185
+10287770,9,386724,Kristian,Lensjø,185
+2206181,1,625566,Mikkel Elle,Lepperød,7498;185
+2206181,2,796318,Tristan Manfred,Stöber,14400239;14400185;7498
+2206181,3,14332,Torkel,Hafting,185
+2206181,4,2767,Marianne,Fyhn,7498;185
+2206181,5,,Konrad Paul,Kording,68401445
+1623182,1,753375,Alessio Paolo,Buccino,185
+1623182,2,625566,Mikkel Elle,Lepperød,185
+1623182,3,5819,Svenn-Arne,Dragly,185
+1623182,4,24200,Philipp,Häfliger,185
+1623182,5,2767,Marianne,Fyhn,185
+1623182,6,14332,Torkel,Hafting,185
+1598799,1,5819,Svenn-Arne,Dragly,185
+1598799,2,3787,Milad,Mobarhan,185
+1598799,3,625566,Mikkel Elle,Lepperød,185
+1598799,4,404388,Simen,Tennøe,185
+1598799,5,2767,Marianne,Fyhn,185
+1598799,6,14332,Torkel,Hafting,185
+1598799,7,24365,Anders,Malthe-Sørenssen,185
+1215225,1,317952,Peder A.,Tyvand,192
+1215225,2,625566,Mikkel Elle,Lepperød,192
+2005701,1,,Hugh,Osborne,13900159
+2005701,2,,Yi Ming,Lai,13900173
+2005701,3,625566,Mikkel Elle,Lepperød,185
+2005701,4,,David,Sichau,14100003
+2005701,5,,Lukas,Deutz,13900159
+2005701,6,,Marc,de Kamps,13900159
+2080845,1,1408338,Kosio,Beshkov,185
+2080845,2,1243120,Jonas,Verhellen,185
+2080845,3,625566,Mikkel Elle,Lepperød,7498;185
+2363607,1,1329296,Konstantin,Holzhausen,185
+2363607,2,1880153,Mia Merlid,Haga,185
+2363607,3,1637212,Håkon Olav,Torvik,185
+2363607,4,24365,Anders,Malthe-Sørenssen,185
+2363607,5,625566,Mikkel Elle,Lepperød,185;7498
+1711659,1,,Marc,de Kamps,13900159
+1711659,2,625566,Mikkel Elle,Lepperød,185
+1711659,3,,Yi Ming,Lai,13900173;13900159
+1926201,1,625566,Mikkel Elle,Lepperød,185
+1926201,2,576688,Ane Charlotte,Christensen,185
+1926201,3,386724,Kristian Kinden,Lensjø,185
+1926201,4,753375,Alessio Paolo,Buccino,185
+1926201,5,,Jai,Yu,68400473
+1926201,6,2767,Marianne,Fyhn,185
+1926201,7,14332,Torkel,Hafting,185
+2377658,1,1218175,Vemund Sigmundson,Schøyen,185
+2377658,2,1408338,Kosio,Beshkov,185
+2377658,3,1559036,Markus Borud,Pettersen,185
+2377658,4,997889,Erik,Hermansen,194
+2377658,5,1329296,Konstantin,Holzhausen,7498
+2377658,6,24365,Anders,Malthe-Sørenssen,7498
+2377658,7,2767,Marianne,Fyhn,185
+2377658,8,625566,Mikkel Elle,Lepperød,7498;185
+2195180,1,1218175,Vemund Sigmundson,Schøyen,185
+2195180,2,1559036,Markus Borud,Pettersen,185
+2195180,3,1329296,Konstantin,Holzhausen,185
+2195180,4,2767,Marianne,Fyhn,7498;185
+2195180,5,24365,Anders,Malthe-Sørenssen,7498;185
+2195180,6,625566,Mikkel Elle,Lepperød,7498;185
+1174945,1,317952,Peder A.,Tyvand,192
+1174945,2,625566,Bjørn Mikkel Elle,Lepperød,192
+1492395,1,34034,Ida E. J.,Aasebø,185
+1492395,2,625566,Mikkel Elle,Lepperød,185
+1492395,3,451221,Maria,Stavrinou,192;185
+1492395,4,18756,Sandra,Nøkkevangen,185
+1492395,5,8695,Gaute,Einevoll,192;185
+1492395,6,14332,Torkel,Hafting,185
+1492395,7,2767,Marianne,Fyhn,185
+1888167,1,576688,Ane Charlotte,Christensen,185
+1888167,2,386724,Kristian Kinden,Lensjø,185
+1888167,3,625566,Mikkel Elle,Lepperød,185
+1888167,4,5819,Svenn-Arne,Dragly,185
+1888167,5,1372750,Hallvard,Sutterud,185
+1888167,6,554112,Jan Sigurd,Blackstad,185
+1888167,7,2767,Marianne,Fyhn,185
+1888167,8,14332,Torkel,Hafting,185
+1447416,1,386724,Kristian Kinden,Lensjø,185
+1447416,2,625566,Mikkel Elle,Lepperød,185
+1447416,3,22046,Gunnar,Dick,185
+1447416,4,14332,Torkel,Hafting,185
+1447416,5,2767,Marianne,Fyhn,185
+1834764,1,625566,Mikkel Elle,Lepperød,185
+1834764,2,5819,Svenn-Arne,Dragly,185
+1834764,3,753375,Alessio Paolo,Buccino,14100003;185
+1834764,4,3787,Milad,Mobarhan,185
+1834764,5,24365,Anders,Malthe-Sørenssen,185
+1834764,6,14332,Torkel,Hafting,185
+1834764,7,2767,Marianne,Fyhn,185
+10519171,1,,Isaac,Bermudez,61600057
+10519171,2,,Bryan,Gómez-Vargas,61600057
+10519171,3,23105,Kent-Andre,Mardal,7498
+10519171,4,,Andrés E.,Rubiano,80500047
+10519171,5,,Ricardo,Ruiz-Baier,80500047
+10516715,1,1504704,Florian Maurits,Arbes,185;7492
+10516715,2,23105,Kent-Andre,Mardal,185;7498
+10516715,3,46825,Øyvind,Jensen,7492
+10487711,1,1873630,Alberto,Girelli,7498
+10487711,2,1873619,Andreas,Solheim,7498
+10487711,3,1880063,Sofie Lysholm,Lian,185
+10487711,4,21878,Tryggve Holck,Storås,
+10487711,5,6346,Kaja,Nordengen,185
+10487711,6,23105,Kent-Andre,Mardal,7498;185
+10448909,1,1450138,Nanna,Berre,194
+10448909,2,23105,Kent-Andre,Mardal,185;7498
+10448909,3,4036,André Jürgen,Massing,194
+10448909,4,,Ivan,Yotov,68401850
+10447145,1,,Melanie,Rieff,
+10447145,2,1276752,Oksana,Lapina,
+10447145,3,16486,Geir,Ringstad,
+10447145,4,503486,Lars,Valnes,
+10447145,5,1266447,Bogna,Warsza,
+10447145,6,4931,Per-Kristian,Eide,
+10447145,7,23105,Kent-Andre,Mardal,7498
+10447145,8,848319,Barbara,Wohlmuth,
+10447144,1,23105,Kent-Andre,Mardal,7498
+10447144,2,408845,Jarle,Sogn,
+10447144,3,,Stefan,Takacs,
+10446788,1,563557,Jakob,Schreiner,
+10446788,2,50953,Ute,Kessler,
+10446788,3,47692,Ketil,Ødegaard,
+10446788,4,23105,Kent-Andre,Mardal,7498
+10446788,5,48248,Leif,Oltedal,
+10446772,1,17829,Marie,Rognes,7498
+10446772,2,23105,Kent-Andre,Mardal,7498
+10446772,3,503486,Lars,Valnes,
+10446772,4,571560,Vegard,Vinje,
+10446249,1,23105,Kent-Andre,Mardal,7498
+10446249,2,408845,Jarle,Sogn,
+10446249,3,,Stefan,Takacs,
+10446081,1,23105,Kent-Andre,Mardal,7498
+10446081,2,17829,Marie,Rognes,7498
+10446081,3,,Travis,Thompson,
+10446081,4,503486,Lars,Valnes,
+10446023,1,1884476,Åshild,Telle,
+10446023,2,428848,Samuel,Wall,7498
+10446023,3,22862,Joakim,Sundnes,7498
+10446023,4,24032,Aslak,Tveito,7498
+10446023,5,17829,Marie,Rognes,7498
+10446023,6,23105,Kent-Andre,Mardal,7498
+10445985,1,23105,Kent-Andre,Mardal,7498
+10445985,2,17829,Marie,Rognes,7498
+10445985,3,,Travis,Thompson,
+10445973,1,909836,André,Erhardt,
+10445973,2,23105,Kent-Andre,Mardal,7498
+10445973,3,563557,Jakob,Schreiner,
+10445793,1,5778,Erika,Lindstrøm,
+10445793,2,16486,Geir,Ringstad,
+10445793,3,393348,Angelika,Sorteberg,
+10445793,4,393345,Wilhelm,Sorteberg,
+10445793,5,23105,Kent-Andre,Mardal,
+10445793,6,4931,Per,Eide,
+10445703,1,4931,Per,Eide,
+10445703,2,393348,Angelika,Sorteberg,
+10445703,3,393345,Wilhelm,Sorteberg,
+10445703,4,5778,Erika,Lindstrøm,
+10445703,5,23105,Kent-Andre,Mardal,7498
+10445703,6,16486,Geir,Ringstad,
+10445451,1,3709,Øyvind,Evju,
+10445451,2,,Jose,Pozo,
+10445451,3,23105,Kent-Andre,Mardal,7498
+10445353,1,619107,Simon,Funke,
+10445353,2,619181,Magne,Nordaas,
+10445353,3,3709,Øyvind,Evju,
+10445353,4,17458,Martin,Alnæs,
+10445353,5,23105,Kent-Andre,Mardal,7498
+10445176,1,,Radek,Fric,
+10445176,2,5778,Erika,Lindstrøm,
+10445176,3,16486,Geir,Ringstad,
+10445176,4,23105,Kent-Andre,Mardal,7498
+10445176,5,4931,Per,Eide,
+10445169,1,,Kartik,Jain,
+10445169,2,16486,Geir,Ringstad,
+10445169,3,4931,Per-Kristian,Eide,
+10445169,4,23105,Kent-Andre,Mardal,7498
+10445168,1,,WG,Bradley,
+10445168,2,23105,Kent-Andre,Mardal,7498
+10444991,1,,Kartik,Jain,
+10444991,2,23105,Kent-Andre,Mardal,7498
+10444629,1,23105,Kent-Andre,Mardal,7498
+10444629,2,22862,Joakim,Sundnes,7498
+10444629,3,23522,Hans Petter,Langtangen,
+10444629,4,24032,Aslak,Tveito,7498
+10444628,1,428712,Harish,Narayanan,
+10444628,2,9787,Anders,Logg,
+10444628,3,23105,Kent-Andre,Mardal,7498
+10444628,4,,Garth,Wells,
+10444619,1,23688,Bjørn,Nielsen,
+10444619,2,48962,Ola,Lysaker,
+10444619,3,23485,Per,Grøttum,
+10444619,4,23105,Kent-Andre,Mardal,7498
+10444619,5,24032,Aslak,Tveito,7498
+10444619,6,,Christian,Tarrou,
+10444619,7,14666,Kristina,Haugaa,
+10444619,8,13333,Andreas,Abildgaard,
+10444619,9,16454,Jan,Fjeld,
+10444619,10,23916,Are,Bruaset,7498
+10444619,11,21894,Olav,Lysne,7498
+10444617,1,9787,Anders,Logg,
+10444617,2,23105,Kent-Andre,Mardal,7498
+10444617,3,17458,Martin,Alnæs,
+10444617,4,23522,Hans,Langtangen,
+10444617,5,22919,Ola,Skavhaug,
+10444617,6,,David,Bader,
+10444602,1,5643,Kristian,Valen-Sendstad,7498
+10444602,2,9787,Anders,Logg,
+10444602,3,23105,Kent-Andre,Mardal,7498
+10444602,4,428712,Harish,Narayanan,
+10444602,5,59906,Mikael,Mortensen,
+10444602,6,,Garth,Wells,
+10444597,1,15115,Johan,Hake,
+10444597,2,9787,Anders,Logg,
+10444597,3,23105,Kent-Andre,Mardal,7498
+10444597,4,,Garth,Wells,
+10444575,1,23105,Kent-Andre,Mardal,7498
+10444575,2,23522,Hans Petter,Langtangen,
+10444575,3,24032,Aslak,Tveito,7498
+10444574,1,23105,Kent-Andre,Mardal,7498
+10444574,2,,G.,Zumbusch,
+10444574,3,23522,Hans Petter,Langtangen,
+10444574,4,24032,Aslak,Tveito,7498
+10444571,1,5482,Kristoffer,Selim,
+10444571,2,9787,Anders,Logg,
+10444571,3,23105,Kent-Andre,Mardal,7498
+10444571,4,,Garth,Wells,
+10444203,1,3518,Dag,Seljebotn,
+10444203,2,23105,Kent-Andre,Mardal,7498
+10444203,3,525788,Jeff,Jewell,
+10444203,4,1874092,Hans,Eriksen,
+10444203,5,547922,Philip,Bull,
+10444194,1,551072,Susanne,Hentschel,
+10444194,2,23105,Kent-Andre,Mardal,7498
+10444194,3,39031,Alf,Løvgren,
+10444194,4,319591,Svein,Linge,
+10444194,5,,Victor,Haughton,
+10444189,1,319591,Svein,Linge,
+10444189,2,,Victor,Haughton,
+10444189,3,39031,Alf,Løvgren,
+10444189,4,23105,Kent-Andre,Mardal,7498
+10444189,5,23522,Hans,Langtangen,
+10444177,1,17927,Trygve,Karper,
+10444177,2,23105,Kent-Andre,Mardal,7498
+10444177,3,24555,Ragnar,Winther,
+10444175,1,23105,Kent-Andre,Mardal,7498
+10444175,2,22919,Ola,Skavhaug,
+10444175,3,21673,Glenn,Lines,7498
+10444175,4,11776,Gunnar,Staff,
+10444175,5,14678,Åsmund,Ødegård,
+10444173,1,23105,Kent-Andre,Mardal,7498
+10444173,2,22985,Trygve,Nilssen,
+10444173,3,11776,Gunnar,Staff,
+10444171,1,23105,Kent-Andre,Mardal,7498
+10444171,2,23688,Bjørn,Nielsen,
+10444171,3,24001,Xing,Cai,7498
+10444171,4,24032,Aslak,Tveito,7498
+10444169,1,23105,Kent-Andre,Mardal,7498
+10444169,2,22985,Trygve,Nilssen,
+10444168,1,11776,Gunnar,Staff,
+10444168,2,23105,Kent-Andre,Mardal,7498
+10444168,3,22985,Trygve,Nilssen,
+10444166,1,23105,Kent-Andre,Mardal,7498
+10444166,2,24555,Ragnar,Winther,
+10444078,1,,Gabriela,Rutkowska,
+10444078,2,319591,Svein,Linge,
+10444078,3,23105,Kent-Andre,Mardal,7498
+10444068,1,,Jingfeng,Jiang,
+10444068,2,5643,Kristian,Valen-Sendstad,7498
+10444068,3,23105,Kent-Andre,Mardal,7498
+10444065,1,319591,Svein,Linge,
+10444065,2,,Victor,Haughton,
+10444065,3,39031,Alf,Løvgren,
+10444065,4,23105,Kent-Andre,Mardal,7498
+10444065,5,13840,Anders,Helgeland,
+10444065,6,23522,Hans,Langtangen,
+10444021,1,23105,Kent-Andre,Mardal,7498
+10444021,2,24555,Ragnar,Winther,
+10444015,1,23105,Kent-Andre,Mardal,7498
+10444015,2,14166,Xue-Cheng,Tai,
+10444015,3,24555,Ragnar,Winther,
+10444013,1,23688,Bjørn,Nielsen,
+10444013,2,23105,Kent-Andre,Mardal,7498
+10443814,1,,Achim,Schroll,
+10443814,2,9787,Anders,Logg,
+10443814,3,23105,Kent-Andre,Mardal,7498
+10443807,1,319591,Svein,Linge,
+10443807,2,23105,Kent-Andre,Mardal,7498
+10443807,3,13840,Anders,Helgeland,
+10443807,4,,John,Heiss,
+10443776,1,23522,Hans,Langtangen,
+10443776,2,23105,Kent-Andre,Mardal,7498
+10443776,3,,Pål,Røtnes,
+10427861,1,,Jørgen N.,Riseth,
+10427861,2,,Timo,Koch,
+10427861,3,23105,Kent-Andre,Mardal,7498;185
+10427859,1,,Bastian,Zapf,
+10427859,2,,Marius,Zeinhofer,
+10427859,3,23105,Kent-Andre,Mardal,7498;185
+10427856,1,,Marius,Zeinhofer,
+10427856,2,23105,Kent-Andre,Mardal,7498;185
+10427854,1,,Bastian,Zapf,
+10427854,2,,Lars Magnus,Valnes,
+10427854,3,23105,Kent-Andre,Mardal,7498;185
+10427854,4,,Ludmil,Zikatanov,
+10427853,1,,Lars Magnus,Valnes,
+10427853,2,23105,Kent-Andre,Mardal,7498;185
+10427852,1,,Marie E.,Rognes,
+10427852,2,23105,Kent-Andre,Mardal,7498;185
+10427852,3,,Lars Magnus,Valnes,
+10427852,4,571560,Vegard,Vinje,158
+10348200,1,1873619,Andreas,Solheim,185;7498
+10348200,2,16486,Geir,Ringstad,7620;2012;1965;185
+10348200,3,4931,Per Kristian,Eide,7620;2012;185
+10348200,4,503486,Lars Magnus,Valnes,185
+10348200,5,23105,Kent-Andre,Mardal,7620;7498;185
+10348073,1,,Alexandre,Poulain,11700556
+10348073,2,814985,Jørgen Nilsen,Riseth,7498;185
+10348073,3,10244,Kyrre E,Emblem,185;2012
+10348073,4,23105,Kent-Andre,Mardal,7498;185
+10348070,1,23105,Kent-Andre,Mardal,185
+10348070,2,408845,Jarle,Sogn,185
+10348070,3,,Stefan,Takacs,15300042
+10348061,1,814985,Jørgen Nilsen,Riseth,185;7498
+10348061,2,1241271,Timo,Koch,14400294;185;7498
+10348061,3,1880063,Sofie Lysholm,Lian,185
+10348061,4,21878,Tryggve Holck,Storås,2012
+10348061,5,,"Zikatanov, Ludmil",T.,68401442;185
+10348061,6,503486,Lars Magnus,Valnes,185
+10348061,7,6346,Kaja,Nordengen,2012;185
+10348061,8,23105,Kent-Andre,Mardal,185;7498
+10307238,1,21878,Tryggve Holck,Storås,185;2012
+10307238,2,1880063,Sofie Lysholm,Lian,185;2012
+10307238,3,1812474,Ingrid,Mossige,185;2012
+10307238,4,814985,Jørgen Nilsen,Riseth,185;7498
+10307238,5,729550,Siri Fløgstad,Svensson,2012
+10307238,6,909404,Grethe,Løvland,2012
+10307238,7,16486,Geir,Ringstad,1965;2012;185
+10307238,8,23105,Kent-Andre,Mardal,7498;185
+10307238,9,10244,Kyrre E,Emblem,2012
+10307238,10,6346,Kaja,Nordengen,2012;185
+10289345,1,1873619,Andreas,Solheim,7498;185
+10289345,2,16486,Geir,Ringstad,1965;7620;2012;185
+10289345,3,4931,Per Kristian,Eide,2012;185;7620
+10289345,4,23105,Kent-Andre,Mardal,7620;7498;185
+61244,1,23522,Hans Petter,Langtangen,185
+61244,2,23105,Kent-Andre,Mardal,185
+1791921,1,23522,Hans Petter,Langtangen,7498
+1791921,2,23105,Kent-Andre,Mardal,185
+61245,1,23105,Kent-Andre,Mardal,185
+61245,2,23522,Hans Petter,Langtangen,185
+2325086,1,,Marius,Zeinhofer,7498
+2325086,2,,Rami,Masri,7498
+2325086,3,23105,Kent-Andre,Mardal,185
+2246801,1,,Santiago,Badia,80500047;13700000
+2246801,2,706417,Martin,Hornkjøl,185
+2246801,3,,Arbaz,Khan,44400225
+2246801,4,23105,Kent-Andre,Mardal,185
+2246801,5,,Alberto F.,Martín,80500058
+2246801,6,,Ricardo,Ruiz-Baier,80500047;72500106
+1719599,1,3518,Dag Sverre,Seljebotn,185
+1719599,2,402488,Trygve,Bærland,185
+1719599,3,20075,Hans Kristian Kamfjord,Eriksen,185
+1719599,4,23105,Kent-Andre,Mardal,185
+1719599,5,23753,Ingunn Kathrine,Wehus,185
+1897815,1,,Bruce A.,Young,68400897
+1897815,2,,James,Adams,68400897
+1897815,3,,Jonathan M.,Beary,68400897
+1897815,4,23105,Kent-Andre,Mardal,185
+1897815,5,923557,Robert,Schneider,68400897
+1897815,6,,Tatyana,Kondrashova,68400897
+2375512,1,,Melanie,Rieff,14400263;14100003
+2375512,2,,Fabian,Holzberger,14400263
+2375512,3,1276752,Oksana,Lapina,2012
+2375512,4,16486,Geir,Ringstad,1965;7620;2012;185
+2375512,5,503486,Lars Magnus,Valnes,2012
+2375512,6,1266447,Bogna,Warsza,2012
+2375512,7,4931,Per Kristian,Eide,7620;2012;185
+2375512,8,23105,Kent-Andre,Mardal,7620;7498;185
+2375512,9,,Barbara,Wohlmuth,14400263
+908124,1,3628,Karen-Helene,Støverud,7498;185
+908124,2,23105,Kent-Andre,Mardal,7498;185
+908124,3,23522,Hans Petter,Langtangen,7498;185
+908124,4,,Victor,Haughton,68401825;7498
+2184297,1,571560,Vegard,Vinje,20054;7498
+2184297,2,1190355,Bastian,Zapf,185
+2184297,3,16486,Geir,Ringstad,2012;1965
+2184297,4,4931,Per Kristian,Eide,185;2012
+2184297,5,17829,Marie Elisabeth,Rognes,7498
+2184297,6,23105,Kent-Andre,Mardal,7498;185
+1126878,1,13840,Anders,Helgeland,7428
+1126878,2,23105,Kent-Andre,Mardal,7498
+1126878,3,,Victor,Haughton,68401822;7498
+1126878,4,6869,Bjørn Anders Pettersson,Reif,7428;185
+1132459,1,3518,Dag Sverre,Seljebotn,185
+1132459,2,23105,Kent-Andre,Mardal,7498;185
+1132459,3,,J. B.,Jewell,68405920
+1132459,4,20075,Hans Kristian Kamfjord,Eriksen,185
+1132459,5,547922,Philip James,Bull,185
+999126,1,18384,Ilmar Michaael,Wilbers,7498
+999126,2,23105,Kent-Andre,Mardal,7498;185
+999126,3,17458,Martin Sandve,Alnæs,7498;185
+999042,1,5643,Kristian,Valen-Senstad,7498
+999042,2,9787,Anders Bernhard,Logg,7498;185
+999042,3,23105,Kent-Andre,Mardal,7498;185
+999042,4,428712,Harish,Narayanan,185
+999042,5,59906,Mikael,Mortensen,7428
+1433123,1,,Kartik,Jain,14400000;7498
+1433123,2,16486,Geir,Ringstad,2012
+1433123,3,4931,Per Kristian,Eide,2012;185
+1433123,4,23105,Kent-Andre,Mardal,7498;185
+999050,1,5643,Kristian,Valen-Senstad,7498
+999050,2,23105,Kent-Andre,Mardal,7498;185
+999050,3,9787,Anders Bernhard,Logg,7498;185
+1007486,1,24555,Ragnar,Winther,185
+1007486,2,23105,Kent-Andre,Mardal,185
+397038,1,22862,Joakim,Sundnes,185
+397038,2,21673,Glenn Terje,Lines,185
+397038,3,23105,Kent-Andre,Mardal,185
+397038,4,24032,Aslak,Tveito,185
+1210272,1,,Haughton,Victor,68401825
+1210272,2,23105,Kent-Andre,Mardal,7498
+436164,1,23522,Hans Petter,Langtangen,185
+436164,2,23105,Kent-Andre,Mardal,185
+436164,3,24555,Ragnar,Winther,185
+1043847,1,23105,Kent-Andre,Mardal,7498
+1043847,2,,G.,Rutkowska,7498
+1043847,3,319591,Svein,Linge,7498;222
+1043847,4,,Victor,Haughton,68401825
+1581164,1,22862,Joakim,Sundnes,185
+1581164,2,21673,Glenn Terje,Lines,185
+1581164,3,24001,Xing,Cai,185
+1581164,4,23688,Bjørn Fredrik,Nielsen,192
+1581164,5,23105,Kent-Andre,Mardal,185
+1581164,6,24032,Aslak,Tveito,185
+1505214,1,,Giulia,Pizzichelli,12307456
+1505214,2,17661,Benjamin Dam,Kehlet,7498
+1505214,3,3709,Øyvind,Evju,7498
+1505214,4,,Bryn A.,Martin,68400395
+1505214,5,17829,Marie Elisabeth,Rognes,7498;185
+1505214,6,23105,Kent-Andre,Mardal,7498;185
+1505214,7,,Edoardo,Sinibaldi,12307456
+375150,1,22862,Joakim,Sundnes,7498;185
+375150,2,23688,Bjørn Fredrik,Nielsen,7498;185
+375150,3,23105,Kent-Andre,Mardal,7498;185
+375150,4,24001,Xing,Cai,7498;185
+375150,5,21673,Glenn Terje,Lines,7498;185
+375150,6,24032,Aslak,Tveito,7498;185
+1390213,1,23105,Kent-Andre,Mardal,7498;185
+1390213,2,23688,Bjørn Fredrik,Nielsen,192
+1390213,3,619181,Magne,Nordaas,7498
+61500,1,11776,Gunnar Andreas,Staff,185
+61500,2,23105,Kent-Andre,Mardal,185
+61500,3,22985,Trygve Kastberg,Nilssen,
+61505,1,11776,Gunnar Andreas,Staff,185
+61505,2,23105,Kent-Andre,Mardal,185
+357472,1,17927,Trygve Klovning,Karper,185
+357472,2,23105,Kent-Andre,Mardal,7498
+357472,3,24555,Ragnar,Winther,185
+1388764,1,,William G.,Bradley,
+1388764,2,,Victor,Haughton,
+1388764,3,23105,Kent-Andre,Mardal,185
+1388765,1,,Kartik,Jain,14400303;7498
+1388765,2,,Jingfeng,Jiang,68400801
+1388765,3,,Charles M,Strother,68401825
+1388765,4,23105,Kent-Andre,Mardal,7498;185
+344202,1,17458,Martin Sandve,Alnæs,7498
+344202,2,9787,Anders Bernhard,Logg,7498;185
+344202,3,23105,Kent-Andre,Mardal,7498;185
+344202,4,22919,Ola,Skavhaug,7498;185
+344202,5,23522,Hans Petter,Langtangen,7498;185
+1100285,1,3709,Øyvind,Evju,7498
+1100285,2,5643,Kristian,Valen-Senstad,61200065;7498
+1100285,3,23105,Kent-Andre,Mardal,7498
+1844228,1,,Bruce A.,Young,68400897
+1844228,2,,James,Adams,68400897
+1844228,3,,Jonathan M.,Beary,68400897
+1844228,4,23105,Kent-Andre,Mardal,185
+1844228,5,923557,Robert,Schneider,68400897
+1844228,6,,Tatyana,Kondrashova,68400897
+1100249,1,,Ida Nordehaug,Drøsdal,6017
+1100249,2,23105,Kent-Andre,Mardal,7498
+1100249,3,3628,Karen-Helene,Støverud,7498
+1100249,4,,Victor,Haughton,68401825
+532434,1,22985,Trygve Kastberg,Nilssen,201
+532434,2,11776,Gunnar Andreas,Staff,
+532434,3,23105,Kent-Andre,Mardal,7498;185
+873457,1,,Jingfeng,Jiang,68401825
+873457,2,,Kevin,Johnson,68401825
+873457,3,,Oliver,Wieben,68401825
+873457,4,5643,Kristian,Valen-Senstad,7498;185
+873457,5,23105,Kent-Andre,Mardal,7498;185
+873457,6,,Charles M,Strother,68401825
+1009268,1,23105,Kent-Andre,Mardal,7498;185
+1009268,2,,Joachim,Schoberl,15300000
+1009268,3,24555,Ragnar,Winther,185
+436177,1,23105,Kent-Andre,Mardal,185
+436177,2,14166,Xue-Cheng,Tai,184
+436177,3,24555,Ragnar,Winther,185
+1636854,1,5778,Erika Kristina,Lindstrøm,185
+1636854,2,16486,Geir,Ringstad,2012;185
+1636854,3,393348,Angelika,Sorteberg,2012;185
+1636854,4,393345,Wilhelm,Sorteberg,2012
+1636854,5,23105,Kent-Andre,Mardal,7498;185
+1636854,6,4931,Per Kristian,Eide,2012;185
+1320958,1,17458,Martin Sandve,Alnæs,7498
+1320958,2,23105,Kent-Andre,Mardal,7498
+1320958,3,13298,Søren Jacob,Bakke,2012
+1320958,4,393348,Angelika,Sorteberg,2012
+348087,1,,S,Hentschel,7498
+348087,2,23105,Kent-Andre,Mardal,7498;185
+348087,3,,AE,Løvgren,7498
+348087,4,319591,Svein,Linge,7498;222
+348087,5,,Victor,Haughton,68401825
+1591663,1,16486,Geir,Ringstad,2012;185
+1591663,2,503486,Lars Magnus,Valnes,185
+1591663,3,39588,Anders,Dale,68400196;185
+1591663,4,393254,Are Hugo,Pripp,2012
+1591663,5,777874,Svein Are Sirirud,Vatnehol,2012
+1591663,6,10244,Kyrre Eeg,Emblem,2012
+1591663,7,23105,Kent-Andre,Mardal,7498;185
+1591663,8,4931,Per Kristian,Eide,2012;185
+2065253,1,706417,Martin,Hornkjøl,185
+2065253,2,503486,Lars Magnus,Valnes,2012
+2065253,3,16486,Geir,Ringstad,2012;1965
+2065253,4,17829,Marie Elisabeth,Rognes,7498;184
+2065253,5,4931,Per Kristian,Eide,2012;185
+2065253,6,23105,Kent-Andre,Mardal,7498;185
+2065253,7,571560,Vegard,Vinje,7498
+1100901,1,,Kristian,Valen-Sendstad,61200065;7498
+1100901,2,23105,Kent-Andre,Mardal,7498
+1100901,3,,D. A.,Steinman,61200065
+908163,1,5643,Kristian,Valen-Senstad,7498;7428;185
+908163,2,23105,Kent-Andre,Mardal,7498;185
+908163,3,59906,Mikael,Mortensen,7428
+908163,4,6869,Bjørn Anders Pettersson,Reif,7428;185
+908163,5,23522,Hans Petter,Langtangen,7498;185
+1100894,1,3628,Karen-Helene,Støverud,7498;185
+1100894,2,23522,Hans Petter,Langtangen,7498;185
+1100894,3,,Victor,Haughton,68401825
+1100894,4,23105,Kent-Andre,Mardal,7498;185
+1602060,1,571560,Vegard,Vinje,7498
+1602060,2,,Justin,Brucker,68401825
+1602060,3,17829,Marie Elisabeth,Rognes,7498
+1602060,4,23105,Kent-Andre,Mardal,7498;185
+1602060,5,,Victor,Haughton,68401825
+2040383,1,23105,Kent-Andre,Mardal,185
+2040383,2,17829,Marie Elisabeth,Rognes,7498
+2040383,3,,Travis,Thompson,13900221
+2040383,4,503486,Lars Magnus,Valnes,2012
+2142668,1,1241271,Timo,Koch,185
+2142668,2,23105,Kent-Andre,Mardal,185
+2142668,3,503486,Lars Magnus,Valnes,
+1173580,1,319591,Svein,Linge,7498;222
+1173580,2,23105,Kent-Andre,Mardal,7498
+1173580,3,13840,Anders,Helgeland,7498;7428
+1173580,4,,John D.,Heiss,68405903
+1173580,5,,Victor,Haughton,68401825;7498
+1790564,1,40536,Tormod,Landet,185
+1790564,2,23105,Kent-Andre,Mardal,185
+1790564,3,59906,Mikael,Mortensen,185
+1607786,1,5778,Erika Kristina,Lindstrøm,185
+1607786,2,16486,Geir,Ringstad,2012;185
+1607786,3,23105,Kent-Andre,Mardal,7498;185
+1607786,4,4931,Per Kristian,Eide,2012;185
+2137020,1,1241271,Timo,Koch,7498;185
+2137020,2,,Vegard,Vinje,7498
+2137020,3,23105,Kent-Andre,Mardal,7498;185
+53447,1,23105,Kent-Andre,Mardal,185
+53447,2,23522,Hans Petter,Langtangen,185
+920483,1,,Susanne,Støle-Hentschel,6017
+920483,2,319591,Svein,Linge,7498;222
+920483,3,,Alf Emil,Løvgren,9198
+920483,4,23105,Kent-Andre,Mardal,7498;185
+998493,1,17458,Martin Sandve,Alnæs,7498;185
+998493,2,23105,Kent-Andre,Mardal,7498;185
+998500,1,17458,Martin Sandve,Alnæs,7498;185
+998500,2,9787,Anders Bernhard,Logg,7498;185
+998500,3,23105,Kent-Andre,Mardal,7498;185
+1607782,1,619107,Simon Wolfgang,Funke,7498
+1607782,2,619181,Magne,Nordaas,10600001
+1607782,3,3709,Øyvind,Evju,7498
+1607782,4,17458,Martin,Alnæs,7498
+1607782,5,23105,Kent-Andre,Mardal,185
+1479398,1,402488,Trygve,Bærland,185
+1479398,2,,Jeonghun J.,Lee,68401674
+1479398,3,23105,Kent-Andre,Mardal,185
+1479398,4,24555,Ragnar,Winther,185
+1479389,1,3709,Øyvind,Evju,7498
+1479389,2,,Jose M.,Pozo,13900227
+1479389,3,,Alejandro F.,Frangi,13900227
+1479389,4,23105,Kent-Andre,Mardal,7498;185
+2161288,1,,Bryan,Gómez-Vargas,61600057
+2161288,2,23105,Kent-Andre,Mardal,7498;185
+2161288,3,,Ricardo,Ruiz-Baier,80500047;14000276
+2161288,4,571560,Vegard,Vinje,7498
+2161289,1,563557,Jakob Emil,Schreiner,20054;7498
+2161289,2,50953,Ute,Kessler,1936;184
+2161289,3,47692,Ketil Joachim,Ødegaard,1936;184
+2161289,4,23105,Kent-Andre,Mardal,20054;7498;185
+2161289,5,48248,Leif,Oltedal,1936;184
+2312295,1,1448347,Lars Willas,Dreyer,7498;185
+2312295,2,,Anders,Eklund,10600048
+2312295,3,17829,Marie Elisabeth,Rognes,7498
+2312295,4,,Jan,Malm,10600048
+2312295,5,,Sara,Qvarlander,10600048
+2312295,6,3628,Karen-Helene,Støverud,10600048;7401
+2312295,7,23105,Kent-Andre,Mardal,20054;7498;185
+2312295,8,571560,Vegard,Vinje,20054;7498;158
+1889821,1,,Cecile,Daversin-Catty,7498
+1889821,2,571560,Vegard,Vinje,7498
+1889821,3,23105,Kent-Andre,Mardal,7498;185
+1889821,4,,Marie E.,Rognes,7498
+349468,1,17458,Martin Sandve,Alnæs,7498
+349468,2,23105,Kent-Andre,Mardal,7498;185
+1403803,1,3628,Karen-Helene,Støverud,7498;185
+1403803,2,23522,Hans Petter,Langtangen,7498;185
+1403803,3,16486,Geir,Ringstad,2012;185
+1403803,4,4931,Per Kristian,Eide,2012;185
+1403803,5,23105,Kent-Andre,Mardal,7498;185
+1934082,1,728250,Eleonora,Piersanti,7498
+1934082,2,618605,Jeonghun,Lee,68401609
+1934082,3,,Travis,Thompson,7498
+1934082,4,23105,Kent-Andre,Mardal,7498;185
+1934082,5,34342,Marie,Rognes,7498
+2039942,1,23105,Kent-Andre,Mardal,7498;185
+2039942,2,408845,Jarle,Sogn,15300077
+2039942,3,,Stefan,Takacs,15300077
+2039933,1,563557,Jakob Emil,Schreiner,20054;7498
+2039933,2,23105,Kent-Andre,Mardal,20054;7498;185
+41894,1,,Kristian,Valen-Sendstad,7498
+41894,2,,M.,Mortensen,7428
+41894,3,23522,Hans Petter,Langtangen,7498;185
+41894,4,6869,Bjørn Anders Pettersson,Reif,7428;185
+41894,5,23105,Kent-Andre,Mardal,7498;185
+353960,1,17927,Trygve Klovning,Karper,185
+353960,2,23105,Kent-Andre,Mardal,7498
+353960,3,24555,Ragnar,Winther,185
+423074,1,24555,Ragnar,Winther,185
+423074,2,23105,Kent-Andre,Mardal,185
+1686572,1,,Jeonghun J.,Lee,68401674
+1686572,2,728250,Eleonora,Piersanti,7498
+1686572,3,23105,Kent-Andre,Mardal,185
+1686572,4,17829,Marie Elisabeth,Rognes,7498
+1746852,1,4931,Per Kristian,Eide,2012;185
+1746852,2,503486,Lars Magnus,Valnes,185
+1746852,3,393254,Are Hugo,Pripp,2012
+1746852,4,23105,Kent-Andre,Mardal,7498;185
+1746852,5,16486,Geir,Ringstad,2012;185
+520481,1,,Martin,Burger,14400304
+520481,2,23105,Kent-Andre,Mardal,7498;185
+520481,3,23688,Bjørn Fredrik,Nielsen,7498;192
+998533,1,15115,Johan Elon,Hake,68400196;7498
+998533,2,23105,Kent-Andre,Mardal,7498;185
+998585,1,,R.C.,Kirby,68401655
+998585,2,23105,Kent-Andre,Mardal,7498;185
+831329,1,23105,Kent-Andre,Mardal,7498
+831329,2,24555,Ragnar,Winther,185
+436472,1,22862,Joakim,Sundnes,185
+436472,2,21673,Glenn Terje,Lines,185
+436472,3,23105,Kent-Andre,Mardal,185
+436472,4,24032,Aslak,Tveito,185
+998613,1,9787,Anders Bernhard,Logg,7498;185
+998613,2,23105,Kent-Andre,Mardal,7498;185
+998613,3,,Garth N.,Wells,13900141
+1910158,1,23105,Kent-Andre,Mardal,7498;185
+1910158,2,,Marie E.,Rognes,7498
+1910158,3,,Travis,Thompson,13900221;7498
+1910155,1,4931,Per Kristian,Eide,2012;185
+1910155,2,571560,Vegard,Vinje,7498
+1910155,3,393254,Are Hugo,Pripp,2012
+1910155,4,23105,Kent-Andre,Mardal,7498;185
+1910155,5,16486,Geir,Ringstad,2012
+1910153,1,4931,Per Kristian,Eide,2012;185
+1910153,2,503486,Lars Magnus,Valnes,2012
+1910153,3,5778,Erika Kristina,Lindstrøm,2012;185
+1910153,4,23105,Kent-Andre,Mardal,7498;185
+1910153,5,16486,Geir,Ringstad,2012
+1102827,1,59906,Mikael,Mortensen,7498;185
+1102827,2,23105,Kent-Andre,Mardal,7498
+1102827,3,,B,Martin,68401287
+1102827,4,,S.,Pahlavian,68401287
+905555,1,3628,Karen-Helene,Støverud,185
+905555,2,,Karen-Helene,Støverud,7498
+905555,3,23105,Kent-Andre,Mardal,7498;185
+905555,4,,Victor,Haughton,7498
+905555,5,23522,Hans Petter,Langtangen,185
+905555,6,,Hans Petter,Langtangen,7498
+1102908,1,3628,Karen-Helene,Støverud,7498;185
+1102908,2,23105,Kent-Andre,Mardal,7498;185
+1102908,3,23522,Hans Petter,Langtangen,7498;185
+1102908,4,,Victor,Haughton,7498
+1315208,1,,Kartik,Jain,14400303;7498
+1315208,2,,Sabine,Roller,14400303
+1315208,3,23105,Kent-Andre,Mardal,7498;185
+1714010,1,571560,Vegard,Vinje,7498
+1714010,2,16486,Geir,Ringstad,2012
+1714010,3,5778,Erika Kristina,Lindstrøm,185
+1714010,4,503486,Lars Magnus,Valnes,185
+1714010,5,17829,Marie Elisabeth,Rognes,7498
+1714010,6,4931,Per Kristian,Eide,2012;185
+1714010,7,23105,Kent-Andre,Mardal,7498;185
+42927,1,23688,Bjørn Fredrik,Nielsen,7498;185
+42927,2,,O.M.,Lysaker,7498
+42927,3,23485,Per,Grøttum,7498;185
+42927,4,23105,Kent-Andre,Mardal,7498;185
+42927,5,24032,Aslak,Tveito,7498;185
+42927,6,,Christian,Tarrou,
+42927,7,,K.,Haugaa,
+42927,8,,A.,Abildgaard,
+42927,9,,J.G.,Fjeld,
+905590,1,5643,Kristian,Valen-Senstad,7498;185
+905590,2,23105,Kent-Andre,Mardal,7498;185
+905590,3,59906,Mikael,Mortensen,7428
+905590,4,6869,Bjørn Anders Pettersson,Reif,7428
+905590,5,23522,Hans Petter,Langtangen,7498;185
+393093,1,24555,Ragnar,Winther,185
+393093,2,23105,Kent-Andre,Mardal,7498;185
+1315218,1,3709,Øyvind,Evju,7498
+1315218,2,23105,Kent-Andre,Mardal,7498;185
+1315232,1,,Kartik,Jain,
+1315232,2,23105,Kent-Andre,Mardal,185
+1315205,1,3628,Karen-Helene,Støverud,7498;185
+1315205,2,17458,Martin Sandve,Alnæs,7498
+1315205,3,23522,Hans Petter,Langtangen,7498;185
+1315205,4,,Victor,Haughton,68400000;7498
+1315205,5,23105,Kent-Andre,Mardal,7498;185
+1039167,1,23688,Bjørn Fredrik,Nielsen,7498;2012;192
+1039167,2,23105,Kent-Andre,Mardal,7498;185
+1388482,1,447000,Radek,Fric,2012
+1388482,2,5778,Erika Kristina,Lindstrøm,185
+1388482,3,16486,Geir,Ringstad,2012
+1388482,4,23105,Kent-Andre,Mardal,185
+1388482,5,4931,Per Kristian,Eide,2012;185
+1388489,1,618605,Jeonghun,Lee,185
+1388489,2,23105,Kent-Andre,Mardal,185
+1388489,3,24555,Ragnar,Winther,185
+1684227,1,,Kristian,Valen-Sendstad,7498
+1684227,2,485484,Aslak Wigdahl,Bergersen,7498;185
+1684227,3,,Yuji,Shimogonya,46400319
+1684227,4,,Leonid,Goubergrits,14400317
+1684227,5,,Jan,Bruening,14400317
+1684227,6,,Jordi,Pallares,13700073
+1684227,7,,Salvatore,Cito,13700073
+1684227,8,,Senol,Piskin,68401678
+1684227,9,,Kerem,Pekkan,14300036
+1684227,10,,Arjan J.,Geers,13700071
+1684227,11,,Ignacio,Larrabide,70500060
+1684227,12,,Saikiran,Rapaka,68400000
+1684227,13,,Viorel,Mihalef,68400000
+1684227,14,,Wenyu,Fu,48400050
+1684227,15,,Aike,Qiao,48400047
+1684227,16,,Kartik,Jain,14400303;14100020;7498
+1684227,17,,Sabine,Roller,14400303
+1684227,18,23105,Kent-Andre,Mardal,7498;185
+1684227,19,,Ramji,Kamakoti,11700000
+1684227,20,,Thomas,Spirka,13900000
+1684227,21,,Neil,Ashton,13900221
+1684227,22,,Alistair,Revell,13900166
+1684227,23,,Nicolas,Aristokleous,12100026
+1684227,24,,J. Graeme,Houston,13900145
+1684227,25,,Masanori,Tsuji,46400271
+1684227,26,,Fujimaro,Ishida,46400271
+1684227,27,,Prahlad G.,Menon,68401850
+1684227,28,,Leonard D.,Browne,12100026
+1684227,29,,Stephen,Broderick,12100026
+1684227,30,,Masaaki,Shojima,46400503
+1684227,31,,Satoshi,Koizumi,46400503
+1684227,32,,Michael,Barbour,68401773
+1684227,33,,Alberto,Aliseda,68401773
+1684227,34,,Hernan G.,Morales,12707007;12700000
+1684227,35,,Thierry,Lefèvre,12707007;11700000
+1684227,36,,Simona,Hodis,68401648
+1684227,37,,Yahia M.,Al-Smadi,47600010
+1684227,38,,Justin S.,Tran,68400181
+1684227,39,,Alison L.,Marsden,68400181
+1684227,40,,Sreeja,Vaippummadhom,44400000
+1684227,41,,G. Albert,Einstein,44400000
+1684227,42,,Alistair G.,Brown,68400000
+1684227,43,,Kristian,Debus,68400000
+1684227,44,,Kuniyasu,Niizuma,46400486
+1684227,45,,Sherif,Rashad,46400486
+1684227,46,,Shin-ichiro,Sugiyama,46400000
+1684227,47,,M. Owais,Khan,61200065
+1684227,48,,Adam R.,Updegrove,68400189
+1684227,49,,Shawn C.,Shadden,68400189
+1684227,50,,Bart M.W.,Cornelissen,12701910
+1684227,51,,Charles B.L.M.,Majoie,12701910
+1684227,52,,Philipp,Berg,14400217
+1684227,53,,Sylvia,Saalfield,14400217
+1684227,54,,Kenichi,Kono,46400555
+1684227,55,,David A.,Steinman,61200065
+2132947,1,1504704,Florian Maurits,Arbes,7492
+2132947,2,46825,Øyvind,Jensen,7492
+2132947,3,23105,Kent-Andre,Mardal,185
+2132947,4,795721,Jorgen S.,Dokken,13900141
+1548624,1,5778,Erika Kristina,Lindstrøm,185
+1548624,2,563557,Jakob Emil,Schreiner,7498
+1548624,3,16486,Geir,Ringstad,2012
+1548624,4,,Victor,Haughton,68401825
+1548624,5,4931,Per Kristian,Eide,2012;185
+1548624,6,23105,Kent-Andre,Mardal,7498;185
+1721366,1,,Tomas,Gergelits,15800012
+1721366,2,23105,Kent-Andre,Mardal,7498;185
+1721366,3,23688,Bjørn Fredrik,Nielsen,192
+1721366,4,,Zdenek,Strakos,15800012
+2071024,1,,Tomas,Bohr,10100014
+2071024,2,,Poul G.,Hjorth,10100014
+2071024,3,,Sebastian C.,Holst,11107012
+2071024,4,,Sabina,Hrabětová,68400000
+2071024,5,,Vesa,Kiviniemi,10301904;10300027
+2071024,6,,Tuomas,Lilius,10301905;10300010;10100065
+2071024,7,,Iben,Lundgaard,10600030
+2071024,8,23105,Kent-Andre,Mardal,7498;185
+2071024,9,,Erik A.,Martens,10600030
+2071024,10,,Yuki,Mori,10100065
+2071024,11,,U. Valentin,Nägerl,11700581
+2071024,12,,Charles,Nicholson,68401145;68401099
+2071024,13,,Allen,Tannenbaum,68401144
+2071024,14,,John H.,Thomas,68401158
+2071024,15,,Jeffrey,Tithof,68401846
+2071024,16,,Helene,Benveniste,68400263
+2071024,17,,Jeffrey J.,Iliff,68401773
+2071024,18,,Douglas H.,Kelley,68401158
+2071024,19,,Maiken,Nedergaard,68401158;10100065
+1503525,1,498288,Karl Erik,Holter,7498;185
+1503525,2,17661,Benjamin Dam,Kehlet,7498;185
+1503525,3,,Anna,Devor,68401900;68400196
+1503525,4,,Terrence J.,Sejnowski,68420056;68400196
+1503525,5,,Anders M.,Dale,68400196
+1503525,6,617874,Stig William,Omholt,194
+1503525,7,22988,Ole Petter,Ottersen,185
+1503525,8,14392,Erlend Arnulf,Nagelhus,185
+1503525,9,23105,Kent-Andre,Mardal,7498;185
+1503525,10,8811,Klas,Pettersen,185
+2376252,1,1241271,Timo,Koch,185
+2376252,2,23105,Kent-Andre,Mardal,7498;185
+998955,1,23105,Kent-Andre,Mardal,7498;185
+998955,2,,Joachim Berdal,Haga,7498
+998962,1,59906,Mikael,Mortensen,7428
+998962,2,23105,Kent-Andre,Mardal,7498;185
+998962,3,23522,Hans Petter,Langtangen,7498;185
+770358,1,23688,Bjørn Fredrik,Nielsen,192
+770358,2,23105,Kent-Andre,Mardal,7498
+848293,1,22985,Trygve Kastberg,Nilssen,201
+848293,2,11776,Gunnar Andreas,Staff,20497
+848293,3,23105,Kent-Andre,Mardal,7498;185
+1805264,1,909836,André Henrik,Erhardt,185
+1805264,2,23105,Kent-Andre,Mardal,7498;185
+1805264,3,563557,Jakob Emil,Schreiner,20054;7498
+1815169,1,503486,Lars Magnus,Valnes,185
+1815169,2,,Sebastian,Mitusch,7498
+1815169,3,16486,Geir,Ringstad,2012
+1815169,4,4931,Per Kristian,Eide,2012;185
+1815169,5,619107,Simon Wolfgang,Funke,7498
+1815169,6,23105,Kent-Andre,Mardal,7498;185
+1521885,1,16486,Geir,Ringstad,2012;185
+1521885,2,5778,Erika Kristina,Lindstrøm,185
+1521885,3,777874,Svein Are Sirirud,Vatnehol,2012;185
+1521885,4,23105,Kent-Andre,Mardal,185
+1521885,5,10244,Kyrre Eeg,Emblem,2012
+1521885,6,4931,Per Kristian,Eide,2012;185
+1808092,1,571560,Vegard,Vinje,7498
+1808092,2,,Anders,Eklund,10600048
+1808092,3,23105,Kent-Andre,Mardal,7498;185
+1808092,4,34342,Marie,Rognes,7498
+1808092,5,,Karen Helene,Støverud,10600048
+667979,1,319591,Svein,Linge,7498;222
+667979,2,,Victor,Haughton,68401825;7498
+667979,3,39031,Alf Emil,Løvgren,7498
+667979,4,23105,Kent-Andre,Mardal,7498
+667979,5,23522,Hans Petter,Langtangen,7498
+940647,1,319591,Svein,Linge,7498;222
+940647,2,23105,Kent-Andre,Mardal,7498
+940647,3,,Victor,Haughton,68401825;7498
+940647,4,13840,Anders,Helgeland,7498;7428
+863400,1,319591,Svein,Linge,7498;222
+863400,2,,Victor,Haughton,68401825;7498
+863400,3,39031,Alf Emil,Løvgren,7498
+863400,4,23105,Kent-Andre,Mardal,7498
+863400,5,13840,Anders,Helgeland,7498;7428
+863400,6,23522,Hans Petter,Langtangen,7498
+1087892,1,8695,Gaute Tomas,Einevoll,192
+1087892,2,317645,Henrik,Linden,10600027;192
+1087892,3,317928,Tom,Tetzlaff,14407434;192
+1087892,4,568541,Szymon,Leski,13107410;192
+1087892,5,8811,Klas,Pettersen,192
+1205385,1,8811,Klas,Pettersen,192;185
+1205385,2,317645,Henrik,Linden,10600027;10100065;192
+1205385,3,317928,Tom,Tetzlaff,14407434;192
+1205385,4,8695,Gaute,Einevoll,192;185
+999533,1,8811,Klas Henning,Pettersen,192
+999533,2,317645,Henrik,Linden,192
+999533,3,,Anders M.,Dale,68400196
+999533,4,8695,Gaute Tomas,Einevoll,192
+1962804,1,689593,Daniel Marelius,Bjørnstad,185
+1962804,2,410061,Knut Sindre,Åbjørsbråten,185
+1962804,3,729056,Eivind,Hennestad,185
+1962804,4,618850,Celine,Cunen,185
+1962804,5,9423,Gudmund Horn,Hermansen,185
+1962804,6,730505,Laura,Bojarskaite,2012;185
+1962804,7,8811,Klas Henning,Pettersen,185
+1962804,8,9580,Koen Gerard Alois,Vervaeke,185
+1962804,9,10829,Rune,Enger,185
+1850658,1,730505,Laura,Bojarskaite,185
+1850658,2,689593,Daniel Marelius,Bjørnstad,185
+1850658,3,8811,Klas Henning,Pettersen,185
+1850658,4,618850,Celine,Cunen,185
+1850658,5,9423,Gudmund Horn,Hermansen,185
+1850658,6,410061,Knut Sindre,Åbjørsbråten,185
+1850658,7,798664,Anna,Chambers,185
+1850658,8,387847,Rolf,Sprengel,14400360
+1850658,9,9580,Koen Gerard Alois,Vervaeke,185
+1850658,10,506470,Wannan,Tang,194;185
+1850658,11,10829,Rune,Enger,2012;185
+1850658,12,14392,Erlend Arnulf,Nagelhus,2012;185
+1431203,1,317471,Geir,Halnes,192
+1431203,2,605325,Tuomo,Mäki-Marttunen,185
+1431203,3,,Daniel,Keller,14100002
+1431203,4,8811,Klas,Pettersen,185
+1431203,5,23656,Ole Andreas,Andreassen,185
+1431203,6,8695,Gaute,Einevoll,192;185
+2329673,1,317471,Geir,Halnes,192
+2329673,2,9002,Torbjørn V,Ness,192
+2329673,3,729057,Solveig,Næss,185
+2329673,4,317468,Espen,Hagen,185
+2329673,5,8811,Klas Henning,Pettersen,20651
+2329673,6,8695,Gaute Tomas,Einevoll,192;185
+761730,1,8695,Gaute,Einevoll,192
+761730,2,8811,Klas,Pettersen,192
+761730,3,317468,Espen,Hagen,192
+1342007,1,317471,Geir,Halnes,192
+1342007,2,11290,Ivar,Østby,192
+1342007,3,8811,Klas,Pettersen,192
+1342007,4,617874,Stig William,Omholt,192
+1342007,5,8695,Gaute,Einevoll,192
+1097308,1,,Dan,Beard,68400812
+1097308,2,8811,Klas,Pettersen,192
+1097308,3,,Brian E.,Carlson,68401813
+1097308,4,617874,Stig W,Omholt,194
+1097308,5,,Scott M.,Bugenhagen,68401813
+765773,1,8811,Klas,Pettersen,192
+765773,2,8695,Gaute,Einevoll,192
+765772,1,8811,Klas,Pettersen,192
+765772,2,317468,Espen,Hagen,192
+765772,3,8695,Gaute,Einevoll,192
+761652,1,8695,Gaute,Einevoll,192
+761652,2,8811,Klas,Pettersen,192
+761652,3,,Anna,Devor,68401845
+761652,4,,Istvan,Ulbert,
+761652,5,,Eric,Halgren,68401845
+761652,6,39588,Anders M.,Dale,68401845
+1151567,1,8811,Klas,Pettersen,192
+1151567,2,,Scott M.,Bugenhagen,68401813
+1151567,3,24802,Javaid,Nauman,194
+1151567,4,,Daniel A.,Beard,68401813
+1151567,5,617874,Stig W,Omholt,194
+1059752,1,568541,Szymon,Leski,13107410;192
+1059752,2,317645,Henrik,Linden,10600027;192
+1059752,3,317928,Tom,Tetzlaff,14407434;192
+1059752,4,8811,Klas Henning,Pettersen,192
+1059752,5,8695,Gaute Tomas,Einevoll,192
+895482,1,,Szymon,Leski,13100259
+895482,2,8811,Klas Henning,Pettersen,192
+895482,3,,Beth,Tunstall,13900166
+895482,4,8695,Gaute Tomas,Einevoll,192
+895482,5,,John,Gigg,13900166
+895482,6,,Daniel,Wojcik,13100259
+895481,1,7047,Henrik Anders,Lindén,10600027;192
+895481,2,317928,Tom,Tetzlaff,14400000;192
+895481,3,,Tobias,Potjans,46407405;14400003;14400000
+895481,4,8811,Klas Henning,Pettersen,192
+895481,5,,Sonja,Grün,46407405;14400235;14400000
+895481,6,,Markus,Diesmann,46407405;14400235;14400000
+895481,7,8695,Gaute Tomas,Einevoll,192
+1081318,1,317645,Henrik,Linden,10600027;192
+1081318,2,317468,Espen,Hagen,192
+1081318,3,568541,Szymon,Leski,13107410;192
+1081318,4,317721,Eivind Skjønsberg,Norheim,192
+1081318,5,8811,Klas Henning,Pettersen,192
+1081318,6,8695,Gaute Tomas,Einevoll,192
+771478,1,,Felix,Franke,14400255
+771478,2,,Michal,Natora,14400255
+771478,3,,Philipp,Meier,14400255
+771478,4,317468,Espen,Hagen,192
+771478,5,8811,Klas,Pettersen,192
+771478,6,317645,Henrik,Linden,192
+771478,7,8695,Gaute,Einevoll,192
+771478,8,,Klaus,Obermayer,14400255
+760032,1,8695,Gaute,Einevoll,192
+760032,2,8811,Klas,Pettersen,192
+760032,3,7077,Patrick,Blomquist,192
+760032,4,,Anna,Devor,
+760032,5,,Istvan,Ulbert,
+760032,6,,Eric,Halgren,
+760032,7,39588,Anders M.,Dale,68401845
+1871142,1,317468,Espen,Hagen,192;185
+1871142,2,798664,Anna,Chambers,185
+1871142,3,8695,Gaute,Einevoll,192;185
+1871142,4,8811,Klas Henning,Pettersen,185
+1871142,5,10829,Rune,Enger,185
+1871142,6,917898,Alexander Johannes,Stasik,185
+1414880,1,10829,Rune,Enger,2012;185
+1414880,2,589460,Didrik Bakke,Dukefoss,185
+1414880,3,506470,Wannan,Tang,185
+1414880,4,8811,Klas,Pettersen,185
+1414880,5,689593,Daniel Marelius,Bjørnstad,185
+1414880,6,21954,Paul Johannes,Helm,185
+1414880,7,22757,Vidar,Jensen,185
+1414880,8,387847,Rolf,Sprengel,14407454;14400360
+1414880,9,9580,Koen Gerard Alois,Vervaeke,185
+1414880,10,22988,Ole Petter,Ottersen,185
+1414880,11,14392,Erlend Arnulf,Nagelhus,2012;185
+1634008,1,7742,Kjell,Heuser,2012
+1634008,2,645037,Cecilie,Nome,185
+1634008,3,8811,Klas,Pettersen,185
+1634008,4,410061,Knut Sindre,Åbjørsbråten,185
+1634008,5,22757,Vidar,Jensen,185
+1634008,6,506470,Wannan,Tang,185
+1634008,7,387847,Rolf,Sprengel,14400240
+1634008,8,17624,Erik,Taubøll,2012;185
+1634008,9,14392,Erlend Arnulf,Nagelhus,2012;185
+1634008,10,10829,Rune,Enger,2012;185
+1494049,1,317471,Geir,Halnes,192
+1494049,2,605325,Tuomo,Mäki-Marttunen,185
+1494049,3,8811,Klas,Pettersen,185
+1494049,4,23656,Ole Andreas,Andreassen,185
+1494049,5,8695,Gaute,Einevoll,192;185
+1746383,1,8171,Martine,Eilert-Olsen,185
+1746383,2,799108,Jarand Berg,Hjukse,185
+1746383,3,10905,Anna,Thoren,185
+1746383,4,506470,Wannan,Tang,185
+1746383,5,10829,Rune,Enger,2012;185
+1746383,6,22757,Vidar,Jensen,185
+1746383,7,8811,Klas Henning,Pettersen,185
+1746383,8,14392,Erlend Arnulf,Nagelhus,2012;185
+1750307,1,317471,Geir,Halnes,192
+1750307,2,8811,Klas Henning,Pettersen,185
+1750307,3,8675,Leiv,Øyehaug,215
+1750307,4,17829,Marie Elisabeth,Rognes,7498;185
+1750307,5,8695,Gaute,Einevoll,192;185
+759436,1,8811,Klas,Pettersen,192
+759436,2,,Anna,Devor,68401845
+759436,3,,Istvan,Ulbert,
+759436,4,39588,Anders M.,Dale,68401845
+759436,5,8695,Gaute,Einevoll,192
+1093147,1,317471,Geir,Halnes,192
+1093147,2,11290,Ivar,Østby,192
+1093147,3,8811,Klas,Pettersen,192
+1093147,4,617874,Stig W,Omholt,192
+1093147,5,8695,Gaute Tomas,Einevoll,192
+1492283,1,317468,Espen,Hagen,14400000;192;185
+1492283,2,317416,Janne- Christine,Fossum,192
+1492283,3,8811,Klas,Pettersen,192;185
+1492283,4,,Jose-Manuel,Alonso,68400000
+1492283,5,,Harvey A.,Swadlow,68400258
+1492283,6,8695,Gaute,Einevoll,192;185
+768860,1,8811,Klas,Pettersen,192
+768860,2,8695,Gaute,Einevoll,192
+768862,1,8695,Gaute,Einevoll,192
+768862,2,,Henrik,Lindén,192
+768862,3,8811,Klas,Pettersen,192
+770792,1,317645,Henrik,Linden,192
+770792,2,8811,Klas,Pettersen,192
+770792,3,8695,Gaute,Einevoll,192
+2082879,1,9002,Torbjørn V,Ness,192
+2082879,2,317471,Geir,Halnes,192
+2082879,3,729057,Solveig,Næss,185
+2082879,4,8811,Klas Henning,Pettersen,185
+2082879,5,8695,Gaute,Einevoll,192;185
+1879826,1,317468,Espen,Hagen,192
+1879826,2,798664,Anna,Chambers,185
+1879826,3,8695,Gaute,Einevoll,192;185
+1879826,4,8811,Klas Henning,Pettersen,185
+1879826,5,10829,Rune,Enger,185
+1879826,6,917898,Alexander Johannes,Stasik,185
+10493975,1,1873608,Ingvild,Devold,7498
+10493975,2,17829,Marie Elisabeth,Rognes,7498
+10493975,3,,Padmini,Rangamani,68400196
+10446837,1,,Justin,Laughlin,
+10446837,2,795721,Jørgen,Dokken,7498
+10446837,3,31826,Henrik,Finsberg,7498
+10446837,4,17829,Marie,Rognes,7498
+10446774,1,17829,Marie,Rognes,7498
+10446773,1,1504736,Marius,Causemann,7498
+10446773,2,571560,Vegard,Vinje,
+10446773,3,17829,Marie,Rognes,7498
+10446704,1,405893,Gabriel,Balaban,
+10446704,2,31826,Henrik,Finsberg,7498
+10446704,3,17289,Hans,Odland,
+10446704,4,17829,Marie,Rognes,7498
+10446704,5,390004,Stian,Ross,
+10446704,6,22862,Joakim,Sundnes,7498
+10446704,7,428848,Samuel,Wall,7498
+10446602,1,,Justin,Laughlin,
+10446602,2,795721,Jørgen,Dokken,7498
+10446602,3,31826,Henrik,Finsberg,7498
+10446602,4,17829,Marie,Rognes,7498
+10446582,1,1884079,Pietro,Benedusi,
+10446582,2,,Paola,Ferrari,
+10446582,3,17829,Marie,Rognes,7498
+10446533,1,765859,Eleonora,Piersanti,
+10446533,2,17829,Marie,Rognes,7498
+10446533,3,571560,Vegard,Vinje,
+10446531,1,,Georgia,Brennan,
+10446531,2,17829,Marie,Rognes,7498
+10446528,1,619882,Emilie,Eliseussen,
+10446528,2,17829,Marie,Rognes,7498
+10446528,3,,Travis,Thompson,
+10446526,1,798631,Ingeborg,Gjerde,
+10446526,2,17829,Marie,Rognes,7498
+10446526,3,,Antonio,Sánchez,
+10445960,1,,Matteo,Croci,
+10445960,2,571560,Vegard,Vinje,
+10445960,3,17829,Marie,Rognes,7498
+10445766,1,,Matteo,Croci,
+10445766,2,571560,Vegard,Vinje,
+10445766,3,17829,Marie,Rognes,7498
+10445744,1,,Patrick,Farrell,
+10445744,2,15115,Johan,Hake,
+10445744,3,619107,Simon,Funke,
+10445744,4,17829,Marie,Rognes,7498
+10445558,1,,Matteo,Croci,
+10445558,2,17829,Marie,Rognes,7498
+10445525,1,,Rocío,Rodríguez-Cantano,
+10445525,2,22862,Joakim,Sundnes,7498
+10445525,3,17829,Marie,Rognes,7498
+10445358,1,17829,Marie,Rognes,7498
+10445358,2,,Patrick,Farrell,
+10445358,3,619107,Simon,Funke,
+10445358,4,15115,Johan,Hake,
+10445358,5,386037,Molly,Maleckar,7498
+10445144,1,405893,Gabriel,Balaban,
+10445144,2,31826,Henrik,Finsberg,7498
+10445144,3,17289,Hans,Odland,
+10445144,4,17829,Marie,Rognes,7498
+10445144,5,390004,Stian,Ross,
+10445144,6,22862,Joakim,Sundnes,7498
+10445144,7,428848,Samuel,Wall,7498
+10444985,1,405893,Gabriel,Balaban,
+10444985,2,17458,Martin,Alnæs,
+10444985,3,22862,Joakim,Sundnes,7498
+10444985,4,17829,Marie,Rognes,7498
+10444192,1,17829,Marie,Rognes,7498
+10444192,2,24555,Ragnar,Winther,
+10432859,1,1504736,Marius,Causemann,7498
+10432859,2,10829,Rune,Enger,185
+10432859,3,17829,Marie Elisabeth,Rognes,7498
+10281258,1,1514417,Balint,Laczko,185
+10281258,2,17829,Marie Elisabeth,Rognes,7498
+10281258,3,1328,Alexander Refsum,Jensenius,185
+1958473,1,639579,Xiaoran,Lai,185
+1958473,2,622814,Håkon Austlid,Taskén,185
+1958473,3,992585,Torgeir,Mo,2012
+1958473,4,619107,Simon Wolfgang,Funke,7498
+1958473,5,21785,Arnoldo,Frigessi,2012;185
+1958473,6,17829,Marie Elisabeth,Rognes,7498
+1958473,7,759282,Alvaro Kohn,Luque,185
+2290858,1,1450138,Nanna,Berre,194
+2290858,2,17829,Marie Elisabeth,Rognes,7498
+2290858,3,4036,André Jürgen,Massing,194
+1387700,1,4036,Andre,Massing,7498
+1387700,2,,Mats,Larson,10600048
+1387700,3,9787,Anders Bernhard,Logg,10600001
+1387700,4,17829,Marie Elisabeth,Rognes,7498
+998687,1,9787,Anders Bernhard,Logg,7498;185
+998687,2,,K. B.,Ølgaard,12700069
+998687,3,17829,Marie Elisabeth,Rognes,7498
+998687,4,,Garth N.,Wells,13900141
+2163300,1,619882,Emilie Eliseussen,Ødegaard,185
+2163300,2,17829,Marie Elisabeth,Rognes,7498;184
+2163300,3,,Travis B.,Thompson,68401655
+535279,1,17829,Marie Elisabeth,Rognes,7498
+535279,2,9787,Anders Bernhard,Logg,7498;185
+1716511,1,639579,Xiaoran,Lai,185
+1716511,2,393248,Oliver,Geier,2012
+1716511,3,2454,Thomas,Fleischer,2012
+1716511,4,17438,Øystein,Garred,2012
+1716511,5,13743,Elin,Borgen,2012
+1716511,6,619107,Simon Wolfgang,Funke,7498
+1716511,7,7032,Surendra,Kumar,2012
+1716511,8,17829,Marie Elisabeth,Rognes,7498
+1716511,9,18530,Therese,Seierstad,2012
+1716511,10,22158,Anne-Lise,Børresen-Dale,2012
+1716511,11,18199,Vessela N.,Kristensen,2012;1972;185
+1716511,12,23159,Olav,Engebråten,2012;185
+1716511,13,759282,Alvaro Kohn,Luque,185
+1716511,14,21785,Arnoldo Frigessi,Di Rattalma,2012;185
+341290,1,17829,Marie Elisabeth,Rognes,185
+341290,2,,R.C.,Kirby,68401655
+341290,3,9787,Anders Bernhard,Logg,7498;185
+1004145,1,17829,Marie Elisabeth,Rognes,7498
+1004145,2,17661,Benjamin Dam,Kehlet,7498
+1004145,3,9787,Anders Bernhard,Logg,7498;185
+341503,1,17829,Marie Elisabeth,Rognes,7498;185
+341503,2,,M. C.,Calderer,
+341503,3,,C.,Micek,
+532074,1,24555,Ragnar,Winther,185
+532074,2,17829,Marie Elisabeth,Rognes,185
+2047932,1,,Cécile,Daversin-Catty,7498
+2047932,2,798631,Ingeborg Gåseby,Gjerde,184
+2047932,3,17829,Marie Elisabeth,Rognes,7498;184
+1004130,1,405893,Gabriel,Balaban,185
+1004130,2,9787,Anders Bernhard,Logg,7498;185
+1004130,3,17829,Marie Elisabeth,Rognes,7498
+1528984,1,405893,Gabriel,Balaban,9126;7498;185
+1528984,2,31826,Henrik Nicolay,Finsberg,9126;7498;185
+1528984,3,17289,Hans Henrik,Odland,2012;185
+1528984,4,17829,Marie Elisabeth,Rognes,7498;185
+1528984,5,390004,Stian Balnagown,Ross,9126;185
+1528984,6,22862,Joakim,Sundnes,9126;7498;185
+1528984,7,428848,Samuel Thomas,Wall,9126;7498;192
+1778413,1,4036,André,Massing,194
+1778413,2,,Mats,Larson,
+1778413,3,,Anders Bernard,Logg,
+1778413,4,17829,Marie Elisabeth,Rognes,
+1100293,1,,P.,Farrell,13900031;7498
+1100293,2,,D.,Ham,13900031
+1100293,3,,S.,Funke,13900031
+1100293,4,17829,Marie Elisabeth,Rognes,7498
+2076263,1,,Marius,Causemann,7498
+2076263,2,571560,Vegard,Vinje,7498
+2076263,3,17829,Marie Elisabeth,Rognes,7498;184
+2344642,1,,Emmet A.,Francis,68400000
+2344642,2,,Justin G.,Laughlin,68405915
+2344642,3,795721,Jørgen S.,Dokken,7498
+2344642,4,31826,Henrik Nicolay Topnes,Finsberg,7498
+2344642,5,,Christopher T.,Lee,68400196
+2344642,6,17829,Marie Elisabeth,Rognes,7498;185
+2344642,7,,Padmini,Rangamani,68400000
+1100860,1,17829,Marie Elisabeth,Rognes,7498
+1100860,2,,D.,Ham,13900031
+1100860,3,,C.,Cotter,13900031
+1100860,4,,A.,McRae,13900031
+1100910,1,428839,Lyudmyla,Vynnytska,7498
+1100910,2,17829,Marie Elisabeth,Rognes,7498
+1100910,3,,Stuart R,Clark,7498
+1100840,1,17829,Marie Elisabeth,Rognes,7498
+1100840,2,9787,Anders Bernhard,Logg,7498;185
+1554776,1,2337,Siri,Kallhovd,7498;185
+1554776,2,386037,Mary Margot Catherine,Maleckar,68400000;7498
+1554776,3,17829,Marie Elisabeth,Rognes,7498;185
+1367550,1,405893,Gabriel,Balaban,7498;185
+1367550,2,17458,Martin Sandve,Alnæs,7498
+1367550,3,22862,Joakim,Sundnes,7498;185
+1367550,4,17829,Marie Elisabeth,Rognes,7498;185
+1995213,1,571560,Vegard,Vinje,7498
+1995213,2,,Erik N. T. P.,Bakker,12700076
+1995213,3,17829,Marie Elisabeth,Rognes,7498;184
+1387668,1,4036,Andre,Massing,7498
+1387668,2,9787,Anders Bernhard,Logg,7498
+1387668,3,,Mats,Larson,10600048
+1387668,4,17829,Marie Elisabeth,Rognes,7498
+1386940,1,17458,Martin Sandve,Alnæs,7498
+1386940,2,,Jan,Blechta,15800012
+1386940,3,15115,Johan Elon,Hake,7498
+1386940,4,619108,August,Johansson,7498
+1386940,5,17661,Benjamin,Kehlet,7498
+1386940,6,9787,Anders Bernhard,Logg,10600001
+1386940,7,,Chris,Richardson,13900141
+1386940,8,11592,Johannes,Ring,7498
+1386940,9,17829,Marie Elisabeth,Rognes,7498
+1386940,10,,Garth N.,Wells,13900141
+1387647,1,17458,Martin Sandve,Alnæs,7498
+1387647,2,9787,Anders Bernhard,Logg,7498;185
+1387647,3,,K. B.,Ølgaard,10100002
+1387647,4,17829,Marie Elisabeth,Rognes,7498
+1387647,5,,Garth N.,Wells,13900141
+344158,1,17829,Marie Elisabeth,Rognes,7498;185
+344158,2,,Douglas N.,Arnold,
+998597,1,,R.C.,Kirby,68401655
+998597,2,9787,Anders Bernhard,Logg,7498;185
+998597,3,17829,Marie Elisabeth,Rognes,7498
+998597,4,,Andy R.,Terrel,
+2172435,1,,Nicolas,Boullé,13900000
+2172435,2,,Patrick E.,Farrell,13900221
+2172435,3,17829,Marie Elisabeth,Rognes,7498;184
+1596679,1,405893,Gabriel,Balaban,13901902;13900046
+1596679,2,31826,Henrik Nicolay,Finsberg,7498;185
+1596679,3,619107,Simon Wolfgang,Funke,7498
+1596679,4,576930,Trine Synnøve Fink,Håland,2012
+1596679,5,17202,Einar,Hopp,2012
+1596679,6,22862,Joakim,Sundnes,7498;185
+1596679,7,428848,Samuel T,Wall,7498;192
+1596679,8,17829,Marie Elisabeth,Rognes,7498
+2292825,1,,Georgia S.,Brennan,13900221
+2292825,2,,Travis B.,Thompson,68401655;13900221
+2292825,3,,Hadrien,Oliveri,13900221
+2292825,4,17829,Marie Elisabeth,Rognes,7498;184
+2292825,5,,Alain,Goriely,13900221
+948899,1,24032,Aslak,Tveito,7498;185
+948899,2,21673,Glenn Terje,Lines,7498;185
+948899,3,17829,Marie Elisabeth,Rognes,7498
+948899,4,386037,Mary,Maleckar,7498
+1387932,1,17829,Marie Elisabeth,Rognes,7498
+1387933,1,17829,Marie Elisabeth,Rognes,7498
+10444992,1,24032,Aslak,Tveito,7498
+10444992,2,21673,Glenn,Lines,7498
+10444988,1,24032,Aslak,Tveito,7498
+10444988,2,23522,Hans,Langtangen,
+10444988,3,24555,Ragnar,Winther,
+10444988,4,,Björn,Engquist,
+10444943,1,23522,Hans,Langtangen,
+10444943,2,,Ulrich,Rüde,
+10444943,3,24032,Aslak,Tveito,7498
+10444625,1,23522,Hans,Langtangen,
+10444625,2,24032,Aslak,Tveito,
+10444625,3,,B.,Engquist,
+10444625,4,508513,W.,Schmid,
+10444624,1,21673,Glenn,Lines,7498
+10444624,2,22862,Joakim,Sundnes,7498
+10444624,3,24032,Aslak,Tveito,7498
+10444624,4,23916,Are Magnus,Bruaset,7498
+10444624,5,21894,Olav,Lysne,7498
+10444623,1,23522,Hans,Langtangen,
+10444623,2,21894,Olav,Lysne,7498
+10444623,3,24032,Aslak,Tveito,7498
+10444623,4,23916,Are Magnus,Bruaset,7498
+10444621,1,23522,Hans,Langtangen,
+10444621,2,22862,Joakim,Sundnes,7498
+10444621,3,24032,Aslak,Tveito,7498
+10444621,4,23916,Are Magnus,Bruaset,7498
+10444621,5,21894,Olav,Lysne,7498
+10444620,1,9787,Anders,Logg,
+10444620,2,23522,Hans,Langtangen,
+10444620,3,24001,Xing,Cai,7498
+10444620,4,24032,Aslak,Tveito,7498
+10444620,5,23916,Are Magnus,Bruaset,7498
+10444620,6,21894,Olav,Lysne,7498
+10444618,1,23916,Are Magnus,Bruaset,7498
+10444618,2,24032,Aslak,Tveito,7498
+10444618,3,21894,Olav,Lysne,7498
+10444615,1,24001,Xing,Cai,7498
+10444615,2,21673,Glenn,Lines,7498
+10444615,3,23916,Are,Bruaset,7498
+10444615,4,24032,Aslak,Tveito,7498
+10444614,1,24001,Xing,Cai,7498
+10444614,2,23522,Hans,Langtangen,
+10444614,3,23916,Are,Bruaset,7498
+10444614,4,24032,Aslak,Tveito,7498
+10444613,1,470019,Erlend,Arge,
+10444613,2,24532,Øyvind,Hjelle,
+10444613,3,2333,M.,Dæhlen,
+10444613,4,24032,Aslak,Tveito,
+10444609,1,24001,Xing,Cai,7498
+10444609,2,23916,Are,Bruaset,7498
+10444609,3,23522,Hans Petter,Langtangen,
+10444609,4,21673,Glenn,Lines,7498
+10444609,5,,K.,Samuelsson,
+10444609,6,1130992,W.,Shen,
+10444609,7,24032,Aslak,Tveito,7498
+10444608,1,1879861,E.,Haug,
+10444608,2,23522,Hans,Langtangen,
+10444608,3,2333,M.,Dæhlen,
+10444608,4,24032,Aslak,Tveito,
+10444607,1,48505,E.,Gundersen,
+10444607,2,23522,Hans,Langtangen,
+10444607,3,2333,M.,Dæhlen,
+10444607,4,24032,Aslak,Tveito,
+10444606,1,23916,Are,Bruaset,
+10444606,2,23522,Hans,Langtangen,
+10444606,3,2333,M.,Dæhlen,
+10444606,4,24032,Aslak,Tveito,
+10444605,1,470019,Erlend,Arge,
+10444605,2,23162,Morten,Dæhlen,
+10444605,3,2333,M.,Dæhlen,
+10444605,4,24032,Aslak,Tveito,
+10444604,1,331239,Erik,Andreassen,
+10444604,2,48505,E.,Gundersen,
+10444604,3,25698,E.,Hinrichsen,
+10444604,4,23522,Hans,Langtangen,
+10444604,5,2333,M.,Dæhlen,
+10444604,6,24032,Aslak,Tveito,
+10444601,1,21894,Olav,Lysne,7498
+10444601,2,24044,Tor,Skeie,7498
+10444601,3,14270,Sven-Arne,Reinemo,
+10444601,4,13432,Frank,Sem-Jacobsen,
+10444601,5,13805,Nils,Nordbotten,
+10444601,6,24032,Aslak,Tveito,7498
+10444601,7,23916,Are Magnus,Bruaset,7498
+10444599,1,22647,Carsten,Griwodz,
+10444599,2,23878,Pål,Halvorsen,7498
+10444599,3,24032,Aslak,Tveito,7498
+10444599,4,23916,Are Magnus,Bruaset,7498
+10444599,5,21894,Olav,Lysne,7498
+10444598,1,14002,Amund,Kvalbein,
+10444598,2,3710,Yan,Zhang,
+10444598,3,24032,Aslak,Tveito,7498
+10444598,4,23916,Are,Bruaset,7498
+10444598,5,21894,Olav,Lysne,7498
+10444596,1,22647,Carsten,Griwodz,
+10444596,2,21894,Olav,Lysne,7498
+10444596,3,24032,Aslak,Tveito,7498
+10444596,4,23916,Are Magnus,Bruaset,7498
+10444595,1,23916,Are Magnus,Bruaset,7498
+10444595,2,23534,Viktor,Eide,
+10444595,3,22268,Frank,Eliassen,
+10444595,4,21650,Hans,Gallis,
+10444595,5,,Christian,Tarrou,
+10444595,6,24032,Aslak,Tveito,7498
+10444595,7,21894,Olav,Lysne,7498
+10444594,1,21894,Olav,Lysne,7498
+10444594,2,23916,Are Magnus,Bruaset,7498
+10444594,3,24032,Aslak,Tveito,7498
+10444593,1,23916,Are Magnus,Bruaset,7498
+10444593,2,8573,Marianne,Sundet,
+10444593,3,24032,Aslak,Tveito,7498
+10444593,4,21894,Olav,Lysne,7498
+10444592,1,23916,Are Magnus,Bruaset,7498
+10444592,2,27727,Kristin,Vinje,
+10444592,3,24032,Aslak,Tveito,7498
+10444592,4,21894,Olav,Lysne,7498
+10444590,1,22066,Dag,Sjøberg,
+10444590,2,15179,Stein,Grimstad,
+10444590,3,24032,Aslak,Tveito,7498
+10444590,4,23916,Are Magnus,Bruaset,7498
+10444590,5,21894,Olav,Lysne,7498
+10444582,1,22066,Dag,Sjøberg,
+10444582,2,24032,Aslak,Tveito,7498
+10444582,3,23916,Are Magnus,Bruaset,7498
+10444582,4,21894,Olav,Lysne,7498
+10444579,1,22658,Erik,Arisholm,
+10444579,2,24032,Aslak,Tveito,7498
+10444579,3,23916,Are Magnus,Bruaset,7498
+10444579,4,21894,Olav,Lysne,7498
+10444578,1,1496,Lionel,Briand,
+10444578,2,24032,Aslak,Tveito,7498
+10444578,3,23916,Are Magnus,Bruaset,7498
+10444578,4,21894,Olav,Lysne,7498
+10444577,1,23476,Magne,Jørgensen,7498
+10444577,2,15179,Stein,Grimstad,
+10444577,3,24032,Aslak,Tveito,7498
+10444577,4,23916,Are Magnus,Bruaset,7498
+10444577,5,21894,Olav,Lysne,7498
+10444573,1,608319,A.,Kjeldstad,
+10444573,2,23522,Hans Petter,Langtangen,
+10444573,3,,Jakob,Skogseid,
+10444573,4,23763,K.,Bjørlykke,
+10444573,5,24032,Aslak,Tveito,7498
+10444572,1,24001,Xing,Cai,7498
+10444572,2,,E.,Acklam,
+10444572,3,23522,Hans Petter,Langtangen,
+10444572,4,24032,Aslak,Tveito,7498
+10444218,1,24032,Aslak,Tveito,7498
+10444218,2,24555,Ragnar,Winther,
+10444214,1,24032,Aslak,Tveito,7498
+10444214,2,24555,Ragnar,Winther,
+10444213,1,23739,Nils,Risebro,
+10444213,2,24032,Aslak,Tveito,
+10444193,1,24032,Aslak,Tveito,7498
+10444193,2,21673,Glenn,Lines,7498
+10444193,3,602938,Pan,Li,
+10444193,4,,Andrew,McCulloch,
+10444182,1,24032,Aslak,Tveito,7498
+10444182,2,21673,Glenn,Lines,7498
+10444181,1,22862,Joakim,Sundnes,7498
+10444181,2,,Robert,Artebrant,
+10444181,3,22919,Ola,Skavhaug,
+10444181,4,24032,Aslak,Tveito,7498
+10444180,1,24032,Aslak,Tveito,7498
+10444180,2,21673,Glenn,Lines,7498
+10444176,1,23688,Bjørn,Nielsen,
+10444176,2,48962,Ola,Lysaker,
+10444176,3,24032,Aslak,Tveito,7498
+10444172,1,18444,Mary,MacLachlan,
+10444172,2,22862,Joakim,Sundnes,7498
+10444172,3,22919,Ola,Skavhaug,
+10444172,4,48962,Ola,Lysaker,
+10444172,5,23688,Bjørn,Nielsen,
+10444172,6,24032,Aslak,Tveito,7498
+10444167,1,,Achim,Schroll,
+10444167,2,21673,Glenn,Lines,7498
+10444167,3,24032,Aslak,Tveito,7498
+10444165,1,23688,Bjørn,Nielsen,
+10444165,2,24032,Aslak,Tveito,7498
+10444165,3,,Wolfgang,Hackbusch,
+10444162,1,24032,Aslak,Tveito,
+10444162,2,24555,Ragnar,Winther,
+10444161,1,24032,Aslak,Tveito,
+10444161,2,24555,Ragnar,Winther,
+10444160,1,24032,Aslak,Tveito,
+10444160,2,24555,Ragnar,Winther,
+10444159,1,24032,Aslak,Tveito,
+10444159,2,24555,Ragnar,Winther,
+10444097,1,428639,H.,Schroll,
+10444097,2,24032,Aslak,Tveito,
+10444096,1,23522,Hans,Langtangen,
+10444096,2,24032,Aslak,Tveito,
+10444096,3,24555,Ragnar,Winther,
+10444092,1,23916,Are,Bruaset,
+10444092,2,24032,Aslak,Tveito,
+10444091,1,470019,Erlend,Arge,
+10444091,2,23162,Morten,Dæhlen,
+10444091,3,24032,Aslak,Tveito,
+10444076,1,24032,Aslak,Tveito,7498
+10444076,2,21673,Glenn,Lines,7498
+10444076,3,386037,Molly,Maleckar,7498
+10444070,1,24032,Aslak,Tveito,7498
+10444070,2,21673,Glenn,Lines,7498
+10444070,3,22919,Ola,Skavhaug,
+10444070,4,386037,Molly,Maleckar,7498
+10444019,1,21673,Glenn,Lines,7498
+10444019,2,,M.,Buist,
+10444019,3,23485,P.,Grøttum,
+10444019,4,22862,Joakim,Sundnes,7498
+10444019,5,24032,Aslak,Tveito,7498
+10444018,1,21673,Glenn,Lines,7498
+10444018,2,23485,P.,Grøttum,
+10444018,3,24032,Aslak,Tveito,7498
+10444017,1,22862,Joakim,Sundnes,7498
+10444017,2,21673,Glenn,Lines,7498
+10444017,3,24032,Aslak,Tveito,7498
+10444016,1,23688,Bjørn,Nielsen,
+10444016,2,22919,Ola,Skavhaug,
+10444016,3,24032,Aslak,Tveito,7498
+61221,1,24001,Xing,Cai,185
+61221,2,,E,Acklam,
+61221,3,23522,Hans Petter,Langtangen,185
+61221,4,24032,Aslak,Tveito,185
+61220,1,24001,Xing,Cai,185
+61220,2,23916,Are Magnus,Bruaset,185
+61220,3,23522,Hans Petter,Langtangen,185
+61220,4,21673,Glenn Terje,Lines,185
+61220,5,,K,Samuelsson,
+61220,6,,W,Chen,
+61220,7,24032,Aslak,Tveito,185
+61220,8,,G,Zumbusch,
+344572,1,23688,Bjørn Fredrik,Nielsen,7498;185
+344572,2,24001,Xing,Cai,7498;185
+344572,3,22862,Joakim,Sundnes,7498;185
+344572,4,24032,Aslak,Tveito,7498;185
+365663,1,7923,Monica,Hanslien,
+365663,2,22862,Joakim,Sundnes,185
+365663,3,24032,Aslak,Tveito,185
+998183,1,24032,Aslak,Tveito,68400196;7498;2012
+998183,2,21673,Glenn Terje,Lines,7498;2012;185
+998183,3,,Andrew G,Edwards,68400196
+998183,4,386037,Mary,Maleckar,7498;2012
+998183,5,,Anushka,Michailova,68400196
+998183,6,15115,Johan Elon,Hake,68400196;7498;2012
+998183,7,,Andrew,McCulloch,68400196
+397425,1,,Linda,Ingebrigtsen,
+397425,2,22985,Trygve Kastberg,Nilssen,
+397425,3,23522,Hans Petter,Langtangen,185
+397425,4,24032,Aslak,Tveito,185
+73912,1,23522,Hans Petter,Langtangen,185
+73912,2,24032,Aslak,Tveito,185
+849460,1,24032,Aslak,Tveito,7498;185
+849460,2,22919,Ola,Skavhaug,7498;185
+849460,3,21673,Glenn Terje,Lines,7498;185
+849460,4,,Robert,Artebrant,7498
+849529,1,7923,Monica,Hanslien,3219
+849529,2,,Robert,Artebrant,10600000
+849529,3,24032,Aslak,Tveito,7498;185
+849529,4,21673,Glenn Terje,Lines,7498;185
+849529,5,24001,Xing,Cai,7498;185
+439983,1,22862,Joakim,Sundnes,185
+439983,2,21673,Glenn Terje,Lines,185
+439983,3,24032,Aslak,Tveito,185
+405815,1,22862,Joakim,Sundnes,185
+405815,2,21673,Glenn Terje,Lines,185
+405815,3,24032,Aslak,Tveito,185
+376485,1,,MC,MacLachlan,7498
+376485,2,23688,Bjørn Fredrik,Nielsen,7498;185
+376485,3,,M,Lysaker,7498
+376485,4,24032,Aslak,Tveito,7498;185
+61147,1,22919,Ola,Skavhaug,185
+61147,2,23688,Bjørn Fredrik,Nielsen,185
+61147,3,24032,Aslak,Tveito,185
+61146,1,22919,Ola,Skavhaug,185
+61146,2,23688,Bjørn Fredrik,Nielsen,185
+61146,3,24032,Aslak,Tveito,185
+859907,1,24032,Aslak,Tveito,7498
+859907,2,21673,Glenn Terje,Lines,7498
+859907,3,,Pan,Li,68400926
+859907,4,,Andrew,McCulloch,68400196
+1670410,1,24032,Aslak,Tveito,7498;185
+1670410,2,386037,Mary Margot Catherine,Maleckar,
+1670410,3,21673,Glenn Terje,Lines,7498
+59792,1,23688,Bjørn Fredrik,Nielsen,185
+59792,2,,Ola Marius,Lysaker,
+59792,3,,C,Tarrou,
+59792,4,,A,Abildgaard,
+59792,5,18444,Mary Catherine,MacLachlan,185
+59792,6,24032,Aslak,Tveito,185
+350144,1,,Robert,Artebrant,7498
+350144,2,24032,Aslak,Tveito,7498;185
+350144,3,21673,Glenn Terje,Lines,7498;185
+1368841,1,24032,Aslak,Tveito,7498
+1368841,2,21673,Glenn Terje,Lines,7498
+1368841,3,618603,Andrew,Edwards,7498;185
+1368841,4,,Andrew,McCulloch,68401845
+956292,1,23688,Bjørn Fredrik,Nielsen,192
+956292,2,24001,Xing,Cai,185
+956292,3,24032,Aslak,Tveito,185
+956293,1,23688,Bjørn Fredrik,Nielsen,192
+956293,2,24001,Xing,Cai,185
+956293,3,,Hans-Petter,Langtangen,
+956293,4,24032,Aslak,Tveito,185
+1100454,1,602938,Pan,Li,7498;2012
+1100454,2,21673,Glenn Terje,Lines,7498;2012
+1100454,3,386037,Mary,Maleckar,7498;2012
+1100454,4,24032,Aslak,Tveito,7498;2012
+343812,1,16610,Geir,Linge,7498
+343812,2,,Joakim,Sundnes,7498
+343812,3,22862,Joakim,Sundnes,185
+343812,4,7923,Monica,Hanslien,7498
+343812,5,21673,Glenn Terje,Lines,7498
+343812,6,,Aslak,Tveito,7498
+343812,7,24032,Aslak,Tveito,185
+344461,1,,M,Hanslien,7498
+344461,2,,R,Artebrant,7498
+344461,3,,Joakim,Sundnes,7498
+344461,4,22862,Joakim,Sundnes,185
+344461,5,,Aslak,Tveito,7498
+344461,6,24032,Aslak,Tveito,185
+929647,1,24032,Aslak,Tveito,68400196;7498
+929647,2,21673,Glenn Terje,Lines,7498;185
+929647,3,386037,Mary,Maleckar,7498
+432811,1,21673,Glenn Terje,Lines,185
+432811,2,,Martin L.,Buist,
+432811,3,23485,Per,Grøttum,185
+432811,4,,Andrew J.,Pullan,
+432811,5,22862,Joakim,Sundnes,185
+432811,6,24032,Aslak,Tveito,185
+667700,1,,GT,Lines,7498;185
+667700,2,,Mary C,MacLachlan,7498
+667700,3,319591,Svein,Linge,222
+667700,4,24032,Aslak,Tveito,185
+667699,1,319591,Svein,Linge,222
+667699,2,,J,Sundnes,7498;185
+667699,3,,M,Hanslien,7498
+667699,4,,GT,Lines,7498;185
+667699,5,24032,Aslak,Tveito,185
+357378,1,23688,Bjørn Fredrik,Nielsen,7498;185
+357378,2,22919,Ola,Skavhaug,7498;185
+357378,3,24032,Aslak,Tveito,7498;185
+61557,1,24001,Xing,Cai,185
+61557,2,21673,Glenn Terje,Lines,185
+61557,3,24032,Aslak,Tveito,185
+357382,1,,Svein,Linge,7498
+357382,2,21673,Glenn Terje,Lines,7498;185
+357382,3,22862,Joakim,Sundnes,7498;185
+357382,4,24032,Aslak,Tveito,7498;185
+843866,1,24032,Aslak,Tveito,7498;185
+843866,2,21673,Glenn Terje,Lines,7498;185
+843866,3,,Robert,Artebrant,7498
+843866,4,22919,Ola,Skavhaug,7498;185
+843866,5,386037,Mary,Maleckar,7498
+973424,1,24032,Aslak,Tveito,68400196;7498;2012
+973424,2,21673,Glenn Terje,Lines,7498;2012;185
+973424,3,15115,Johan Elon,Hake,68400196;7498;2012
+973424,4,,Andrew G,Edwards,68400196
+71700,1,22862,Joakim,Sundnes,185
+71700,2,21673,Glenn Terje,Lines,185
+71700,3,23485,Per,Grøttum,185
+71700,4,24032,Aslak,Tveito,185
+433040,1,23916,Are Magnus,Bruaset,185
+433040,2,24032,Aslak,Tveito,185
+433040,3,24555,Ragnar,Winther,185
+447259,1,,Wen,Shen,185
+447259,2,24032,Aslak,Tveito,185
+447259,3,24555,Ragnar,Winther,185
+30712,1,24032,Aslak,Tveito,185
+30712,2,24555,Ragnar,Winther,185
+956514,1,23688,Bjørn Fredrik,Nielsen,192
+956514,2,24032,Aslak,Tveito,185
+956499,1,23916,Are Magnus,Bruaset,185
+956499,2,23688,Bjørn Fredrik,Nielsen,192
+956499,3,24032,Aslak,Tveito,185
+370672,1,24001,Xing,Cai,7498;185
+370672,2,23688,Bjørn Fredrik,Nielsen,7498;185
+370672,3,24032,Aslak,Tveito,7498;185
+394563,1,7923,Monica,Hanslien,
+394563,2,21388,Kenneth Hvistendahl,Karlsen,185
+394563,3,24032,Aslak,Tveito,185
+442107,1,23688,Bjørn Fredrik,Nielsen,185
+442107,2,22919,Ola,Skavhaug,185
+442107,3,24032,Aslak,Tveito,185
+350493,1,22862,Joakim,Sundnes,7498;185
+350493,2,,R,Artebrant,7498
+350493,3,22919,Ola,Skavhaug,7498;185
+350493,4,24032,Aslak,Tveito,7498;185
+447444,1,,Wen,Shen,185
+447444,2,24032,Aslak,Tveito,185
+447444,3,24555,Ragnar,Winther,185
+442452,1,,T.,Johansen,185
+442452,2,24032,Aslak,Tveito,185
+442452,3,24555,Ragnar,Winther,185
+31162,1,24032,Aslak,Tveito,185
+31162,2,24555,Ragnar,Winther,185
+442449,1,23522,Hans Petter,Langtangen,185
+442449,2,24032,Aslak,Tveito,185
+1117019,1,23916,Are Magnus,Bruaset,7498
+1117019,2,24032,Aslak,Tveito,7498
+345276,1,21673,Glenn Terje,Lines,7498;185
+345276,2,18444,Mary Catherine,MacLachlan,7498
+345276,3,,Svein,Linge,7498;222
+345276,4,24032,Aslak,Tveito,7498;185
+442483,1,,Erlend,Arge,185
+442483,2,23162,Morten,Dæhlen,185
+442483,3,24032,Aslak,Tveito,185
+442507,1,24032,Aslak,Tveito,185
+442507,2,24555,Ragnar,Winther,185
+442458,1,24032,Aslak,Tveito,185
+442472,1,23916,Are Magnus,Bruaset,185
+442472,2,24032,Aslak,Tveito,185
+442509,1,,Wen,Shen,185
+442509,2,24032,Aslak,Tveito,185
+442509,3,24555,Ragnar,Winther,185
+442479,1,15064,Helge,Holden,185
+442479,2,23739,Nils Henrik,Risebro,185
+442479,3,24032,Aslak,Tveito,185
+442504,1,,H. J.,Schroll,
+442504,2,24032,Aslak,Tveito,185
+442504,3,24555,Ragnar,Winther,185
+442470,1,,Olav,Dahl,185
+442470,2,,T.,Johansen,185
+442470,3,24032,Aslak,Tveito,185
+442470,4,24555,Ragnar,Winther,185
+442469,1,23522,Hans Petter,Langtangen,185
+442469,2,24032,Aslak,Tveito,185
+442469,3,24555,Ragnar,Winther,185
+442468,1,23739,Nils Henrik,Risebro,185
+442468,2,24032,Aslak,Tveito,185
+31019,1,24555,Ragnar,Winther,185
+31019,2,24032,Aslak,Tveito,185
+442477,1,,J. O.,Langseth,
+442477,2,24032,Aslak,Tveito,185
+442477,3,24555,Ragnar,Winther,185
+442460,1,24032,Aslak,Tveito,185
+442460,2,24555,Ragnar,Winther,185
+442475,1,24032,Aslak,Tveito,185
+442475,2,24555,Ragnar,Winther,185
+442474,1,,Erlend,Arge,185
+442474,2,23162,Morten,Dæhlen,185
+442474,3,24032,Aslak,Tveito,185
+442466,1,24032,Aslak,Tveito,185
+442466,2,24555,Ragnar,Winther,185
+442487,1,24032,Aslak,Tveito,185
+442487,2,24555,Ragnar,Winther,185
+442464,1,23739,Nils Henrik,Risebro,185
+442464,2,24032,Aslak,Tveito,185
+310568,1,23522,Hans Petter,Langtangen,185
+310568,2,24032,Aslak,Tveito,185
+1000687,1,23688,Bjørn Fredrik,Nielsen,7498;185
+1000687,2,12833,Tomas Syrstad,Ruud,7498;185
+1000687,3,21673,Glenn Terje,Lines,7498;185
+1000687,4,24032,Aslak,Tveito,7498;185
+770376,1,24032,Aslak,Tveito,7498
+770376,2,23522,Hans Petter,Langtangen,
+770376,3,23688,Bjørn Fredrik,Nielsen,192
+770376,4,24001,Xing,Cai,7498
+354595,1,23688,Bjørn Fredrik,Nielsen,7498;185
+354595,2,24032,Aslak,Tveito,7498;185
+354595,3,,W,Hackbusch,
+2025246,1,,Karoline Horgmo,Jæger,7498
+2025246,2,24032,Aslak,Tveito,7498;185
+447667,1,23688,Bjørn Fredrik,Nielsen,192;185
+447667,2,24032,Aslak,Tveito,185
+849313,1,24032,Aslak,Tveito,7498;185
+849313,2,21673,Glenn Terje,Lines,7498;185
+849313,3,22919,Ola,Skavhaug,7498;185
+849313,4,386037,Mary,Maleckar,7498
+500989,1,,S,Linge,
+500989,2,22862,Joakim,Sundnes,7498;185
+500989,3,,M,Hanslien,
+500989,4,21673,Glenn Terje,Lines,7498;185
+500989,5,24032,Aslak,Tveito,7498;185
+10518164,1,,Sofia,Poloni,
+10518164,2,,Luca,Soliveri,
+10518164,3,5643,Kristian,Valen-Sendstad,
+10518164,4,,Anna,Caroli,
+10518164,5,,Andrea,Remuzzi,
+10518164,6,,Michela,Bozzetto,
+10506695,1,,Andrea,Remuzzi,
+10506695,2,,Luca,Soliveri,
+10506695,3,,Sofia,Poloni,
+10506695,4,,Elena,Carrara,
+10506695,5,,Chiara Emma,Campiglio,
+10506695,6,5643,Kristian,Valen-Sendstad,
+10506695,7,,Michela,Bozzetto,
+10446952,1,,Guillermo,Nozaleda,
+10446952,2,5643,Kristian,Valen-Sendstad,7498
+10446918,1,,Luca,Soliveri,
+10446918,2,1469362,Anna,Caroli,
+10446918,3,5643,Kristian,Valen-Sendstad,7498
+10446681,1,,David,Bruneau,
+10446681,2,5643,Kristian,Valen-Sendstad,7498
+10446680,1,,David,Bruneau,
+10446680,2,5643,Kristian,Valen-Sendstad,7498
+10446679,1,,Luca,Soliveri,
+10446679,2,11592,Johannes,Ring,7498
+10446679,3,5643,Kristian,Valen-Sendstad,7498
+10446678,1,,David,Bruneau,
+10446678,2,5643,Kristian,Valen-Sendstad,7498
+10446677,1,,Michela,Bozzetto,
+10446677,2,5643,Kristian,Valen-Sendstad,7498
+10446493,1,,David,Bruneau,
+10446493,2,5643,Kristian,Valen-Sendstad,7498
+10446261,1,6077,Alban,Souche,
+10446261,2,5643,Kristian,Valen-Sendstad,7498
+10446245,1,,A.L.,Haley,
+10446245,2,5643,Kristian,Valen-Sendstad,7498
+10446243,1,,M.O.,Khan,
+10446243,2,5643,Kristian,Valen-Sendstad,7498
+10446190,1,618624,Henrik,Kjeldsberg,
+10446190,2,485484,Aslak,Bergersen,
+10446190,3,5643,Kristian,Valen-Sendstad,7498
+10446076,1,485484,Aslak,Bergersen,
+10446076,2,618624,Henrik,Kjeldsberg,
+10446076,3,5643,Kristian,Valen-Sendstad,7498
+10446069,1,485484,Aslak,Bergersen,
+10446069,2,,Andreas,Slyngstad,
+10446069,3,6077,Alban,Souche,
+10446069,4,5643,Kristian,Valen-Sendstad,7498
+10445805,1,,Viviana,Mancini,
+10445805,2,485484,Aslak,Bergersen,
+10445805,3,5643,Kristian,Valen-Sendstad,7498
+10445739,1,914514,Alexandra,Diem,
+10445739,2,5643,Kristian,Valen-Sendstad,7498
+10445738,1,485484,Aslak,Bergersen,
+10445738,2,,Christophe,Chnafa,
+10445738,3,618904,David,Steinman,
+10445738,4,5643,Kristian,Valen-Sendstad,7498
+10445663,1,,Viviana,Mancini,
+10445663,2,485484,Aslak,Bergersen,
+10445663,3,5643,Kristian,Valen-Sendstad,7498
+10445660,1,,Philipp,Berg,
+10445660,2,485484,Aslak,Bergersen,
+10445660,3,5643,Kristian,Valen-Sendstad,7498
+10445660,4,618904,David,Steinman,
+10445660,5,1243264,Vitor,Pereira,
+10445660,6,709502,Tin,Chiu,
+10445660,7,1517138,Muhammad,Khan,
+10445660,8,332417,Thomas,Wagner,
+10445660,9,51211,Yi,Qian,
+10445652,1,618624,Henrik,Kjeldsberg,
+10445652,2,485484,Aslak,Bergersen,
+10445652,3,5643,Kristian,Valen-Sendstad,7498
+10445651,1,,Syver,Agdestein,
+10445651,2,5643,Kristian,Valen-Sendstad,7498
+10445651,3,914514,Alexandra,Diem,
+10445647,1,,Philipp,Berg,
+10445647,2,485484,Aslak,Bergersen,
+10445647,3,5643,Kristian,Valen-Sendstad,7498
+10445647,4,618904,David,Steinman,
+10445647,5,1243264,Vitor,Pereira,
+10445647,6,709502,Tin,Chiu,
+10445647,7,594181,Owais,Khan,
+10445647,8,332417,Thomas,Wagner,
+10445647,9,51211,Yi,Qian,
+10445455,1,594181,Owais,Khan,
+10445455,2,5643,Kristian,Valen-Sendstad,7498
+10445455,3,618904,David,Steinman,
+10445247,1,594181,Owais,Khan,
+10445247,2,,Christophe,Chnafa,
+10445247,3,618904,David,Steinman,
+10445247,4,5643,Kristian,Valen-Sendstad,7498
+10445246,1,,Christophe,Chnafa,
+10445246,2,5643,Kristian,Valen-Sendstad,7498
+10445246,3,1243264,Vitor,Pereira,
+10445246,4,618904,David,Steinman,
+10445245,1,594181,Owais,Khan,
+10445245,2,618904,David,Steinman,
+10445245,3,5643,Kristian,Valen-Sendstad,7498
+10444969,1,,Philipp,Berg,
+10444969,2,594181,Owais,Khan,
+10444969,3,5643,Kristian,Valen-Sendstad,7498
+10444969,4,618904,David,Steinman,
+10444964,1,,Jonathan,Mynard,
+10444964,2,5643,Kristian,Valen-Sendstad,7498
+10444836,1,594181,Owais,Khan,
+10444836,2,5643,Kristian,Valen-Sendstad,7498
+10444836,3,618904,David,Steinman,
+10444833,1,5643,Kristian,Valen-Sendstad,7498
+10444833,2,,Marina,Piccinelli,
+10444833,3,618904,David,Steinman,
+10444809,1,59906,Mikael,Mortensen,
+10444809,2,5643,Kristian,Valen-Sendstad,7498
+10444202,1,5643,Kristian,Valen-Sendstad,7498
+10444202,2,618904,David,Steinman,
+10444090,1,618904,David,Steinman,
+10444090,2,,Yiemeng,Hoi,
+10444090,3,1025128,L.,Morris,
+10444090,4,708312,K.,Kono,
+10444090,5,5643,Kristian,Valen-Sendstad,7498
+10444090,6,337436,F.,Loth,
+10444010,1,5643,Kristian,Valen-Sendstad,7498
+10444010,2,,Marina,Piccinelli,
+10444010,3,618904,David,Steinman,
+10442739,1,1394813,Kei,Yamamoto,7498
+10442739,2,,Luca,Soliveri,12307409
+10442739,3,,Michela,Bozzetto,12307409
+10442739,4,,Chiara Emma,Campiglio,12300035
+10442739,5,,Andrea,Remuzzi,12300035
+10442739,6,,Luigi Andrea,Lanterna,12300000
+10442739,7,5643,Kristian,Valen-Sendstad,7498
+10439123,1,,Luca,Soliveri,12307409
+10439123,2,,Sofia,Poloni,12300035
+10439123,3,,Paolo,Brambilla,12300049
+10439123,4,,Simona,Zerbi,
+10439123,5,,Giulia,Cabrini,12300035
+10439123,6,,Anna,Caroli,12307409
+10439123,7,,Andrea,Remuzzi,12300035
+10439123,8,5643,Kristian,Valen-Sendstad,7498
+10439123,9,,Michela,Bozzetto,12307409
+10432479,1,618624,Henrik Aasen,Kjeldsberg,7498
+10432479,2,,Josquin,Harrison,11720033
+10432479,3,,Maxime,Sermesant,11720033
+10432479,4,,Renate B.,Schnabel,14401914
+10432479,5,22862,Joakim,Sundnes,7498
+10432479,6,5643,Kristian,Valen-Sendstad,7498
+10429014,1,,Elena,Carrara,
+10429014,2,,Sofia,Poloni,12300035
+10429014,3,,Marta,Ripamonti,
+10429014,4,5643,Kristian,Valen-Sendstad,7498
+10429014,5,,Andrea,Remuzzi,
+10429014,6,,Michela,Bozzetto,
+10429014,7,,Chiara,Campiglio,
+10429006,1,1394813,Kei,Yamamoto,7498
+10429006,2,,Luca,Soliveri,12307409
+10429006,3,,Michela,Bozzetto,
+10429006,4,,Chiara Emma,Campiglio,
+10429006,5,,Andrea,Remuzzi,
+10429006,6,,Luigi,Lanterna,
+10429006,7,5643,Kristian,Valen-Sendstad,7498
+10428999,1,,Sofia,Poloni,
+10428999,2,,Luca,Soliveri,
+10428999,3,11592,Johannes,Ring,7498
+10428999,4,,Andrea,Remuzzi,12300035
+10428999,5,,Michela,Bozzetto,
+10428999,6,5643,Kristian,Valen-Sendstad,7498
+10428925,1,,Chiara Emma,Campiglio,12300035
+10428925,2,,Elena,Carrara,
+10428925,3,,Sofia,Poloni,
+10428925,4,,Marta,Ripamonti,
+10428925,5,,Luca,Soliveri,
+10428925,6,5643,Kristian,Valen-Sendstad,7498
+10428925,7,,Andrea,Remuzzi,
+10428925,8,,Michela,Bozzetto,
+10419174,1,,Jana,Brunátová,12700065;15800012
+10419174,2,795721,Jorgen S.,Dokken,7498
+10419174,3,5643,Kristian,Valen-Senstad,7498
+10419174,4,,Jaroslav,Hron,15800012
+10419172,1,1394813,Kei,Yamamoto,185;7498
+10419172,2,,David A.,Bruneau,61200065
+10419172,3,11592,Johannes,Ring,7498
+10419172,4,795721,Jorgen S.,Dokken,7498
+10419172,5,5643,Kristian,Valen-Senstad,7498
+10419168,1,1394813,Kei,Yamamoto,7498
+10419168,2,,David A.,Bruneau,61200065
+10419168,3,795721,Jorgen S.,Dokken,7498
+10419168,4,,David A.,Steinman,61200065
+10419168,5,5643,Kristian,Valen-Senstad,7498
+10251161,1,618624,Henrik Aasen,Kjeldsberg,7498
+10251161,2,,Renate B.,Schnabel,14420156;14401914
+10251161,3,22862,Joakim,Sundnes,7498
+10251161,4,5643,Kristian,Valen-Senstad,7498
+10251158,1,618624,Henrik Aasen,Kjeldsberg,7498
+10251158,2,,Carlos,Albors,13700071
+10251158,3,,Jordi,Mill,13700071
+10251158,4,,David Viladés,Medel,13701903
+10251158,5,,Oscar,Camara,13700071
+10251158,6,22862,Joakim,Sundnes,7498
+10251158,7,5643,Kristian,Valen-Senstad,7498
+10251153,1,618624,Henrik Aasen,Kjeldsberg,7498
+10251153,2,485484,Aslak Wigdahl,Bergersen,7498
+10251153,3,5643,Kristian,Valen-Senstad,7498
+10251149,1,618624,Henrik Aasen,Kjeldsberg,7498
+10251149,2,22862,Joakim,Sundnes,7498
+10251149,3,5643,Kristian,Valen-Senstad,7498

@@ -1,0 +1,201 @@
+cristin_institution_id,name,country
+158,BI Norwegian Business School,NO
+184,University of Bergen,NO
+185,University of Oslo,NO
+192,Norwegian University of Life Sciences,NO
+194,Norwegian University of Science and Technology,NO
+201,University of Agder,NO
+215,OsloMet - Oslo Metropolitan University,NO
+222,University of South-Eastern Norway,NO
+224,Østfold University of Applied Sciences,NO
+1936,Bergen Hospital Trust - Haukeland University Hospital,NO
+1965,Sørlandet Hospital Trust,NO
+1972,Akershus University Hospital Trust,NO
+2012,Oslo University Hospital,NO
+3219,Bærum kommune,NO
+6017,Det Norske Veritas AS,NO
+7401,SINTEF,NO
+7428,Norwegian Defence Research Establishment,NO
+7452,Norwegian Geotechnical Institute,NO
+7464,Norwegian Institute of Water Research (NIVA),NO
+7467,Norwegian Computing Center,NO
+7492,Institute for Energy Technology,NO
+7498,Simula,NO
+7543,"Nofima, Norwegian Institute of Food, Fisheries and Aquaculture Research",NO
+7620,Kristian Gerhard Jebsen Foundation,NO
+9126,Andre institusjoner,NO
+9127,Utenlandsk utdanningsinstitusjon,XX
+9198,Diverse norske bedrifter og organisasjoner,NO
+20054,Expert Analytics,NO
+20277,Simula Metropolitan Center for Digital Engineering,NO
+20497,Lillestrøm kommune,NO
+20651,Norwegian Artificial Intelligence Research Consortium,NO
+20977,Smart Innovation Norway,NO
+10100002,Aalborg University,DK
+10100014,Technical University of Denmark,DK
+10100065,University of Copenhagen,DK
+10101907,Copenhagen University Hospital,DK
+10101918,Herlev Hospital,DK
+10300010,University of Helsinki,FI
+10300027,University of Oulu,FI
+10300039,Tampere University of Applied Sciences,FI
+10301904,Oulu University Hospital,FI
+10301905,Helsinki University Central Hospital,FI
+10600000,Sweden,SE
+10600001,Chalmers University of Technology,SE
+10600027,Royal Institute of Technology,SE
+10600030,Lund University,SE
+10600048,Umeå University,SE
+10600049,Uppsala University,SE
+11107012,F. Hoffmann-La Roche Ltd,CH
+11700000,France,FR
+11700396,Paris Diderot University Paris VII),FR
+11700449,University of Nantes,FR
+11700556,University of Lille,FR
+11700576,Université de Lyon,FR
+11700581,University of Bordeaux,FR
+11705901,National Center for Scientific Research,FR
+11707476,Centre de Mise en Forme des Materiaux,FR
+11720033,University of Côte d'Azur,FR
+11900000,Greece,GR
+11900011,University of Crete,GR
+12100026,University of Limerick,IE
+12300000,Italy,IT
+12300012,Politecnico di Milano University,IT
+12300029,"University of Insubria, Varese",IT
+12300035,University of Bergamo,IT
+12300049,University of Milan-Bicocca,IT
+12300059,University of Rome 'La Sapienza',IT
+12307409,Mario Negri Institute for Pharmacological Research,IT
+12307456,Istituto Italiano di Tecnologia,IT
+12700000,Netherlands,NL
+12700065,University of Groningen,NL
+12700069,Delft University of Technology,NL
+12700076,University of Amsterdam,NL
+12701910,Amsterdam UMC,NL
+12701913,University Medical Center Groningen,NL
+12707007,Philips Research,NL
+13100000,Poland,PL
+13100259,Polish Academy of Sciences,PL
+13107410,Nencki Institute of Experimental Biology,PL
+13700000,Spain,ES
+13700028,Polytechnic University of Valencia,ES
+13700057,University of Navarra,ES
+13700061,University of Seville,ES
+13700062,University of Valencia,ES
+13700071,"University Pompeu Fabra, Barcelona",ES
+13700073,"University Rovira i Virgili, Tarragona",ES
+13701903,Hospital Santa Cruz San Paolo,ES
+13900000,United Kingdom,GB
+13900031,Imperial College London,GB
+13900046,King's College London,GB
+13900141,University of Cambridge,GB
+13900145,University of Dundee,GB
+13900159,University of Leeds,GB
+13900166,The University of Manchester,GB
+13900173,University of Nottingham,GB
+13900221,University of Oxford,GB
+13900227,University of Sheffield,GB
+13901902,St Thomas' Hospital,GB
+14000276,I.M. Sechenov First Moscow State Medical University,RU
+14100002,Swiss Federal Institute of Technology of Lausanne,CH
+14100003,Swiss Federal Institute of Technology Zürich,CH
+14100020,University of Zürich,CH
+14300036,Koç University,TR
+14400000,Germany,DE
+14400003,University of Freiburg,DE
+14400133,Georg August University Göttingen,DE
+14400185,Johann Wolfgang Goethe University of Frankfurt am Main,DE
+14400217,Otto von Guericke University of Magdeburg,DE
+14400235,RWTH Aachen University,DE
+14400239,"University of the Ruhr, Bochum",DE
+14400240,University of Heidelberg,DE
+14400255,Technical University Berlin,DE
+14400263,Technical University of Munich,DE
+14400294,University of Stuttgart,DE
+14400303,University of Siegen,DE
+14400304,University of Münster,DE
+14400313,Duisburg-Essen University,DE
+14400317,Charité - Universitätsmedizin Berlin,DE
+14400360,Heidelberg University,DE
+14401914,University Medical Center Hamburg-Eppendorf,DE
+14407434,Research Centre Jülich,DE
+14407454,Max Plank Institute for Medical Research,DE
+14420156,German Centre for Cardiovascular Research,DE
+15300000,Austria,AT
+15300042,Johannes Kepler University Linz,AT
+15300077,Austrian Academy of Sciences,AT
+15800012,"Charles University, Prague",CZ
+44400000,India,IN
+44400030,Birla Institute of Technology and Science,IN
+44400031,Birla Institute of Technology,IN
+44400060,Goa University,IN
+44400077,Indian Institute of Technology Bombay,IN
+44400079,Indian Institute of Technology Kanpur,IN
+44400179,Chhatrapati Shahu Ji Maharaj University,IN
+44400223,Savitribai Phule Pune University,IN
+44400225,Indian Institute of Technology Roorkee,IN
+44400269,Malaviya National Institute of Technology Jaipur,IN
+44420068,National Institute of Technology Rourkela,IN
+46400000,Japan,JP
+46400271,Mie Prefectural College of Nursing,JP
+46400319,Nihon University,JP
+46400486,Tohoku University,JP
+46400503,The University of Tokyo,JP
+46400555,Wakayama Medical College,JP
+46407405,Riken,JP
+47600010,Jordan University of Science and Technology,JO
+48400047,Beijing University of Technology,CN
+48400050,Beijing Union University,CN
+48400131,Dalian Medical University,CN
+48400446,Shandong University,CN
+48400680,Sun Yat-sen University,CN
+54800000,Singapore,SG
+61200065,University of Toronto,CA
+61200067,University of Waterloo,CA
+61600057,University of Costa Rica,CR
+68400000,USA,US
+68400181,Stanford University,US
+68400189,"University of California, Berkeley",US
+68400196,"University of California, San Diego",US
+68400258,University of Connecticut,US
+68400263,Yale University,US
+68400395,University of Idaho,US
+68400473,The University of Chicago,US
+68400668,Morgan State University,US
+68400679,University of Maryland Baltimore County,US
+68400724,Massachusetts Institute of Technology (MIT),US
+68400748,Tufts University,US
+68400801,Michigan Technological University,US
+68400804,Oakland University,US
+68400812,University of Michigan,US
+68400897,Kirksville College of Osteopathic Medicine,US
+68400926,"Washington University, St. Louis",US
+68401099,New York University,US
+68401144,State University of New York at Stony Brook,US
+68401145,State University of New York (SUNY) at Old Westbury,US
+68401158,University of Rochester,US
+68401287,The University of Akron,US
+68401442,Pennsylvania State University,US
+68401445,University of Pennsylvania,US
+68401609,Baylor University,US
+68401648,Texas A&M University-Kingsville,US
+68401655,Texas Tech University,US
+68401674,University of Texas at Austin,US
+68401678,University of Texas at San Antonio,US
+68401773,University of Washington,US
+68401813,Medical College of Wisconsin,US
+68401822,University of Wisconsin-Eau Claire,US
+68401825,University of Wisconsin-Madison,US
+68401845,University of California,US
+68401846,University of Minnesota,US
+68401850,University of Pittsburgh,US
+68401900,Massachusetts General Hospital,US
+68405903,National Institutes of Health,US
+68405915,Lawrence Livermore National Laboratory,US
+68405920,Jet Propulsion Laboratory,US
+68420056,Salk Institute for Biological Studies,US
+70500060,National University of Central Buenos Aires Province,AR
+72500106,Chile Adventist University,CL
+80500047,Monash University,AU
+80500058,The Australian National University,AU
