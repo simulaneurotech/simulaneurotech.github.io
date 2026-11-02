@@ -41,9 +41,9 @@ OUTPUT = HERE.parent / "site" / "index.html"
 SINCE = [2024, 2021, 2016]
 # The project timeline is hidden for now; set to True to show it again
 SHOW_PROJECTS = False
-# The links to the co-authorship and partners pages are hidden until those
-# pages are published too; set to True to show them again
-SHOW_LINKS = False
+# Pages linked under "More about the centre"; the co-authorship page
+# (coauthorship.html) is not linked yet
+LINKED_PAGES = ["partners.html"]
 AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
@@ -233,7 +233,7 @@ def collect():
             exclusions,
         ),
         "showProjects": SHOW_PROJECTS,
-        "showLinks": SHOW_LINKS,
+        "linkedPages": LINKED_PAGES,
         "projects": projects(
             read_csv(PARTNERS_DIR / "centre_projects.csv"),
             prosjektbanken=prosjektbanken,

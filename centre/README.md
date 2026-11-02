@@ -64,8 +64,9 @@ same as on the partners page: `../partners/centre_projects.csv`,
 projects that started in 2016 or later, with Research Council funding from
 `../partners/prosjektbanken_projects.csv`.
 
-The links to the co-authorship and partners pages are hidden too
-(`SHOW_LINKS = False`), until those pages are published on the website.
+Under "More about the centre", the page links to the pages listed in
+`LINKED_PAGES` in `build_centre_page.py`: currently the partners page
+(`partners.html`), but not yet the co-authorship page (`coauthorship.html`).
 
 ## Tests
 
