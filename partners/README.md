@@ -7,7 +7,8 @@ the centre for external stakeholders. Projects, merges and exclusions have
 been curated by hand; the investigators should still check their own
 projects and collaborators before the page is published.
 
-**Draft page:** [`../site/partners.html`](../site/partners.html) shows where the centre's co-authors are, what kinds of institutions they
+**Draft page:** <https://simulaneurotech.github.io/partners.html>, built
+from [`../site/partners.html`](../site/partners.html), shows where the centre's co-authors are, what kinds of institutions they
 work at, and clinical collaborators (hospitals with joint publications), with
 a switch for the publication period (since 2024, 2021 or 2016). Selecting an
 institution on the map or in a table lists its joint publications, with the
@@ -15,7 +16,7 @@ investigators and the co-authors at that institution. Co-authors are grouped
 into mathematics and technology, experimental and basic medicine, and
 clinical medicine, with a switch to show one field. The centre's projects by
 funder and the formal project partners are hidden for now
-(`SHOW_PROJECTS = False` in `build_partners_page.py`). Open it
+(`SHOW_PROJECTS = False` in `build_partners_page.py`). You can also open it
 locally in a browser.
 
 The scripts read the investigators and their publications from
