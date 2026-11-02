@@ -7,12 +7,16 @@ at Simula Research Laboratory.
 shows the centre investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
 
-**Draft page:** [`site/partners.html`](site/partners.html) shows the institutions the centre collaborates with in Norway and abroad, and its
-projects by funder. It is a draft for review.
-
 **Interactive page:** <https://simulaneurotech.github.io/coauthorship.html>
 shows how the centre investigators publish together, and how they are linked
 through co-authors outside the centre. It is built from [`site/coauthorship.html`](site/coauthorship.html).
+
+**Draft page:** <https://simulaneurotech.github.io/partners.html>
+shows the institutions the centre's co-authors are at, in Norway and abroad:
+where they are, what kinds of institutions they are, and the clinical
+collaborators. Institutions and countries are counted as on the overview
+page. It is a draft for review, and is built from
+[`site/partners.html`](site/partners.html).
 
 
 ## Contents
