@@ -30,7 +30,7 @@ import csv
 import datetime
 import json
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -48,7 +48,7 @@ AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
 sys.path.insert(0, str(PARTNERS_DIR))
-from build_partners_page import is_simula_group, name_key, projects
+from build_partners_page import main_institutions, projects
 from publication_data import id_order, load
 
 
@@ -75,52 +75,24 @@ def key_figures(pub_years, affiliations, since, merges=None, exclusions=()):
     counts, "lists": {"publications": [result IDs], "coauthors": [[name, main
     institution, country, [result IDs]]], "institutions": [[name, country,
     [indices into coauthors]]]}}}."""
-    merges = merges or {}
-    excluded = {(name_key(a), name_key(i)) for a, i in exclusions}
     figures = {}
     for start in since:
-        institutions_of = defaultdict(Counter)  # co-author -> institution -> rows
-        name_of, pubs_of, country_of = {}, defaultdict(set), {}
-        for r in affiliations:
-            if year_of(r["year"]) < start or r["investigator"]:
-                continue
-            if (name_key(r["author"]), name_key(r["institution"])) in excluded:
-                continue
-            coauthor = r["openalex_author_id"] or name_key(r["author"])
-            name_of.setdefault(coauthor, r["author"])
-            pubs_of[coauthor].add(r["result_id"])
-            # every co-author counts, with or without an institution
-            institutions_of[coauthor]
-            if r["institution"]:
-                name = merges.get(r["institution"], r["institution"])
-                institutions_of[coauthor][name] += 1
-                country_of.setdefault(name, r["country"])
-        main = {
-            c: counts.most_common(1)[0][0]
-            for c, counts in institutions_of.items()
-            if counts
-        }
-        # Colleagues in the Simula Group are not counted as co-authors
-        for c in [c for c, m in main.items() if is_simula_group(m)]:
-            del institutions_of[c], main[c]
-
-        coauthors = sorted(
-            institutions_of,
-            key=lambda c: (-len(pubs_of[c]), name_of[c]),
-        )
+        found, country_of = main_institutions(affiliations, start, merges, exclusions)
+        pubs_of = {c: {r["result_id"] for r in v["rows"]} for c, v in found.items()}
+        coauthors = sorted(found, key=lambda c: (-len(pubs_of[c]), found[c]["name"]))
         coauthor_rows = [
             [
-                name_of[c],
-                main.get(c, ""),
-                country_of.get(main.get(c, ""), ""),
+                found[c]["name"],
+                found[c]["main"],
+                country_of.get(found[c]["main"], ""),
                 sorted(pubs_of[c], key=lambda rid: (-pub_years.get(rid, 0), rid)),
             ]
             for c in coauthors
         ]
         members = defaultdict(list)
         for i, c in enumerate(coauthors):
-            if c in main and not is_simula_group(main[c]):
-                members[main[c]].append(i)
+            if found[c]["main"]:
+                members[found[c]["main"]].append(i)
         institution_rows = sorted(
             ([name, country_of.get(name, ""), idx] for name, idx in members.items()),
             key=lambda r: (-len({p for i in r[2] for p in coauthor_rows[i][3]}), r[0]),

@@ -7,16 +7,15 @@ the centre for external stakeholders. Projects, merges and exclusions have
 been curated by hand; the investigators should still check their own
 projects and collaborators before the page is published.
 
-**Draft page:** `partners_page.html` shows where the centre's co-authors are, what kinds of institutions they
-work at, and the centre's projects by funder, with switches for the
-publication period (since 2024 or since 2021) and for active or all
-projects. Selecting an institution on the map or in a table lists its joint
-publications, with the investigators and the co-authors at that institution.
-It also lists clinical collaborators (hospitals with joint publications) and
-the formal partners on the centre's projects. Only publications relevant to
-the centre are used, and co-authors are grouped into mathematics and
-technology, experimental and basic medicine, and clinical medicine, with a
-switch to show one field. Open it
+**Draft page:** [`../site/partners.html`](../site/partners.html) shows where the centre's co-authors are, what kinds of institutions they
+work at, and clinical collaborators (hospitals with joint publications), with
+a switch for the publication period (since 2024, 2021 or 2016). Selecting an
+institution on the map or in a table lists its joint publications, with the
+investigators and the co-authors at that institution. Co-authors are grouped
+into mathematics and technology, experimental and basic medicine, and
+clinical medicine, with a switch to show one field. The centre's projects by
+funder and the formal project partners are hidden for now
+(`SHOW_PROJECTS = False` in `build_partners_page.py`). Open it
 locally in a browser.
 
 The scripts read the investigators and their publications from
@@ -32,9 +31,8 @@ The scripts read the investigators and their publications from
 | `fetch_prosjektbanken.py` | Looks up the Research Council of Norway projects in `centre_projects.csv` in [Prosjektbanken](https://prosjektbanken.forskningsradet.no), by grant number |
 | `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field and each co-author's own main field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
 | `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason), keeping decisions made by hand |
-| `build_partners_page.py` | Builds `partners_page.html` from the curated projects and the OpenAlex data |
+| `build_partners_page.py` | Builds `../site/partners.html` from the curated projects and the OpenAlex data |
 | `partners_page_template.html` | Page template: layout, map, tables and timeline |
-| `partners_page.html` | The partnerships page (generated) |
 | `world-110m.json` | Country outlines for the map, from the [world-atlas](https://github.com/topojson/world-atlas) package (ISC license, built from Natural Earth) |
 | `institution_merges.csv` | **Curated by hand**: institutions to merge or rename on the page (`institution` as in OpenAlex, `use_name` to show), such as the Sørlandet sykehus hospitals, and Gentofte Hospital as part of Copenhagen University Hospital |
 | `publication_relevance.csv` | **Checked by hand**: the suggestion for each publication, and a `decision` column (keep or drop) that overrides it. Re-running `publication_relevance.py` keeps the decisions and notes |
@@ -61,13 +59,20 @@ python3 fetch_nva_projects.py      # writes nva_projects.csv, nva_project_partic
 python3 fetch_prosjektbanken.py    # writes prosjektbanken_projects.csv
 python3 fetch_openalex.py          # writes openalex_*.csv, partner_institutions.csv
 python3 publication_relevance.py   # writes publication_relevance.csv (keeps decisions)
-python3 build_partners_page.py     # writes partners_page.html
+python3 build_partners_page.py     # writes ../site/partners.html
 ```
 
-On the page, collaborating institutions are the co-authors' institutions. Members
-of the Simula Group (institutions with "Simula" in their name) are not
-counted, and neither are the investigators' own other affiliations on their
-papers, such as a university position. Investigators are recognised among a
+Institutions are counted as on the overview page (`../centre/`), with the
+same function (`main_institutions` in `build_partners_page.py`): each
+co-author once, at their main institution in the period, the one they are
+listed at most often on the investigators' publications. An institution's
+joint publications are all those of the co-authors who are mainly there.
+Colleagues whose main institution is in the Simula Group (institutions with
+"Simula" in their name) are not counted, and neither are the investigators'
+own other affiliations on their papers, such as a university position. All
+the investigators' publications found in OpenAlex are used, as on the
+overview page; a test checks that the two pages give the same institutions
+and countries. Investigators are recognised among a
 paper's OpenAlex authors by name (column `investigator` in
 `openalex_affiliations.csv`). Projects come from `centre_projects.csv`;
 rows with `include` set to `no` are left out, and so are projects that
@@ -81,10 +86,11 @@ collaborators need at least `MIN_CLINICAL` joint publications in the period
 
 ## Relevant publications
 
-The page only uses publications relevant to the centre: core mathematical,
-computational and technological research (including general data mining),
-and methods work with a physiological application. `publication_relevance.py`
-suggests a decision for each publication, in this order:
+The pages currently use all the investigators' publications. To limit them
+to publications relevant to the centre (core mathematical, computational and
+technological research, including general data mining, and methods work with
+a physiological application), `publication_relevance.py` suggests a decision
+for each publication, in this order:
 
 1. Wireless networks or the Internet of Things in the title: drop.
 2. Methods terms (model, simulation, computational, ...) and a physiological
@@ -96,10 +102,11 @@ suggests a decision for each publication, in this order:
 5. Only methods terms, or only a physiological subject: review.
 6. Neither: drop.
 
-A publication is used when its `decision` is `keep`, or when it has no
-decision and the suggestion is `keep`; "review" without a decision is left
-out. Fill in `decision` in `publication_relevance.csv` for the reviews and
-for any suggestion you disagree with.
+A publication counts as relevant when its `decision` is `keep`, or when it
+has no decision and the suggestion is `keep` (`relevant` in
+`publication_relevance.py`). Fill in `decision` in
+`publication_relevance.csv` for the reviews and for any suggestion you
+disagree with. The pages do not use this at present.
 
 ## Fields of collaboration
 

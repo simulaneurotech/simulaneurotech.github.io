@@ -7,7 +7,7 @@ at Simula Research Laboratory.
 shows the centre investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
 
-**Draft page:** [`partners/partners_page.html`](partners/partners_page.html) shows the institutions the centre collaborates with in Norway and abroad, and its
+**Draft page:** [`site/partners.html`](site/partners.html) shows the institutions the centre collaborates with in Norway and abroad, and its
 projects by funder. It is a draft for review.
 
 **Interactive page:** <https://simulaneurotech.github.io/coauthorship.html>
@@ -20,7 +20,7 @@ through co-authors outside the centre. It is built from [`site/coauthorship.html
 | Folder | Contents |
 |---|---|
 | [`centre/`](centre/) | Builds the centre's overview page from the data in `nva/` and `partners/`. See [`centre/README.md`](centre/README.md). |
-| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`) and the co-authorship page (`coauthorship.html`), both generated, and the fonts and script they use (`assets/`). |
+| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the co-authorship page (`coauthorship.html`) and the draft partners page (`partners.html`), all generated, and the fonts and scripts they use (`assets/`). |
 | [`nva/`](nva/) | Investigators' publication lists from NVA (formerly Cristin), co-authorship analysis and the interactive page. See [`nva/README.md`](nva/README.md). |
 | [`partners/`](partners/) | Projects, funding, project partners and collaborating institutions from Simula's website, NVA and OpenAlex. See [`partners/README.md`](partners/README.md). |
 
@@ -54,6 +54,7 @@ from these sources, under their own terms:
 | [simula.no](https://www.simula.no/research/projects) | Project durations, funding and partner text, investigators' pages | Content of Simula's website |
 | [Public Sans](https://github.com/uswds/public-sans), [Spectral](https://github.com/productiontype/Spectral), [IBM Plex Mono](https://github.com/IBM/plex) | Fonts on the website | [SIL Open Font License 1.1](site/assets/fonts/) |
 | [d3](https://d3js.org) | Charts on the website | [ISC licence](site/assets/d3-LICENSE.txt) |
+| [topojson-client](https://github.com/topojson/topojson-client) | The map on the partners page | [ISC licence](site/assets/topojson-client-LICENSE.txt) |
 | [world-atlas](https://github.com/topojson/world-atlas), built from [Natural Earth](https://www.naturalearthdata.com/) | Country outlines on the map | ISC licence; Natural Earth is in the public domain |
 
 Publication abstracts are not stored, as they are usually copyrighted. Email

@@ -1,8 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Neurotechnology Partnerships</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
 /* Layout: one reading column; map with a country list beside it, partner types and projects below. Same language as "Who publishes with whom". */
 :root {
@@ -53,6 +56,7 @@ body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 40px 64px;
   display: grid; gap: 48px;
+  grid-template-columns: minmax(0, 1fr);
 }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
 h1 { font-size: 2.1rem; line-height: 1.15; }
@@ -62,6 +66,7 @@ p { margin: 0; }
 a { color: var(--uni); }
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--uni); outline-offset: 2px; }
 .eyebrow { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.eyebrow a { color: inherit; }
 .lede { max-width: 65ch; color: var(--ink-2); }
 header { display: grid; gap: 12px; }
 .draft { justify-self: start; font-size: 0.82rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
@@ -77,7 +82,8 @@ header { display: grid; gap: 12px; }
 .fact b { font: 600 1.6rem/1.1 var(--font-display); }
 .fact span { font-size: 0.85rem; color: var(--muted); }
 
-section { display: grid; gap: 16px; }
+section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+[hidden] { display: none !important; }
 .section-head { display: grid; gap: 6px; }
 .section-head p { max-width: 65ch; color: var(--ink-2); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
@@ -161,12 +167,14 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
 .method h2 { font-size: 1.1rem; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+</head>
+<body>
 
 <div class="page">
   <header>
-    <div class="eyebrow">Centre for Digital Neurotechnology · Simula</div>
+    <div class="eyebrow"><a href="index.html">Centre for Digital Neurotechnology</a> · Simula</div>
     <h1>Who we work with</h1>
-    <p class="lede">The centre's investigators publish with researchers at universities, hospitals and research institutes in Norway and abroad, and run projects funded by the Research Council of Norway, the European Union and private foundations.</p>
+    <p class="lede">The centre's investigators publish with researchers at universities, hospitals and research institutes in Norway and abroad.</p>
     <p class="draft">Draft for review. The data has not yet been checked by the investigators.</p>
     <div class="controls">
       <span id="period-label">Publications from:</span>
@@ -209,7 +217,7 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
   <section>
     <div class="section-head">
       <h2>Who we collaborate with</h2>
-      <p>Institutions where the centre's investigators have co-authors, by kind. Members of the Simula Group, and the investigators' own other affiliations, are not counted.</p>
+      <p>Institutions where the centre's investigators have co-authors, by kind. Each co-author counts once, at their main institution: the one they are listed at most often on these publications. Colleagues in the Simula Group, and the investigators' own other affiliations, are not counted.</p>
     </div>
     <div class="card list-card">
       <h3>Collaborations by field</h3>
@@ -224,23 +232,23 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
       </div>
       <div class="card list-card">
         <h3>Clinical collaborators</h3>
-        <p class="note">Hospitals and health trusts, by joint publications in the period: publications with at least one co-author at the hospital. Select a row to see them.</p>
+        <p class="note">Hospitals and health trusts, by joint publications in the period: publications with at least one co-author whose main institution is the hospital. Select a row to see them.</p>
         <div class="table-wrap"><table id="hospitals"></table></div>
       </div>
     </div>
     <div class="card list-card">
       <h3>Leading collaborating institutions</h3>
-      <p class="note">The 15 institutions with most joint publications. A publication counts once for each institution its co-authors are at, so the numbers overlap. Investigators lists up to four centre investigators on these publications. Select a row to see them.</p>
+      <p class="note">The 15 institutions with most joint publications. A publication counts once for each of its co-authors' main institutions, so the numbers overlap. Investigators lists up to four centre investigators on these publications. Select a row to see them.</p>
       <div class="table-wrap"><table id="leading"></table></div>
     </div>
-    <div class="card list-card">
+    <div class="card list-card" id="project-partners-card">
       <h3>Project partners</h3>
       <p class="note">Institutions that are partners on the centre's projects, from Simula's project pages and the NVA project register. These are formal project partnerships, separate from the co-authorship counts above. Select a project to see it in the timeline.</p>
       <div class="table-wrap"><table id="project-partners"></table></div>
     </div>
   </section>
 
-  <section>
+  <section id="projects-section">
     <div class="section-head">
       <h2>Projects</h2>
       <p>Research projects with the centre's investigators that started in 2016 or later, coloured by main funder. Select a project for details.</p>
@@ -259,21 +267,21 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
 
   <section class="method">
     <h2>How this was made</h2>
-    <p>Co-authors and their institutions come from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, looked up by DOI for the investigators' publications in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv). Publications without a DOI, mostly older ones, are not included. Collaborating institutions are the co-authors' institutions. Members of the Simula Group, and the investigators' own other affiliations on their papers (such as a professorship at a university), are not counted.</p>
-    <p>Projects come from Simula's project pages and the NVA project register, selected and checked by hand. Funders are shown as listed on the project pages.</p>
+    <p>Co-authors and their institutions come from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, looked up by DOI for the investigators' publications in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv). Publications without a DOI, mostly older ones, are not included. Each co-author is counted once, at their main institution: the one they are listed at most often on these publications in the period, as on the overview page. Colleagues whose main institution is in the Simula Group, and the investigators' own other affiliations on their papers (such as a professorship at a university), are not counted.</p>
+    <p id="projects-method">Projects come from Simula's project pages and the NVA project register, selected and checked by hand. Funders are shown as listed on the project pages.</p>
     <p id="coverage"></p>
     <p id="generated"></p>
   </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="assets/d3.min.js"></script>
+<script src="assets/topojson-client.min.js"></script>
 <script>
 const DATA = __DATA__;
 const WORLD = __WORLD__;
 
 const LAST_YEAR = +DATA.generated.slice(0, 4);
-const PERIODS = [["2024", "Since 2024", 2024], ["2021", "Since 2021", 2021]];
+const PERIODS = DATA.since.map(y => [String(y), `Since ${y}`, y]);
 const GROUP = { Universities: "uni", Hospitals: "hosp" };
 // Clinical collaborations need at least this many joint publications
 const MIN_CLINICAL = 1;
@@ -311,11 +319,11 @@ function segmented(container, options, key, onChange) {
 // Partner institutions within the selected period
 function partners() {
   const from = PERIODS.find(p => p[0] === state.period)[2];
+  // Co-authors count at their main institution in the period only
   return DATA.institutions
-    .filter(i => !i.own)
     .map(i => {
       const keep = i.pubs
-        .map((k, j) => [k, i.coauthors[j].filter(([, g]) => state.field === "all" || g === state.field)])
+        .map((k, j) => [k, i.coauthors[j].filter(([, g, ps]) => ps.includes(from) && (state.field === "all" || g === state.field))])
         .filter(([k, who]) => (DATA.publications[k].year || 0) >= from && who.length);
       return { ...i, n: keep.length, inPeriod: keep.map(x => x[0]), who: new Map(keep) };
     })
@@ -382,7 +390,7 @@ function renderFacts(list) {
     [list.length, "collaborating institutions"],
     [new Set(list.map(i => i.country)).size, "countries"],
     [list.filter(i => i.type === "Hospitals" && i.n >= MIN_CLINICAL).length, "hospitals"],
-    [active, "active projects"],
+    ...(DATA.showProjects ? [[active, "active projects"]] : []),
   ];
   for (const [v, label] of items) {
     const f = el("div", { class: "fact" }, facts);
@@ -611,8 +619,7 @@ function renderCoverage(list) {
   const withPartner = new Set(list.flatMap(i => i.inPeriod)).size;
   const field = state.field === "all" ? "" : ` in ${FIELD_SHORT[state.field]}`;
   document.getElementById("coverage").textContent =
-    `Only publications relevant to the centre are used: core mathematical, computational and technological research, and methods work with a physiological application (${DATA.relevance.used} of the ${DATA.relevance.total} publications found in OpenAlex). ` +
-    `${periodLabel()[0].toUpperCase() + periodLabel().slice(1)}, ${inPeriod} of these were published, and ${withPartner} of them have at least one co-author${field} at a collaborating institution. ` +
+    `${periodLabel()[0].toUpperCase() + periodLabel().slice(1)}, ${inPeriod} of the investigators' publications were found in OpenAlex, and ${withPartner} of them have at least one co-author${field} at a collaborating institution. ` +
     (state.field === "all"
       ? "The others are by centre investigators only, or with colleagues in the Simula Group."
       : "The others have no co-authors in this field outside the Simula Group.");
@@ -680,8 +687,13 @@ segmented(document.getElementById("field"), [["all", "All fields"], ["math", "Ma
 segmented(document.getElementById("zoom"), [["world", "World"], ["europe", "Europe"]], "zoom", () => renderMap(partners()));
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+for (const id of ["projects-section", "project-partners-card", "projects-method"]) document.getElementById(id).hidden = !DATA.showProjects;
 renderAll();
-renderProjects();
-renderProjectPartners();
-renderRcnSummary();
+if (DATA.showProjects) {
+  renderProjects();
+  renderProjectPartners();
+  renderRcnSummary();
+}
 </script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 import build_partners_page as bpp
@@ -72,59 +74,71 @@ def test_simula_group():
     assert not bpp.is_simula_group("University of Oslo")
 
 
-def test_partner_data_marks_simula_as_own():
+def aff(rid, year, author, institution, ror, investigators="Ann A", **extra):
+    """An openalex_affiliations.csv row for a co-author."""
+    return {
+        "result_id": rid,
+        "year": year,
+        "author": author,
+        "openalex_author_id": "",
+        "investigator": "",
+        "investigators": investigators,
+        "institution": institution,
+        "ror": ror,
+        "country": "NO",
+        **extra,
+    }
+
+
+def inst(name, ror, type_="education", city="", country="NO", lat="", lon=""):
+    """A partner_institutions.csv row."""
+    return {
+        "institution": name,
+        "ror": ror,
+        "country": country,
+        "type": type_,
+        "city": city,
+        "latitude": lat,
+        "longitude": lon,
+    }
+
+
+def test_partner_data_counts_main_institutions():
     affiliations = [
-        {
-            "result_id": "1",
-            "year": "2021",
-            "institution": "Simula Research Laboratory",
-            "ror": "https://ror.org/00vn06n10",
-            "investigators": "Ann A",
-            "author": "Carl Co",
-        },
-        {
-            "result_id": "1",
-            "year": "2021",
-            "institution": "Oslo University Hospital",
-            "ror": "r2",
-            "investigators": "Ann A",
-            "author": "Carl Co",
-        },
-        {
-            "result_id": "2",
-            "year": "2019",
-            "institution": "Oslo University Hospital",
-            "ror": "r2",
-            "investigators": "Ann A; Bo B",
-            "author": "Carl Co",
-        },
+        aff(
+            "1", "2021", "Carl Co", "Oslo University Hospital", "r2", type="healthcare"
+        ),
+        aff("1", "2021", "Dana Do", "Simula Research Laboratory", "r1"),
+        aff(
+            "2",
+            "2019",
+            "Carl Co",
+            "Oslo University Hospital",
+            "r2",
+            "Ann A; Bo B",
+            type="healthcare",
+        ),
+        aff("2", "2019", "Dana Do", "Simula Research Laboratory", "r1", "Ann A; Bo B"),
+        aff("2", "2019", "Dana Do", "University of Oslo", "r3", "Ann A; Bo B"),
     ]
     institutions = [
-        {
-            "institution": "Simula Research Laboratory",
-            "ror": "https://ror.org/00vn06n10",
-            "country": "NO",
-            "type": "facility",
-            "city": "Oslo",
-            "latitude": "59.9",
-            "longitude": "10.7",
-        },
-        {
-            "institution": "Oslo University Hospital",
-            "ror": "r2",
-            "country": "NO",
-            "type": "healthcare",
-            "city": "Oslo",
-            "latitude": "59.9",
-            "longitude": "10.7",
-        },
+        inst("Simula Research Laboratory", "r1", "facility", "Oslo"),
+        inst(
+            "Oslo University Hospital",
+            "r2",
+            "healthcare",
+            "Oslo",
+            lat="59.9",
+            lon="10.7",
+        ),
+        inst("University of Oslo", "r3", "education", "Oslo"),
     ]
     papers = {
         "1": {"title": "Paper one", "doi": "https://doi.org/10.1/a", "nva_id": "n1"},
         "2": {"title": "Paper two", "doi": "", "nva_id": "n2"},
     }
     publications, out = bpp.partner_data(
-        affiliations, institutions, ["Ann A", "Bo B"], papers
+        affiliations, institutions, ["Ann A", "Bo B"], papers, since=[2021, 2016]
     )
     assert publications == [
         {
@@ -140,46 +154,58 @@ def test_partner_data_marks_simula_as_own():
             "inv": [0, 1],
         },
     ]
-    hospital = next(i for i in out if i["name"] == "Oslo University Hospital")
-    assert (hospital["type"], hospital["own"], hospital["pubs"]) == (
-        "Hospitals",
-        False,
-        [0, 1],
+    # Dana Do is mainly at Simula, so neither Simula nor the University of
+    # Oslo, where she is also listed, is counted. Paper two is only in the
+    # period since 2016.
+    assert [(i["name"], i["type"], i["pubs"], i["coauthors"]) for i in out] == [
+        (
+            "Oslo University Hospital",
+            "Hospitals",
+            [0, 1],
+            [
+                [["Carl Co", "clinical", [2021, 2016]]],
+                [["Carl Co", "clinical", [2016]]],
+            ],
+        )
+    ]
+
+
+def test_coauthors_count_only_at_their_main_institution():
+    rules = bpp.read_field_rules(bpp.HERE / "field_rules.csv")
+    affiliations = [
+        aff("1", "2023", "Co", "UiB", "u", affiliation="Department of Mathematics"),
+        aff(
+            "2",
+            "2023",
+            "Co",
+            "UiO",
+            "o",
+            affiliation="Institute of Basic Medical Sciences",
+        ),
+        aff("2", "2023", "Co", "UiB", "u", affiliation="Department of Mathematics"),
+    ]
+    _, out = bpp.partner_data(
+        affiliations, [inst("UiB", "u"), inst("UiO", "o")], ["Ann A"], rules=rules
     )
-    assert next(i for i in out if i["name"].startswith("Simula"))["own"] is True
+    # All of Co's publications count for UiB, in the field of the UiB row
+    assert [(i["name"], i["pubs"], i["coauthors"]) for i in out] == [
+        (
+            "UiB",
+            [0, 1],
+            [[["Co", "math", [2021, 2016]]], [["Co", "math", [2021, 2016]]]],
+        )
+    ]
 
 
 def test_excluded_affiliations_are_left_out():
-    def aff(rid, author, institution, ror):
-        return {
-            "result_id": rid,
-            "year": "2022",
-            "institution": institution,
-            "ror": ror,
-            "investigators": "Ann A",
-            "author": author,
-            "investigator": "",
-        }
-
     affiliations = [
-        aff("1", "Ricardo Ruíz\u2010Baier", "Sechenov University", "s"),
-        aff("1", "Ricardo Ruíz\u2010Baier", "Monash University", "m"),
-        aff("2", "Ivan Other", "Sechenov University", "s"),
+        aff("1", "2022", "Ricardo Ruíz\u2010Baier", "Sechenov University", "s"),
+        aff("1", "2022", "Ricardo Ruíz\u2010Baier", "Monash University", "m"),
+        aff("2", "2022", "Ivan Other", "Sechenov University", "s"),
     ]
     institutions = [
-        {
-            "institution": n,
-            "ror": r,
-            "country": c,
-            "type": "education",
-            "city": "",
-            "latitude": "",
-            "longitude": "",
-        }
-        for n, r, c in [
-            ("Sechenov University", "s", "RU"),
-            ("Monash University", "m", "AU"),
-        ]
+        inst("Sechenov University", "s", country="RU"),
+        inst("Monash University", "m", country="AU"),
     ]
     _, out = bpp.partner_data(
         affiliations,
@@ -189,45 +215,34 @@ def test_excluded_affiliations_are_left_out():
     )
     # Ruiz-Baier counts only for Monash; Sechenov stays for another co-author
     assert {i["name"]: i["coauthors"] for i in out} == {
-        "Monash University": [[["Ricardo Ruíz\u2010Baier", "unclassified"]]],
-        "Sechenov University": [[["Ivan Other", "unclassified"]]],
+        "Monash University": [
+            [["Ricardo Ruíz\u2010Baier", "unclassified", [2021, 2016]]]
+        ],
+        "Sechenov University": [[["Ivan Other", "unclassified", [2021, 2016]]]],
     }
 
 
 def test_merged_institutions_are_counted_once():
-    def aff(rid, institution, ror, author):
-        return {
-            "result_id": rid,
-            "year": "2023",
-            "institution": institution,
-            "ror": ror,
-            "investigators": "Ann A",
-            "author": author,
-            "investigator": "",
-        }
-
     affiliations = [
-        aff("1", "Sørlandet Hospital Arendal", "a", "Geir R"),
-        aff("1", "Sørlandet Sykehus", "b", "Geir R"),
-        aff("2", "Sørlandet Hospital Arendal", "a", "Per E"),
+        aff(
+            "1", "2023", "Geir R", "Sørlandet Hospital Arendal", "a", type="healthcare"
+        ),
+        aff("1", "2023", "Geir R", "Sørlandet Sykehus", "b", type="healthcare"),
+        aff("2", "2023", "Per E", "Sørlandet Hospital Arendal", "a", type="healthcare"),
         # The investigator's own affiliation is not a collaborating institution
-        {**aff("2", "University of Bergen", "c", "Ann A"), "investigator": "Ann A"},
+        aff("2", "2023", "Ann A", "University of Bergen", "c", investigator="Ann A"),
     ]
     institutions = [
-        {
-            "institution": n,
-            "ror": r,
-            "country": "NO",
-            "type": t,
-            "city": c,
-            "latitude": "58",
-            "longitude": "8",
-        }
-        for n, r, t, c in [
-            ("Sørlandet Hospital Arendal", "a", "healthcare", "Arendal"),
-            ("Sørlandet Sykehus", "b", "healthcare", "Kristiansand"),
-            ("University of Bergen", "c", "education", "Bergen"),
-        ]
+        inst(
+            "Sørlandet Hospital Arendal",
+            "a",
+            "healthcare",
+            "Arendal",
+            lat="58",
+            lon="8",
+        ),
+        inst("Sørlandet Sykehus", "b", "healthcare", "Kristiansand", lat="58", lon="8"),
+        inst("University of Bergen", "c", "education", "Bergen", lat="60", lon="5"),
     ]
     merges = {
         "Sørlandet Hospital Arendal": "Sørlandet sykehus",
@@ -239,7 +254,10 @@ def test_merged_institutions_are_counted_once():
             "Sørlandet sykehus",
             "Arendal",
             [0, 1],
-            [[["Geir R", "unclassified"]], [["Per E", "unclassified"]]],
+            [
+                [["Geir R", "clinical", [2021, 2016]]],
+                [["Per E", "clinical", [2021, 2016]]],
+            ],
         )
     ]
 
@@ -318,37 +336,19 @@ def test_field_group():
     assert group("University of Oslo", "University of Oslo") == "unclassified"
 
 
-def test_only_relevant_publications_are_used():
-    affiliations = [
-        {
-            "result_id": rid,
-            "year": "2023",
-            "institution": "UiB",
-            "ror": "u",
-            "investigators": "Ann A",
-            "author": "Co",
-            "investigator": "",
-            "affiliation": "Department of Mathematics",
-        }
-        for rid in ("1", "2")
-    ]
-    institutions = [
-        {
-            "institution": "UiB",
-            "ror": "u",
-            "country": "NO",
-            "type": "education",
-            "city": "",
-            "latitude": "",
-            "longitude": "",
-        }
-    ]
-    publications, out = bpp.partner_data(
-        affiliations,
-        institutions,
-        ["Ann A"],
-        relevant={"2"},
-        rules=bpp.read_field_rules(bpp.HERE / "field_rules.csv"),
-    )
-    assert len(publications) == 1
-    assert out[0]["coauthors"] == [[["Co", "math"]]]
+def test_page_loads_nothing_from_other_sites():
+    # Fonts and scripts are served from ../site/assets, so that visitors'
+    # browsers make no requests elsewhere (links the reader follows are fine)
+    site = bpp.OUTPUT.parent
+    for page in [bpp.TEMPLATE, bpp.OUTPUT]:
+        html = page.read_text(encoding="utf-8")
+        tags = [
+            t for t in re.findall(r"<[a-z]+\b[^>]*>", html) if not t.startswith("<a ")
+        ]
+        loaded = [u for t in tags for u in re.findall(r'\b(?:src|href)="([^"]*)"', t)]
+        assert "@import" not in html and "url(http" not in html, page.name
+        for url in loaded:
+            if url.startswith("data:"):
+                continue
+            assert not re.match(r"[a-z]+:|//", url), (page.name, url)
+            assert (site / url).exists(), (page.name, url)

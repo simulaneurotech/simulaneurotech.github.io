@@ -147,3 +147,20 @@ def test_page_loads_nothing_from_other_sites():
     assert fonts
     for url in fonts:
         assert (site / "assets" / url).exists(), url
+
+
+def test_partners_page_counts_institutions_as_the_overview():
+    import build_partners_page as bpp
+
+    figures = bcp.collect()["figures"]
+    partners = bpp.collect()
+    assert sorted(bpp.SINCE) == sorted(bcp.SINCE)
+    for start in bcp.SINCE:
+        shown = [
+            i
+            for i in partners["institutions"]
+            if any(start in ps for who in i["coauthors"] for _, _, ps in who)
+        ]
+        overview = figures[start]["lists"]["institutions"]
+        assert sorted(i["name"] for i in shown) == sorted(r[0] for r in overview)
+        assert len({i["country"] for i in shown}) == figures[start]["countries"]

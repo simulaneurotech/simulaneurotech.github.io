@@ -23,8 +23,9 @@ physiological application. Rules, in order:
 5. Only methods terms, or only a physiological subject: review.
 6. Neither: drop.
 
-build_partners_page.py uses a publication when its decision is "keep", or
-when it has no decision and the suggestion is "keep".
+A publication is relevant when its decision is "keep", or when it has no
+decision and the suggestion is "keep" (relevant). The pages currently use
+all publications, so this is not applied at present.
 """
 
 import csv
