@@ -11,8 +11,8 @@ shared publications, the shared papers themselves, the number of co-authored
 and of all publications per year, and the outside co-authors who link
 investigators indirectly (see external_collaborators.py).
 
-The node positions and the "What stands out" text in the template are written
-by hand for the current investigators and data; update them if those change.
+The node positions in the template are written by hand for the current
+investigators; update them if those change.
 """
 
 import json
