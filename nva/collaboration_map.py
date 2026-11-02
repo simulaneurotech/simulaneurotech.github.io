@@ -2,6 +2,9 @@
 
 Usage: python collaboration_map.py [publications_dir] [contributors_dir] [output.html]
 
+Writes ../site/coauthorship.html by default, a page on the website next to
+the overview page, which loads its fonts from ../site/assets.
+
 Uses the merged publication and author data from publication_data.py and
 fills collaboration_map_template.html with the investigators, the pairs with
 shared publications, the shared papers themselves, the number of co-authored
@@ -21,6 +24,7 @@ from external_collaborators import external_counts, indirect_links
 from publication_data import PAPER_FIELDS, id_order, load
 
 TEMPLATE = Path(__file__).with_name("collaboration_map_template.html")
+OUTPUT = Path(__file__).resolve().parent.parent / "site" / "coauthorship.html"
 
 
 def outside_data(data):
@@ -109,7 +113,7 @@ def collect(data):
 def main():
     publications_dir = Path(sys.argv[1] if len(sys.argv) > 1 else "publications")
     contributors_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "contributors")
-    output = Path(sys.argv[3] if len(sys.argv) > 3 else "collaboration_map.html")
+    output = Path(sys.argv[3]) if len(sys.argv) > 3 else OUTPUT
 
     data = collect(load(publications_dir, contributors_dir))
     html = TEMPLATE.read_text(encoding="utf-8").replace(
