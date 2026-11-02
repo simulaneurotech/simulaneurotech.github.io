@@ -23,7 +23,7 @@ from the overview page. You can also open it locally in a browser.
 | `coauthorship.py` | Counts shared publications between each pair of investigators |
 | `external_collaborators.py` | Finds co-authors outside the centre, and those shared by several investigators |
 | `collaboration_map.py` | Builds `../site/coauthorship.html` from the publication lists |
-| `collaboration_map_template.html` | Page template: layout, node positions and the "What stands out" text |
+| `collaboration_map_template.html` | Page template: layout and node positions |
 | `publications/<Name>.csv` | One file per person: year, title, category, journal, DOI, result ID (Cristin result ID, or NVA identifier for records without one), NVA identifier, venue (journal; book or proceedings for chapters and conference papers; publisher for books) |
 | `publications/cristin_ids.csv` | The Cristin person IDs used for each name, and number of results |
 | `publications/duplicate_publications.csv` | Publications registered more than once, and which record was kept |
@@ -52,9 +52,8 @@ python3 external_collaborators.py  # writes contributors/external_coauthors.csv,
 python3 collaboration_map.py       # writes ../site/coauthorship.html
 ```
 
-The node positions and the "What stands out" text in
-`collaboration_map_template.html` are written by hand for the current
-investigators and data. Update them if either changes.
+The node positions in `collaboration_map_template.html` are written by hand
+for the current investigators. Update them if the investigators change.
 
 Each script takes optional paths; see the docstring at the top of each file.
 

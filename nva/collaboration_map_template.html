@@ -76,9 +76,6 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .section-head { display: grid; gap: 6px; }
 .section-head p { max-width: 65ch; color: var(--ink-2); }
 
-.findings { display: grid; gap: 10px; max-width: 70ch; padding: 0; margin: 0; list-style: none; }
-.findings li { padding-left: 18px; position: relative; }
-.findings li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
 
 /* Network + panel */
 .explore { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 20px; align-items: start; }
@@ -187,7 +184,7 @@ table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78re
   <header>
     <div class="eyebrow"><a href="index.html">Centre for Digital Neurotechnology</a> · Simula</div>
     <h1>Who publishes with whom</h1>
-    <p class="lede">Shared publications between the twelve centre investigators, from their records in NVA (Nasjonalt vitenarkiv, which replaced Cristin): journal articles, conference papers, book chapters and books. Talks, posters, theses and reports are left out.</p>
+    <p class="lede">Shared publications between the twelve centre investigators, from their records in NVA (Nasjonalt vitenarkiv): journal articles, conference papers, book chapters and books. Talks, posters, theses and reports are left out.</p>
     <div class="facts" id="facts"></div>
   </header>
 
@@ -236,7 +233,7 @@ table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78re
   <section>
     <div class="section-head">
       <h2>Over time</h2>
-      <p>All publications by the twelve investigators per year, and how many of them have at least two investigators as authors. Each paper counts once, however many investigators are on it. The lower chart shows the co-authored share of each year's total.</p>
+      <p>All publications by the twelve investigators per year since 2006, and how many of them have at least two investigators as authors. Each paper counts once, however many investigators are on it. The lower chart shows the co-authored share of each year's total.</p>
     </div>
     <div class="card time-card" id="timecard">
       <div class="legend">
@@ -250,15 +247,10 @@ table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78re
     </div>
   </section>
 
-  <section>
-    <div class="section-head"><h2>What stands out</h2></div>
-    <ul class="findings" id="findings"></ul>
-  </section>
-
   <section class="method">
     <h2>How this was made</h2>
-    <p>Each investigator's publications were fetched from the API of <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a>, which replaced Cristin, on 30 October 2026, using the profile with a Simula affiliation (and a second profile where one exists). Duplicate records of the same paper, including preprints and their published versions, are counted once. Two investigators share a publication when both are among its authors, recognised by Cristin ID or, where the ID is missing, by name. Some Cristin records list a book's editors as authors of every chapter; editors are removed from chapters they did not write. Outside co-authors are people outside the centre on the investigators' publications, identified by Cristin ID or, mostly for authors abroad, by name.</p>
-    <p>NVA, like Cristin before it, only holds work registered through Norwegian institutions, so work from before someone joined Simula, or from abroad, may be missing. A missing line means no shared publication <em>in NVA</em>, not necessarily no collaboration. 2026 covers January to October only.</p>
+    <p>Publications are the investigators' records in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv), with duplicates, such as a preprint and its published version, counted once. Two investigators share a publication when both are among its authors. Outside co-authors are the other authors of the investigators' publications.</p>
+    <p>NVA mainly holds work registered through Norwegian institutions, so work from before someone joined Simula may be missing. A missing line means no shared publication <em>in NVA</em>, not necessarily no collaboration. The current year is not yet complete.</p>
   </section>
 </div>
 
@@ -321,10 +313,8 @@ function activate(node, fn) {
   node.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
 }
 
-// Facts and findings
+// Facts
 const connected = new Set(DATA.pairs.flatMap(p => [p.a, p.b]));
-const isolated = DATA.people.filter(p => !connected.has(p.name)).map(p => p.name);
-const strongest = DATA.pairs[0];
 const facts = [
   [Object.keys(DATA.papers).length, "publications with 2+ investigators"],
   [DATA.pairs.length, "of 66 possible pairs have published together"],
@@ -335,41 +325,6 @@ for (const [v, label] of facts) {
   const f = el("div", { class: "fact" }, factsEl);
   el("b", { text: v }, f); el("span", { text: label }, f);
 }
-const degree = name => DATA.pairs.filter(p => p.a === name || p.b === name).length;
-const allPairCounts = DATA.pairs.reduce((n, p) => n + p.ids.length, 0);
-const topTwo = strongest.ids.length + DATA.pairs[1].ids.length;
-const shareOf = test => {
-  const years = Object.keys(DATA.totalByYear).filter(y => test(+y));
-  const co = years.reduce((n, y) => n + (DATA.byYear[y] || 0), 0);
-  const all = years.reduce((n, y) => n + DATA.totalByYear[y], 0);
-  return Math.round((100 * co) / all);
-};
-const [peakYear, peakCount] = Object.entries(DATA.byYear).reduce((a, b) => (b[1] > a[1] ? b : a));
-const pettersen = DATA.pairs
-  .filter(p => p.a === "Klas H. Pettersen" || p.b === "Klas H. Pettersen")
-  .map(p => `${p.ids.length} with ${SHORT[p.a === "Klas H. Pettersen" ? p.b : p.a]}`);
-const indirectOnly = [];
-ORDER.forEach((a, i) => ORDER.slice(i + 1).forEach(b => {
-  const list = outsideFor(a, b);
-  if (!pairs[pairKey(a, b)] && list.length) {
-    indirectOnly.push({ a, b, list, strong: list.filter(o => o.links[a] >= 2 && o.links[b] >= 2) });
-  }
-}));
-indirectOnly.sort((x, y) => y.strong.length - x.strong.length || y.list.length - x.list.length);
-const bestIndirect = indirectOnly[0];
-const maxLinked = Math.max(...OUT.map(o => o.n));
-const topBridges = OUT.filter(o => o.n === maxLinked).map(o => o.name);
-const noOutside = ORDER.filter(n => !OUT.some(o => o.linked.includes(n)));
-const findings = [
-  `Kent-Andre Mardal and Marie E. Rognes sit at the centre, with shared publications with ${degree("Kent-Andre Mardal")} and ${degree("Marie E. Rognes")} of the other 11 investigators. Miroslav Kuchta follows with ${degree("Miroslav Kuchta")}.`,
-  `The strongest pairs are ${SHORT[strongest.a]}–${SHORT[strongest.b]} (${strongest.ids.length}) and ${SHORT[DATA.pairs[1].a]}–${SHORT[DATA.pairs[1].b]} (${DATA.pairs[1].ids.length}). Together they make up ${Math.round((100 * topTwo) / allPairCounts)}% of all pairwise counts.`,
-  `SimulaMet is barely connected. Klas H. Pettersen is the only SimulaMet investigator with shared publications: ${pettersen.join(", ")}. Evrim Acar Ataman and Baltasar Beferull-Lozano have none with anyone in the centre.`,
-  `Mikkel Lepperød, at Simula Research Laboratory, also has no shared publications with the other investigators in NVA.`,
-  `Through outside co-authors on separate papers, ${indirectOnly.length} pairs without a shared publication are linked indirectly. The strongest is ${SHORT[bestIndirect.a]}–${SHORT[bestIndirect.b]}: ${bestIndirect.strong.length} outside co-authors have published at least twice with each (${bestIndirect.strong.map(o => o.name).join(", ")}). ${topBridges.join(" and ")} link the most investigators (${maxLinked} each). ${noOutside.map(n => n).join(" and ")} share no outside co-authors with anyone in the centre.`,
-  `Co-authorship within the group picked up from 2019 and peaked in ${peakYear}, with ${peakCount} of that year's ${DATA.totalByYear[peakYear]} publications (${Math.round((100 * peakCount) / DATA.totalByYear[peakYear])}%). Before 2019, ${shareOf(y => y < 2019)}% of the investigators' publications were co-authored; since then, ${shareOf(y => y >= 2019)}%.`,
-];
-const fl = document.getElementById("findings");
-for (const t of findings) el("li", { text: t }, fl);
 
 // Network
 const net = document.getElementById("net");
@@ -606,7 +561,8 @@ buildMatrix(document.getElementById("matrix-ext"), (a, b) => outsideFor(a, b).le
   "--ext", () => "", n => `${n} shared outside co-author${n === 1 ? "" : "s"}`, showIndirect);
 
 // Timeline: stacked bars (co-authored + other = total) and the co-authored share
-const years = Object.keys(DATA.totalByYear).map(Number);
+const FIRST_YEAR = 2006;
+const years = Object.keys(DATA.totalByYear).map(Number).filter(y => y >= FIRST_YEAR);
 const Y0 = Math.min(...years), Y1 = Math.max(...years);
 const W = 800, L = 34, R = 8, T = 10, B = 26;
 const bw = (W - L - R) / (Y1 - Y0 + 1);
@@ -615,7 +571,7 @@ const tip = el("div", { class: "tip", hidden: "" }, card);
 const yearLabel = y => {
   const n = DATA.byYear[y] || 0, total = DATA.totalByYear[y] || 0;
   const share = total ? Math.round((100 * n) / total) : 0;
-  return `${y}: ${n} of ${total} publications co-authored (${share}%)${y === Y1 ? ", to October" : ""}`;
+  return `${y}: ${n} of ${total} publications co-authored (${share}%)${y === Y1 ? ", so far" : ""}`;
 };
 const niceMax = v => Math.ceil(v / 10) * 10;
 
@@ -630,7 +586,7 @@ function yearChart(svg, H, ymax, ticks, format, draw) {
     const x = L + (y - Y0) * bw;
     const g = s("g", { class: "yb" + (y === Y1 ? " partial" : "") }, svg);
     const top = draw(g, y, x, yScale);
-    if (y % 5 === 0 || (y === Y1 && y % 5 >= 3)) s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle", text: y }, axis);
+    if (y === Y0 || y % 5 === 0 || (y === Y1 && y % 5 >= 3)) s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle", text: y }, axis);
     const hit = s("rect", { class: "hit", x, y: T, width: bw, height: H - T - B }, g);
     hit.addEventListener("mouseenter", () => {
       const box = svg.getBoundingClientRect(), k = box.width / W, cb = card.getBoundingClientRect();
