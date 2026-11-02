@@ -338,3 +338,29 @@ def test_records_of_the_same_person_are_merged(tmp_path):
         "A1": ("Sylvia Saalfeld", 2)
     }
     assert bpp.read_person_merges(tmp_path / "missing.csv") == {}
+
+
+def test_listed_simula_colleagues_are_left_out(tmp_path):
+    path = tmp_path / "simula_colleagues.csv"
+    path.write_text(
+        "author,openalex_author_id,note\nBastian Zapf,A1,Simula\nNo Id,,Simula\n",
+        encoding="utf-8",
+    )
+    colleagues = bpp.read_colleagues(path)
+    assert colleagues == {"A1", "no id"}
+    affiliations = [
+        aff(
+            "1",
+            "2023",
+            "Bastian Zapf",
+            "University of Oslo",
+            "u",
+            openalex_author_id="A1",
+        ),
+        aff("1", "2023", "No Id", "University of Oslo", "u"),
+        aff("1", "2023", "Ann Other", "University of Oslo", "u"),
+    ]
+    found, _ = bpp.main_institutions(affiliations, 2016, colleagues=colleagues)
+    # Only the co-author who is not a listed colleague counts
+    assert [v["name"] for v in found.values()] == ["Ann Other"]
+    assert bpp.read_colleagues(tmp_path / "missing.csv") == set()
