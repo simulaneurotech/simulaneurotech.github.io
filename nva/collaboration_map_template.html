@@ -1,0 +1,672 @@
+<title>Centre Co-authorship Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; network + detail panel side by side on wide screens, then matrix and timeline below */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #141820;
+  --ink-2: #4a5260;
+  --muted: #6b7380;
+  --line: #dfe3e9;
+  --edge: #8d95a3;
+  --srl: #2a78d6;
+  --srl-soft: #c8d3e0;
+  --ext: #1baf7a;
+  --met: #eb6834;
+  --hi: #141820;
+  --seq-0: #f0f3f7;
+  --seq-ink-dark: #0b0b0b;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+    --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+  --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 var(--font-body);
+}
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid;
+  gap: 48px;
+}
+h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 2.1rem; line-height: 1.15; }
+h2 { font-size: 1.4rem; line-height: 1.25; }
+p { margin: 0; }
+a { color: var(--srl); }
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible { outline: 2px solid var(--srl); outline-offset: 2px; }
+.eyebrow { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { max-width: 65ch; color: var(--ink-2); }
+header { display: grid; gap: 12px; }
+
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 8px; }
+.fact { display: grid; gap: 2px; }
+.fact b { font: 600 1.5rem/1.1 var(--font-display); }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+section { display: grid; gap: 16px; }
+.section-head { display: grid; gap: 6px; }
+.section-head p { max-width: 65ch; color: var(--ink-2); }
+
+.findings { display: grid; gap: 10px; max-width: 70ch; padding: 0; margin: 0; list-style: none; }
+.findings li { padding-left: 18px; position: relative; }
+.findings li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+
+/* Network + panel */
+.explore { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .explore { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.net-card { padding: 12px; min-width: 0; }
+.net-card svg { display: block; width: 100%; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 4px 8px 8px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.edge-key { width: 22px; height: 0; border-top: 6px solid var(--edge); border-radius: 3px; display: inline-block; }
+
+.node circle { stroke: var(--surface); stroke-width: 2; cursor: pointer; }
+.node text { font: 500 15px var(--font-body); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+.onode circle { fill: var(--ext); stroke: var(--surface); stroke-width: 1.5; cursor: pointer; }
+.onode text { font: 500 12px var(--font-body); fill: var(--ink-2); paint-order: stroke; stroke: var(--surface); stroke-width: 3.5px; stroke-linejoin: round; pointer-events: none; }
+.onode line { stroke: var(--ext); stroke-dasharray: 3 3; opacity: 0.45; }
+svg.focus .onode { opacity: 0.12; }
+svg.focus .onode.on { opacity: 1; }
+svg.focus .onode.on line { opacity: 0.9; }
+.net-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0 8px 8px; font-size: 0.82rem; color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { font: 500 0.78rem var(--font-body); background: none; border: 0; padding: 4px 10px; color: var(--ink-2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--seq-0); color: var(--ink); }
+.node .count { font: 500 10.5px var(--font-data); fill: var(--muted); }
+.edge line.vis { stroke: var(--edge); stroke-linecap: round; opacity: 0.55; transition: opacity 120ms, stroke 120ms; }
+.edge line.hit { stroke: transparent; stroke-width: 18; cursor: pointer; }
+.edge text { font: 500 13px var(--font-data); fill: var(--ink-2); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; pointer-events: none; }
+svg.focus .edge line.vis { opacity: 0.12; }
+svg.focus .edge.on line.vis { opacity: 1; stroke: var(--hi); }
+svg.focus .edge text { opacity: 0.15; }
+svg.focus .edge.on text { opacity: 1; fill: var(--ink); }
+svg.focus .node { opacity: 0.3; }
+svg.focus .node.on { opacity: 1; }
+.isolated-box { fill: none; stroke: var(--line); stroke-dasharray: 4 4; }
+.isolated-label { font: 500 11.5px var(--font-data); fill: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+@media (prefers-reduced-motion: reduce) { .edge line.vis { transition: none; } }
+
+.panel { padding: 18px; display: grid; gap: 14px; min-width: 0; max-height: 640px; overflow-y: auto; }
+.panel h3 { margin: 0; font: 600 1.15rem/1.3 var(--font-display); }
+.panel .sub { font-size: 0.85rem; color: var(--muted); }
+.panel button.reset { justify-self: start; font: 500 0.8rem var(--font-body); color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.panel button.reset:hover { background: var(--seq-0); }
+.rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.rows button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 60px 28px; gap: 10px; align-items: center; padding: 5px 6px; border-radius: 6px; cursor: pointer; font-size: 0.88rem; }
+.rows button:hover, .rows button:focus-visible { background: var(--seq-0); }
+.rows .bar { height: 6px; border-radius: 3px; background: var(--edge); }
+.rows.ext .bar { background: var(--ext); }
+.people { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.people li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; font-size: 0.88rem; }
+.people .meta { color: var(--muted); font-size: 0.8rem; }
+.people .n { font: 500 0.78rem/1.6 var(--font-data); color: var(--ink-2); text-align: right; white-space: nowrap; }
+.panel button.link { justify-self: start; font: 500 0.82rem var(--font-body); color: var(--srl); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.rows .n { font: 500 0.8rem var(--font-data); text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.papers { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.papers li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; font-size: 0.88rem; }
+.papers .yr { font: 500 0.8rem/1.6 var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+.papers .meta { color: var(--muted); font-size: 0.8rem; }
+.papers .t { overflow-wrap: anywhere; }
+
+/* Matrix */
+.matrices { display: flex; flex-wrap: wrap; gap: 20px; }
+.matrix-card { flex: 1 1 460px; min-width: 0; padding: 16px; display: grid; gap: 10px; align-content: start; }
+.matrix-card h3 { margin: 0; font: 600 1rem/1.3 var(--font-display); display: flex; align-items: center; gap: 8px; }
+.matrix-card p { margin: 0; font-size: 0.82rem; color: var(--muted); }
+.matrix-wrap { overflow-x: auto; }
+table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78rem; }
+.matrix th { font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+.matrix thead th { height: 104px; vertical-align: bottom; padding: 0; }
+.matrix thead th div { writing-mode: vertical-rl; transform: rotate(180deg); padding: 4px 0; margin: 0 auto; }
+.matrix tbody th { text-align: right; padding-right: 6px; }
+.matrix td { width: 27px; min-width: 27px; height: 27px; text-align: center; border-radius: 4px; font: 500 0.78rem var(--font-data); font-variant-numeric: tabular-nums; background: var(--seq-0); color: var(--muted); }
+.matrix td.v { cursor: pointer; }
+.matrix td.v:hover { outline: 2px solid var(--ink); outline-offset: -2px; }
+.matrix td.diag { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+.matrix-note { font-size: 0.82rem; color: var(--muted); }
+
+/* Timeline */
+.time-card { padding: 16px 12px 8px; position: relative; }
+.time-card svg { display: block; width: 100%; height: auto; overflow: visible; }
+.axis text { font: 400 10.5px var(--font-data); fill: var(--muted); }
+.grid line { stroke: var(--line); }
+.baseline { stroke: var(--edge); }
+.time-card .chart-label { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 0 0 6px 4px; }
+.time-card .legend { padding: 0 4px 10px; }
+.swatch.sq { border-radius: 2px; }
+.yb rect.co { fill: var(--srl); }
+.yb rect.other { fill: var(--srl-soft); }
+.yb rect.hit { fill: transparent; cursor: default; }
+.yb.partial rect.co, .yb.partial rect.other { opacity: 0.55; }
+.yb:hover rect.co { fill: var(--ink); opacity: 1; }
+.yb:hover rect.other { fill: var(--muted); opacity: 1; }
+.share-line { fill: none; stroke: var(--srl); stroke-width: 2; stroke-linejoin: round; }
+.share-dot { fill: var(--srl); stroke: var(--surface); stroke-width: 2; }
+.yb:hover .share-dot { fill: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 8px)); }
+
+.method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
+.method h2 { font-size: 1.1rem; }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">Centre for Digital Neurotechnology · Simula</div>
+    <h1>Who publishes with whom</h1>
+    <p class="lede">Shared publications between the twelve centre investigators, from their records in NVA (Nasjonalt vitenarkiv, which replaced Cristin): journal articles, conference papers, book chapters and books. Talks, posters, theses and reports are left out.</p>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Investigators publication network</h2>
+      <p>Each line is a pair with at least one shared publication; thicker lines mean more. Circle size follows each person's total publications in NVA. Teal circles are co-authors outside the centre who link investigators: they have published with each of them on separate papers. Select a person, a line or a teal circle to see the details.</p>
+    </div>
+    <div class="explore">
+      <div class="card net-card">
+        <div class="legend">
+          <span><i class="swatch" style="background:var(--srl)"></i>Simula Research Laboratory</span>
+          <span><i class="swatch" style="background:var(--met)"></i>SimulaMet</span>
+          <span><i class="edge-key"></i>number = shared publications</span>
+          <span><i class="swatch" style="background:var(--ext)"></i>Outside co-author</span>
+        </div>
+        <div class="net-controls">
+          <span id="seg-label">Outside co-authors:</span>
+          <div class="seg" role="group" aria-labelledby="seg-label" id="outside-seg"></div>
+        </div>
+        <svg id="net" viewBox="0 0 820 560" role="img" aria-label="Co-authorship network of centre investigators"></svg>
+      </div>
+      <div class="card panel" id="panel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>All pairs</h2>
+      <p>Direct links on the left, indirect links on the right. Stronger colour means more. Select a cell to see the details.</p>
+    </div>
+    <div class="matrices">
+      <div class="card matrix-card">
+        <h3><i class="swatch sq" style="background:var(--srl)"></i>Shared publications</h3>
+        <p>Publications both have authored. The dashed diagonal is each person's own total.</p>
+        <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+      </div>
+      <div class="card matrix-card">
+        <h3><i class="swatch sq" style="background:var(--ext)"></i>Shared outside co-authors</h3>
+        <p>People outside the centre who have published with each of the two on separate papers. Co-authors only on the pair's joint papers are not counted.</p>
+        <div class="matrix-wrap"><table class="matrix" id="matrix-ext"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Over time</h2>
+      <p>All publications by the twelve investigators per year, and how many of them have at least two investigators as authors. Each paper counts once, however many investigators are on it. The lower chart shows the co-authored share of each year's total.</p>
+    </div>
+    <div class="card time-card" id="timecard">
+      <div class="legend">
+        <span><i class="swatch sq" style="background:var(--srl)"></i>Co-authored by 2+ investigators</span>
+        <span><i class="swatch sq" style="background:var(--srl-soft)"></i>Other publications</span>
+      </div>
+      <div class="chart-label">Publications per year</div>
+      <svg id="time" viewBox="0 0 800 230" role="img" aria-label="Total and co-authored publications per year"></svg>
+      <div class="chart-label" style="padding-top:14px">Share co-authored</div>
+      <svg id="share" viewBox="0 0 800 140" role="img" aria-label="Share of each year's publications that are co-authored"></svg>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>What stands out</h2></div>
+    <ul class="findings" id="findings"></ul>
+  </section>
+
+  <section class="method">
+    <h2>How this was made</h2>
+    <p>Each investigator's publications were fetched from the API of <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a>, which replaced Cristin, on 30 October 2026, using the profile with a Simula affiliation (and a second profile where one exists). Duplicate records of the same paper, including preprints and their published versions, are counted once. Two investigators share a publication when both are among its authors, recognised by Cristin ID or, where the ID is missing, by name. Some Cristin records list a book's editors as authors of every chapter; editors are removed from chapters they did not write. Outside co-authors are people outside the centre on the investigators' publications, identified by Cristin ID or, mostly for authors abroad, by name.</p>
+    <p>NVA, like Cristin before it, only holds work registered through Norwegian institutions, so work from before someone joined Simula, or from abroad, may be missing. A missing line means no shared publication <em>in NVA</em>, not necessarily no collaboration. 2026 covers January to October only.</p>
+  </section>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+const SHORT = {
+  "Evrim Acar Ataman": "Acar Ataman", "Baltasar Beferull-Lozano": "Beferull-Lozano",
+  "Cécile Daversin-Catty": "Daversin-Catty", "Ada Johanne Ellingsrud": "Ellingsrud",
+  "Karoline Horgmo Jæger": "Jæger", "Miroslav Kuchta": "Kuchta", "Mikkel Lepperød": "Lepperød",
+  "Kent-Andre Mardal": "Mardal", "Klas H. Pettersen": "Pettersen", "Marie E. Rognes": "Rognes",
+  "Aslak Tveito": "Tveito", "Kristian Valen-Sendstad": "Valen-Sendstad",
+};
+// Hand-placed positions: connected cluster on the left and centre, people with no shared publications boxed at bottom right.
+// lx/ly: label offset from the node centre; anchor: text-anchor.
+const POS = {
+  "Miroslav Kuchta":         { x: 200, y: 110, lx: 0, ly: -26, anchor: "middle" },
+  "Kent-Andre Mardal":       { x: 330, y: 230, lx: 0, ly: -34, anchor: "middle" },
+  "Kristian Valen-Sendstad": { x: 120, y: 290, lx: 0, ly: 34, anchor: "middle" },
+  "Aslak Tveito":            { x: 330, y: 400, lx: 34, ly: 18, anchor: "start" },
+  "Karoline Horgmo Jæger":   { x: 160, y: 470, lx: 0, ly: 34, anchor: "middle" },
+  "Marie E. Rognes":         { x: 490, y: 190, lx: 0, ly: -30, anchor: "middle" },
+  "Ada Johanne Ellingsrud":  { x: 650, y: 90, lx: 0, ly: -22, anchor: "middle" },
+  "Cécile Daversin-Catty":   { x: 690, y: 280, lx: 0, ly: 30, anchor: "middle" },
+  "Klas H. Pettersen":       { x: 520, y: 420, lx: 0, ly: 34, anchor: "middle" },
+  "Evrim Acar Ataman":       { x: 660, y: 422, lx: 18, ly: 4, anchor: "start" },
+  "Baltasar Beferull-Lozano":{ x: 650, y: 470, lx: 24, ly: 4, anchor: "start" },
+  "Mikkel Lepperød":         { x: 660, y: 518, lx: 18, ly: 4, anchor: "start" },
+};
+const ORDER = ["Kent-Andre Mardal", "Miroslav Kuchta", "Kristian Valen-Sendstad", "Aslak Tveito",
+  "Karoline Horgmo Jæger", "Marie E. Rognes", "Ada Johanne Ellingsrud", "Cécile Daversin-Catty",
+  "Klas H. Pettersen", "Evrim Acar Ataman", "Baltasar Beferull-Lozano", "Mikkel Lepperød"];
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const person = Object.fromEntries(DATA.people.map(p => [p.name, p]));
+const pairKey = (a, b) => [a, b].sort().join("|");
+const pairs = Object.fromEntries(DATA.pairs.map(p => [pairKey(p.a, p.b), p]));
+// Outside co-authors who link investigators through separate papers; n is how
+// many investigators each links
+const OUT = DATA.outside.map((o, i) => ({ ...o, id: i, n: o.linked.length }));
+const indirectPairs = Object.fromEntries(DATA.indirect.map(p => [pairKey(p.a, p.b), p.people.map(i => OUT[i])]));
+// Outside co-authors linking a and b, strongest first
+const outsideFor = (a, b) => indirectPairs[pairKey(a, b)] || [];
+const radius = n => 7 + Math.sqrt(n) * 1.3;
+const width = n => 1.5 + 2 * Math.sqrt(n);
+const affColor = aff => aff === "SimulaMet" ? "var(--met)" : "var(--srl)";
+const affName = aff => aff === "SimulaMet" ? "SimulaMet" : "Simula Research Laboratory";
+
+function el(tag, attrs = {}, parent, ns) {
+  const e = ns ? document.createElementNS(SVGNS, tag) : document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "text") e.textContent = v; else e.setAttribute(k, v);
+  }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const s = (tag, attrs, parent) => el(tag, attrs, parent, true);
+function activate(node, fn) {
+  node.addEventListener("click", fn);
+  node.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
+}
+
+// Facts and findings
+const connected = new Set(DATA.pairs.flatMap(p => [p.a, p.b]));
+const isolated = DATA.people.filter(p => !connected.has(p.name)).map(p => p.name);
+const strongest = DATA.pairs[0];
+const facts = [
+  [Object.keys(DATA.papers).length, "publications with 2+ investigators"],
+  [DATA.pairs.length, "of 66 possible pairs have published together"],
+  [`${connected.size} of ${DATA.people.length}`, "investigators linked to someone else"],
+];
+const factsEl = document.getElementById("facts");
+for (const [v, label] of facts) {
+  const f = el("div", { class: "fact" }, factsEl);
+  el("b", { text: v }, f); el("span", { text: label }, f);
+}
+const degree = name => DATA.pairs.filter(p => p.a === name || p.b === name).length;
+const allPairCounts = DATA.pairs.reduce((n, p) => n + p.ids.length, 0);
+const topTwo = strongest.ids.length + DATA.pairs[1].ids.length;
+const shareOf = test => {
+  const years = Object.keys(DATA.totalByYear).filter(y => test(+y));
+  const co = years.reduce((n, y) => n + (DATA.byYear[y] || 0), 0);
+  const all = years.reduce((n, y) => n + DATA.totalByYear[y], 0);
+  return Math.round((100 * co) / all);
+};
+const [peakYear, peakCount] = Object.entries(DATA.byYear).reduce((a, b) => (b[1] > a[1] ? b : a));
+const pettersen = DATA.pairs
+  .filter(p => p.a === "Klas H. Pettersen" || p.b === "Klas H. Pettersen")
+  .map(p => `${p.ids.length} with ${SHORT[p.a === "Klas H. Pettersen" ? p.b : p.a]}`);
+const indirectOnly = [];
+ORDER.forEach((a, i) => ORDER.slice(i + 1).forEach(b => {
+  const list = outsideFor(a, b);
+  if (!pairs[pairKey(a, b)] && list.length) {
+    indirectOnly.push({ a, b, list, strong: list.filter(o => o.links[a] >= 2 && o.links[b] >= 2) });
+  }
+}));
+indirectOnly.sort((x, y) => y.strong.length - x.strong.length || y.list.length - x.list.length);
+const bestIndirect = indirectOnly[0];
+const maxLinked = Math.max(...OUT.map(o => o.n));
+const topBridges = OUT.filter(o => o.n === maxLinked).map(o => o.name);
+const noOutside = ORDER.filter(n => !OUT.some(o => o.linked.includes(n)));
+const findings = [
+  `Kent-Andre Mardal and Marie E. Rognes sit at the centre, with shared publications with ${degree("Kent-Andre Mardal")} and ${degree("Marie E. Rognes")} of the other 11 investigators. Miroslav Kuchta follows with ${degree("Miroslav Kuchta")}.`,
+  `The strongest pairs are ${SHORT[strongest.a]}–${SHORT[strongest.b]} (${strongest.ids.length}) and ${SHORT[DATA.pairs[1].a]}–${SHORT[DATA.pairs[1].b]} (${DATA.pairs[1].ids.length}). Together they make up ${Math.round((100 * topTwo) / allPairCounts)}% of all pairwise counts.`,
+  `SimulaMet is barely connected. Klas H. Pettersen is the only SimulaMet investigator with shared publications: ${pettersen.join(", ")}. Evrim Acar Ataman and Baltasar Beferull-Lozano have none with anyone in the centre.`,
+  `Mikkel Lepperød, at Simula Research Laboratory, also has no shared publications with the other investigators in NVA.`,
+  `Through outside co-authors on separate papers, ${indirectOnly.length} pairs without a shared publication are linked indirectly. The strongest is ${SHORT[bestIndirect.a]}–${SHORT[bestIndirect.b]}: ${bestIndirect.strong.length} outside co-authors have published at least twice with each (${bestIndirect.strong.map(o => o.name).join(", ")}). ${topBridges.join(" and ")} link the most investigators (${maxLinked} each). ${noOutside.map(n => n).join(" and ")} share no outside co-authors with anyone in the centre.`,
+  `Co-authorship within the group picked up from 2019 and peaked in ${peakYear}, with ${peakCount} of that year's ${DATA.totalByYear[peakYear]} publications (${Math.round((100 * peakCount) / DATA.totalByYear[peakYear])}%). Before 2019, ${shareOf(y => y < 2019)}% of the investigators' publications were co-authored; since then, ${shareOf(y => y >= 2019)}%.`,
+];
+const fl = document.getElementById("findings");
+for (const t of findings) el("li", { text: t }, fl);
+
+// Network
+const net = document.getElementById("net");
+s("rect", { class: "isolated-box", x: 630, y: 390, width: 182, height: 156, rx: 8 }, net);
+s("text", { class: "isolated-label", x: 642, y: 384, text: "No shared publications" }, net);
+const edgeEls = {}, nodeEls = {};
+const eg = s("g", {}, net), og = s("g", {}, net), ng = s("g", {}, net);
+for (const p of DATA.pairs) {
+  const A = POS[p.a], B = POS[p.b], n = p.ids.length;
+  const g = s("g", { class: "edge", tabindex: 0, role: "button", "aria-label": `${p.a} and ${p.b}: ${n} shared publications` }, eg);
+  s("line", { class: "vis", x1: A.x, y1: A.y, x2: B.x, y2: B.y, "stroke-width": width(n) }, g);
+  s("line", { class: "hit", x1: A.x, y1: A.y, x2: B.x, y2: B.y }, g);
+  if (n >= 3) s("text", { x: (A.x + B.x) / 2 + 6, y: (A.y + B.y) / 2 - 6, text: n }, g);
+  s("title", { text: `${SHORT[p.a]} – ${SHORT[p.b]}: ${n} shared` }, g);
+  activate(g, () => showPair(p.a, p.b));
+  edgeEls[pairKey(p.a, p.b)] = g;
+}
+for (const name of ORDER) {
+  const p = person[name], P = POS[name];
+  const g = s("g", { class: "node", tabindex: 0, role: "button", "aria-label": `${name}, ${p.total} publications` }, ng);
+  s("circle", { cx: P.x, cy: P.y, r: radius(p.total), fill: affColor(p.aff) }, g);
+  const t = s("text", { x: P.x + P.lx, y: P.y + P.ly, "text-anchor": P.anchor }, g);
+  t.textContent = SHORT[name];
+  s("title", { text: `${name} · ${p.total} publications` }, g);
+  activate(g, () => showPerson(name));
+  nodeEls[name] = g;
+}
+
+function highlight(names, keys, outs = []) {
+  net.classList.toggle("focus", names.length > 0);
+  for (const [n, g] of Object.entries(nodeEls)) g.classList.toggle("on", names.includes(n));
+  for (const [k, g] of Object.entries(edgeEls)) g.classList.toggle("on", keys.includes(k));
+  for (const { o, g } of outsideEls) g.classList.toggle("on", outs.includes(o.id));
+}
+
+// Outside co-authors, placed near the investigators they link and pushed apart
+let outsideEls = [];
+function layoutOutside(list) {
+  const fixed = ORDER.map(n => ({ x: POS[n].x, y: POS[n].y, r: radius(person[n].total) + 16 }));
+  const pts = list.map((o, i) => {
+    let x = 0, y = 0, w = 0;
+    for (const [n, c] of Object.entries(o.links)) {
+      const k = Math.sqrt(c);
+      x += POS[n].x * k; y += POS[n].y * k; w += k;
+    }
+    const angle = i * 2.39996;
+    return { o, cx: x / w, cy: y / w, x: x / w + 18 * Math.cos(angle), y: y / w + 18 * Math.sin(angle) };
+  });
+  const push = (p, x, y, min, k, d) => {
+    const vx = p.x - x, vy = p.y - y, dist = Math.hypot(vx, vy) || 0.01;
+    if (dist < min) { d.x += (vx / dist) * (min - dist) * k; d.y += (vy / dist) * (min - dist) * k; }
+  };
+  for (let it = 0; it < 300; it++) {
+    for (const p of pts) {
+      const d = { x: (p.cx - p.x) * 0.01, y: (p.cy - p.y) * 0.01 };
+      for (const f of fixed) push(p, f.x, f.y, f.r, 0.5, d);
+      for (const q of pts) if (q !== p) push(p, q.x, q.y, 40, 0.25, d);
+      p.x = Math.min(804, Math.max(16, p.x + d.x));
+      p.y = Math.min(544, Math.max(16, p.y + d.y));
+      // keep clear of the "No shared publications" box
+      if (p.x > 616 && p.y > 372) { if (p.x - 616 < p.y - 372) p.x = 616; else p.y = 372; }
+    }
+  }
+  return pts;
+}
+function drawOutside(min) {
+  og.replaceChildren();
+  outsideEls = [];
+  const list = min ? OUT.filter(o => o.n >= min) : [];
+  for (const p of layoutOutside(list)) {
+    const o = p.o;
+    const g = s("g", { class: "onode", tabindex: 0, role: "button", "aria-label": `${o.name}, outside co-author linking ${o.n} investigators` }, og);
+    for (const [n, c] of Object.entries(o.links)) {
+      s("line", { x1: p.x, y1: p.y, x2: POS[n].x, y2: POS[n].y, "stroke-width": 1 + 0.4 * Math.sqrt(c) }, g);
+    }
+    s("circle", { cx: p.x, cy: p.y, r: 3 + 1.5 * Math.sqrt(o.n) }, g);
+    if (list.length <= 20) s("text", { x: p.x + 9, y: p.y + 4, text: o.name.split(" ").slice(-1)[0] }, g);
+    s("title", { text: `${o.name}${o.inst ? ", " + o.inst : ""} · links ${o.n} investigators` }, g);
+    activate(g, () => showOutside(o));
+    outsideEls.push({ o, g });
+  }
+}
+const seg = document.getElementById("outside-seg");
+const segOptions = [[0, "Off"], [4, "Linking 4+ investigators"], [3, "Linking 3+"]];
+for (const [min, label] of segOptions) {
+  const count = OUT.filter(o => o.n >= min).length;
+  const b = el("button", { type: "button", "aria-pressed": String(min === 4), text: min ? `${label} (${count})` : label }, seg);
+  b.addEventListener("click", () => {
+    for (const x of seg.children) x.setAttribute("aria-pressed", String(x === b));
+    drawOutside(min);
+    showOverview();
+  });
+}
+drawOutside(4);
+
+// Panel
+const panel = document.getElementById("panel");
+function clear() { panel.replaceChildren(); }
+function resetButton() {
+  const b = el("button", { class: "reset", type: "button", text: "← All pairs" }, panel);
+  b.addEventListener("click", showOverview);
+}
+function barRows(items, parent, label, value, open, cls = "") {
+  const max = Math.max(...items.map(value));
+  const ul = el("ul", { class: `rows ${cls}` }, parent);
+  for (const item of items) {
+    const li = el("li", {}, ul);
+    const b = el("button", { type: "button" }, li);
+    el("span", { text: label(item) }, b);
+    const bar = el("span", { class: "bar" }, b);
+    bar.style.width = `${(value(item) / max) * 100}%`;
+    el("span", { class: "n", text: value(item) }, b);
+    b.addEventListener("click", () => open(item));
+  }
+}
+function pairRows(list, parent, label) {
+  barRows(list, parent, label, p => p.ids.length, p => showPair(p.a, p.b));
+}
+function showOutside(o) {
+  clear();
+  const names = Object.keys(o.links);
+  highlight(names, [], [o.id]);
+  resetButton();
+  el("h3", { text: o.name }, panel);
+  el("p", { class: "sub", text: `${o.inst || "Institution not in NVA"} · links ${o.n} investigators through separate papers` }, panel);
+  el("p", { class: "sub", text: "Shared publications with each:" }, panel);
+  barRows(Object.entries(o.links).sort((x, y) => y[1] - x[1]), panel, ([n]) => n, ([, c]) => c, ([n]) => showPerson(n), "ext");
+}
+function showIndirect(a, b) {
+  clear();
+  const list = outsideFor(a, b);
+  const direct = pairs[pairKey(a, b)];
+  highlight([a, b], direct ? [pairKey(a, b)] : [], list.map(o => o.id));
+  resetButton();
+  el("h3", { text: `${a} & ${b}` }, panel);
+  el("p", { class: "sub", text: `${list.length} shared outside co-author${list.length === 1 ? "" : "s"} · ${direct ? `${direct.ids.length} shared publication${direct.ids.length === 1 ? "" : "s"}` : "no shared publications"}` }, panel);
+  if (direct) {
+    const btn = el("button", { class: "link", type: "button", text: "Show shared publications" }, panel);
+    btn.addEventListener("click", () => showPair(a, b));
+  }
+  const ul = el("ul", { class: "people" }, panel);
+  for (const o of list) {
+    const li = el("li", {}, ul);
+    const body = el("div", {}, li);
+    el("div", { text: o.name }, body);
+    if (o.inst) el("div", { class: "meta", text: o.inst }, body);
+    el("span", { class: "n", text: `${SHORT[a]} ${o.links[a]} · ${SHORT[b]} ${o.links[b]}` }, li);
+  }
+}
+function showOverview() {
+  clear(); highlight([], []);
+  el("h3", { text: "Strongest collaborations" }, panel);
+  el("p", { class: "sub", text: "Shared publications per pair. Select one to see the papers." }, panel);
+  pairRows(DATA.pairs, panel, p => `${SHORT[p.a]} – ${SHORT[p.b]}`);
+}
+function showPerson(name) {
+  clear();
+  const p = person[name];
+  const mine = DATA.pairs.filter(q => q.a === name || q.b === name);
+  highlight([name, ...mine.map(q => q.a === name ? q.b : q.a)], mine.map(q => pairKey(q.a, q.b)), OUT.filter(o => o.linked.includes(name)).map(o => o.id));
+  resetButton();
+  el("h3", { text: name }, panel);
+  const sub = el("p", { class: "sub" }, panel);
+  sub.append(`${affName(p.aff)} · ${p.total} publications in NVA, ${p.shared} with another investigator · `);
+  el("a", { href: `https://nva.sikt.no/research-profile?id=${encodeURIComponent(`https://api.nva.unit.no/cristin/person/${p.cristin}`)}`, target: "_blank", rel: "noopener", text: "NVA profile" }, sub);
+  if (mine.length) {
+    el("p", { class: "sub", text: `Shared publications with ${mine.length} other investigator${mine.length > 1 ? "s" : ""}:` }, panel);
+    pairRows(mine, panel, q => (q.a === name ? q.b : q.a));
+  } else {
+    el("p", { text: "No shared publications with other centre investigators in NVA." }, panel);
+  }
+  const indirect = ORDER.filter(n => n !== name)
+    .map(n => [n, outsideFor(name, n).length])
+    .filter(([, c]) => c)
+    .sort((x, y) => y[1] - x[1]);
+  if (indirect.length) {
+    el("p", { class: "sub", text: `Shared outside co-authors with ${indirect.length} investigator${indirect.length > 1 ? "s" : ""}:` }, panel);
+    barRows(indirect, panel, ([n]) => n, ([, c]) => c, ([n]) => showIndirect(name, n), "ext");
+  } else {
+    el("p", { class: "sub", text: "No outside co-authors shared with other centre investigators." }, panel);
+  }
+}
+function showPair(a, b) {
+  clear();
+  const p = pairs[pairKey(a, b)];
+  highlight([a, b], [pairKey(a, b)]);
+  resetButton();
+  el("h3", { text: `${a} & ${b}` }, panel);
+  const years = p.ids.map(id => +DATA.papers[id].year);
+  el("p", { class: "sub", text: `${p.ids.length} shared publication${p.ids.length > 1 ? "s" : ""}, ${Math.min(...years)}–${Math.max(...years)}` }, panel);
+  const ul = el("ul", { class: "papers" }, panel);
+  for (const id of p.ids) {
+    const r = DATA.papers[id];
+    const li = el("li", {}, ul);
+    el("span", { class: "yr", text: r.year }, li);
+    const body = el("div", {}, li);
+    const t = el("div", { class: "t" }, body);
+    el("a", { href: r.doi || `https://nva.sikt.no/registration/${r.nva_id}`, target: "_blank", rel: "noopener", text: r.title }, t);
+    const others = r.authors.filter(n => n !== a && n !== b).map(n => SHORT[n]);
+    const meta = [r.journal || r.category, others.length ? `also ${others.join(", ")}` : ""].filter(Boolean).join(" · ");
+    el("div", { class: "meta", text: meta }, body);
+  }
+}
+showOverview();
+
+// Matrices: shared publications (blue) and shared outside co-authors (teal)
+function buildMatrix(table, value, color, diag, describe, open) {
+  const max = Math.max(1, ...ORDER.flatMap(a => ORDER.filter(b => b !== a).map(b => value(a, b))));
+  const hr = el("tr", {}, el("thead", {}, table));
+  el("th", {}, hr);
+  for (const n of ORDER) { const th = el("th", { scope: "col" }, hr); el("div", { text: SHORT[n] }, th); }
+  const tbody = el("tbody", {}, table);
+  for (const a of ORDER) {
+    const tr = el("tr", {}, tbody);
+    el("th", { scope: "row", text: SHORT[a] }, tr);
+    for (const b of ORDER) {
+      if (a === b) { el("td", { class: "diag", text: diag(a) }, tr); continue; }
+      const n = value(a, b);
+      const td = el("td", { text: n || "" }, tr);
+      if (!n) continue;
+      // Sequential: mix toward the colour by share of the maximum
+      const t = 0.18 + 0.82 * Math.sqrt(n / max);
+      td.style.background = `color-mix(in oklab, var(${color}) ${Math.round(t * 100)}%, var(--seq-0))`;
+      td.style.color = t > 0.55 ? "#ffffff" : "var(--ink)";
+      td.className = "v"; td.tabIndex = 0;
+      td.title = `${SHORT[a]} – ${SHORT[b]}: ${describe(n)}`;
+      activate(td, () => { open(a, b); panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+    }
+  }
+}
+buildMatrix(document.getElementById("matrix"), (a, b) => (pairs[pairKey(a, b)] || { ids: [] }).ids.length,
+  "--srl", a => person[a].total, n => `${n} shared publication${n === 1 ? "" : "s"}`, showPair);
+buildMatrix(document.getElementById("matrix-ext"), (a, b) => outsideFor(a, b).length,
+  "--ext", () => "", n => `${n} shared outside co-author${n === 1 ? "" : "s"}`, showIndirect);
+
+// Timeline: stacked bars (co-authored + other = total) and the co-authored share
+const years = Object.keys(DATA.totalByYear).map(Number);
+const Y0 = Math.min(...years), Y1 = Math.max(...years);
+const W = 800, L = 34, R = 8, T = 10, B = 26;
+const bw = (W - L - R) / (Y1 - Y0 + 1);
+const card = document.getElementById("timecard");
+const tip = el("div", { class: "tip", hidden: "" }, card);
+const yearLabel = y => {
+  const n = DATA.byYear[y] || 0, total = DATA.totalByYear[y] || 0;
+  const share = total ? Math.round((100 * n) / total) : 0;
+  return `${y}: ${n} of ${total} publications co-authored (${share}%)${y === Y1 ? ", to October" : ""}`;
+};
+const niceMax = v => Math.ceil(v / 10) * 10;
+
+function yearChart(svg, H, ymax, ticks, format, draw) {
+  const yScale = v => T + (H - T - B) * (1 - v / ymax);
+  const grid = s("g", { class: "grid" }, svg), axis = s("g", { class: "axis" }, svg);
+  for (const v of ticks) {
+    if (v) s("line", { x1: L, x2: W - R, y1: yScale(v), y2: yScale(v) }, grid);
+    s("text", { x: L - 8, y: yScale(v) + 3.5, "text-anchor": "end", text: format(v) }, axis);
+  }
+  for (let y = Y0; y <= Y1; y++) {
+    const x = L + (y - Y0) * bw;
+    const g = s("g", { class: "yb" + (y === Y1 ? " partial" : "") }, svg);
+    const top = draw(g, y, x, yScale);
+    if (y % 5 === 0 || (y === Y1 && y % 5 >= 3)) s("text", { x: x + bw / 2, y: H - 8, "text-anchor": "middle", text: y }, axis);
+    const hit = s("rect", { class: "hit", x, y: T, width: bw, height: H - T - B }, g);
+    hit.addEventListener("mouseenter", () => {
+      const box = svg.getBoundingClientRect(), k = box.width / W, cb = card.getBoundingClientRect();
+      tip.textContent = yearLabel(y); tip.hidden = false;
+      tip.style.left = `${box.left - cb.left + (x + bw / 2) * k}px`;
+      tip.style.top = `${box.top - cb.top + top * k}px`;
+    });
+    hit.addEventListener("mouseleave", () => { tip.hidden = true; });
+    s("title", { text: yearLabel(y) }, hit);
+  }
+  s("line", { class: "baseline", x1: L, x2: W - R, y1: yScale(0), y2: yScale(0) }, svg);
+  return yScale;
+}
+
+const maxTotal = niceMax(Math.max(...years.map(y => DATA.totalByYear[y])));
+yearChart(document.getElementById("time"), 230, maxTotal,
+  Array.from({ length: maxTotal / 10 + 1 }, (_, i) => i * 10), v => v,
+  (g, y, x, yScale) => {
+    const co = DATA.byYear[y] || 0, total = DATA.totalByYear[y] || 0;
+    const w = Math.max(bw - 4, 2);
+    if (co) s("rect", { class: "co", x: x + 2, y: yScale(co), width: w, height: yScale(0) - yScale(co) }, g);
+    if (total > co) {
+      // 2px gap between the two segments
+      const top = yScale(total), bottom = yScale(co) - (co ? 2 : 0);
+      if (bottom > top) s("rect", { class: "other", x: x + 2, y: top, width: w, height: bottom - top, rx: 2 }, g);
+    }
+    return yScale(total);
+  });
+
+const shares = years.filter(y => DATA.totalByYear[y]).map(y => [y, (DATA.byYear[y] || 0) / DATA.totalByYear[y]]);
+const shareSvg = document.getElementById("share");
+const shareMax = Math.max(0.5, Math.ceil(Math.max(...shares.map(d => d[1])) * 4) / 4);
+const shareTicks = Array.from({ length: Math.round(shareMax / 0.25) + 1 }, (_, i) => i * 0.25);
+const shareScale = yearChart(shareSvg, 140, shareMax, shareTicks, v => `${Math.round(v * 100)}%`,
+  (g, y, x, yScale) => {
+    const total = DATA.totalByYear[y] || 0;
+    if (!total) return yScale(0);
+    const v = (DATA.byYear[y] || 0) / total;
+    s("circle", { class: "share-dot", cx: x + bw / 2, cy: yScale(v), r: 4 }, g);
+    return yScale(v);
+  });
+const line = s("path", {
+  class: "share-line",
+  d: shares.map(([y, v], i) => `${i ? "L" : "M"}${L + (y - Y0) * bw + bw / 2},${shareScale(v)}`).join(""),
+});
+shareSvg.insertBefore(line, shareSvg.querySelector(".yb"));
+</script>

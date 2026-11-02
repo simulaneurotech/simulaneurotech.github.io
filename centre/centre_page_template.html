@@ -1,0 +1,549 @@
+<title>Centre for Digital Neurotechnology</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; key figures as a table across three periods, investigators, then the project timeline. Same language as the centre's other pages. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #141820;
+  --ink-2: #4a5260;
+  --muted: #6b7380;
+  --line: #dfe3e9;
+  --land: #e8ecf1;
+  --land-edge: #d3d9e1;
+  --soft: #f0f3f7;
+  /* partner groups on the map */
+  --uni: #2a78d6;
+  --hosp: #eb6834;
+  --other: #1baf7a;
+  /* funders on the project timeline */
+  --f-rcn: #6250d6;
+  --f-eu: #eda100;
+  --f-found: #e87ba4;
+  --f-other: #9aa3ae;
+  --today: #141820;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+    --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
+    --uni: #3987e5; --hosp: #d95926; --other: #199e70;
+    --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
+  --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
+  --uni: #3987e5; --hosp: #d95926; --other: #199e70;
+  --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body); }
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+  display: grid; gap: 48px;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 2.1rem; line-height: 1.15; }
+h2 { font-size: 1.4rem; line-height: 1.25; }
+h3 { font-size: 1.05rem; line-height: 1.3; }
+p { margin: 0; }
+a { color: var(--uni); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--uni); outline-offset: 2px; }
+.eyebrow { font: 500 0.72rem/1 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { max-width: 65ch; color: var(--ink-2); }
+header { display: grid; gap: 12px; }
+.draft { justify-self: start; font-size: 0.82rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.84rem; color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.seg button { font: 500 0.8rem var(--font-body); background: none; border: 0; padding: 5px 11px; color: var(--ink-2); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--soft); color: var(--ink); }
+
+.facts { display: flex; flex-wrap: wrap; gap: 8px 32px; }
+.fact { display: grid; gap: 2px; }
+.fact b { font: 600 1.6rem/1.1 var(--font-display); }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+section { display: grid; gap: 16px; }
+.section-head { display: grid; gap: 6px; }
+.section-head p { max-width: 65ch; color: var(--ink-2); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.sq { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sq { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
+.map-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; }
+
+/* Key figures */
+.figures-card { padding: 8px 16px 16px; }
+.figures-wrap { overflow-x: auto; }
+table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
+.figures th { text-align: right; font: 500 0.75rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 12px 10px 8px; border-bottom: 1px solid var(--line); }
+.figures th:first-child { text-align: left; }
+.figures td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.figures tr:last-child td { border-bottom: 0; }
+.figures td.n { text-align: right; font: 600 1.5rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.figures .what { font-weight: 600; }
+.figures .how { font-size: 0.8rem; color: var(--muted); margin-top: 2px; max-width: 46ch; }
+.note { font-size: 0.8rem; color: var(--muted); }
+.figures td.n button { font: inherit; color: inherit; background: none; border: 0; border-bottom: 2px dotted var(--line); padding: 0 2px; cursor: pointer; }
+.figures td.n button:hover, .figures td.n button[aria-pressed="true"] { border-bottom-color: var(--ink); }
+.fig-panel { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; display: grid; gap: 12px; }
+.fig-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.fig-head .sub { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+.close { font: 500 0.8rem var(--font-body); color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.search { font: 0.88rem var(--font-body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; max-width: 320px; width: 100%; }
+.papers { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.papers li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; font-size: 0.88rem; }
+.papers .yr { font: 500 0.8rem/1.6 var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; }
+.papers .t { overflow-wrap: anywhere; }
+.papers .meta { color: var(--muted); font-size: 0.8rem; }
+.papers .meta strong { color: var(--ink-2); font-weight: 600; }
+.papers .venue { font-style: italic; color: var(--ink-2); font-size: 0.82rem; }
+.entries { display: grid; gap: 2px; max-height: 640px; overflow-y: auto; }
+.entries details { border-bottom: 1px solid var(--line); padding: 6px 2px; }
+.entries summary { cursor: pointer; display: flex; justify-content: space-between; gap: 12px; font-size: 0.9rem; }
+.entries summary .meta { color: var(--muted); font-size: 0.8rem; }
+.entries summary .n { font: 500 0.8rem var(--font-data); color: var(--ink-2); white-space: nowrap; }
+.entries details > div { padding: 10px 0 6px 14px; display: grid; gap: 10px; }
+.entries details > div > .meta { font-size: 0.82rem; color: var(--ink-2); }
+
+/* Investigators */
+.people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 10px; }
+.people li { padding: 12px 14px; display: grid; gap: 2px; }
+.people .name { font-weight: 600; }
+.people .name a { color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+.people .name a:hover { text-decoration-color: var(--ink); }
+.people .aff { font-size: 0.84rem; color: var(--ink-2); }
+.people .role { font-size: 0.8rem; color: var(--muted); }
+
+.links { display: flex; flex-wrap: wrap; gap: 12px; }
+.links a { display: grid; gap: 2px; padding: 12px 16px; text-decoration: none; color: var(--ink); min-width: 0; flex: 1 1 260px; }
+.links a span { font-size: 0.84rem; color: var(--ink-2); }
+.links a:hover { border-color: var(--ink-2); }
+
+/* Projects */
+.timeline-card { padding: 16px; display: grid; gap: 12px; }
+.timeline-wrap { overflow-x: auto; }
+#timeline { display: block; width: 100%; min-width: 640px; height: auto; }
+#timeline .axis text { font: 400 11px var(--font-data); fill: var(--muted); }
+#timeline .grid line { stroke: var(--line); }
+#timeline .label { font: 500 12.5px var(--font-body); fill: var(--ink); }
+#timeline .who { font: 400 11.5px var(--font-body); fill: var(--muted); }
+#timeline .bar { cursor: pointer; }
+#timeline .bar rect { rx: 4; }
+#timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
+#timeline .today line { stroke: var(--today); stroke-dasharray: 3 3; }
+#timeline .today text { font: 500 11px var(--font-data); fill: var(--ink); }
+.undated { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.86rem; color: var(--ink-2); }
+.chip { font: 500 0.82rem var(--font-body); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.details { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 0.9rem; }
+.details dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
+.details dt { color: var(--muted); font-size: 0.82rem; }
+.details dd { margin: 0; overflow-wrap: anywhere; }
+.pill { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--ink-2); }
+
+.method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
+.method h2 { font-size: 1.1rem; }
+.method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
+.method h2 { font-size: 1.1rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">Simula Research Laboratory · SimulaMet</div>
+    <h1>Centre for Digital Neurotechnology</h1>
+    <p class="lede" id="lede"></p>
+    <div class="facts" id="facts"></div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Investigators</h2>
+    </div>
+    <ul class="people" id="people"></ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Key publication figures</h2>
+      <p>Publications by the centre's investigators, and the people, institutions and countries they publish with.</p>
+    </div>
+    <div class="card figures-card">
+      <div class="figures-wrap"><table class="figures" id="figures"></table></div>
+      <p class="note" id="figures-note"></p>
+      <div class="fig-panel" id="figure-details" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="projects-section">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p>Research projects with the centre's investigators that started in 2016 or later, coloured by main funder. Select a project for details.</p>
+      <p class="note" id="rcn-summary"></p>
+    </div>
+    <div class="card timeline-card">
+      <div class="map-top">
+        <div class="legend" id="funder-legend"></div>
+        <div class="seg" role="group" aria-label="Which projects" id="project-view"></div>
+      </div>
+      <div class="timeline-wrap"><svg id="timeline" role="img" aria-label="Project timeline"></svg></div>
+      <div class="undated" id="undated"></div>
+      <div class="details" id="details" hidden></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>More about the centre</h2></div>
+    <div class="links">
+      <a class="card" href="../nva/collaboration_map.html">Who publishes with whom<span>How the investigators publish together, and the co-authors who link them</span></a>
+      <a class="card" href="../partners/partners_page.html">Who we work with<span>Collaborating institutions in Norway and abroad, and project partners</span></a>
+    </div>
+  </section>
+
+  <section class="method">
+    <h2>How this was made</h2>
+    <p>Publications are the investigators' journal articles, conference papers, book chapters and books in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv), with duplicates merged and each publication counted once however many investigators are on it.</p>
+    <p>Co-authors are everyone on these publications other than the centre's investigators, from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, which covers the publications with a DOI. Each co-author is counted once, at their main institution: the one they are listed at most often on these publications. Colleagues whose main institution is in the Simula Group, and the Simula Group institutions themselves, are not counted.</p>
+    <p id="projects-method">Projects come from Simula's project pages and the NVA project register, selected and checked by hand; Research Council funding comes from its project bank.</p>
+    <p id="generated"></p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const DATA = __DATA__;
+const LAST_YEAR = +DATA.generated.slice(0, 4);
+const FUNDERS = [
+  ["Research Council of Norway", "--f-rcn"],
+  ["European Union", "--f-eu"],
+  ["Foundations", "--f-found"],
+  ["Other", "--f-other"],
+];
+const surname = n => n.split(" ").slice(-1)[0];
+const state = { projects: "active", selected: null };
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "text") e.textContent = v; else e.setAttribute(k, v); }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function segmented(container, options, key, onChange) {
+  for (const [value, label] of options) {
+    const b = el("button", { type: "button", "aria-pressed": String(state[key] === value), text: label }, container);
+    b.addEventListener("click", () => {
+      state[key] = value;
+      for (const x of container.children) x.setAttribute("aria-pressed", String(x === b));
+      onChange();
+    });
+  }
+}
+
+// Header
+const count = a => DATA.investigators.filter(i => i.affiliation === a).length;
+const affiliations = [...new Set(DATA.investigators.map(i => i.affiliation))].sort((a, b) => count(b) - count(a));
+document.getElementById("lede").textContent =
+  "The Centre for Digital Neurotechnology performs groundbreaking research in computational and digital technologies to discover how the brain works and to improve brain health. " +
+  `${DATA.investigators.length} named investigators and their research groups at ${affiliations.join(" and ")} form the Centre core.`;
+const facts = document.getElementById("facts");
+for (const [v, label] of [
+  [DATA.investigators.length, "investigators"],
+  ...(DATA.showProjects ? [[DATA.projects.filter(p => p.status === "active").length, "active projects"]] : []),
+  [DATA.figures[2021].publications, "publications since 2021"],
+  [DATA.figures[2021].countries, "countries of co-authors since 2021"],
+]) {
+  const f = el("div", { class: "fact" }, facts);
+  el("b", { text: v }, f); el("span", { text: label }, f);
+}
+
+// Key figures
+const years = Object.keys(DATA.figures).map(Number).sort((a, b) => b - a);
+const table = document.getElementById("figures");
+const hr = el("tr", {}, el("thead", {}, table));
+el("th", { text: "" }, hr);
+for (const y of years) el("th", { text: `Since ${y}` }, hr);
+const tbody = el("tbody", {}, table);
+for (const [key, what, how] of [
+  ["publications", "Publications", "Journal articles, conference papers, book chapters and books by the investigators"],
+  ["coauthors", "Co-authors", "People the investigators have published with (outside Simula)"],
+  ["institutions", "Institutions", "The co-authors' main institutions"],
+  ["countries", "Countries", "Where these institutions are"],
+]) {
+  const tr = el("tr", {}, tbody);
+  const td = el("td", {}, tr);
+  el("div", { class: "what", text: what }, td);
+  el("div", { class: "how", text: how }, td);
+  for (const y of years) {
+    const b = el("button", { type: "button", "aria-pressed": "false", text: DATA.figures[y][key].toLocaleString("en"), "aria-label": `${what} since ${y}: ${DATA.figures[y][key]}. Show the list.` }, el("td", { class: "n" }, tr));
+    b.addEventListener("click", () => {
+      for (const x of table.querySelectorAll("td.n button")) x.setAttribute("aria-pressed", String(x === b));
+      showFigure(key, what, y);
+    });
+  }
+}
+document.getElementById("figures-note").textContent =
+  `Each period runs to today (${DATA.generated}). Co-authors, institutions and countries come from the publications with a DOI found in OpenAlex. Select a number to see the list behind it.`;
+
+// The lists behind the key figures
+const countryName = (() => {
+  try { const d = new Intl.DisplayNames(["en"], { type: "region" }); return c => (c ? d.of(c) : "Country not known"); }
+  catch (e) { return c => c || "Country not known"; }
+})();
+const panel = document.getElementById("figure-details");
+// Names from NVA and OpenAlex match on surname and first initial, ignoring accents
+const fold = s => s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[‐‑–]/g, "-").toLowerCase();
+function nameKey(name) {
+  const parts = fold(name).replace(/[.,]/g, " ").split(/\s+/).filter(Boolean);
+  return parts.length ? `${parts[parts.length - 1]}|${parts[0][0]}` : "";
+}
+const MAX_AUTHORS = 5;
+// rids: publications to list; emphasis(rid): which authors to emphasise,
+// as a function of (name, is an investigator); investigators by default
+function pubList(rids, parent, emphasis = () => (name, investigator) => investigator) {
+  const ul = el("ul", { class: "papers" }, parent);
+  for (const rid of rids) {
+    const p = DATA.publications[rid];
+    if (!p) continue;
+    const li = el("li", {}, ul);
+    el("span", { class: "yr", text: p.year }, li);
+    const body = el("div", {}, li);
+    const t = el("div", { class: "t" }, body);
+    if (p.url) el("a", { href: p.url, target: "_blank", rel: "noopener", text: p.title }, t); else t.textContent = p.title;
+    if (p.venue) el("div", { class: "venue", text: p.venue }, body);
+    // Authors: up to five, then "et al." naming emphasised authors further down
+    const bold = emphasis(rid);
+    const meta = el("div", { class: "meta" }, body);
+    p.authors.slice(0, MAX_AUTHORS).forEach(([name, investigator], i) => {
+      if (i) meta.append(", ");
+      if (bold(name, investigator)) el("strong", { text: name }, meta); else meta.append(name);
+    });
+    if (p.authors.length > MAX_AUTHORS) {
+      meta.append(", et al.");
+      p.authors.slice(MAX_AUTHORS).filter(([name, investigator]) => bold(name, investigator)).forEach(([name], i) => {
+        meta.append(i ? ", " : ", incl. ");
+        el("strong", { text: name }, meta);
+      });
+    }
+  }
+}
+// A row that shows its content when opened
+function entry(parent, label, meta, n, fill) {
+  const d = el("details", {}, parent);
+  const sum = el("summary", {}, d);
+  const left = el("span", {}, sum);
+  left.append(label);
+  if (meta) { left.append(" "); el("span", { class: "meta", text: meta }, left); }
+  el("span", { class: "n", text: n }, sum);
+  d.dataset.search = `${label} ${meta}`.toLowerCase();
+  d.addEventListener("toggle", () => { if (d.open && d.children.length === 1) fill(el("div", {}, d)); });
+}
+function showFigure(key, what, year) {
+  const lists = DATA.figures[year].lists;
+  panel.replaceChildren();
+  panel.hidden = false;
+  const head = el("div", { class: "fig-head" }, panel);
+  const left = el("div", {}, head);
+  el("h3", { text: `${what} since ${year}: ${DATA.figures[year][key].toLocaleString("en")}` }, left);
+  const subs = {
+    publications: "Newest first.",
+    coauthors: "Each co-author at their main institution. Open a co-author for their joint publications, with the co-author in bold.",
+    institutions: "The co-authors' main institutions. Open one for its co-authors and publications, with the co-authors from that institution in bold.",
+    countries: "Open a country for its institutions.",
+  };
+  el("div", { class: "sub", text: subs[key] }, left);
+  const close = el("button", { type: "button", class: "close", text: "Close" }, head);
+  close.addEventListener("click", () => {
+    panel.hidden = true;
+    for (const x of table.querySelectorAll("td.n button")) x.setAttribute("aria-pressed", "false");
+  });
+  if (key === "publications") {
+    const box = el("div", { class: "entries" }, panel);
+    pubList(lists.publications, box);
+  } else {
+    const search = el("input", { type: "search", class: "search", id: "figure-search", placeholder: "Search", "aria-label": `Search ${what.toLowerCase()}` }, panel);
+    const box = el("div", { class: "entries" }, panel);
+    const co = lists.coauthors;
+    const pubsOf = idx => [...new Set(idx.flatMap(i => co[i][3]))].sort((a, b) => (DATA.publications[b]?.year || 0) - (DATA.publications[a]?.year || 0));
+    // On each publication, the institution's co-authors who are on it
+    const fromInstitution = idx => rid => {
+      const keys = new Set(idx.filter(i => co[i][3].includes(rid)).map(i => nameKey(co[i][0])));
+      return author => keys.has(nameKey(author));
+    };
+    if (key === "coauthors") {
+      for (const [name, inst, country, rids] of co) {
+        const key = nameKey(name);
+        entry(box, name, inst ? `${inst}, ${countryName(country)}` : "Institution not known", `${rids.length} publication${rids.length === 1 ? "" : "s"}`, div => pubList(rids, div, () => author => nameKey(author) === key));
+      }
+    } else if (key === "institutions") {
+      for (const [name, country, idx] of lists.institutions) {
+        const rids = pubsOf(idx);
+        entry(box, name, countryName(country), `${idx.length} co-author${idx.length === 1 ? "" : "s"} · ${rids.length} publication${rids.length === 1 ? "" : "s"}`, div => {
+          el("div", { class: "meta", text: `Co-authors: ${idx.map(i => co[i][0]).join(", ")}` }, div);
+          pubList(rids, div, fromInstitution(idx));
+        });
+      }
+    } else {
+      const byCountry = new Map();
+      for (const inst of lists.institutions) {
+        if (!inst[1]) continue;
+        if (!byCountry.has(inst[1])) byCountry.set(inst[1], []);
+        byCountry.get(inst[1]).push(inst);
+      }
+      const rows = [...byCountry.entries()].sort((a, b) => b[1].length - a[1].length || countryName(a[0]).localeCompare(countryName(b[0])));
+      for (const [country, insts] of rows) {
+        entry(box, countryName(country), "", `${insts.length} institution${insts.length === 1 ? "" : "s"}`, div => {
+          for (const [name, , idx] of insts) {
+            const rids = pubsOf(idx);
+            entry(div, name, "", `${rids.length} publication${rids.length === 1 ? "" : "s"}`, inner => pubList(rids, inner, fromInstitution(idx)));
+          }
+        });
+      }
+    }
+    search.addEventListener("input", () => {
+      const q = search.value.trim().toLowerCase();
+      for (const d of box.children) d.hidden = q && !d.dataset.search.includes(q);
+    });
+  }
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Investigators
+const people = document.getElementById("people");
+for (const i of DATA.investigators) {
+  const li = el("li", { class: "card" }, people);
+  const name = el("span", { class: "name" }, li);
+  if (i.page) el("a", { href: i.page, target: "_blank", rel: "noopener", text: i.name }, name); else name.textContent = i.name;
+  el("span", { class: "aff", text: i.affiliation }, li);
+  if (i.role) el("span", { class: "role", text: i.role }, li);
+}
+
+// Projects timeline
+const funderColor = g => `var(${(FUNDERS.find(f => f[0] === g) || FUNDERS[3])[1]})`;
+const legend = document.getElementById("funder-legend");
+for (const [name, color] of FUNDERS) {
+  const s = el("span", {}, legend);
+  const sw = el("i", { class: "sq" }, s); sw.style.background = `var(${color})`;
+  s.append(name);
+}
+function renderProjects() {
+  const today = LAST_YEAR + (new Date(DATA.generated).getMonth() + 1) / 12;
+  const shown = DATA.projects.filter(p => state.projects === "all" || p.status !== "ended");
+  const dated = shown.filter(p => p.start != null).sort((a, b) => a.start - b.start || (a.end ?? today) - (b.end ?? today));
+  const undated = shown.filter(p => p.start == null);
+  const svgT = d3.select("#timeline");
+  svgT.selectAll("*").remove();
+  const L = 200, R = 190, T = 26, row = 30, B = 24;
+  const Wt = 960, Ht = T + dated.length * row + B;
+  svgT.attr("viewBox", `0 0 ${Wt} ${Ht}`);
+  const x0 = Math.floor(Math.min(today - 1, ...dated.map(p => p.start)));
+  const x1 = Math.ceil(Math.max(today + 1, ...dated.map(p => p.end ?? today)));
+  const x = d3.scaleLinear().domain([x0, x1]).range([L, Wt - R]);
+  const step = x1 - x0 > 12 ? 2 : 1;
+  const ticks = d3.range(Math.ceil(x0 / step) * step, x1 + 1, step);
+  const grid = svgT.append("g").attr("class", "grid");
+  const axis = svgT.append("g").attr("class", "axis");
+  for (const t of ticks) {
+    grid.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", T - 6).attr("y2", Ht - B);
+    axis.append("text").attr("x", x(t)).attr("y", 14).attr("text-anchor", "middle").text(t);
+  }
+  dated.forEach((p, i) => {
+    const y = T + i * row;
+    const g = svgT.append("g").attr("class", "bar").attr("tabindex", 0).attr("role", "button")
+      .attr("aria-label", `${p.title}, ${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
+    g.append("text").attr("class", "label").attr("x", L - 10).attr("y", y + 16).attr("text-anchor", "end").text(p.short.length > 28 ? p.short.slice(0, 27) + "…" : p.short);
+    const end = p.end ?? today;
+    g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
+      .attr("fill", funderColor(p.funderGroup));
+    const who = p.investigators.map(surname).join(", ");
+    g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16).text(p.end == null ? `ongoing · ${who}` : who);
+    g.append("title").text(`${p.title} · ${p.funders.join(", ") || "funder not listed"}`);
+    g.on("click", () => select(p)).on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p); } });
+    if (state.selected === p.title) g.classed("on", true);
+  });
+  const t = svgT.append("g").attr("class", "today");
+  t.append("line").attr("x1", x(today)).attr("x2", x(today)).attr("y1", T - 6).attr("y2", Ht - B + 4);
+  t.append("text").attr("x", x(today)).attr("y", Ht - 8).attr("text-anchor", "middle").text("Today");
+
+  const und = document.getElementById("undated");
+  und.replaceChildren();
+  if (undated.length) {
+    el("span", { text: "Ongoing, dates not listed:" }, und);
+    for (const p of undated) {
+      const c = el("button", { type: "button", class: "chip" }, und);
+      const sw = el("i", { class: "sq" }, c); sw.style.background = funderColor(p.funderGroup);
+      c.append(p.short);
+      c.addEventListener("click", () => select(p));
+    }
+  }
+}
+function select(p) {
+  state.selected = p.title;
+  renderProjects();
+  const d = document.getElementById("details");
+  d.replaceChildren();
+  d.hidden = false;
+  const head = el("div", {}, d);
+  const a = el("a", { href: p.url, target: "_blank", rel: "noopener", text: p.title }, el("h3", {}, head));
+  a.style.color = "inherit";
+  const dl = el("dl", {}, d);
+  const row = (k, v) => { if (v) { el("dt", { text: k }, dl); el("dd", { text: v }, dl); } };
+  row("Status", p.status === "active" ? "Active" : p.status === "upcoming" ? "Starting soon" : "Ended");
+  row("Years", p.start == null ? "Not listed" : `${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
+  row("Investigators", p.investigators.join(", "));
+  row("Funding", [p.funders.join(", "), p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
+  row("Partners", p.partners.join(", "));
+  if (p.rcn) {
+    const r = p.rcn;
+    row("Research Council funding", [
+      r.funding ? `NOK ${(r.funding / 1e6).toFixed(1)} million for the whole project` : "Amount not yet listed",
+      [r.programmes.join(", "), r.scheme].filter(Boolean).join(" · "),
+    ].filter(Boolean).join(" · "));
+    if (!r.ledHere) row("Led by", `${r.lead}, ${r.institution}`);
+    if (r.effects) row("Results reported", r.effects);
+    const link = el("a", { href: `https://prosjektbanken.forskningsradet.no/project/FORISS/${r.grant}`, target: "_blank", rel: "noopener", text: `Project ${r.grant} in the Research Council's project bank` }, d);
+    link.style.fontSize = "0.85rem";
+  }
+}
+
+// Research Council of Norway funding to projects led at Simula
+function renderRcnSummary() {
+  const rcnProjects = DATA.projects.filter(p => p.funderGroup === "Research Council of Norway");
+  const counted = rcnProjects.filter(p => p.rcn && p.rcn.ledHere && p.rcn.funding);
+  const total = counted.reduce((n, p) => n + p.rcn.funding, 0);
+  const rest = rcnProjects.length - counted.length;
+  document.getElementById("rcn-summary").textContent = counted.length
+    ? `Research Council of Norway funding listed in its project bank for projects led at Simula: NOK ${(total / 1e6).toFixed(1)} million (${counted.map(p => p.short).join(", ")}). ` +
+      `Amounts for the other ${rest} Research Council project${rest === 1 ? "" : "s"} are not included: some are new or led elsewhere, and some grant numbers are still missing.`
+    : "";
+}
+
+// Projects are shown only when SHOW_PROJECTS is set in build_centre_page.py
+document.getElementById("projects-section").hidden = !DATA.showProjects;
+document.getElementById("projects-method").hidden = !DATA.showProjects;
+segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
+document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+if (DATA.showProjects) {
+  renderProjects();
+  renderRcnSummary();
+}
+</script>

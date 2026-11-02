@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+
+# Local note with the command to resume a Claude Code session
+resume
+
+# Editor backup files
+*~

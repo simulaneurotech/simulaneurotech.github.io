@@ -1,0 +1,22 @@
+name: Tests
+
+on:
+  schedule:
+    - cron: "0 5 * * *" # daily at 05:00 UTC
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - run: pip install pytest
+      - run: python -m pytest -v
+        working-directory: nva
+      - run: python -m pytest -v
+        working-directory: partners
+      - run: python -m pytest -v
+        working-directory: centre
