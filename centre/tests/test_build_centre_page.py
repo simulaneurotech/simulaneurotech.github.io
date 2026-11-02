@@ -159,7 +159,7 @@ def test_partners_page_counts_institutions_as_the_overview():
         shown = [
             i
             for i in partners["institutions"]
-            if any(start in ps for who in i["coauthors"] for _, _, ps in who)
+            if any(start in ps for who in i["coauthors"] for _, ps in who)
         ]
         overview = figures[start]["lists"]["institutions"]
         assert sorted(i["name"] for i in shown) == sorted(r[0] for r in overview)

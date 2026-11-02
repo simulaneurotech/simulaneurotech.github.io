@@ -19,13 +19,8 @@ once, at their main institution in the period, the one they are listed at
 most often (main_institutions). Colleagues whose main institution is in the
 Simula Group (institutions with "Simula" in their name) are not counted, and
 neither are the investigators' own affiliations on their papers. All the
-investigators' publications found in OpenAlex are used. Each co-author on
-each publication is put in a field (FIELD_GROUPS): by the first rule in
-field_rules.csv whose pattern matches their affiliation text (with the
-institution's own name removed), else as clinical if the institution is a
-hospital, else by the field most of their own work is in
-(openalex_authors.csv, AUTHOR_GROUPS), else unclassified. Project dates are read from the free-text durations on
-Simula's pages.
+investigators' publications found in OpenAlex are used. Project dates are
+read from the free-text durations on Simula's pages.
 """
 
 import csv
@@ -69,42 +64,6 @@ FIRST_PROJECT_YEAR = 2016
 SHOW_PROJECTS = False
 # Publication periods on the page: since each of these years
 SINCE = [2024, 2021, 2016]
-FIELD_GROUPS = {
-    "math": "Mathematics & technology",
-    "basic": "Experimental & basic medicine",
-    "clinical": "Clinical medicine",
-    "unclassified": "Unclassified",
-}
-# A co-author's own main research field (from OpenAlex) to field group
-AUTHOR_GROUPS = {
-    **dict.fromkeys(
-        [
-            "Mathematics",
-            "Computer Science",
-            "Engineering",
-            "Physics and Astronomy",
-            "Decision Sciences",
-            "Earth and Planetary Sciences",
-            "Chemistry",
-            "Materials Science",
-        ],
-        "math",
-    ),
-    **dict.fromkeys(
-        [
-            "Neuroscience",
-            "Biochemistry, Genetics and Molecular Biology",
-            "Agricultural and Biological Sciences",
-            "Immunology and Microbiology",
-            "Pharmacology, Toxicology and Pharmaceutics",
-            "Psychology",
-        ],
-        "basic",
-    ),
-    **dict.fromkeys(
-        ["Medicine", "Health Professions", "Nursing", "Dentistry"], "clinical"
-    ),
-}
 TYPE_GROUPS = {
     "education": "Universities",
     "healthcare": "Hospitals",
@@ -241,31 +200,6 @@ def is_simula_group(institution):
     return "simula" in institution.lower()
 
 
-def read_field_rules(path):
-    """[(compiled pattern, group)] from field_rules.csv, in order."""
-    return [
-        (re.compile(r["pattern"], re.IGNORECASE), r["group"]) for r in read_csv(path)
-    ]
-
-
-def field_group(row, rules, author_fields):
-    """The field group of a co-author's affiliation row."""
-    text = re.sub(
-        re.escape(row["institution"]),
-        " ",
-        row.get("affiliation", ""),
-        flags=re.IGNORECASE,
-    )
-    for pattern, group in rules:
-        if pattern.search(text):
-            return group
-    if row.get("type") == "healthcare":
-        return "clinical"
-    return AUTHOR_GROUPS.get(
-        author_fields.get(row.get("openalex_author_id", ""), ""), "unclassified"
-    )
-
-
 def name_key(name):
     """Compare names ignoring case, accents and the kind of dash."""
     name = name.translate({ord(c): "-" for c in "\u2010\u2011\u2012\u2013\u2014"})
@@ -323,8 +257,6 @@ def partner_data(
     papers=None,
     merges=None,
     exclusions=(),
-    rules=(),
-    author_fields=None,
     since=SINCE,
 ):
     """Publications and the co-authors' main institutions, for filtering by
@@ -338,13 +270,11 @@ def partner_data(
     (institution_merges.csv); merged institutions take the place and type of
     the one with most publications. exclusions is a set of (author,
     institution) pairs that are wrong in OpenAlex (affiliation_exclusions.csv).
-    rules and author_fields decide each co-author's field group, from their
-    affiliation on each publication.
 
     Each institution lists its publications, and for each the co-authors as
-    [name, field group, [periods]], the periods (from since) in which this is
-    their main institution."""
-    papers, merges, author_fields = papers or {}, merges or {}, author_fields or {}
+    [name, [periods]], the periods (from since) in which this is their main
+    institution."""
+    papers, merges = papers or {}, merges or {}
     info = {(r["ror"] or r["institution"]): r for r in institutions}
     index = {name: i for i, name in enumerate(investigators)}
     publications, pub_index = [], {}
@@ -397,18 +327,8 @@ def partner_data(
             if not v["main"] or v["main"] not in rows_of:
                 continue
             names.setdefault(c, v["name"])
-            # One row per publication, preferring the one at the main
-            # institution, for the co-author's field there
-            on = {}
             for r in v["rows"]:
-                rid = r["result_id"]
-                if rid not in on or (
-                    merged(r) == v["main"] and merged(on[rid]) != v["main"]
-                ):
-                    on[rid] = r
-            for r in on.values():
-                group = field_group(r, rules, author_fields)
-                coauthors[v["main"]][publication(r)][(c, group)].add(start)
+                coauthors[v["main"]][publication(r)][c].add(start)
     out = []
     for name, by_pub in coauthors.items():
         i = info[rows_of[name].most_common(1)[0][0]]
@@ -424,8 +344,8 @@ def partner_data(
                 "pubs": pubs,
                 "coauthors": [
                     sorted(
-                        [names[c], group, sorted(periods, reverse=True)]
-                        for (c, group), periods in by_pub[k].items()
+                        [names[c], sorted(periods, reverse=True)]
+                        for c, periods in by_pub[k].items()
                     )
                     for k in pubs
                 ],
@@ -453,14 +373,6 @@ def collect(here=HERE):
         (r["author"], r["institution"])
         for r in read_csv(here / "affiliation_exclusions.csv")
     ]
-    author_fields = {
-        r["openalex_author_id"]: r["main_field"]
-        for r in (
-            read_csv(here / "openalex_authors.csv")
-            if (here / "openalex_authors.csv").exists()
-            else []
-        )
-    }
     publications, institutions = partner_data(
         read_csv(here / "openalex_affiliations.csv"),
         read_csv(here / "partner_institutions.csv"),
@@ -468,8 +380,6 @@ def collect(here=HERE):
         data.papers,
         merges,
         exclusions,
-        read_field_rules(here / "field_rules.csv"),
-        author_fields,
     )
     return {
         "generated": datetime.date.today().isoformat(),
@@ -486,7 +396,6 @@ def collect(here=HERE):
             },
         ),
         "publications": publications,
-        "fields": FIELD_GROUPS,
         "since": SINCE,
         "showProjects": SHOW_PROJECTS,
         "institutions": institutions,
@@ -507,7 +416,7 @@ def main():
         partners = [
             i
             for i in data["institutions"]
-            if any(start in ps for who in i["coauthors"] for _, _, ps in who)
+            if any(start in ps for who in i["coauthors"] for _, ps in who)
         ]
         print(
             f"  since {start}: {len(partners)} collaborating institutions in "

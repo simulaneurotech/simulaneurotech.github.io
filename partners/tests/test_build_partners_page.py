@@ -163,37 +163,25 @@ def test_partner_data_counts_main_institutions():
             "Hospitals",
             [0, 1],
             [
-                [["Carl Co", "clinical", [2021, 2016]]],
-                [["Carl Co", "clinical", [2016]]],
+                [["Carl Co", [2021, 2016]]],
+                [["Carl Co", [2016]]],
             ],
         )
     ]
 
 
 def test_coauthors_count_only_at_their_main_institution():
-    rules = bpp.read_field_rules(bpp.HERE / "field_rules.csv")
     affiliations = [
-        aff("1", "2023", "Co", "UiB", "u", affiliation="Department of Mathematics"),
-        aff(
-            "2",
-            "2023",
-            "Co",
-            "UiO",
-            "o",
-            affiliation="Institute of Basic Medical Sciences",
-        ),
-        aff("2", "2023", "Co", "UiB", "u", affiliation="Department of Mathematics"),
+        aff("1", "2023", "Co", "UiB", "u"),
+        aff("2", "2023", "Co", "UiO", "o"),
+        aff("2", "2023", "Co", "UiB", "u"),
     ]
     _, out = bpp.partner_data(
-        affiliations, [inst("UiB", "u"), inst("UiO", "o")], ["Ann A"], rules=rules
+        affiliations, [inst("UiB", "u"), inst("UiO", "o")], ["Ann A"]
     )
-    # All of Co's publications count for UiB, in the field of the UiB row
+    # All of Co's publications count for UiB, their main institution
     assert [(i["name"], i["pubs"], i["coauthors"]) for i in out] == [
-        (
-            "UiB",
-            [0, 1],
-            [[["Co", "math", [2021, 2016]]], [["Co", "math", [2021, 2016]]]],
-        )
+        ("UiB", [0, 1], [[["Co", [2021, 2016]]], [["Co", [2021, 2016]]]])
     ]
 
 
@@ -215,10 +203,8 @@ def test_excluded_affiliations_are_left_out():
     )
     # Ruiz-Baier counts only for Monash; Sechenov stays for another co-author
     assert {i["name"]: i["coauthors"] for i in out} == {
-        "Monash University": [
-            [["Ricardo Ruíz\u2010Baier", "unclassified", [2021, 2016]]]
-        ],
-        "Sechenov University": [[["Ivan Other", "unclassified", [2021, 2016]]]],
+        "Monash University": [[["Ricardo Ruíz\u2010Baier", [2021, 2016]]]],
+        "Sechenov University": [[["Ivan Other", [2021, 2016]]]],
     }
 
 
@@ -255,8 +241,8 @@ def test_merged_institutions_are_counted_once():
             "Arendal",
             [0, 1],
             [
-                [["Geir R", "clinical", [2021, 2016]]],
-                [["Per E", "clinical", [2021, 2016]]],
+                [["Geir R", [2021, 2016]]],
+                [["Per E", [2021, 2016]]],
             ],
         )
     ]
@@ -294,46 +280,6 @@ def test_research_council_details():
     assert bpp.rcn_details("357482", prosjektbanken)["funding"] is None
     assert bpp.rcn_details("360005", prosjektbanken) is None
     assert bpp.rcn_details("", prosjektbanken) is None
-
-
-def test_field_group():
-    rules = bpp.read_field_rules(bpp.HERE / "field_rules.csv")
-
-    def group(affiliation, institution="Some University", type_="education", author=""):
-        row = {
-            "affiliation": affiliation,
-            "institution": institution,
-            "type": type_,
-            "openalex_author_id": author,
-        }
-        return bpp.field_group(row, rules, {"A1": "Neuroscience", "A2": "Medicine"})
-
-    assert (
-        group(
-            "Department of Neurosurgery, Oslo University Hospital",
-            "Oslo University Hospital",
-            "healthcare",
-        )
-        == "clinical"
-    )
-    assert group("Institute of Basic Medical Sciences, University of Oslo") == "basic"
-    assert group("Department of Mathematics, University of Oslo") == "math"
-    # The institution's own name does not decide: "Life Sciences" is the university
-    assert (
-        group(
-            "Faculty of Science and Technology, Norwegian University of Life Sciences",
-            "Norwegian University of Life Sciences",
-        )
-        == "math"
-    )
-    # No department: hospital type, then the author's own field
-    assert (
-        group("Oslo University Hospital", "Oslo University Hospital", "healthcare")
-        == "clinical"
-    )
-    assert group("University of Oslo", "University of Oslo", author="A1") == "basic"
-    assert group("University of Oslo", "University of Oslo", author="A2") == "clinical"
-    assert group("University of Oslo", "University of Oslo") == "unclassified"
 
 
 def test_page_loads_nothing_from_other_sites():

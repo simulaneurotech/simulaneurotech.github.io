@@ -75,6 +75,7 @@ header { display: grid; gap: 12px; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
 .seg button { font: 500 0.8rem var(--font-body); background: none; border: 0; padding: 5px 11px; color: var(--ink-2); cursor: pointer; }
 .seg button + button { border-left: 1px solid var(--line); }
+.seg button .dot { margin-right: 6px; vertical-align: 1px; }
 .seg button[aria-pressed="true"] { background: var(--soft); color: var(--ink); }
 
 .facts { display: flex; flex-wrap: wrap; gap: 8px 32px; }
@@ -180,10 +181,6 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
       <span id="period-label">Publications from:</span>
       <div class="seg" role="group" aria-labelledby="period-label" id="period"></div>
     </div>
-    <div class="controls">
-      <span id="field-label">Co-authors in:</span>
-      <div class="seg" role="group" aria-labelledby="field-label" id="field"></div>
-    </div>
     <div class="facts" id="facts"></div>
   </header>
 
@@ -195,11 +192,7 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
     <div class="map-layout">
       <div class="card map-card" id="map-card">
         <div class="map-top">
-          <div class="legend">
-            <span><i class="dot" style="background:var(--uni)"></i>Universities</span>
-            <span><i class="dot" style="background:var(--hosp)"></i>Hospitals</span>
-            <span><i class="dot" style="background:var(--other)"></i>Institutes and others</span>
-          </div>
+          <div class="seg" role="group" aria-label="Kinds of institution shown" id="kind"></div>
           <div class="seg" role="group" aria-label="Map area" id="zoom"></div>
         </div>
         <svg id="map" viewBox="0 0 960 500" role="img" aria-label="Map of collaborating institutions"></svg>
@@ -218,11 +211,6 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
     <div class="section-head">
       <h2>Who we collaborate with</h2>
       <p>Institutions where the centre's investigators have co-authors, by kind. Each co-author counts once, at their main institution: the one they are listed at most often on these publications. Colleagues in the Simula Group, and the investigators' own other affiliations, are not counted.</p>
-    </div>
-    <div class="card list-card">
-      <h3>Collaborations by field</h3>
-      <p class="note">Each co-author is placed in a field by their department on the paper (or, if that says nothing, the field of their own research). Bars count collaborating institutions with co-authors in each field; an institution can count in several fields. Use "Co-authors in" at the top to show one field only.</p>
-      <ul class="bars" id="fields"></ul>
     </div>
     <div class="two">
       <div class="card list-card">
@@ -296,8 +284,7 @@ const countryName = (() => {
   catch (e) { return c => c || "Unknown"; }
 })();
 const surname = n => n.split(" ").slice(-1)[0];
-const state = { period: "2021", field: "all", zoom: "world", projects: "active", selected: null, institution: null };
-const FIELD_SHORT = { math: "maths & technology", basic: "experimental & basic medicine", clinical: "clinical medicine", unclassified: "unclassified" };
+const state = { period: "2021", kind: "all", zoom: "world", projects: "active", selected: null, institution: null };
 
 function el(tag, attrs = {}, parent) {
   const e = document.createElement(tag);
@@ -323,7 +310,7 @@ function partners() {
   return DATA.institutions
     .map(i => {
       const keep = i.pubs
-        .map((k, j) => [k, i.coauthors[j].filter(([, g, ps]) => ps.includes(from) && (state.field === "all" || g === state.field))])
+        .map((k, j) => [k, i.coauthors[j].filter(([, ps]) => ps.includes(from))])
         .filter(([k, who]) => (DATA.publications[k].year || 0) >= from && who.length);
       return { ...i, n: keep.length, inPeriod: keep.map(x => x[0]), who: new Map(keep) };
     })
@@ -364,7 +351,7 @@ function showInstitution(name, scroll = true) {
     const t = el("div", { class: "t" }, body);
     if (pub.url) el("a", { href: pub.url, target: "_blank", rel: "noopener", text: pub.title }, t); else t.textContent = pub.title;
     const inv = pub.inv.map(j => DATA.investigators[j]).join(", ");
-    const who = i.who.get(k).map(([name, g]) => `${name} (${FIELD_SHORT[g]})`).join(", ");
+    const who = i.who.get(k).map(([name]) => name).join(", ");
     el("div", { class: "meta", text: `Investigators: ${inv} · Co-authors at this institution: ${who}` }, body);
   }
   if (scroll) details.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -407,8 +394,11 @@ const tip = el("div", { class: "tip", hidden: "" }, mapCard);
 const gLand = svg.append("g"), gDots = svg.append("g");
 function renderMap(list) {
   const projection = d3.geoEqualEarth();
-  if (state.zoom === "europe") {
-    projection.fitExtent([[10, 10], [W - 10, H - 10]], { type: "MultiPoint", coordinates: [[-11, 35], [32, 35], [-11, 70], [32, 70]] });
+  // Corners (longitude, latitude) of the zoomed areas
+  const areas = { europe: [[-11, 35], [32, 70]], northam: [[-125, 24], [-63, 57]] };
+  if (areas[state.zoom]) {
+    const [[w, s], [e, n]] = areas[state.zoom];
+    projection.fitExtent([[10, 10], [W - 10, H - 10]], { type: "MultiPoint", coordinates: [[w, s], [e, s], [w, n], [e, n]] });
   } else {
     projection.fitExtent([[10, 10], [W - 10, H - 10]], { type: "Sphere" });
   }
@@ -428,8 +418,10 @@ function renderMap(list) {
     place.insts.push(i);
     for (const k of i.inPeriod) place.pubs.add(k);
   }
-  const places = [...byPlace.values()].sort((a, b) => b.pubs.size - a.pubs.size);
-  const r = d3.scaleSqrt().domain([1, d3.max(places, p => p.pubs.size) || 1]).range([state.zoom === "europe" ? 3.5 : 2.5, state.zoom === "europe" ? 26 : 18]);
+  // Sizes stay comparable when only one kind of institution is shown
+  const all = [...byPlace.values()];
+  const places = all.filter(p => state.kind === "all" || p.group === state.kind).sort((a, b) => b.pubs.size - a.pubs.size);
+  const r = d3.scaleSqrt().domain([1, d3.max(all, p => p.pubs.size) || 1]).range(state.zoom === "world" ? [2.5, 18] : [3.5, 26]);
   gDots.selectAll("circle").data(places, p => `${p.city}|${p.country}|${p.group}`).join("circle")
     .attr("class", p => p.group)
     .attr("cx", p => projection([p.lon, p.lat])[0])
@@ -600,29 +592,13 @@ function select(p) {
   }
 }
 
-function renderFields() {
-  const saved = state.field;
-  state.field = "all";
-  const list = partners();
-  state.field = saved;
-  const rows = ["math", "basic", "clinical", "unclassified"].map(g => {
-    const insts = list.filter(i => i.inPeriod.some(k => i.who.get(k).some(([, x]) => x === g)));
-    const pubs = new Set(insts.flatMap(i => i.inPeriod.filter(k => i.who.get(k).some(([, x]) => x === g))));
-    return [`${DATA.fields[g]} · ${pubs.size} joint publications`, insts.length];
-  }).filter(r => r[1] > 0);
-  bars(document.getElementById("fields"), rows);
-}
-
 function renderCoverage(list) {
   const from = PERIODS.find(p => p[0] === state.period)[2];
   const inPeriod = DATA.publications.filter(p => (p.year || 0) >= from).length;
   const withPartner = new Set(list.flatMap(i => i.inPeriod)).size;
-  const field = state.field === "all" ? "" : ` in ${FIELD_SHORT[state.field]}`;
   document.getElementById("coverage").textContent =
-    `${periodLabel()[0].toUpperCase() + periodLabel().slice(1)}, ${inPeriod} of the investigators' publications were found in OpenAlex, and ${withPartner} of them have at least one co-author${field} at a collaborating institution. ` +
-    (state.field === "all"
-      ? "The others are by centre investigators only, or with colleagues in the Simula Group."
-      : "The others have no co-authors in this field outside the Simula Group.");
+    `${periodLabel()[0].toUpperCase() + periodLabel().slice(1)}, ${inPeriod} of the investigators' publications were found in OpenAlex, and ${withPartner} of them have at least one co-author at a collaborating institution. ` +
+    "The others are by centre investigators only, or with colleagues in the Simula Group.";
 }
 
 // Institutions that are partners on projects, with their projects
@@ -673,7 +649,6 @@ function renderRcnSummary() {
 
 function renderAll() {
   const list = partners();
-  renderFields();
   renderCoverage(list);
   renderFacts(list);
   renderMap(list);
@@ -683,8 +658,13 @@ function renderAll() {
   if (state.institution) showInstitution(state.institution, false);
 }
 segmented(document.getElementById("period"), PERIODS.map(p => [p[0], p[1]]), "period", renderAll);
-segmented(document.getElementById("field"), [["all", "All fields"], ["math", "Maths & technology"], ["basic", "Experimental & basic medicine"], ["clinical", "Clinical medicine"]], "field", renderAll);
-segmented(document.getElementById("zoom"), [["world", "World"], ["europe", "Europe"]], "zoom", () => renderMap(partners()));
+segmented(document.getElementById("zoom"), [["world", "World"], ["europe", "Europe"], ["northam", "US & Canada"]], "zoom", () => renderMap(partners()));
+const kinds = [["all", "All"], ["uni", "Universities"], ["hosp", "Hospitals"], ["other", "Institutes and others"]];
+segmented(document.getElementById("kind"), kinds, "kind", () => { tip.hidden = true; renderMap(partners()); });
+// Each kind's button carries its colour, as the map's legend
+for (const [b, [value]] of [...document.getElementById("kind").children].map((b, i) => [b, kinds[i]])) {
+  if (value !== "all") b.prepend(el("i", { class: "dot", style: `background:var(--${value})` }));
+}
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
 for (const id of ["projects-section", "project-partners-card", "projects-method"]) document.getElementById(id).hidden = !DATA.showProjects;
