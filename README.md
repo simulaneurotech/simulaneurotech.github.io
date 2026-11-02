@@ -56,7 +56,8 @@ the date they were generated are left as they were. Nothing is committed:
 check the changes first, in particular the review files written by
 `nva/publication_data.py` (duplicates, names, book editors) and any new
 institutions to merge or exclude (`partners/institution_merges.csv`,
-`partners/affiliation_exclusions.csv`), then commit and push to publish.
+`partners/affiliation_exclusions.csv`) and co-authors who appear as several
+people (`partners/person_merges.csv`), then commit and push to publish.
 
 A weekly workflow (`.github/workflows/refresh.yml`, Mondays at 04:00 UTC, or
 started manually from the Actions tab) runs `refresh.sh` and, if anything

@@ -48,7 +48,7 @@ AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
 sys.path.insert(0, str(PARTNERS_DIR))
-from build_partners_page import main_institutions, projects
+from build_partners_page import main_institutions, projects, read_person_merges
 from publication_data import id_order, load
 
 
@@ -63,13 +63,16 @@ def year_of(value):
     return int(value) if str(value).isdigit() else 0
 
 
-def key_figures(pub_years, affiliations, since, merges=None, exclusions=()):
+def key_figures(
+    pub_years, affiliations, since, merges=None, exclusions=(), people=None
+):
     """Publications, co-authors, institutions and countries since each year,
     with the lists behind each number.
 
     pub_years is {result ID: year} for the investigators' publications.
     affiliations are openalex_affiliations.csv rows; merges is {institution:
-    name to use} and exclusions a list of (author, institution) to leave out.
+    name to use}, exclusions a list of (author, institution) to leave out and
+    people records of the same person to count as one (person_merges.csv).
 
     Returns {year: {"publications", "coauthors", "institutions", "countries":
     counts, "lists": {"publications": [result IDs], "coauthors": [[name, main
@@ -77,7 +80,9 @@ def key_figures(pub_years, affiliations, since, merges=None, exclusions=()):
     [indices into coauthors]]]}}}."""
     figures = {}
     for start in since:
-        found, country_of = main_institutions(affiliations, start, merges, exclusions)
+        found, country_of = main_institutions(
+            affiliations, start, merges, exclusions, people
+        )
         pubs_of = {c: {r["result_id"] for r in v["rows"]} for c, v in found.items()}
         coauthors = sorted(found, key=lambda c: (-len(pubs_of[c]), found[c]["name"]))
         coauthor_rows = [
@@ -231,6 +236,7 @@ def collect():
             SINCE,
             merges,
             exclusions,
+            read_person_merges(PARTNERS_DIR / "person_merges.csv"),
         ),
         "showProjects": SHOW_PROJECTS,
         "linkedPages": LINKED_PAGES,
