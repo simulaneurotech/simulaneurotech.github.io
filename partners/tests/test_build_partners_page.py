@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 
 import pytest
 
@@ -364,3 +365,19 @@ def test_listed_simula_colleagues_are_left_out(tmp_path):
     # Only the co-author who is not a listed colleague counts
     assert [v["name"] for v in found.values()] == ["Ann Other"]
     assert bpp.read_colleagues(tmp_path / "missing.csv") == set()
+
+
+def test_institutions_set_by_hand():
+    affiliations = [
+        aff("1", "2023", "Placed Here", "", ""),
+        aff("2", "2023", "Someone", "University of Oslo", "u"),
+    ]
+    found, country_of = bpp.main_institutions(
+        affiliations, 2016, fixed={"placed here": "University of Oslo"}
+    )
+    assert {v["name"]: v["main"] for v in found.values()} == {
+        "Placed Here": "University of Oslo",
+        "Someone": "University of Oslo",
+    }
+    assert country_of["University of Oslo"] == "NO"
+    assert bpp.read_corrections(Path("missing.csv")) == {}

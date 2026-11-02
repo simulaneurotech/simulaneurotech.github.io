@@ -6,9 +6,11 @@ testpaths = ["tests"]
 # Our own modules, so imports sort the same from any working directory
 known-first-party = [
     "build_partners_page",
+    "coauthor_fields",
     "coauthorship",
     "collaboration_map",
     "external_collaborators",
+    "fetch_coauthor_details",
     "fetch_nva",
     "fetch_nva_projects",
     "fetch_openalex",

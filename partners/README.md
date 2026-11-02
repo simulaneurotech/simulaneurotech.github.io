@@ -33,6 +33,8 @@ The scripts read the investigators and their publications from
 | `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
 | `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason), keeping decisions made by hand |
 | `build_partners_page.py` | Builds `../site/partners.html` from the curated projects and the OpenAlex data |
+| `fetch_coauthor_details.py` | For the co-authors at universities, research institutes and companies: their ORCID iD and main research field from OpenAlex, their public ORCID employment records (organisation, department, years only) and, where those name no department, the affiliation texts naming their institution on their other papers since 2016. Only co-authors not fetched before are looked up (`--all` fetches everyone again); when OpenAlex's daily quota of requests is used up, it saves what it has and leaves the rest for the next run |
+| `coauthor_fields.py` | Each co-author's kind of institution and, at universities, discipline (see below) |
 | `partners_page_template.html` | Page template: layout, map, tables and timeline |
 | `world-110m.json` | Country outlines for the map, from the [world-atlas](https://github.com/topojson/world-atlas) package (ISC license, built from Natural Earth) |
 | `institution_merges.csv` | **Curated by hand**: institutions to merge or rename on the page (`institution` as in OpenAlex, `use_name` to show), such as the Sørlandet sykehus hospitals, and Gentofte Hospital as part of Copenhagen University Hospital |
@@ -40,6 +42,8 @@ The scripts read the investigators and their publications from
 | `affiliation_exclusions.csv` | **Curated by hand**: affiliations OpenAlex has wrong for individual co-authors (`author`, `institution`), left out on the page |
 | `person_merges.csv` | **Curated by hand**: OpenAlex records that are the same person (`author`, `openalex_author_id`, empty when a paper has no author ID), counted as the record with OpenAlex author ID `same_as`, on both the overview and the partners page |
 | `simula_colleagues.csv` | **Curated by hand**: co-authors who are Simula colleagues although OpenAlex does not give a Simula Group institution as their main one (`author`, `openalex_author_id`); left out like other colleagues on both the overview and the partners page |
+| `institution_kinds.csv` | **Curated by hand**: kinds of institution that override the institution's type in OpenAlex (`kind`, such as QB3 as a university), and the field of research institutes and companies (`discipline`), for the co-authors page |
+| `coauthor_corrections.csv` | **Curated by hand**: a co-author's institution, department and discipline where OpenAlex has none or the wrong one (`author`, `openalex_author_id`, `institution`, `department`, `discipline`); the institution counts on all the pages |
 | `centre_projects.csv` | **Curated by hand**, not written by any script: the projects to show as centre projects (`include`), with investigators, funders, grants and partners checked. Seeded from `simula_projects.csv` with the projects naming an investigator and those about the brain, heart or neuroscience. `nva_project_id` links a project to the NVA project register; `partners` combines the partners on Simula's page with the institutions of NVA participants who are not centre investigators (Simula Group left out) |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
 | `nva_projects.csv` | NVA projects with a centre investigator: dates, funder and grant number, coordinating institution, participants |
@@ -47,6 +51,7 @@ The scripts read the investigators and their publications from
 | `prosjektbanken_projects.csv` | Research Council of Norway projects: titles, project leader and lead institution, years, total funding of the whole project (NOK), programmes, scheme, funding ministries, summary and reported results |
 | `openalex_affiliations.csv` | One row per author per institution per publication, with the affiliation text on the paper |
 | `openalex_works.csv` | One row per publication: research field and subfield, title, and whether the title or abstract has methods, physiological or wireless terms |
+| `coauthor_profiles.csv`, `coauthor_employments.csv`, `coauthor_affiliations.csv` | Written by `fetch_coauthor_details.py` (see above) |
 | `partner_institutions.csv` | Institutions where the investigators' co-authors are (not the investigators' own affiliations): country, type (education, healthcare, company, ...), ROR ID, city and coordinates, number of joint publications and which investigators |
 
 ## Usage
@@ -59,6 +64,7 @@ python3 fetch_simula_projects.py   # writes simula_projects.csv
 python3 fetch_nva_projects.py      # writes nva_projects.csv, nva_project_participants.csv
 python3 fetch_prosjektbanken.py    # writes prosjektbanken_projects.csv
 python3 fetch_openalex.py          # writes openalex_*.csv, partner_institutions.csv
+python3 fetch_coauthor_details.py  # writes coauthor_*.csv
 python3 publication_relevance.py   # writes publication_relevance.csv (keeps decisions)
 python3 build_partners_page.py     # writes ../site/partners.html
 ```
@@ -108,6 +114,47 @@ has no decision and the suggestion is `keep` (`relevant` in
 `publication_relevance.py`). Fill in `decision` in
 `publication_relevance.csv` for the reviews and for any suggestion you
 disagree with. The pages do not use this at present.
+
+## Kinds of institution and research areas
+
+On the page, the kind of institution is its type in OpenAlex: education is
+Universities, healthcare Hospitals, company Companies, and facility,
+non-profit, government and similar are Research institutes (`KINDS` in
+`build_partners_page.py`); `institution_kinds.csv` corrects a few by hand.
+
+The section "By research area" shows for each period the departments where
+the co-authors work, by research area, with the number of co-authors at
+each; an institution taken as a whole (such as a company, or a hospital with
+no department named) counts as one. It names institutions and departments,
+not people. Co-authors are counted as on the overview page, at their main
+institution; spellings of the same department at an institution are counted
+together.
+
+The fields are mathematics & statistics, computer science & engineering,
+physics & chemistry, biosciences, experimental & basic medicine, clinical
+medicine and other. `coauthor_fields.py` decides the field by keyword rules (`RULES`) on the name
+of the co-author's unit, taking the first of these that names one:
+
+1. a department, division, clinic or similar, or a faculty named after one
+   discipline, in their affiliation on the publications with the centre;
+2. their department at that institution in ORCID;
+3. a department in their affiliation on their other papers since 2016;
+4. at research institutes and companies, the institution's field
+   (`discipline` in `institution_kinds.csv`, else its name);
+5. an institute, centre or lab, or other affiliation text on the
+   publications with the centre;
+6. a faculty covering several disciplines (including any faculty of
+   medicine), or their main research field in OpenAlex.
+
+Fields from 6 are shown as an uncertain classification. At hospitals, a
+department or institute (1 to 5) decides, and otherwise clinical medicine.
+Co-authors with none of these, and those whose institution is unknown, count as other, also
+uncertain. `coauthor_corrections.csv` overrides all of these for the
+co-authors it lists. In hand checks of samples, 1 to 3 were nearly always
+right, 5 about three times in four, and 6 about half the time; OpenAlex's
+research field labels people by topic rather than department (its
+"Medicine" was mostly biomedical engineers). The field is that of the
+department a person belongs to, not necessarily their research area.
 
 ## Sources and limitations
 

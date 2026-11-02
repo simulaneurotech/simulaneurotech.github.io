@@ -64,13 +64,18 @@ FIRST_PROJECT_YEAR = 2016
 SHOW_PROJECTS = False
 # Publication periods on the page: since each of these years
 SINCE = [2024, 2021, 2016]
-TYPE_GROUPS = {
+# OpenAlex institution types to kinds of institution (institution_kinds.csv
+# corrects a few by hand)
+KINDS = {
     "education": "Universities",
     "healthcare": "Hospitals",
     "facility": "Research institutes",
+    "nonprofit": "Research institutes",
+    "government": "Research institutes",
+    "funder": "Research institutes",
+    "archive": "Research institutes",
+    "other": "Research institutes",
     "company": "Companies",
-    "nonprofit": "Non-profits",
-    "government": "Government",
 }
 FUNDER_GROUPS = [
     ("Research Council of Norway", "Research Council of Norway"),
@@ -232,8 +237,24 @@ def read_colleagues(path):
     return {r["openalex_author_id"] or name_key(r["author"]) for r in read_csv(path)}
 
 
+def read_corrections(path):
+    """{co-author: row} from coauthor_corrections.csv: the institution,
+    department and discipline to use for a co-author, set by hand where
+    OpenAlex has none or the wrong one. A co-author is their OpenAlex author
+    ID, else their name (as compared by name_key)."""
+    if not path.exists():
+        return {}
+    return {r["openalex_author_id"] or name_key(r["author"]): r for r in read_csv(path)}
+
+
 def main_institutions(
-    affiliations, start, merges=None, exclusions=(), people=None, colleagues=()
+    affiliations,
+    start,
+    merges=None,
+    exclusions=(),
+    people=None,
+    colleagues=(),
+    fixed=None,
 ):
     """Co-authors on the investigators' publications from start on, each at
     their main institution: the one they are listed at most often on these
@@ -245,11 +266,12 @@ def main_institutions(
     read_person_merges) counts records of the same person as one, with the
     name of the record kept. Colleagues listed in colleagues (see
     read_colleagues), and colleagues whose main institution is in the
-    Simula Group are left out; co-authors with no known institution have main
-    institution "".
+    Simula Group are left out. fixed ({co-author: institution}, from
+    read_corrections) sets a co-author's main institution by hand.
+    Co-authors with no known institution have main institution "".
 
     Returns ({co-author: {"name", "main", "rows"}}, {institution: country})."""
-    merges, people = merges or {}, people or {}
+    merges, people, fixed = merges or {}, people or {}, fixed or {}
     excluded = {(name_key(a), name_key(i)) for a, i in exclusions}
     counts = defaultdict(Counter)  # co-author -> institution -> rows
     name_of, rows_of, country_of = {}, defaultdict(list), {}
@@ -275,6 +297,17 @@ def main_institutions(
     out = {}
     for c, by_institution in counts.items():
         main = by_institution.most_common(1)[0][0] if by_institution else ""
+        if fixed.get(c):
+            main = fixed[c]
+            if main not in country_of:
+                country_of[main] = next(
+                    (
+                        r["country"]
+                        for r in affiliations
+                        if merges.get(r["institution"], r["institution"]) == main
+                    ),
+                    "",
+                )
         if is_simula_group(main) or c in colleagues:
             continue
         name = name_of.get(c) or merged_name[c]
@@ -291,6 +324,8 @@ def partner_data(
     exclusions=(),
     people=None,
     colleagues=(),
+    fixed=None,
+    kinds=None,
     since=SINCE,
 ):
     """Publications and the co-authors' main institutions, for filtering by
@@ -305,12 +340,14 @@ def partner_data(
     the one with most publications. exclusions is a set of (author,
     institution) pairs that are wrong in OpenAlex (affiliation_exclusions.csv).
     people merges records of the same person (person_merges.csv), and
-    colleagues are Simula colleagues to leave out (simula_colleagues.csv).
+    colleagues are Simula colleagues to leave out (simula_colleagues.csv),
+    fixed sets co-authors' institutions by hand (coauthor_corrections.csv),
+    and kinds sets institutions' kinds by hand (institution_kinds.csv).
 
     Each institution lists its publications, and for each the co-authors as
     [name, [periods]], the periods (from since) in which this is their main
     institution."""
-    papers, merges = papers or {}, merges or {}
+    papers, merges, kinds = papers or {}, merges or {}, kinds or {}
     info = {(r["ror"] or r["institution"]): r for r in institutions}
     index = {name: i for i, name in enumerate(investigators)}
     publications, pub_index = [], {}
@@ -359,7 +396,7 @@ def partner_data(
     coauthors = defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
     for start in sorted(since):
         found, _ = main_institutions(
-            affiliations, start, merges, exclusions, people, colleagues
+            affiliations, start, merges, exclusions, people, colleagues, fixed
         )
         for c, v in found.items():
             if not v["main"] or v["main"] not in rows_of:
@@ -375,7 +412,7 @@ def partner_data(
             {
                 "name": name,
                 "country": i["country"],
-                "type": TYPE_GROUPS.get(i["type"], "Other"),
+                "type": kinds.get(name) or KINDS.get(i["type"], "Research institutes"),
                 "city": i["city"],
                 "lat": float(i["latitude"]) if i["latitude"] else None,
                 "lon": float(i["longitude"]) if i["longitude"] else None,
@@ -391,6 +428,40 @@ def partner_data(
         )
     out.sort(key=lambda x: (-len(x["pubs"]), x["name"]))
     return publications, out
+
+
+def read_optional(path):
+    return read_csv(path) if path.exists() else []
+
+
+def field_data(affiliations, here, **args):
+    """For each period, the co-authors' institutions with their kind and the
+    departments by research area (see coauthor_fields.py), from the curated
+    files in args and the files written by fetch_coauthor_details.py:
+    {"kinds", "fields", "areas": {start: {"institutions", "departments"}}}."""
+    from coauthor_fields import FIELDS, KIND_ORDER, coauthors, group
+
+    employments, own = defaultdict(list), defaultdict(list)
+    for r in read_optional(here / "coauthor_employments.csv"):
+        employments[r["openalex_author_id"]].append(r)
+    for r in read_optional(here / "coauthor_affiliations.csv"):
+        own[r["openalex_author_id"]].append(r["affiliation"])
+    profiles = {
+        r["openalex_author_id"]: r
+        for r in read_optional(here / "coauthor_profiles.csv")
+    }
+    areas = {}
+    for start in SINCE:
+        found = coauthors(
+            affiliations,
+            start,
+            profiles=profiles,
+            employments=employments,
+            own=own,
+            **args,
+        )
+        areas[start] = dict(zip(("institutions", "departments"), group(found)))
+    return {"kinds": KIND_ORDER, "fields": FIELDS, "areas": areas}
 
 
 def collect(here=HERE):
@@ -411,15 +482,38 @@ def collect(here=HERE):
         (r["author"], r["institution"])
         for r in read_csv(here / "affiliation_exclusions.csv")
     ]
+    affiliations = read_csv(here / "openalex_affiliations.csv")
+    people = read_person_merges(here / "person_merges.csv")
+    colleagues = read_colleagues(here / "simula_colleagues.csv")
+    corrections = read_corrections(here / "coauthor_corrections.csv")
+    institution_kinds = read_optional(here / "institution_kinds.csv")
+    kinds = {r["institution"]: r["kind"] for r in institution_kinds if r["kind"]}
     publications, institutions = partner_data(
-        read_csv(here / "openalex_affiliations.csv"),
+        affiliations,
         read_csv(here / "partner_institutions.csv"),
         investigators,
         data.papers,
         merges,
         exclusions,
-        read_person_merges(here / "person_merges.csv"),
-        read_colleagues(here / "simula_colleagues.csv"),
+        people,
+        colleagues,
+        {k: r["institution"] for k, r in corrections.items() if r["institution"]},
+        kinds,
+    )
+    research_areas = field_data(
+        affiliations,
+        here,
+        merges=merges,
+        exclusions=exclusions,
+        people=people,
+        colleagues=colleagues,
+        kinds=kinds,
+        corrections=corrections,
+        fields={
+            r["institution"]: r["discipline"]
+            for r in institution_kinds
+            if r["discipline"]
+        },
     )
     return {
         "generated": datetime.date.today().isoformat(),
@@ -439,6 +533,7 @@ def collect(here=HERE):
         "since": SINCE,
         "showProjects": SHOW_PROJECTS,
         "institutions": institutions,
+        **research_areas,
     }
 
 
@@ -458,9 +553,12 @@ def main():
             for i in data["institutions"]
             if any(start in ps for who in i["coauthors"] for _, ps in who)
         ]
+        departments = data["areas"][start]["departments"]
         print(
             f"  since {start}: {len(partners)} collaborating institutions in "
-            f"{len({i['country'] for i in partners})} countries"
+            f"{len({i['country'] for i in partners})} countries; "
+            f"{len(departments)} departments, "
+            f"{sum(d[5] for d in departments)} uncertain"
         )
 
 

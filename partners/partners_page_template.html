@@ -112,6 +112,8 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .bars { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .bars li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) 3.2rem; gap: 10px; align-items: center; font-size: 0.86rem; }
 .bars .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Kinds of institution: longer labels, with the number of co-authors */
+#kinds li { grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.8fr) 3.2rem; }
 .bars .track { display: block; height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
 .bars .fill { display: block; height: 100%; border-radius: 4px; background: var(--ink-2); }
 .bars .n { font: 500 0.8rem var(--font-data); text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
@@ -164,6 +166,34 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
 .details dd { margin: 0; overflow-wrap: anywhere; }
 .pill { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--ink-2); }
 
+/* Rows that can be selected: name, bar, numbers */
+.rows { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.rows { --cols: minmax(0, 1.2fr) minmax(0, 1fr) 6.5rem 6.5rem; }
+.rows.three { --cols: minmax(0, 1.2fr) minmax(0, 1fr) 6.5rem 6.5rem 6.5rem; }
+.rows button { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: var(--cols); gap: 12px; align-items: center; padding: 7px 8px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+.rows button:hover, .rows button[aria-expanded="true"] { background: var(--soft); }
+.rows button:focus-visible { outline: 2px solid var(--uni); outline-offset: 1px; }
+.rows .head { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 4px 8px; display: grid; grid-template-columns: var(--cols); gap: 12px; align-items: end; }
+.rows .track { display: block; height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
+.rows .fill { display: block; height: 100%; border-radius: 4px; background: var(--ink-2); }
+.rows .n { font: 500 0.82rem var(--font-data); text-align: right; font-variant-numeric: tabular-nums; }
+.rows .n.muted { color: var(--muted); }
+.rows .head .n { text-align: right; font: inherit; }
+
+/* The institutions or departments behind a row */
+.list { list-style: none; margin: 4px 0 10px; padding: 0 8px; display: grid; gap: 8px; font-size: 0.84rem; }
+.list > li { border-bottom: 1px solid var(--line); padding-bottom: 8px; display: grid; gap: 4px; }
+.list .line { display: flex; justify-content: space-between; gap: 16px; }
+.list b { font-weight: 600; }
+.list .sub { color: var(--muted); font-size: 0.8rem; }
+.list ul { list-style: none; margin: 0; padding: 0 0 0 12px; display: grid; gap: 3px; color: var(--ink-2); }
+.list .count { font: 500 0.78rem var(--font-data); color: var(--ink-2); white-space: nowrap; }
+.tag { font: 500 0.68rem var(--font-data); text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-left: 6px; white-space: nowrap; }
+@media (max-width: 640px) {
+  .rows { --cols: minmax(0, 1fr) 4.5rem 4.5rem; }
+  .rows.three { --cols: minmax(0, 1fr) 4.5rem 4.5rem 4.5rem; }
+  .rows .track, .rows .head span:nth-child(2) { display: none; }
+}
 .method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
 .method h2 { font-size: 1.1rem; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -215,7 +245,7 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
     <div class="two">
       <div class="card list-card">
         <h3>Kinds of institution</h3>
-        <p class="note">Number of collaborating institutions of each kind.</p>
+        <p class="note">Number of collaborating institutions of each kind, with their co-authors. Research institutes include non-profit and government research organisations.</p>
         <ul class="bars" id="kinds"></ul>
       </div>
       <div class="card list-card">
@@ -234,6 +264,14 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
       <p class="note">Institutions that are partners on the centre's projects, from Simula's project pages and the NVA project register. These are formal project partnerships, separate from the co-authorship counts above. Select a project to see it in the timeline.</p>
       <div class="table-wrap"><table id="project-partners"></table></div>
     </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>By research area</h2>
+      <p>The departments and institutions where the centre's co-authors work, by research area, from the name of their department. An uncertain classification means that no department or institute was found, and the area comes from a faculty covering several areas, from the topics of the co-authors' research, or the institution is not known. Select a row to see the departments.</p>
+    </div>
+    <div class="card"><ul class="rows three" id="areas"></ul></div>
   </section>
 
   <section id="projects-section">
@@ -256,6 +294,7 @@ tbody tr.clickable:hover, tbody tr.clickable:focus-visible { background: var(--s
   <section class="method">
     <h2>How this was made</h2>
     <p>Co-authors and their institutions come from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, looked up by DOI for the investigators' publications in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv). Publications without a DOI, mostly older ones, are not included. Each co-author is counted once, at their main institution: the one they are listed at most often on these publications in the period, as on the overview page. Colleagues whose main institution is in the Simula Group, and the investigators' own other affiliations on their papers (such as a professorship at a university), are not counted.</p>
+    <p>Research areas come from the name of each co-author's department, from the first of these that names one: their affiliation on the publications with the centre's investigators; their public <a href="https://orcid.org" target="_blank" rel="noopener">ORCID</a> record; their affiliation on their other recent publications; at research institutes and companies, the field of the institution; an institute, centre or laboratory; and, as an uncertain classification, a faculty covering several areas or the field of their research in OpenAlex. At hospitals, a department decides, and otherwise clinical medicine. Departments are counted per institution, and an institution taken as a whole (such as a company) counts as one. The area is that of the department a person belongs to, not always their research: a physicist working on the brain counts as physics. A few institutions and departments are set by hand where OpenAlex has none or the wrong one.</p>
     <p id="projects-method">Projects come from Simula's project pages and the NVA project register, selected and checked by hand. Funders are shown as listed on the project pages.</p>
     <p id="coverage"></p>
     <p id="generated"></p>
@@ -284,7 +323,7 @@ const countryName = (() => {
   catch (e) { return c => c || "Unknown"; }
 })();
 const surname = n => n.split(" ").slice(-1)[0];
-const state = { period: "2021", kind: "all", zoom: "world", projects: "active", selected: null, institution: null };
+const state = { period: "2021", kind: "all", zoom: "world", open: null, projects: "active", selected: null, institution: null };
 
 function el(tag, attrs = {}, parent) {
   const e = document.createElement(tag);
@@ -375,6 +414,7 @@ function renderFacts(list) {
   const active = DATA.projects.filter(p => p.status === "active").length;
   const items = [
     [list.length, "collaborating institutions"],
+    [DATA.areas[state.period].departments.length, "departments"],
     [new Set(list.map(i => i.country)).size, "countries"],
     [list.filter(i => i.type === "Hospitals" && i.n >= MIN_CLINICAL).length, "hospitals"],
     ...(DATA.showProjects ? [[active, "active projects"]] : []),
@@ -468,10 +508,15 @@ function renderCountries(list) {
 }
 
 // Partner kinds and tables
-function renderKinds(list) {
-  const order = ["Universities", "Hospitals", "Research institutes", "Companies", "Non-profits", "Government", "Other"];
-  const counts = d3.rollup(list, v => v.length, i => i.type);
-  bars(document.getElementById("kinds"), order.filter(t => counts.get(t)).map(t => [t, counts.get(t)]));
+function renderKinds() {
+  // Institutions of each kind, with their co-authors in the period
+  const institutions = DATA.areas[state.period].institutions.filter(i => i[0]);
+  const rows = DATA.kinds.map(k => {
+    const list = institutions.filter(i => i[2] === k);
+    const n = list.reduce((s, i) => s + i[3], 0);
+    return [`${k} · ${n} co-author${n === 1 ? "" : "s"}`, list.length];
+  });
+  bars(document.getElementById("kinds"), rows.filter(r => r[1]));
 }
 function table(id, headers, rows, names) {
   const t = document.getElementById(id);
@@ -647,13 +692,85 @@ function renderRcnSummary() {
     : "";
 }
 
+// Departments by research area
+// Rows: {key, label, color, bar, numbers: [[value, muted]], open(li)}
+function renderRows(id, headers, rows) {
+  const ul = document.getElementById(id);
+  ul.replaceChildren();
+  ul.classList.toggle("three", headers.length === 3);
+  const head = el("li", { class: "head" }, ul);
+  el("span", { text: "Research area" }, head);
+  el("span", {}, head);
+  for (const h of headers) el("span", { class: "n", text: h }, head);
+  const max = Math.max(1, ...rows.map(r => r.bar));
+  for (const r of rows) {
+    const li = el("li", {}, ul);
+    const open = state.open === `${id}|${r.key}`;
+    const b = el("button", { type: "button", "aria-expanded": String(open) }, li);
+    const name = el("span", {}, b);
+    if (r.color) el("i", { class: "dot", style: `background:var(${r.color})` }, name);
+    name.append(r.label);
+    const fill = el("span", { class: "fill" }, el("span", { class: "track" }, b));
+    fill.style.width = `${(100 * r.bar) / max}%`;
+    if (r.color) fill.style.background = `var(${r.color})`;
+    for (const [v, muted] of r.numbers) el("span", { class: `n${muted ? " muted" : ""}`, text: v }, b);
+    b.addEventListener("click", () => { state.open = open ? null : `${id}|${r.key}`; renderAreas(); });
+    if (open) r.open(li);
+  }
+}
+
+const sum = (list, f) => list.reduce((n, x) => n + f(x), 0);
+const coauthorCount = n => `${n} co-author${n === 1 ? "" : "s"}`;
+function departmentList(li, departments) {
+  const byInstitution = new Map();
+  for (const d of departments) {
+    if (!byInstitution.has(d[0])) byInstitution.set(d[0], []);
+    byInstitution.get(d[0]).push(d);
+  }
+  const ul = el("ul", { class: "list" }, li);
+  const order = [...byInstitution.entries()].sort((a, b) => sum(b[1], d => d[4]) - sum(a[1], d => d[4]) || a[0].localeCompare(b[0]));
+  for (const [inst, ds] of order) {
+    const item = el("li", {}, ul);
+    const line = el("div", { class: "line" }, item);
+    const left = el("span", {}, line);
+    el("b", { text: inst || "Institution not known in OpenAlex" }, left);
+    if (ds[0][1]) el("span", { class: "sub", text: ` · ${ds[0][1]}` }, left);
+    el("span", { class: "count", text: coauthorCount(sum(ds, d => d[4])) }, line);
+    const sub = el("ul", {}, item);
+    for (const [, , dept, , n, uncertain, source] of ds) {
+      const d = el("li", { class: "line" }, sub);
+      const left = el("span", {}, d);
+      left.append(dept || (source === "the institution" ? "The institution as a whole" : "Department not known"));
+      // Name only the less usual sources
+      const unnamed = ["publications with the centre", "their other publications", "the institution"];
+      if (source && !unnamed.includes(source)) el("span", { class: "sub", text: ` (${source})` }, left);
+      if (uncertain) el("span", { class: "tag", text: "uncertain classification" }, left);
+      if (ds.length > 1) el("span", { class: "count", text: coauthorCount(n) }, d);
+    }
+  }
+}
+
+function renderAreas() {
+  const departments = DATA.areas[state.period].departments;
+  renderRows("areas", ["Departments", "Co-authors", "Uncertain"], DATA.fields.map(g => {
+    const list = departments.filter(d => d[3] === g);
+    const uncertain = list.filter(d => d[5]).length;
+    return {
+      key: g, label: g, color: "", bar: list.length,
+      numbers: [[list.length, false], [sum(list, d => d[4]), false], [uncertain || "–", true]],
+      open: li => departmentList(li, list),
+    };
+  }).filter(r => r.bar));
+}
+
 function renderAll() {
   const list = partners();
   renderCoverage(list);
   renderFacts(list);
   renderMap(list);
   renderCountries(list);
-  renderKinds(list);
+  renderKinds();
+  renderAreas();
   renderTables(list);
   if (state.institution) showInstitution(state.institution, false);
 }
