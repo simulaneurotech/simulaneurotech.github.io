@@ -298,3 +298,43 @@ def test_page_loads_nothing_from_other_sites():
                 continue
             assert not re.match(r"[a-z]+:|//", url), (page.name, url)
             assert (site / url).exists(), (page.name, url)
+
+
+def test_records_of_the_same_person_are_merged(tmp_path):
+    path = tmp_path / "person_merges.csv"
+    path.write_text(
+        "author,openalex_author_id,same_as,note\n"
+        "Sylvia Saalfield,A2,A1,misspelt\n"
+        "Kei Yamamoto,,A3,no ID on one paper\n",
+        encoding="utf-8",
+    )
+    people = bpp.read_person_merges(path)
+    assert people == {"A2": "A1", "kei yamamoto": "A3"}
+    affiliations = [
+        aff("1", "2023", "Sylvia Saalfield", "Magdeburg", "m", openalex_author_id="A2"),
+        aff("2", "2023", "Sylvia Saalfeld", "Magdeburg", "m", openalex_author_id="A1"),
+        aff("3", "2023", "Kei Yamamoto", "UiO", "u"),
+        aff(
+            "4",
+            "2023",
+            "Kei Yamamoto",
+            "Simula Research Laboratory",
+            "s",
+            openalex_author_id="A3",
+        ),
+        aff(
+            "5",
+            "2023",
+            "Kei Yamamoto",
+            "Simula Research Laboratory",
+            "s",
+            openalex_author_id="A3",
+        ),
+    ]
+    found, _ = bpp.main_institutions(affiliations, 2016, people=people)
+    # One Sylvia Saalfeld, named as in the record kept, with both papers;
+    # Kei Yamamoto is one person, mainly at Simula, so not a co-author
+    assert {c: (v["name"], len(v["rows"])) for c, v in found.items()} == {
+        "A1": ("Sylvia Saalfeld", 2)
+    }
+    assert bpp.read_person_merges(tmp_path / "missing.csv") == {}
