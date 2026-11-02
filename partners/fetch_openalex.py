@@ -27,9 +27,6 @@ Writes to output_dir:
   title or abstract has methods terms, physiological terms or wireless
   terms (for publication_relevance.py). Abstracts themselves are not
   stored, as they are usually copyrighted
-- openalex_authors.csv: one row per co-author: the research field most of
-  their own work is in (for grouping co-authors when the affiliation text
-  says nothing)
 - partner_institutions.csv: one row per institution: country, type, ROR ID,
   city and coordinates, number of the centre's publications with a co-author
   there, and which investigators those publications are by
@@ -130,31 +127,6 @@ def fetch_places(rors):
                 )
         time.sleep(0.3)
     return places
-
-
-def fetch_author_fields(author_ids):
-    """Return {OpenAlex author ID: the field most of their topics are in}."""
-    fields = {}
-    for i in range(0, len(author_ids), 50):
-        batch = author_ids[i : i + 50]
-        url = f"{API}/authors?" + urllib.parse.urlencode(
-            {
-                "filter": "openalex_id:" + "|".join(batch),
-                "per-page": 50,
-                "select": "id,topics",
-            }
-        )
-        with urllib.request.urlopen(url, timeout=60) as response:
-            for author in json.load(response)["results"]:
-                counts = Counter()
-                for topic in author.get("topics") or []:
-                    counts[topic["field"]["display_name"]] += topic.get("count", 1)
-                if counts:
-                    fields[author["id"].rsplit("/", 1)[-1]] = counts.most_common(1)[0][
-                        0
-                    ]
-        time.sleep(0.3)
-    return fields
 
 
 def abstract(work):
@@ -332,20 +304,6 @@ def main():
             for rid, doi in with_doi.items()
             if doi in works
         )
-    co_authors = sorted(
-        {
-            r["openalex_author_id"]
-            for r in rows
-            if r["openalex_author_id"] and not r["investigator"]
-        }
-    )
-    author_fields = fetch_author_fields(co_authors)
-    with (output_dir / "openalex_authors.csv").open(
-        "w", encoding="utf-8", newline=""
-    ) as f:
-        writer = csv.writer(f)
-        writer.writerow(["openalex_author_id", "main_field"])
-        writer.writerows(sorted(author_fields.items()))
     places = fetch_places(sorted({r["ror"] for r in rows if r["ror"]}))
     institutions = partner_institutions(rows, places)
     with (output_dir / "partner_institutions.csv").open(

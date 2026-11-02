@@ -12,9 +12,9 @@ from [`../site/partners.html`](../site/partners.html), shows where the centre's 
 work at, and clinical collaborators (hospitals with joint publications), with
 a switch for the publication period (since 2024, 2021 or 2016). Selecting an
 institution on the map or in a table lists its joint publications, with the
-investigators and the co-authors at that institution. Co-authors are grouped
-into mathematics and technology, experimental and basic medicine, and
-clinical medicine, with a switch to show one field. The centre's projects by
+investigators and the co-authors at that institution. The map can show all
+institutions or only one kind (universities, hospitals, or institutes and
+others), for the world, Europe, or the US and Canada. The centre's projects by
 funder and the formal project partners are hidden for now
 (`SHOW_PROJECTS = False` in `build_partners_page.py`). You can also open it
 locally in a browser.
@@ -30,14 +30,13 @@ The scripts read the investigators and their publications from
 | `fetch_simula_projects.py` | Fetches all projects on [simula.no/research/projects](https://www.simula.no/research/projects) from Simula's public content API |
 | `fetch_nva_projects.py` | Fetches the investigators' projects from the NVA project register |
 | `fetch_prosjektbanken.py` | Looks up the Research Council of Norway projects in `centre_projects.csv` in [Prosjektbanken](https://prosjektbanken.forskningsradet.no), by grant number |
-| `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field and each co-author's own main field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
+| `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
 | `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason), keeping decisions made by hand |
 | `build_partners_page.py` | Builds `../site/partners.html` from the curated projects and the OpenAlex data |
 | `partners_page_template.html` | Page template: layout, map, tables and timeline |
 | `world-110m.json` | Country outlines for the map, from the [world-atlas](https://github.com/topojson/world-atlas) package (ISC license, built from Natural Earth) |
 | `institution_merges.csv` | **Curated by hand**: institutions to merge or rename on the page (`institution` as in OpenAlex, `use_name` to show), such as the Sørlandet sykehus hospitals, and Gentofte Hospital as part of Copenhagen University Hospital |
 | `publication_relevance.csv` | **Checked by hand**: the suggestion for each publication, and a `decision` column (keep or drop) that overrides it. Re-running `publication_relevance.py` keeps the decisions and notes |
-| `field_rules.csv` | **Curated by hand**: rules that put co-authors in a field (`math`, `basic` or `clinical`) by their affiliation text; the first matching pattern wins |
 | `affiliation_exclusions.csv` | **Curated by hand**: affiliations OpenAlex has wrong for individual co-authors (`author`, `institution`), left out on the page |
 | `centre_projects.csv` | **Curated by hand**, not written by any script: the projects to show as centre projects (`include`), with investigators, funders, grants and partners checked. Seeded from `simula_projects.csv` with the projects naming an investigator and those about the brain, heart or neuroscience. `nva_project_id` links a project to the NVA project register; `partners` combines the partners on Simula's page with the institutions of NVA participants who are not centre investigators (Simula Group left out) |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
@@ -46,7 +45,6 @@ The scripts read the investigators and their publications from
 | `prosjektbanken_projects.csv` | Research Council of Norway projects: titles, project leader and lead institution, years, total funding of the whole project (NOK), programmes, scheme, funding ministries, summary and reported results |
 | `openalex_affiliations.csv` | One row per author per institution per publication, with the affiliation text on the paper |
 | `openalex_works.csv` | One row per publication: research field and subfield, title, and whether the title or abstract has methods, physiological or wireless terms |
-| `openalex_authors.csv` | The field most of each co-author's own work is in |
 | `partner_institutions.csv` | Institutions where the investigators' co-authors are (not the investigators' own affiliations): country, type (education, healthcare, company, ...), ROR ID, city and coordinates, number of joint publications and which investigators |
 
 ## Usage
@@ -108,18 +106,6 @@ has no decision and the suggestion is `keep` (`relevant` in
 `publication_relevance.py`). Fill in `decision` in
 `publication_relevance.csv` for the reviews and for any suggestion you
 disagree with. The pages do not use this at present.
-
-## Fields of collaboration
-
-Each co-author on each publication is put in one field: mathematics and
-technology, experimental and basic medicine, or clinical medicine. The first
-rule in `field_rules.csv` whose pattern matches the affiliation text on the
-paper decides (the institution's own name is removed first, so "University
-of Life Sciences" does not count as life sciences). Without a match, a
-co-author at a hospital counts as clinical, and otherwise the field of their
-own research in OpenAlex decides (`AUTHOR_GROUPS` in
-`build_partners_page.py`). Those still undecided are "unclassified". An
-institution can have co-authors in several fields.
 
 ## Sources and limitations
 

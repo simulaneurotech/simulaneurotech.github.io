@@ -1,5 +1,0 @@
-pattern,group,note
-neurosurg|neurolog|neuroradiolog|radiolog|cardiolog|surger|surgical|an(a)?esthe|psychiatr|oncolog|p(a)?ediatr|clinical|intensive care|emergency|nephrolog|internal medicine|nuclear medicine|obstetr|gyn(a)?ecolog|rheumatol|ophthalmolog|otorhinolaryng,clinical,Clinical departments
-physiolog|neurosci|basic medical|biomedic|bioscien|biolog|molecular|anatomy|pharmacol|biochem|kavli|genetic|immunolog|veterinar|psycholog|brain research|neuroimaging,basic,Experimental and basic medicine
-mathemat|informatic|comput|engineer|physics|data science|statistic|electric|mechanic|technolog|numerical|simulation|cybernetic|information and communication|applied sciences|aerospace|polytechnic|technical university|technische|energy|artificial intelligence|defen[cs]e research,math,Mathematics and technology
-hospital|clinic|sykehus|helse|health trust|medical cent|medical center|medical centre|health system,clinical,Hospitals and health trusts without a department
