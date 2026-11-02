@@ -3,7 +3,7 @@
 Tools and data related to the [Centre for Digital Neurotechnology](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology)
 at Simula.
 
-**Overview page:** <https://meg-simula.github.io/centre-for-digital-neurotechnology/>
+**Overview page:** <https://simulaneurotech.github.io/>
 shows the investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
 
