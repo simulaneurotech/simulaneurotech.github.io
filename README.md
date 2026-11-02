@@ -30,16 +30,46 @@ page. It is a draft for review, and is built from
 
 ## Tests
 
-Each folder has its own tests; see its README. A GitHub Actions workflow
-(`.github/workflows/tests.yml`) runs them daily and can be started manually
-from the Actions tab.
+Each folder has its own tests; see its README. A regression test in
+`tests/` rebuilds everything from the data in the repository
+(`./refresh.sh --no-fetch`, in a copy) and checks that this reproduces the
+committed files, apart from the date the pages were generated:
+
+```sh
+python3 -m pytest tests
+```
+
+A GitHub Actions workflow (`.github/workflows/tests.yml`) runs all the tests
+daily and can be started manually from the Actions tab.
+
+## Refreshing the data
+
+```sh
+./refresh.sh
+```
+
+fetches the investigators' publications from NVA and their co-authors'
+institutions from OpenAlex, rebuilds the three pages in `site/`, runs the
+tests and prints the key figures before and after. `./refresh.sh --no-fetch`
+rebuilds from the data already in the repository. Pages whose only change is
+the date they were generated are left as they were. Nothing is committed:
+check the changes first, in particular the review files written by
+`nva/publication_data.py` (duplicates, names, book editors) and any new
+institutions to merge or exclude (`partners/institution_merges.csv`,
+`partners/affiliation_exclusions.csv`), then commit and push to publish.
+
+A weekly workflow (`.github/workflows/refresh.yml`, Mondays at 04:00 UTC, or
+started manually from the Actions tab) runs `refresh.sh` and, if anything
+changed, opens a pull request with the key figures. Nothing is published
+until the pull request is merged. It needs "Allow GitHub Actions to create
+and approve pull requests" to be switched on in the repository's (and the
+organisation's) Settings → Actions → General.
 
 ## Website
 
 A second workflow (`.github/workflows/pages.yml`) publishes `site/` on GitHub
-Pages whenever it changes on `main`. To update the page, rebuild it
-(`cd centre && python3 build_centre_page.py`), then commit and push
-`site/index.html`.
+Pages whenever it changes on `main`. To update the pages, refresh the data
+or rebuild them (see above), then commit and push `site/`.
 
 The page makes no requests to other sites: the fonts and d3 are served from
 `site/assets/` rather than from Google Fonts or a CDN, so visitors' IP
