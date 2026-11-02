@@ -2,6 +2,9 @@
 
 Usage: python build_partners_page.py [output.html]
 
+Writes ../site/partners.html by default, a page on the website next to the
+overview page, which loads its fonts and scripts from ../site/assets.
+
 Reads centre_projects.csv (curated by hand; rows with include = "no" and
 projects that started before FIRST_PROJECT_YEAR are left out), institution_merges.csv (institutions to merge or rename, curated
 by hand), prosjektbanken_projects.csv (Research Council of Norway funding,
@@ -11,13 +14,13 @@ fetch_openalex.py), world-110m.json (country outlines from the world-atlas
 package, built from Natural Earth) and ../nva/investigators.csv, and fills
 partners_page_template.html.
 
-Members of the Simula Group (institutions with "Simula" in their name) are
-not counted as partners, and neither are the investigators' own affiliations
-on their papers: partners come from co-authors' affiliations only.
-
-Only publications relevant to the centre are used (publication_relevance.csv,
-from publication_relevance.py and checked by hand). Each co-author on each
-publication is put in a field (FIELD_GROUPS): by the first rule in
+Institutions are counted as on the overview page (../centre): each co-author
+once, at their main institution in the period, the one they are listed at
+most often (main_institutions). Colleagues whose main institution is in the
+Simula Group (institutions with "Simula" in their name) are not counted, and
+neither are the investigators' own affiliations on their papers. All the
+investigators' publications found in OpenAlex are used. Each co-author on
+each publication is put in a field (FIELD_GROUPS): by the first rule in
 field_rules.csv whose pattern matches their affiliation text (with the
 institution's own name removed), else as clinical if the institution is a
 hospital, else by the field most of their own work is in
@@ -31,12 +34,13 @@ import json
 import re
 import sys
 import unicodedata
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 NVA_DIR = HERE.parent / "nva"
 TEMPLATE = HERE / "partners_page_template.html"
+OUTPUT = HERE.parent / "site" / "partners.html"
 
 MONTHS = {
     m: i
@@ -60,6 +64,11 @@ MONTHS = {
 }
 # Only projects that started in this year or later are shown
 FIRST_PROJECT_YEAR = 2016
+# The project timeline and project partners are hidden for now; set to True
+# to show them again
+SHOW_PROJECTS = False
+# Publication periods on the page: since each of these years
+SINCE = [2024, 2021, 2016]
 FIELD_GROUPS = {
     "math": "Mathematics & technology",
     "basic": "Experimental & basic medicine",
@@ -264,6 +273,49 @@ def name_key(name):
     return " ".join(folded.lower().split())
 
 
+def year_of(value):
+    return int(value) if str(value).isdigit() else 0
+
+
+def main_institutions(affiliations, start, merges=None, exclusions=()):
+    """Co-authors on the investigators' publications from start on, each at
+    their main institution: the one they are listed at most often on these
+    publications (merged as in merges, {institution: name to use}).
+
+    affiliations are openalex_affiliations.csv rows; exclusions are (author,
+    institution) pairs to leave out. Co-authors are told apart by their
+    OpenAlex ID, else by name. Colleagues whose main institution is in the
+    Simula Group are left out; co-authors with no known institution have main
+    institution "".
+
+    Returns ({co-author: {"name", "main", "rows"}}, {institution: country})."""
+    merges = merges or {}
+    excluded = {(name_key(a), name_key(i)) for a, i in exclusions}
+    counts = defaultdict(Counter)  # co-author -> institution -> rows
+    name_of, rows_of, country_of = {}, defaultdict(list), {}
+    for r in affiliations:
+        if year_of(r["year"]) < start or r["investigator"]:
+            continue
+        if (name_key(r["author"]), name_key(r["institution"])) in excluded:
+            continue
+        coauthor = r["openalex_author_id"] or name_key(r["author"])
+        name_of.setdefault(coauthor, r["author"])
+        rows_of[coauthor].append(r)
+        # every co-author counts, with or without an institution
+        counts[coauthor]
+        if r["institution"]:
+            name = merges.get(r["institution"], r["institution"])
+            counts[coauthor][name] += 1
+            country_of.setdefault(name, r["country"])
+    out = {}
+    for c, by_institution in counts.items():
+        main = by_institution.most_common(1)[0][0] if by_institution else ""
+        if is_simula_group(main):
+            continue
+        out[c] = {"name": name_of[c], "main": main, "rows": rows_of[c]}
+    return out, country_of
+
+
 def partner_data(
     affiliations,
     institutions,
@@ -271,31 +323,34 @@ def partner_data(
     papers=None,
     merges=None,
     exclusions=(),
-    relevant=None,
     rules=(),
     author_fields=None,
+    since=SINCE,
 ):
-    """Publications and the institutions where co-authors are, for filtering
-    by period on the page.
+    """Publications and the co-authors' main institutions, for filtering by
+    period on the page. Counted as on the overview page: each co-author once,
+    at their main institution in the period (see main_institutions), so an
+    institution's publications are all those of the co-authors who are mainly
+    there.
 
     papers is {result ID: {"year", "title", "doi", "nva_id"}} from ../nva, for
     titles and links. merges is {institution name: name to use}
     (institution_merges.csv); merged institutions take the place and type of
     the one with most publications. exclusions is a set of (author,
     institution) pairs that are wrong in OpenAlex (affiliation_exclusions.csv).
-    relevant is the set of result IDs to use (all when None); rules and
-    author_fields decide each co-author's field group."""
+    rules and author_fields decide each co-author's field group, from their
+    affiliation on each publication.
+
+    Each institution lists its publications, and for each the co-authors as
+    [name, field group, [periods]], the periods (from since) in which this is
+    their main institution."""
     papers, merges, author_fields = papers or {}, merges or {}, author_fields or {}
-    excluded = {(name_key(a), name_key(i)) for a, i in exclusions}
     info = {(r["ror"] or r["institution"]): r for r in institutions}
     index = {name: i for i, name in enumerate(investigators)}
     publications, pub_index = [], {}
-    coauthors = defaultdict(lambda: defaultdict(set))  # name -> pub -> authors
-    rows_of = defaultdict(set)  # name -> institution keys merged into it
-    for r in affiliations:
+
+    def publication(r):
         rid = r["result_id"]
-        if relevant is not None and rid not in relevant:
-            continue
         if rid not in pub_index:
             pub_index[rid] = len(publications)
             paper = papers.get(rid, {})
@@ -305,7 +360,7 @@ def partner_data(
             )
             publications.append(
                 {
-                    "year": int(r["year"]) if r["year"].isdigit() else None,
+                    "year": year_of(r["year"]) or None,
                     "title": paper.get("title", ""),
                     "url": doi
                     or (
@@ -316,24 +371,47 @@ def partner_data(
                     "inv": [index[n] for n in names],
                 }
             )
+        return pub_index[rid]
+
+    def merged(r):
+        return merges.get(r["institution"], r["institution"])
+
+    # All the investigators' publications in the periods, also those with no
+    # collaborating institution
+    for r in affiliations:
+        if year_of(r["year"]) >= min(since):
+            publication(r)
+
+    # Place and type: the merged institution's record with most rows
+    rows_of = defaultdict(Counter)  # name -> institution key -> rows
+    for r in affiliations:
         key = r["ror"] or r["institution"]
-        if (name_key(r.get("author", "")), name_key(r["institution"])) in excluded:
-            continue
-        if r["institution"] and key in info and not r.get("investigator"):
-            name = merges.get(r["institution"], r["institution"])
-            rows_of[name].add(key)
-            group = field_group(r, rules, author_fields)
-            coauthors[name][pub_index[rid]].add((r["author"], group))
+        if r["institution"] and key in info:
+            rows_of[merged(r)][key] += 1
+
+    names = {}  # co-author -> name, from the longest period
+    coauthors = defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
+    for start in sorted(since):
+        found, _ = main_institutions(affiliations, start, merges, exclusions)
+        for c, v in found.items():
+            if not v["main"] or v["main"] not in rows_of:
+                continue
+            names.setdefault(c, v["name"])
+            # One row per publication, preferring the one at the main
+            # institution, for the co-author's field there
+            on = {}
+            for r in v["rows"]:
+                rid = r["result_id"]
+                if rid not in on or (
+                    merged(r) == v["main"] and merged(on[rid]) != v["main"]
+                ):
+                    on[rid] = r
+            for r in on.values():
+                group = field_group(r, rules, author_fields)
+                coauthors[v["main"]][publication(r)][(c, group)].add(start)
     out = []
     for name, by_pub in coauthors.items():
-        # Place and type from the merged institution with most publications
-        keys = sorted(
-            rows_of[name],
-            key=lambda k: (
-                -sum(1 for r in affiliations if (r["ror"] or r["institution"]) == k)
-            ),
-        )
-        i = info[keys[0]]
+        i = info[rows_of[name].most_common(1)[0][0]]
         pubs = sorted(by_pub)
         out.append(
             {
@@ -343,9 +421,14 @@ def partner_data(
                 "city": i["city"],
                 "lat": float(i["latitude"]) if i["latitude"] else None,
                 "lon": float(i["longitude"]) if i["longitude"] else None,
-                "own": is_simula_group(name),
                 "pubs": pubs,
-                "coauthors": [[list(a) for a in sorted(by_pub[k])] for k in pubs],
+                "coauthors": [
+                    sorted(
+                        [names[c], group, sorted(periods, reverse=True)]
+                        for (c, group), periods in by_pub[k].items()
+                    )
+                    for k in pubs
+                ],
             }
         )
     out.sort(key=lambda x: (-len(x["pubs"]), x["name"]))
@@ -370,17 +453,6 @@ def collect(here=HERE):
         (r["author"], r["institution"])
         for r in read_csv(here / "affiliation_exclusions.csv")
     ]
-    relevance = (
-        read_csv(here / "publication_relevance.csv")
-        if (here / "publication_relevance.csv").exists()
-        else []
-    )
-    sys.path.insert(0, str(here))
-    from publication_relevance import relevant as is_relevant
-
-    relevant = (
-        {r["result_id"] for r in relevance if is_relevant(r)} if relevance else None
-    )
     author_fields = {
         r["openalex_author_id"]: r["main_field"]
         for r in (
@@ -396,7 +468,6 @@ def collect(here=HERE):
         data.papers,
         merges,
         exclusions,
-        relevant,
         read_field_rules(here / "field_rules.csv"),
         author_fields,
     )
@@ -416,16 +487,14 @@ def collect(here=HERE):
         ),
         "publications": publications,
         "fields": FIELD_GROUPS,
-        "relevance": {
-            "used": len(relevant) if relevant is not None else None,
-            "total": len(relevance),
-        },
+        "since": SINCE,
+        "showProjects": SHOW_PROJECTS,
         "institutions": institutions,
     }
 
 
 def main():
-    output = Path(sys.argv[1] if len(sys.argv) > 1 else HERE / "partners_page.html")
+    output = Path(sys.argv[1]) if len(sys.argv) > 1 else OUTPUT
     data = collect()
     world = (HERE / "world-110m.json").read_text(encoding="utf-8")
     html = (
@@ -434,11 +503,16 @@ def main():
         .replace("__WORLD__", world)
     )
     output.write_text(html, encoding="utf-8")
-    partners = [i for i in data["institutions"] if not i["own"]]
-    print(
-        f"{output.name}: {len(data['projects'])} projects, {len(partners)} collaborating "
-        f"institutions in {len({i['country'] for i in partners})} countries"
-    )
+    for start in SINCE:
+        partners = [
+            i
+            for i in data["institutions"]
+            if any(start in ps for who in i["coauthors"] for _, _, ps in who)
+        ]
+        print(
+            f"  since {start}: {len(partners)} collaborating institutions in "
+            f"{len({i['country'] for i in partners})} countries"
+        )
 
 
 if __name__ == "__main__":

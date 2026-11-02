@@ -52,8 +52,11 @@ publications), the institutions (with their co-authors and publications) or
 the countries (with their institutions). `build_centre_page.py` works out the
 lists together with the numbers, so they always agree.
 
-Unlike the partners page, all the investigators' publications are used, not
-only those marked relevant in `../partners/publication_relevance.csv`.
+All the investigators' publications are used, not only those marked
+relevant in `../partners/publication_relevance.csv`. The partners page
+counts institutions and countries the same way, with the same function
+(`main_institutions` in `../partners/build_partners_page.py`), and a test
+checks that the two pages agree.
 
 The project timeline is hidden for now (`SHOW_PROJECTS = False` in
 `build_centre_page.py`); set it to `True` to show it again. Projects are the
