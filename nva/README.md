@@ -7,10 +7,11 @@ replaced Cristin), with shared publications between investigators and their
 co-authors outside the centre. The data keeps its Cristin person and result
 IDs, which NVA carries over.
 
-**Interactive page:** `collaboration_map.html` shows the co-authorship network with the outside co-authors who link
+**Interactive page:** [`../site/coauthorship.html`](../site/coauthorship.html) shows the co-authorship network with the outside co-authors who link
 investigators, direct and indirect links between all pairs, and co-authored
-against total publications over time. Open it locally in a
-browser.
+against total publications over time. It is published on the website at
+<https://simulaneurotech.github.io/coauthorship.html>, but not yet linked
+from the overview page. You can also open it locally in a browser.
 
 ## Files
 
@@ -21,9 +22,8 @@ browser.
 | `publication_data.py` | Merges duplicate publications and name variants; used by the scripts below |
 | `coauthorship.py` | Counts shared publications between each pair of investigators |
 | `external_collaborators.py` | Finds co-authors outside the centre, and those shared by several investigators |
-| `collaboration_map.py` | Builds `collaboration_map.html` from the publication lists |
+| `collaboration_map.py` | Builds `../site/coauthorship.html` from the publication lists |
 | `collaboration_map_template.html` | Page template: layout, node positions and the "What stands out" text |
-| `collaboration_map.html` | The interactive co-authorship page (generated) |
 | `publications/<Name>.csv` | One file per person: year, title, category, journal, DOI, result ID (Cristin result ID, or NVA identifier for records without one), NVA identifier, venue (journal; book or proceedings for chapters and conference papers; publisher for books) |
 | `publications/cristin_ids.csv` | The Cristin person IDs used for each name, and number of results |
 | `publications/duplicate_publications.csv` | Publications registered more than once, and which record was kept |
@@ -44,12 +44,12 @@ browser.
 Requires Python 3 (standard library only). Run from this folder:
 
 ```sh
-cd cristin
+cd nva
 python3 fetch_nva.py               # writes publications/ and contributors/
 python3 publication_data.py        # writes the duplicate, name and editor review files
 python3 coauthorship.py            # writes publications/coauthorship_*.csv
 python3 external_collaborators.py  # writes contributors/external_coauthors.csv, bridges.csv, indirect_links.csv
-python3 collaboration_map.py       # writes collaboration_map.html
+python3 collaboration_map.py       # writes ../site/coauthorship.html
 ```
 
 The node positions and the "What stands out" text in
@@ -119,7 +119,7 @@ multi-group papers add many outside co-authors at once.
 ## Tests
 
 ```sh
-cd cristin
+cd nva
 python3 -m pytest
 ```
 

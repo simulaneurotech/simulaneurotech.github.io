@@ -1,4 +1,5 @@
 import json
+import re
 
 import collaboration_map
 from publication_data import load
@@ -99,3 +100,21 @@ def test_main_fills_template(dataset, tmp_path, monkeypatch):
     line = next(line for line in html.splitlines() if line.startswith("const DATA = "))
     data = json.loads(line.removeprefix("const DATA = ").removesuffix(";"))
     assert data == collaboration_map.collect(load(publications, contributors))
+
+
+def test_page_loads_nothing_from_other_sites():
+    # The fonts are served from ../site/assets, so that visitors' browsers
+    # make no requests elsewhere (links the reader follows are fine)
+    site = collaboration_map.OUTPUT.parent
+    for page in [collaboration_map.TEMPLATE, collaboration_map.OUTPUT]:
+        html = page.read_text(encoding="utf-8")
+        tags = [
+            t for t in re.findall(r"<[a-z]+\b[^>]*>", html) if not t.startswith("<a ")
+        ]
+        loaded = [u for t in tags for u in re.findall(r'\b(?:src|href)="([^"]*)"', t)]
+        assert "@import" not in html and "url(http" not in html, page.name
+        for url in loaded:
+            if url.startswith("data:"):
+                continue
+            assert not re.match(r"[a-z]+:|//", url), (page.name, url)
+            assert (site / url).exists(), (page.name, url)
