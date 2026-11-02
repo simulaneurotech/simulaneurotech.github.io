@@ -48,7 +48,12 @@ AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
 sys.path.insert(0, str(PARTNERS_DIR))
-from build_partners_page import main_institutions, projects, read_person_merges
+from build_partners_page import (
+    main_institutions,
+    projects,
+    read_colleagues,
+    read_person_merges,
+)
 from publication_data import id_order, load
 
 
@@ -64,7 +69,13 @@ def year_of(value):
 
 
 def key_figures(
-    pub_years, affiliations, since, merges=None, exclusions=(), people=None
+    pub_years,
+    affiliations,
+    since,
+    merges=None,
+    exclusions=(),
+    people=None,
+    colleagues=(),
 ):
     """Publications, co-authors, institutions and countries since each year,
     with the lists behind each number.
@@ -72,7 +83,8 @@ def key_figures(
     pub_years is {result ID: year} for the investigators' publications.
     affiliations are openalex_affiliations.csv rows; merges is {institution:
     name to use}, exclusions a list of (author, institution) to leave out and
-    people records of the same person to count as one (person_merges.csv).
+    people records of the same person to count as one (person_merges.csv);
+    colleagues are Simula colleagues to leave out (simula_colleagues.csv).
 
     Returns {year: {"publications", "coauthors", "institutions", "countries":
     counts, "lists": {"publications": [result IDs], "coauthors": [[name, main
@@ -81,7 +93,7 @@ def key_figures(
     figures = {}
     for start in since:
         found, country_of = main_institutions(
-            affiliations, start, merges, exclusions, people
+            affiliations, start, merges, exclusions, people, colleagues
         )
         pubs_of = {c: {r["result_id"] for r in v["rows"]} for c, v in found.items()}
         coauthors = sorted(found, key=lambda c: (-len(pubs_of[c]), found[c]["name"]))
@@ -237,6 +249,7 @@ def collect():
             merges,
             exclusions,
             read_person_merges(PARTNERS_DIR / "person_merges.csv"),
+            read_colleagues(PARTNERS_DIR / "simula_colleagues.csv"),
         ),
         "showProjects": SHOW_PROJECTS,
         "linkedPages": LINKED_PAGES,

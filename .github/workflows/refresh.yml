@@ -32,7 +32,7 @@ jobs:
             echo
             echo "- the review files written by \`nva/publication_data.py\` (duplicates, names, book editors)"
             echo "- new institutions that should be merged or excluded (\`partners/institution_merges.csv\`, \`partners/affiliation_exclusions.csv\`)"
-            echo "- co-authors who appear as several people (\`partners/person_merges.csv\`)"
+            echo "- co-authors who appear as several people (\`partners/person_merges.csv\`), and Simula colleagues counted as co-authors (\`partners/simula_colleagues.csv\`)"
             echo
             echo "Key figures:"
             echo

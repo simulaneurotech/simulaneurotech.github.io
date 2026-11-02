@@ -223,7 +223,18 @@ def read_person_merges(path):
     }
 
 
-def main_institutions(affiliations, start, merges=None, exclusions=(), people=None):
+def read_colleagues(path):
+    """Co-authors to count as Simula colleagues whatever their institutions
+    in OpenAlex (simula_colleagues.csv): their OpenAlex author ID, else name
+    (as compared by name_key)."""
+    if not path.exists():
+        return set()
+    return {r["openalex_author_id"] or name_key(r["author"]) for r in read_csv(path)}
+
+
+def main_institutions(
+    affiliations, start, merges=None, exclusions=(), people=None, colleagues=()
+):
     """Co-authors on the investigators' publications from start on, each at
     their main institution: the one they are listed at most often on these
     publications (merged as in merges, {institution: name to use}).
@@ -232,7 +243,8 @@ def main_institutions(affiliations, start, merges=None, exclusions=(), people=No
     institution) pairs to leave out. Co-authors are told apart by their
     OpenAlex ID, else by name; people ({co-author: co-author}, see
     read_person_merges) counts records of the same person as one, with the
-    name of the record kept. Colleagues whose main institution is in the
+    name of the record kept. Colleagues listed in colleagues (see
+    read_colleagues), and colleagues whose main institution is in the
     Simula Group are left out; co-authors with no known institution have main
     institution "".
 
@@ -263,7 +275,7 @@ def main_institutions(affiliations, start, merges=None, exclusions=(), people=No
     out = {}
     for c, by_institution in counts.items():
         main = by_institution.most_common(1)[0][0] if by_institution else ""
-        if is_simula_group(main):
+        if is_simula_group(main) or c in colleagues:
             continue
         name = name_of.get(c) or merged_name[c]
         out[c] = {"name": name, "main": main, "rows": rows_of[c]}
@@ -278,6 +290,7 @@ def partner_data(
     merges=None,
     exclusions=(),
     people=None,
+    colleagues=(),
     since=SINCE,
 ):
     """Publications and the co-authors' main institutions, for filtering by
@@ -291,7 +304,8 @@ def partner_data(
     (institution_merges.csv); merged institutions take the place and type of
     the one with most publications. exclusions is a set of (author,
     institution) pairs that are wrong in OpenAlex (affiliation_exclusions.csv).
-    people merges records of the same person (person_merges.csv).
+    people merges records of the same person (person_merges.csv), and
+    colleagues are Simula colleagues to leave out (simula_colleagues.csv).
 
     Each institution lists its publications, and for each the co-authors as
     [name, [periods]], the periods (from since) in which this is their main
@@ -344,7 +358,9 @@ def partner_data(
     names = {}  # co-author -> name, from the longest period
     coauthors = defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
     for start in sorted(since):
-        found, _ = main_institutions(affiliations, start, merges, exclusions, people)
+        found, _ = main_institutions(
+            affiliations, start, merges, exclusions, people, colleagues
+        )
         for c, v in found.items():
             if not v["main"] or v["main"] not in rows_of:
                 continue
@@ -403,6 +419,7 @@ def collect(here=HERE):
         merges,
         exclusions,
         read_person_merges(here / "person_merges.csv"),
+        read_colleagues(here / "simula_colleagues.csv"),
     )
     return {
         "generated": datetime.date.today().isoformat(),
