@@ -12,7 +12,7 @@ shows how the centre investigators publish together, and how they are linked
 through co-authors outside the centre. It is built from [`site/coauthorship.html`](site/coauthorship.html).
 
 **Draft page:** <https://simulaneurotech.github.io/partners.html>
-shows the institutions the centre's co-authors are at, in Norway and abroad:
+shows the institutions the centre's co-authors are at, nationally and internationally:
 where they are, what kinds of institutions they are, and the clinical
 collaborators. Institutions and countries are counted as on the overview
 page. It is a draft for review, and is built from

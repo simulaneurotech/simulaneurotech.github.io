@@ -226,7 +226,7 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
     <div class="section-head"><h2>More about the centre</h2></div>
     <div class="links">
       <a class="card" href="coauthorship.html">Who publishes with whom<span>How the investigators publish together, and the co-authors who link them</span></a>
-      <a class="card" href="partners.html">Who we work with<span>Collaborating institutions in Norway and abroad, and project partners</span></a>
+      <a class="card" href="partners.html">Who we work with<span>Collaborating institutions nationally and internationally</span></a>
     </div>
   </section>
 
@@ -550,7 +550,8 @@ function renderRcnSummary() {
 // Projects are shown only when SHOW_PROJECTS is set in build_centre_page.py
 document.getElementById("projects-section").hidden = !DATA.showProjects;
 document.getElementById("projects-method").hidden = !DATA.showProjects;
-document.getElementById("links-section").hidden = !DATA.showLinks;
+for (const a of document.querySelectorAll("#links-section a.card")) a.hidden = !DATA.linkedPages.includes(a.getAttribute("href"));
+document.getElementById("links-section").hidden = !DATA.linkedPages.length;
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
 if (DATA.showProjects) {
