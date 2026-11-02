@@ -3,7 +3,7 @@
 An overview page for the Centre for Digital Neurotechnology: the
 investigators, key figures on publications and co-authors, and the projects.
 
-**Page:** <https://meg-simula.github.io/centre-for-digital-neurotechnology/>,
+**Page:** <https://simulaneurotech.github.io/>,
 published from [`../site/index.html`](../site/index.html). You can also open
 that file locally in a browser.
 
