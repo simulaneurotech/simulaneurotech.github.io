@@ -1,8 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Centre for Digital Neurotechnology</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
 /* Layout: one reading column; key figures as a table across three periods, investigators, then the project timeline. Same language as the centre's other pages. */
 :root {
@@ -53,6 +56,7 @@ body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 40px 64px;
   display: grid; gap: 48px;
+  grid-template-columns: minmax(0, 1fr);
 }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
 h1 { font-size: 2.1rem; line-height: 1.15; }
@@ -77,7 +81,8 @@ header { display: grid; gap: 12px; }
 .fact b { font: 600 1.6rem/1.1 var(--font-display); }
 .fact span { font-size: 0.85rem; color: var(--muted); }
 
-section { display: grid; gap: 16px; }
+section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+[hidden] { display: none !important; }
 .section-head { display: grid; gap: 6px; }
 .section-head p { max-width: 65ch; color: var(--ink-2); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
@@ -167,6 +172,8 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
 .method h2 { font-size: 1.1rem; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+</head>
+<body>
 
 <div class="page">
   <header>
@@ -212,7 +219,7 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
     </div>
   </section>
 
-  <section>
+  <section id="links-section">
     <div class="section-head"><h2>More about the centre</h2></div>
     <div class="links">
       <a class="card" href="../nva/collaboration_map.html">Who publishes with whom<span>How the investigators publish together, and the co-authors who link them</span></a>
@@ -229,7 +236,7 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
   </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="assets/d3.min.js"></script>
 <script>
 const DATA = __DATA__;
 const LAST_YEAR = +DATA.generated.slice(0, 4);
@@ -540,6 +547,7 @@ function renderRcnSummary() {
 // Projects are shown only when SHOW_PROJECTS is set in build_centre_page.py
 document.getElementById("projects-section").hidden = !DATA.showProjects;
 document.getElementById("projects-method").hidden = !DATA.showProjects;
+document.getElementById("links-section").hidden = !DATA.showLinks;
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
 if (DATA.showProjects) {
@@ -547,3 +555,5 @@ if (DATA.showProjects) {
   renderRcnSummary();
 }
 </script>
+</body>
+</html>
