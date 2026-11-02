@@ -52,6 +52,7 @@ from build_partners_page import (
     main_institutions,
     projects,
     read_colleagues,
+    read_corrections,
     read_person_merges,
 )
 from publication_data import id_order, load
@@ -76,6 +77,7 @@ def key_figures(
     exclusions=(),
     people=None,
     colleagues=(),
+    fixed=None,
 ):
     """Publications, co-authors, institutions and countries since each year,
     with the lists behind each number.
@@ -84,7 +86,8 @@ def key_figures(
     affiliations are openalex_affiliations.csv rows; merges is {institution:
     name to use}, exclusions a list of (author, institution) to leave out and
     people records of the same person to count as one (person_merges.csv);
-    colleagues are Simula colleagues to leave out (simula_colleagues.csv).
+    colleagues are Simula colleagues to leave out (simula_colleagues.csv);
+    fixed sets co-authors' institutions by hand (coauthor_corrections.csv).
 
     Returns {year: {"publications", "coauthors", "institutions", "countries":
     counts, "lists": {"publications": [result IDs], "coauthors": [[name, main
@@ -93,7 +96,7 @@ def key_figures(
     figures = {}
     for start in since:
         found, country_of = main_institutions(
-            affiliations, start, merges, exclusions, people, colleagues
+            affiliations, start, merges, exclusions, people, colleagues, fixed
         )
         pubs_of = {c: {r["result_id"] for r in v["rows"]} for c, v in found.items()}
         coauthors = sorted(found, key=lambda c: (-len(pubs_of[c]), found[c]["name"]))
@@ -250,6 +253,13 @@ def collect():
             exclusions,
             read_person_merges(PARTNERS_DIR / "person_merges.csv"),
             read_colleagues(PARTNERS_DIR / "simula_colleagues.csv"),
+            {
+                k: r["institution"]
+                for k, r in read_corrections(
+                    PARTNERS_DIR / "coauthor_corrections.csv"
+                ).items()
+                if r["institution"]
+            },
         ),
         "showProjects": SHOW_PROJECTS,
         "linkedPages": LINKED_PAGES,

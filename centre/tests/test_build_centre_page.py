@@ -164,3 +164,15 @@ def test_partners_page_counts_institutions_as_the_overview():
         overview = figures[start]["lists"]["institutions"]
         assert sorted(i["name"] for i in shown) == sorted(r[0] for r in overview)
         assert len({i["country"] for i in shown}) == figures[start]["countries"]
+
+
+def test_research_areas_count_coauthors_as_the_overview():
+    import build_partners_page
+
+    figures = bcp.collect()["figures"]
+    data = build_partners_page.collect()
+    for start in bcp.SINCE:
+        institutions = data["areas"][start]["institutions"]
+        assert sum(i[3] for i in institutions) == figures[start]["coauthors"]
+        known = [i for i in institutions if i[0]]
+        assert len(known) == figures[start]["institutions"]

@@ -3,8 +3,9 @@
 #
 # Usage: ./refresh.sh [--no-fetch]
 #
-# Fetches the investigators' publications from NVA and their co-authors'
-# institutions from OpenAlex, rebuilds the three pages, runs the tests and
+# Fetches the investigators' publications from NVA, their co-authors'
+# institutions from OpenAlex, and details about the co-authors at universities
+# from OpenAlex and ORCID, rebuilds the pages, runs the tests and
 # prints the key figures before and after. With --no-fetch, the pages are
 # rebuilt from the data already in the repository.
 #
@@ -74,6 +75,7 @@ echo "== Co-authors' institutions (partners/)"
 cd partners
 if [ "$fetch" = yes ]; then
     "$python" fetch_openalex.py
+    "$python" fetch_coauthor_details.py
 fi
 "$python" build_partners_page.py
 cd ..

@@ -9,10 +9,10 @@ institutions and countries. It is built from [`site/index.html`](site/index.html
 
 **Collaborations page:** <https://simulaneurotech.github.io/partners.html>
 shows the institutions the centre's co-authors are at, nationally and internationally:
-where they are, what kinds of institutions they are, and the clinical
-collaborators. Institutions and countries are counted as on the overview
-page. It is a draft for review, and is built from
-[`site/partners.html`](site/partners.html).
+where they are, what kinds of institutions they are, the clinical
+collaborators, and their departments by research area. Institutions and
+countries are counted as on the overview page. It is a draft for review, and
+is built from [`site/partners.html`](site/partners.html).
 
 **Intracentre collaboration:** <https://simulaneurotech.github.io/coauthorship.html>
 shows how the centre investigators publish together, and how they are linked
@@ -58,8 +58,9 @@ check the changes first, in particular the review files written by
 institutions to merge or exclude (`partners/institution_merges.csv`,
 `partners/affiliation_exclusions.csv`) co-authors who appear as several
 people (`partners/person_merges.csv`) and Simula colleagues counted as
-co-authors (`partners/simula_colleagues.csv`), then commit and push to
-publish.
+co-authors (`partners/simula_colleagues.csv`), and co-authors whose
+institution or department is missing or wrong
+(`partners/coauthor_corrections.csv`), then commit and push to publish.
 
 A weekly workflow (`.github/workflows/refresh.yml`, Mondays at 04:00 UTC, or
 started manually from the Actions tab) runs `refresh.sh` and, if anything
