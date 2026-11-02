@@ -759,8 +759,11 @@ function renderAreas() {
       key: g, label: g, color: "", bar: list.length,
       numbers: [[list.length, false], [sum(list, d => d[4]), false], [uncertain || "–", true]],
       open: li => departmentList(li, list),
+      coauthors: sum(list, d => d[4]),
     };
-  }).filter(r => r.bar));
+  }).filter(r => r.bar)
+    // Most co-authors first, other last
+    .sort((a, b) => (a.key === "Other") - (b.key === "Other") || b.coauthors - a.coauthors));
 }
 
 function renderAll() {
