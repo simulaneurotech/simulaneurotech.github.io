@@ -1,0 +1,56 @@
+name: Refresh data
+
+# Weekly: fetches new data from NVA and OpenAlex and rebuilds the pages with
+# refresh.sh. If anything changed, it opens (or updates) a pull request to
+# review; nothing is published until the pull request is merged.
+
+on:
+  schedule:
+    - cron: "0 4 * * 1" # Mondays at 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - run: pip install pytest
+      - name: Refresh and rebuild
+        run: |
+          ./refresh.sh | tee refresh.log
+          {
+            echo "Data refreshed from NVA and OpenAlex by the weekly workflow."
+            echo
+            echo "Before merging, check the changes, in particular:"
+            echo
+            echo "- the review files written by \`nva/publication_data.py\` (duplicates, names, book editors)"
+            echo "- new institutions that should be merged or excluded (\`partners/institution_merges.csv\`, \`partners/affiliation_exclusions.csv\`)"
+            echo
+            echo "Key figures:"
+            echo
+            echo '```'
+            sed -n '/^== Key figures/,$p' refresh.log | tail -n +2
+            echo '```'
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > pr-body.md
+          rm refresh.log
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: refresh-data
+          delete-branch: true
+          commit-message: Refresh data from NVA and OpenAlex
+          title: Refresh data from NVA and OpenAlex
+          body-path: pr-body.md
+          add-paths: |
+            nva/
+            partners/
+            centre/
+            site/
