@@ -7,16 +7,16 @@ at Simula Research Laboratory.
 shows the centre investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
 
-**Interactive page:** <https://simulaneurotech.github.io/coauthorship.html>
-shows how the centre investigators publish together, and how they are linked
-through co-authors outside the centre. It is built from [`site/coauthorship.html`](site/coauthorship.html).
-
-**Draft page:** <https://simulaneurotech.github.io/partners.html>
+**Collaborations page:** <https://simulaneurotech.github.io/partners.html>
 shows the institutions the centre's co-authors are at, nationally and internationally:
 where they are, what kinds of institutions they are, and the clinical
 collaborators. Institutions and countries are counted as on the overview
 page. It is a draft for review, and is built from
 [`site/partners.html`](site/partners.html).
+
+**Intracentre collaboration:** <https://simulaneurotech.github.io/coauthorship.html>
+shows how the centre investigators publish together, and how they are linked
+through co-authors outside the centre. It is built from [`site/coauthorship.html`](site/coauthorship.html).
 
 
 ## Contents
@@ -24,7 +24,7 @@ page. It is a draft for review, and is built from
 | Folder | Contents |
 |---|---|
 | [`centre/`](centre/) | Builds the centre's overview page from the data in `nva/` and `partners/`. See [`centre/README.md`](centre/README.md). |
-| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the co-authorship page (`coauthorship.html`) and the draft partners page (`partners.html`), all generated, and the fonts and scripts they use (`assets/`). |
+| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the collaborations page (`partners.html`) and the intracentre collaboration page (`coauthorship.html`), all generated, and the fonts and scripts they use (`assets/`). |
 | [`nva/`](nva/) | Investigators' publication lists from NVA (formerly Cristin), co-authorship analysis and the interactive page. See [`nva/README.md`](nva/README.md). |
 | [`partners/`](partners/) | Projects, funding, project partners and collaborating institutions from Simula's website, NVA and OpenAlex. See [`partners/README.md`](partners/README.md). |
 
