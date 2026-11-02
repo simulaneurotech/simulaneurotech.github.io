@@ -1,20 +1,19 @@
 # Centre for Digital Neurotechnology
 
-Tools and data related to the [Centre for Digital Neurotechnology](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology)
-at Simula.
+Infographics, accompanying tools and code related to the [Centre for Digital Neurotechnology](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology)
+at Simula Research Laboratory.
 
 **Overview page:** <https://simulaneurotech.github.io/>
-shows the investigators and key figures on publications, co-authors,
+shows the centre investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
-
-**Interactive page:** <https://simulaneurotech.github.io/coauthorship.html>
-shows how the centre investigators publish together, and how they are linked
-through co-authors outside the centre. It is built from
-[`site/coauthorship.html`](site/coauthorship.html) and not yet linked from
-the overview page.
 
 **Draft page:** [`partners/partners_page.html`](partners/partners_page.html) shows the institutions the centre collaborates with in Norway and abroad, and its
 projects by funder. It is a draft for review.
+
+**Interactive page:** <https://simulaneurotech.github.io/coauthorship.html>
+shows how the centre investigators publish together, and how they are linked
+through co-authors outside the centre. It is built from [`site/coauthorship.html`](site/coauthorship.html).
+
 
 ## Contents
 
