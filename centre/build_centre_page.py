@@ -43,7 +43,7 @@ SINCE = [2024, 2021, 2016]
 SHOW_PROJECTS = False
 # Pages linked under "More about the centre"; the co-authorship page
 # (coauthorship.html) is not linked yet
-LINKED_PAGES = ["partners.html"]
+LINKED_PAGES = ["partners.html", "projects.html"]
 AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))

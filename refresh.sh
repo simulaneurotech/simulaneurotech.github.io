@@ -78,6 +78,7 @@ if [ "$fetch" = yes ]; then
     "$python" fetch_coauthor_details.py
 fi
 "$python" build_partners_page.py
+"$python" build_projects_page.py
 cd ..
 
 echo "== Overview page (centre/)"

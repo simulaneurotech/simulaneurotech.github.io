@@ -1,18 +1,20 @@
-"""Build the partnerships page from the curated projects and partner data.
+"""Build the partnerships page from the co-authors' institutions.
 
 Usage: python build_partners_page.py [output.html]
 
 Writes ../site/partners.html by default, a page on the website next to the
 overview page, which loads its fonts and scripts from ../site/assets.
 
-Reads centre_projects.csv (curated by hand; rows with include = "no" and
-projects that started before FIRST_PROJECT_YEAR are left out), institution_merges.csv (institutions to merge or rename, curated
-by hand), prosjektbanken_projects.csv (Research Council of Norway funding,
-from fetch_prosjektbanken.py; optional), affiliation_exclusions.csv (wrong affiliations of individual
-co-authors in OpenAlex, curated by hand), the publications in ../nva (for titles and links), openalex_affiliations.csv and partner_institutions.csv (from
+Reads institution_merges.csv (institutions to merge or rename, curated by
+hand), affiliation_exclusions.csv (wrong affiliations of individual co-authors
+in OpenAlex, curated by hand), the publications in ../nva (for titles and
+links), openalex_affiliations.csv and partner_institutions.csv (from
 fetch_openalex.py), world-110m.json (country outlines from the world-atlas
 package, built from Natural Earth) and ../nva/investigators.csv, and fills
-partners_page_template.html.
+partners_page_template.html. centre_projects.csv (curated by hand; rows with
+include = "no" and projects that started before FIRST_PROJECT_YEAR are left
+out) gives the number of active projects; the projects themselves are on
+their own page (build_projects_page.py).
 
 Institutions are counted as on the overview page (../centre): each co-author
 once, at their main institution in the period, the one they are listed at
@@ -59,9 +61,6 @@ MONTHS = {
 }
 # Only projects that started in this year or later are shown
 FIRST_PROJECT_YEAR = 2016
-# The project timeline and project partners are hidden for now; set to True
-# to show them again
-SHOW_PROJECTS = False
 # Publication periods on the page: since each of these years
 SINCE = [2024, 2021, 2016]
 # OpenAlex institution types to kinds of institution (institution_kinds.csv
@@ -179,7 +178,8 @@ def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
         out.append(
             {
                 "title": r["title"].strip(),
-                "short": short_name(r["title"].strip()),
+                "short": (r.get("short") or "").strip()
+                or short_name(r["title"].strip()),
                 "url": r["url"],
                 "status": r["status"],
                 "start": dates[0] if dates else None,
@@ -525,21 +525,14 @@ def collect(here=HERE):
     return {
         "generated": datetime.date.today().isoformat(),
         "investigators": investigators,
-        "projects": projects(
-            read_csv(here / "centre_projects.csv"),
-            prosjektbanken={
-                r["grant"]: r
-                for r in (
-                    read_csv(here / "prosjektbanken_projects.csv")
-                    if (here / "prosjektbanken_projects.csv").exists()
-                    else []
-                )
-            },
+        # The projects are on their own page (build_projects_page.py)
+        "activeProjects": sum(
+            p["status"] == "active"
+            for p in projects(read_csv(here / "centre_projects.csv"))
         ),
         "publications": publications,
         "publicationCounts": publication_counts,
         "since": SINCE,
-        "showProjects": SHOW_PROJECTS,
         "institutions": institutions,
         **research_areas,
     }
