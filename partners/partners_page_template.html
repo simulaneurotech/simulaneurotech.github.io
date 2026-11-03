@@ -413,11 +413,12 @@ function renderFacts(list) {
   facts.replaceChildren();
   const active = DATA.projects.filter(p => p.status === "active").length;
   const items = [
+    [DATA.publicationCounts[state.period], "publications"],
     [list.length, "collaborating institutions"],
     [DATA.areas[state.period].departments.length, "departments"],
     [new Set(list.map(i => i.country)).size, "countries"],
     [list.filter(i => i.type === "Hospitals" && i.n >= MIN_CLINICAL).length, "hospitals"],
-    ...(DATA.showProjects ? [[active, "active projects"]] : []),
+    [active, "active projects"],
   ];
   for (const [v, label] of items) {
     const f = el("div", { class: "fact" }, facts);
