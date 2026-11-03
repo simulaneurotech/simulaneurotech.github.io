@@ -14,10 +14,15 @@ a switch for the publication period (since 2024, 2021 or 2016). Selecting an
 institution on the map or in a table lists its joint publications, with the
 investigators and the co-authors at that institution. The map can show all
 institutions or only one kind (universities, hospitals, or institutes and
-others), for the world, Europe, or the US and Canada. The centre's projects by
-funder and the formal project partners are hidden for now
-(`SHOW_PROJECTS = False` in `build_partners_page.py`). You can also open it
-locally in a browser.
+others), for the world, Europe, or the US and Canada. The banner also shows
+the number of publications and active projects. You can also open it locally
+in a browser.
+
+**Projects page:** <https://simulaneurotech.github.io/projects.html>, built
+by `build_projects_page.py` into [`../site/projects.html`](../site/projects.html),
+shows the centre's projects on a timeline by funder, with their investigators
+and details. Funding amounts and the project partners (still to be verified)
+are left out. It is linked from the overview page.
 
 The scripts read the investigators and their publications from
 [`../nva/`](../nva/), so run the NVA pipeline there first.
@@ -32,10 +37,12 @@ The scripts read the investigators and their publications from
 | `fetch_prosjektbanken.py` | Looks up the Research Council of Norway projects in `centre_projects.csv` in [Prosjektbanken](https://prosjektbanken.forskningsradet.no), by grant number |
 | `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
 | `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason), keeping decisions made by hand |
-| `build_partners_page.py` | Builds `../site/partners.html` from the curated projects and the OpenAlex data |
+| `build_partners_page.py` | Builds `../site/partners.html` from the OpenAlex data (and the number of active projects) |
+| `build_projects_page.py` | Builds `../site/projects.html` from the curated projects |
+| `projects_page_template.html` | Page template for the projects page |
 | `fetch_coauthor_details.py` | For the co-authors at universities, research institutes and companies: their ORCID iD and main research field from OpenAlex, their public ORCID employment records (organisation, department, years only) and, where those name no department, the affiliation texts naming their institution on their other papers since 2016. Only co-authors not fetched before are looked up (`--all` fetches everyone again); when OpenAlex's daily quota of requests is used up, it saves what it has and leaves the rest for the next run |
 | `coauthor_fields.py` | Each co-author's kind of institution and, at universities, discipline (see below) |
-| `partners_page_template.html` | Page template: layout, map, tables and timeline |
+| `partners_page_template.html` | Page template: layout, map, tables and research areas |
 | `world-110m.json` | Country outlines for the map, from the [world-atlas](https://github.com/topojson/world-atlas) package (ISC license, built from Natural Earth) |
 | `institution_merges.csv` | **Curated by hand**: institutions to merge or rename on the page (`institution` as in OpenAlex, `use_name` to show), such as the Sørlandet sykehus hospitals, and Gentofte Hospital as part of Copenhagen University Hospital |
 | `publication_relevance.csv` | **Checked by hand**: the suggestion for each publication, and a `decision` column (keep or drop) that overrides it. Re-running `publication_relevance.py` keeps the decisions and notes |
@@ -44,7 +51,7 @@ The scripts read the investigators and their publications from
 | `simula_colleagues.csv` | **Curated by hand**: co-authors who are Simula colleagues although OpenAlex does not give a Simula Group institution as their main one (`author`, `openalex_author_id`); left out like other colleagues on both the overview and the partners page |
 | `institution_kinds.csv` | **Curated by hand**: kinds of institution that override the institution's type in OpenAlex (`kind`, such as QB3 as a university), and the field of research institutes and companies (`discipline`), for the co-authors page |
 | `coauthor_corrections.csv` | **Curated by hand**: a co-author's institution, department and discipline where OpenAlex has none or the wrong one (`author`, `openalex_author_id`, `institution`, `department`, `discipline`); the institution counts on all the pages |
-| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects to show as centre projects (`include`), with investigators, funders, grants and partners checked. Seeded from `simula_projects.csv` with the projects naming an investigator and those about the brain, heart or neuroscience. `nva_project_id` links a project to the NVA project register; `partners` combines the partners on Simula's page with the institutions of NVA participants who are not centre investigators (Simula Group left out) |
+| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects to show as centre projects (`include`), with investigators, funders, grants and partners checked, and `short`, a short name for the timeline where the one from the title does not suit. Seeded from `simula_projects.csv` with the projects naming an investigator and those about the brain, heart or neuroscience. `nva_project_id` links a project to the NVA project register; `partners` combines the partners on Simula's page with the institutions of NVA participants who are not centre investigators (Simula Group left out) |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
 | `nva_projects.csv` | NVA projects with a centre investigator: dates, funder and grant number, coordinating institution, participants |
 | `nva_project_participants.csv` | Everyone taking part in those projects, with their unit (department) and the institution it belongs to |
@@ -67,6 +74,7 @@ python3 fetch_openalex.py          # writes openalex_*.csv, partner_institutions
 python3 fetch_coauthor_details.py  # writes coauthor_*.csv
 python3 publication_relevance.py   # writes publication_relevance.csv (keeps decisions)
 python3 build_partners_page.py     # writes ../site/partners.html
+python3 build_projects_page.py     # writes ../site/projects.html
 ```
 
 Institutions are counted as on the overview page (`../centre/`), with the
