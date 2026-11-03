@@ -43,6 +43,7 @@ from build_partners_page import (
     read_person_merges,
 )
 from coauthor_fields import coauthors, names_institution
+from fetch_openalex import without_emails
 
 HERE = Path(__file__).resolve().parent
 # Kinds of institution whose co-authors are sorted by their department
@@ -155,6 +156,7 @@ def fetch_own_affiliations(author, institution, since):
             if not ((a.get("author") or {}).get("id") or "").endswith(author):
                 continue
             for text in a.get("raw_affiliation_strings") or []:
+                text = without_emails(text)
                 if names_institution(text, institution):
                     n, latest = out.get(text, (0, 0))
                     out[text] = (n + 1, max(latest, work.get("publication_year") or 0))
@@ -170,6 +172,20 @@ def write(path, fields, rows):
 
 def read(path):
     return read_csv(path) if path.exists() else []
+
+
+def without_emails_in(rows):
+    """The rows of coauthor_affiliations.csv with email addresses removed
+    from the affiliation texts; texts that become the same are merged."""
+    out = {}
+    for r in rows:
+        key = (r["openalex_author_id"], without_emails(r["affiliation"]))
+        n, latest = out.get(key, (0, 0))
+        out[key] = (n + int(r["papers"]), max(latest, int(r["latest_year"] or 0)))
+    return [
+        {"openalex_author_id": a, "affiliation": t, "papers": n, "latest_year": y}
+        for (a, t), (n, y) in out.items()
+    ]
 
 
 def wanted_coauthors():
@@ -234,11 +250,11 @@ def main():
     own = (
         []
         if refetch
-        else [
+        else without_emails_in(
             r
             for r in read(HERE / "coauthor_affiliations.csv")
             if r["openalex_author_id"] in profiles
-        ]
+        )
     )
     new = sorted(set(wanted) - set(profiles))
     print(f"{len(wanted)} co-authors with an OpenAlex author ID, {len(new)} new")
