@@ -78,6 +78,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 [hidden] { display: none !important; }
 .section-head { display: grid; gap: 6px; }
 .section-head p { max-width: 65ch; color: var(--ink-2); }
+.explain { max-width: 65ch; color: var(--ink-2); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -124,7 +125,6 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
   <section>
     <div class="section-head">
       <h2>Timeline</h2>
-      <p>Each bar is a project, coloured by main funder, with the centre's investigators on it. Select a project for details.</p>
     </div>
     <div class="card timeline-card">
       <div class="top">
@@ -135,6 +135,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
       <div class="undated" id="undated"></div>
       <div class="details" id="details" hidden aria-live="polite"></div>
     </div>
+    <p class="explain">Each bar is a project, coloured by main funder, with the centre's investigators on it. Select a project for details.</p>
   </section>
 
   <section class="method">
