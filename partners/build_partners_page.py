@@ -474,6 +474,13 @@ def collect(here=HERE):
         NVA_DIR / "investigators.csv",
     )
     investigators = list(data.investigators)
+    # All the investigators' publications in NVA since each year, counted as
+    # on the overview page
+    years = [
+        year_of(data.papers[rid]["year"])
+        for rid in set().union(*data.papers_of.values())
+    ]
+    publication_counts = {start: sum(y >= start for y in years) for start in SINCE}
     merges = {
         r["institution"]: r["use_name"]
         for r in read_csv(here / "institution_merges.csv")
@@ -530,6 +537,7 @@ def collect(here=HERE):
             },
         ),
         "publications": publications,
+        "publicationCounts": publication_counts,
         "since": SINCE,
         "showProjects": SHOW_PROJECTS,
         "institutions": institutions,

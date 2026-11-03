@@ -164,6 +164,7 @@ def test_partners_page_counts_institutions_as_the_overview():
         overview = figures[start]["lists"]["institutions"]
         assert sorted(i["name"] for i in shown) == sorted(r[0] for r in overview)
         assert len({i["country"] for i in shown}) == figures[start]["countries"]
+        assert partners["publicationCounts"][start] == figures[start]["publications"]
 
 
 def test_research_areas_count_coauthors_as_the_overview():
