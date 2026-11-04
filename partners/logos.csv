@@ -1,12 +1,12 @@
 kind,names,file,file_dark,alt,source,note
-project,KGJ Brain Fluid Research,logos/kgj-icon.png,logos/kgj-icon-dark.png,K. G. Jebsen Centre for Brain Fluid Research,"The centre's logo package (icon, KGJebsenC_icon.png), from M. E. Rognes; dark version: the package's KGJebsenC_icon_neg.png",Official icon version of the centre's logo
+project,KGJ Brain Fluid Research,logos/kgj-icon.png,same,K. G. Jebsen Centre for Brain Fluid Research,"The centre's logo package (icon, KGJebsenC_icon.png), from M. E. Rognes",Official icon version of the centre's logo
 project,EMIx,logos/emix.png,logos/emix-dark.png,EMIx,"The EMIx logo package (web/EMIx.png, 2021), from M. E. Rognes; also on Simula's project page; dark version: the package's web/EMIx_neg.png","Resized, margins trimmed"
-project,DigiCells,logos/digicells.svg,logos/digicells-dark.svg,DigiCells,"The DigiCells visual identity by Lena W. Nystrøm (January 2026; digicells.svg), from M. E. Rognes; dark version: digicells_neg.svg",Unchanged
-project,Waterscape,logos/waterscape.png,,Waterscape,Simula's project page (featured image Waterscape.png); confirmed as the logo by M. E. Rognes,"Resized, margins trimmed"
-project,Waterscales,logos/waterscales.png,,Waterscales,Simula's project page (featured image waterscales.png),"Resized, margins trimmed"
-project,DRIVE,logos/drive.png,,DRIVE,"The DRIVE logo (DRIVE_final_logo_transparent-background.png), from M. E. Rognes","Resized, margins trimmed"
-project,SPARK,logos/spark.png,,SPARK,"The SPARK logo (SPARK1.png), from M. E. Rognes; also on Simula's project page","Resized, margins trimmed"
-project,bioAI,logos/bioai.png,,bioAI,Simula's project page (featured image bioAI.png),"Resized, margins trimmed"
+project,DigiCells,logos/digicells.svg,same,DigiCells,"The DigiCells visual identity by Lena W. Nystrøm (January 2026; digicells.svg), from M. E. Rognes",Unchanged
+project,Waterscape,logos/waterscape.png,same,Waterscape,Simula's project page (featured image Waterscape.png); confirmed as the logo by M. E. Rognes,"Resized, margins trimmed"
+project,Waterscales,logos/waterscales.png,same,Waterscales,Simula's project page (featured image waterscales.png),"Resized, margins trimmed"
+project,DRIVE,logos/drive.png,same,DRIVE,"The DRIVE logo (DRIVE_final_logo_transparent-background.png), from M. E. Rognes","Resized, margins trimmed"
+project,SPARK,logos/spark.png,same,SPARK,"The SPARK logo (SPARK1.png), from M. E. Rognes; also on Simula's project page","Resized, margins trimmed, white background made transparent"
+project,bioAI,logos/bioai.png,same,bioAI,Simula's project page (featured image bioAI.png),"Resized, margins trimmed, white background made transparent"
 funder,Research Council of Norway,logos/research-council-funded-by.svg,logos/research-council-funded-by-dark.svg,Funded by the Research Council of Norway,"The Research Council of Norway's ""Funded by"" logo in English (Forskningsradet_Stottet-logo_Engelsk_01_Waals_RGB.svg), from M. E. Rognes: as it is (white on black) for dark backgrounds, with black and white swapped for light backgrounds",Light version made by swapping the two fills; replace with the Research Council's own positive version if available
 funder,ERC; EU,logos/erc-eu.png,logos/erc-eu-dark.png,Funded by the European Union; European Research Council,"The ERC's logos page, https://erc.europa.eu/support/logos (LOGO_ERC-FLAG_EU.png, Horizon Europe version), from M. E. Rognes; dark version: the ERC's negative EU flag and ERC logo (LOGO_ERC-FLAG_EU NEGATIF.jpg), from M. E. Rognes","Resized, margins trimmed. ERC grantees must show the EU emblem and the ERC logo together. The dark version has no ""Funded by the European Union"" line; the alt text gives it"
 funder,K. G. Jebsen Foundation,logos/kg-jebsen-foundation.png,same,Stiftelsen Kristian Gerhard Jebsen,"The K. G. Jebsen Foundation's logo (Logo_skgj_rgb.png), from M. E. Rognes",Resized
