@@ -264,7 +264,9 @@ const countryName = (() => {
   try { const d = new Intl.DisplayNames(["en"], { type: "region" }); return c => (c ? d.of(c) : "Unknown"); }
   catch (e) { return c => c || "Unknown"; }
 })();
-const surname = n => n.split(" ").slice(-1)[0];
+// Surnames of more than one word, as on the co-authorship page
+const SURNAMES = { "Evrim Acar Ataman": "Acar Ataman" };
+const surname = n => SURNAMES[n] || n.split(" ").slice(-1)[0];
 const state = { period: "2021", kind: "all", zoom: "world", open: null, institution: null };
 
 function el(tag, attrs = {}, parent) {

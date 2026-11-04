@@ -94,6 +94,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 #timeline .grid line { stroke: var(--line); }
 #timeline .label { font: 500 12.5px var(--font-body); fill: var(--ink); }
 #timeline .who { font: 400 11.5px var(--font-body); fill: var(--muted); }
+#timeline .who .leader { font-weight: 600; fill: var(--ink-2); }
 #timeline .bar { cursor: pointer; }
 #timeline .bar rect { rx: 4; }
 #timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
@@ -136,7 +137,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
       <div class="undated" id="undated"></div>
       <div class="details" id="details" hidden aria-live="polite"></div>
     </div>
-    <p class="explain">Each bar is a project, coloured by main funder, with the centre's investigators on it. Select a project for details.</p>
+    <p class="explain">Each bar is a project, coloured by main funder, with its leader in bold and the other centre investigators taking part. Select a project for details.</p>
   </section>
 
   <section class="method">
@@ -157,7 +158,9 @@ const FUNDERS = [
   ["Foundations", "--f-found"],
   ["Other", "--f-other"],
 ];
-const surname = n => n.split(" ").slice(-1)[0];
+// Surnames of more than one word, as on the co-authorship page
+const SURNAMES = { "Evrim Acar Ataman": "Acar Ataman" };
+const surname = n => SURNAMES[n] || n.split(" ").slice(-1)[0];
 const state = { projects: "active", selected: null };
 
 function el(tag, attrs = {}, parent) {
@@ -231,8 +234,11 @@ function renderProjects() {
     const end = p.end ?? today;
     g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
       .attr("fill", funderColor(p.funderGroup));
-    const who = p.investigators.map(surname).join(", ");
-    g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16).text(p.end == null ? `ongoing · ${who}` : who);
+    // The project leader in bold, then the other investigators taking part
+    const who = g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16);
+    if (p.end == null) who.append("tspan").text("ongoing · ");
+    who.append("tspan").attr("class", "leader").text(surname(p.leader));
+    if (p.participants.length) who.append("tspan").text(", " + p.participants.map(surname).join(", "));
     g.append("title").text(`${p.title} · ${p.funders.join(", ") || "funder not listed"}`);
     g.on("click", () => select(p)).on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p); } });
     if (state.selected === p.title) g.classed("on", true);
