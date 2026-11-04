@@ -7,8 +7,8 @@ the centre for external stakeholders. Projects, merges and exclusions have
 been curated by hand; the investigators should still check their own
 projects and collaborators before the page is published.
 
-**Collaborations page:** <https://simulaneurotech.github.io/partners.html>, built
-from [`../site/partners.html`](../site/partners.html), shows where the centre's co-authors are, what kinds of institutions they
+**Collaborations page:** <https://simulaneurotech.github.io/collaborators.html>, built
+from [`../site/collaborators.html`](../site/collaborators.html), shows where the centre's co-authors are, what kinds of institutions they
 work at, and clinical collaborators (hospitals with joint publications), with
 a switch for the publication period (since 2024, 2021 or 2016). Selecting an
 institution on the map or in a table lists its joint publications, with the
@@ -37,7 +37,7 @@ The scripts read the investigators and their publications from
 | `fetch_prosjektbanken.py` | Looks up the Research Council of Norway projects in `centre_projects.csv` in [Prosjektbanken](https://prosjektbanken.forskningsradet.no), by grant number |
 | `fetch_openalex.py` | Looks up the institution and country of every author of the centre's publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation text |
 | `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason), keeping decisions made by hand |
-| `build_partners_page.py` | Builds `../site/partners.html` from the OpenAlex data (and the number of active projects) |
+| `build_partners_page.py` | Builds `../site/collaborators.html` from the OpenAlex data (and the number of active projects) |
 | `build_projects_page.py` | Builds `../site/projects.html` from the curated projects |
 | `projects_page_template.html` | Page template for the projects page |
 | `fetch_coauthor_details.py` | For the co-authors at universities, research institutes and companies: their ORCID iD and main research field from OpenAlex, their public ORCID employment records (organisation, department, years only) and, where those name no department, the affiliation texts naming their institution on their other papers since 2016. Only co-authors not fetched before are looked up (`--all` fetches everyone again); when OpenAlex's daily quota of requests is used up, it saves what it has and leaves the rest for the next run |
@@ -73,7 +73,7 @@ python3 fetch_prosjektbanken.py    # writes prosjektbanken_projects.csv
 python3 fetch_openalex.py          # writes openalex_*.csv, partner_institutions.csv
 python3 fetch_coauthor_details.py  # writes coauthor_*.csv
 python3 publication_relevance.py   # writes publication_relevance.csv (keeps decisions)
-python3 build_partners_page.py     # writes ../site/partners.html
+python3 build_partners_page.py     # writes ../site/collaborators.html
 python3 build_projects_page.py     # writes ../site/projects.html
 ```
 

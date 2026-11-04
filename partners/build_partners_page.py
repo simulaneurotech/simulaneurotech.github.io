@@ -1,8 +1,8 @@
-"""Build the partnerships page from the co-authors' institutions.
+"""Build the collaborations page from the co-authors' institutions.
 
 Usage: python build_partners_page.py [output.html]
 
-Writes ../site/partners.html by default, a page on the website next to the
+Writes ../site/collaborators.html by default, a page on the website next to the
 overview page, which loads its fonts and scripts from ../site/assets.
 
 Reads institution_merges.csv (institutions to merge or rename, curated by
@@ -37,7 +37,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 NVA_DIR = HERE.parent / "nva"
 TEMPLATE = HERE / "partners_page_template.html"
-OUTPUT = HERE.parent / "site" / "partners.html"
+OUTPUT = HERE.parent / "site" / "collaborators.html"
 
 MONTHS = {
     m: i

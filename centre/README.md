@@ -65,8 +65,8 @@ projects that started in 2016 or later, with Research Council funding from
 `../partners/prosjektbanken_projects.csv`.
 
 Under "More about the centre", the page links to the pages listed in
-`LINKED_PAGES` in `build_centre_page.py`: currently the partners page
-(`partners.html`) and the projects page (`projects.html`), but not yet the
+`LINKED_PAGES` in `build_centre_page.py`: currently the collaborations page
+(`collaborators.html`) and the projects page (`projects.html`), but not yet the
 co-authorship page (`coauthorship.html`).
 
 ## Tests

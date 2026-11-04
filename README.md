@@ -7,12 +7,12 @@ at Simula Research Laboratory.
 shows the centre investigators and key figures on publications, co-authors,
 institutions and countries. It is built from [`site/index.html`](site/index.html).
 
-**Collaborations page:** <https://simulaneurotech.github.io/partners.html>
+**Collaborations page:** <https://simulaneurotech.github.io/collaborators.html>
 shows the institutions the centre's co-authors are at, nationally and internationally:
 where they are, what kinds of institutions they are, the clinical
 collaborators, and their departments by research area. Institutions and
 countries are counted as on the overview page. It is built from
-[`site/partners.html`](site/partners.html).
+[`site/collaborators.html`](site/collaborators.html).
 
 **Projects page:** <https://simulaneurotech.github.io/projects.html>
 shows the centre's research projects since 2016 on a timeline by funder, with
@@ -29,7 +29,7 @@ through co-authors outside the centre. It is built from [`site/coauthorship.html
 | Folder | Contents |
 |---|---|
 | [`centre/`](centre/) | Builds the centre's overview page from the data in `nva/` and `partners/`. See [`centre/README.md`](centre/README.md). |
-| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the collaborations page (`partners.html`), the projects page (`projects.html`) and the intracentre collaboration page (`coauthorship.html`), all generated, and the fonts and scripts they use (`assets/`). |
+| [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the collaborations page (`collaborators.html`, with a redirect from the old address `partners.html`), the projects page (`projects.html`) and the intracentre collaboration page (`coauthorship.html`), all generated, and the fonts and scripts they use (`assets/`). |
 | [`nva/`](nva/) | Investigators' publication lists from NVA (formerly Cristin), co-authorship analysis and the interactive page. See [`nva/README.md`](nva/README.md). |
 | [`partners/`](partners/) | Projects, funding, project partners and collaborating institutions from Simula's website, NVA and OpenAlex. See [`partners/README.md`](partners/README.md). |
 
