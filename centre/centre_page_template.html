@@ -250,7 +250,9 @@ const FUNDERS = [
   ["Foundations", "--f-found"],
   ["Other", "--f-other"],
 ];
-const surname = n => n.split(" ").slice(-1)[0];
+// Surnames of more than one word, as on the co-authorship page
+const SURNAMES = { "Evrim Acar Ataman": "Acar Ataman" };
+const surname = n => SURNAMES[n] || n.split(" ").slice(-1)[0];
 const state = { projects: "active", selected: null };
 
 function el(tag, attrs = {}, parent) {
