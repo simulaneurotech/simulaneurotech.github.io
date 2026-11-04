@@ -43,6 +43,10 @@ from build_partners_page import (
     read_person_merges,
 )
 from coauthor_fields import coauthors, names_institution
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "nva"))
+import fetch_log
+
 from fetch_openalex import without_emails
 
 HERE = Path(__file__).resolve().parent
@@ -330,6 +334,7 @@ def main():
             "run again tomorrow for the rest"
         )
     save()
+    fetch_log.record(HERE / "fetched.csv", "coauthor_details")
     waiting = sum(
         1 for a, p in profiles.items() if wanted[a][1] and not p["works_fetched"]
     )

@@ -49,6 +49,7 @@ AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 sys.path.insert(0, str(NVA_DIR))
 sys.path.insert(0, str(PARTNERS_DIR))
 from build_partners_page import (
+    fetch_dates,
     main_institutions,
     projects,
     read_colleagues,
@@ -234,6 +235,7 @@ def collect():
     }
     return {
         "generated": datetime.date.today().isoformat(),
+        "fetched": fetch_dates(PARTNERS_DIR),
         "investigators": investigators,
         "publications": publication_records(
             data.papers,

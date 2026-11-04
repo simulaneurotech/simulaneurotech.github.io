@@ -35,6 +35,8 @@ SITE = "https://www.simula.no"
 NVA_DIR = Path(__file__).resolve().parent.parent / "nva"
 
 sys.path.insert(0, str(NVA_DIR))
+import fetch_log
+
 from fetch_nva import ascii_fold
 
 FIELDS = [
@@ -154,6 +156,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(rows)
+    fetch_log.record(output_dir / "fetched.csv", "simula_projects")
     linked = sum(1 for r in rows if r["investigators"])
     print(f"{len(rows)} projects, {linked} linked to centre investigators")
 

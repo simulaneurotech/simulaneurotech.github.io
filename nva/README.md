@@ -19,6 +19,7 @@ from the overview page. You can also open it locally in a browser.
 |---|---|
 | `investigators.csv` | Centre investigators and leadership, from the [announcement](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology); `extra_cristin_ids` lists second Cristin profiles |
 | `fetch_nva.py` | Fetches each person's results, author lists, institutions and book editors from the NVA API |
+| `fetch_log.py`, `fetched.csv` | When each source was last fetched: the fetch scripts here and in `../partners/` record the date, and the pages show it |
 | `publication_data.py` | Merges duplicate publications and name variants; used by the scripts below |
 | `coauthorship.py` | Counts shared publications between each pair of investigators |
 | `external_collaborators.py` | Finds co-authors outside the centre, and those shared by several investigators |

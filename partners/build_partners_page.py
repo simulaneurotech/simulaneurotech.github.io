@@ -430,6 +430,18 @@ def partner_data(
     return publications, out
 
 
+def fetch_dates(here=HERE):
+    """{source: date fetched} from ../nva/fetched.csv and fetched.csv, written
+    by the fetch scripts (see ../nva/fetch_log.py)."""
+    sys.path.insert(0, str(NVA_DIR))
+    import fetch_log
+
+    return {
+        **fetch_log.read(NVA_DIR / "fetched.csv"),
+        **fetch_log.read(here / "fetched.csv"),
+    }
+
+
 def read_optional(path):
     return read_csv(path) if path.exists() else []
 
@@ -524,6 +536,7 @@ def collect(here=HERE):
     )
     return {
         "generated": datetime.date.today().isoformat(),
+        "fetched": fetch_dates(here),
         "investigators": investigators,
         # The projects are on their own page (build_projects_page.py)
         "activeProjects": sum(

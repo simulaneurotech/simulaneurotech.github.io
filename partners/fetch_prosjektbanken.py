@@ -29,6 +29,9 @@ import urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent / "nva"))
+import fetch_log
+
 URL = "https://prosjektbanken.forskningsradet.no/project/FORISS/{grant}"
 FIELDS = [
     "grant",
@@ -149,6 +152,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(out)
+    fetch_log.record(output_dir / "fetched.csv", "prosjektbanken")
     found = [r for r in out if r["found"] == "yes"]
     print(f"{len(out)} grants, {len(found)} found in Prosjektbanken")
     for r in out:
