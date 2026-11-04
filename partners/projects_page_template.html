@@ -18,11 +18,12 @@
   --soft: #f0f3f7;
   --link: #2a78d6;
   /* funders on the project timeline */
-  --f-rcn: #6250d6;
-  --f-eu: #eda100;
+  --f-rcn: #00b0b8; /* the teal-green of the EMIx logo */
+  --f-eu: #003399; /* EU flag blue */
   --f-found: #e87ba4;
   --f-other: #9aa3ae;
   --today: #141820;
+  --logo-tile: #ffffff;
   --font-display: "Spectral", Georgia, "Times New Roman", serif;
   --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -31,14 +32,14 @@
   :root:not([data-theme="light"]) {
     --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
     --line: #2a3038; --soft: #1e2329; --link: #3987e5;
-    --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+    --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
   --line: #2a3038; --soft: #1e2329; --link: #3987e5;
-  --f-rcn: #9085e9; --f-eu: #c98500; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
+  --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface);
   color-scheme: dark;
 }
 
@@ -100,6 +101,25 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 #timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
 #timeline .today line { stroke: var(--today); stroke-dasharray: 3 3; }
 #timeline .today text { font: 500 11px var(--font-data); fill: var(--ink); }
+/* Logos: on a white tile, except in dark mode for logos with a version for
+   dark backgrounds (or that work on dark as they are) */
+#timeline .chip, #timeline .bar:hover rect.chip, #timeline .bar.on rect.chip { fill: #fff; stroke: var(--line); stroke-width: 1; }
+#timeline .chip.adapts, #timeline .bar:hover rect.chip.adapts, #timeline .bar.on rect.chip.adapts { fill: var(--logo-tile); }
+.dark-only { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .light-only { display: none; }
+  :root:not([data-theme="light"]) .dark-only { display: inline; }
+}
+:root[data-theme="dark"] .light-only { display: none; }
+:root[data-theme="dark"] .dark-only { display: inline; }
+
+/* Funder logos, side by side under the timeline */
+.funders { display: grid; gap: 10px; }
+.funders h3 { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.funder-logos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.funder-logos img { width: 132px; height: 48px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.funder-logos img.adapts { background: var(--logo-tile); }
+.funders p { font-size: 0.85rem; color: var(--ink-2); }
 .undated { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.86rem; color: var(--ink-2); }
 .chip { font: 500 0.82rem var(--font-body); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
 .details { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 0.9rem; }
@@ -120,7 +140,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
     <div class="eyebrow"><a href="index.html">Centre for Digital Neurotechnology</a> · Simula</div>
     <h1>Projects we lead</h1>
     <p class="lede" id="lede"></p>
-    <p class="draft">Data automatically extracted from public sources.</p>
+    <p class="draft">Data from public sources.</p>
     <div class="facts" id="facts"></div>
   </header>
 
@@ -138,11 +158,17 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
       <div class="details" id="details" hidden aria-live="polite"></div>
     </div>
     <p class="explain">Each bar is a project, coloured by main funder, with its leader in bold and the other centre investigators taking part. Select a project for details.</p>
+    <div class="funders">
+      <h3>Funded by</h3>
+      <div class="funder-logos" id="funder-logos"></div>
+      <p id="funders-other"></p>
+    </div>
   </section>
 
   <section class="method">
     <h2>How this was made</h2>
-    <p>Projects come from Simula's project pages, the NVA project register, <a href="https://prosjektbanken.forskningsradet.no" target="_blank" rel="noopener">Prosjektbanken</a> (the Research Council of Norway's project database) and <a href="https://cordis.europa.eu" target="_blank" rel="noopener">CORDIS</a> (the EU's), selected and checked by hand. Collaborators are the institutions these sources, or the funder, list for each project; the source is given with each project. Dates are the funder's where the sources differ.</p>
+    <p>The projects are those that started in 2016 or later and are led by one of the centre's investigators, or where an investigator leads Simula's part of a project led elsewhere. They come from Simula's project pages, the NVA project register, <a href="https://prosjektbanken.forskningsradet.no" target="_blank" rel="noopener">Prosjektbanken</a> (the Research Council of Norway's project database) and <a href="https://cordis.europa.eu" target="_blank" rel="noopener">CORDIS</a> (the EU's), and are selected and checked by hand. Where the sources give different dates, the funder's are used.</p>
+    <p>Leaders and participants are the centre's investigators; other people on the projects are not listed. Collaborators are the institutions that these sources, or the funder, list for each project, and the source is given with each project. Bars are coloured by the project's main funder. The logos are the projects' and funders' own.</p>
     <p id="generated"></p>
   </section>
 </div>
@@ -212,7 +238,7 @@ function renderProjects() {
   const undated = shown.filter(p => p.start == null);
   const svgT = d3.select("#timeline");
   svgT.selectAll("*").remove();
-  const L = 200, R = 190, T = 26, row = 30, B = 24;
+  const L = 250, R = 190, T = 26, row = 30, B = 24;
   const Wt = 960, Ht = T + dated.length * row + B;
   svgT.attr("viewBox", `0 0 ${Wt} ${Ht}`);
   const x0 = Math.floor(Math.min(today - 1, ...dated.map(p => p.start)));
@@ -231,6 +257,16 @@ function renderProjects() {
     const g = svgT.append("g").attr("class", "bar").attr("tabindex", 0).attr("role", "button")
       .attr("aria-label", `${p.title}, ${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
     g.append("text").attr("class", "label").attr("x", L - 10).attr("y", y + 16).attr("text-anchor", "end").text(p.short.length > 30 ? p.short.slice(0, 29) + "…" : p.short);
+    // The project's logo, where it has one, in a column before the names
+    const logo = DATA.logos.projects[p.short];
+    if (logo) {
+      g.append("rect").attr("class", logo.darkOk ? "chip adapts" : "chip").attr("x", 2).attr("y", y + 3).attr("width", 52).attr("height", row - 6).attr("rx", 4);
+      const versions = logo.fileDark ? [[logo.file, "light-only"], [logo.fileDark, "dark-only"]] : [[logo.file, ""]];
+      for (const [file, cls] of versions) {
+        g.append("image").attr("class", cls).attr("href", file).attr("x", 5).attr("y", y + 5).attr("width", 46).attr("height", row - 10)
+          .attr("preserveAspectRatio", "xMidYMid meet").attr("aria-hidden", "true");
+      }
+    }
     const end = p.end ?? today;
     g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
       .attr("fill", funderColor(p.funderGroup));
@@ -288,8 +324,30 @@ function select(p) {
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent =
   `Projects fetched from Simula's project pages on ${DATA.fetched.simula_projects} and the NVA project register on ${DATA.fetched.nva_projects}.`;
+// Funder logos, for the funders of the projects on the page; the others by name
+function renderFunders() {
+  const used = new Set(DATA.projects.flatMap(p => p.funders));
+  const box = document.getElementById("funder-logos");
+  const shown = new Set();
+  for (const logo of DATA.logos.funders) {
+    if (!logo.names.some(n => used.has(n))) continue;
+    const cls = logo.darkOk ? "adapts" : "";
+    if (logo.fileDark) {
+      el("img", { src: logo.file, alt: logo.alt, title: logo.alt, class: `${cls} light-only` }, box);
+      el("img", { src: logo.fileDark, alt: logo.alt, title: logo.alt, class: `${cls} dark-only` }, box);
+    } else {
+      el("img", { src: logo.file, alt: logo.alt, title: logo.alt, class: cls }, box);
+    }
+    for (const n of logo.names) shown.add(n);
+  }
+  const rest = [...used].filter(n => !shown.has(n)).sort().map(n => `the ${n}`);
+  const list = rest.length > 1 ? `${rest.slice(0, -1).join(", ")} and ${rest[rest.length - 1]}` : rest[0];
+  document.getElementById("funders-other").textContent = rest.length ? `Also funded by ${list}.` : "";
+}
+
 renderFacts();
 renderProjects();
+renderFunders();
 </script>
 </body>
 </html>

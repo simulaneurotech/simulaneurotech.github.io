@@ -41,6 +41,7 @@ The scripts read the investigators and their publications from
 | `build_partners_page.py` | Builds `../site/collaborators.html` from the OpenAlex data (and the number of active projects) |
 | `build_projects_page.py` | Builds `../site/projects.html` from the curated projects |
 | `projects_page_template.html` | Page template for the projects page |
+| `logos.csv` | **Curated by hand**: the project and funder logos on the projects page, their files in `../site/assets/logos/` (resized copies), alt text, and where each came from |
 | `fetch_coauthor_details.py` | For the co-authors at universities, research institutes and companies: their ORCID iD and main research field from OpenAlex, their public ORCID employment records (organisation, department, years only) and, where those name no department, the affiliation texts naming their institution on their other papers since 2016. Only co-authors not fetched before are looked up (`--all` fetches everyone again); when OpenAlex's daily quota of requests is used up, it saves what it has and leaves the rest for the next run |
 | `fetched.csv` | When each source here was last fetched (OpenAlex, co-author details, Simula's project pages, the NVA project register, Prosjektbanken), written by the fetch scripts and shown on the pages |
 | `coauthor_fields.py` | Each co-author's kind of institution and, at universities, discipline (see below) |
