@@ -8,8 +8,9 @@ overview page, which loads its fonts and scripts from ../site/assets.
 Reads centre_projects.csv (curated by hand; rows with include = "no" and
 projects that started before FIRST_PROJECT_YEAR are left out; the column
 short gives a short name where the title's own is not suitable) and fills
-projects_page_template.html. Funding amounts and project partners are left
-out (LEFT_OUT).
+projects_page_template.html. Funding amounts are not shown: they stay in
+centre_projects.csv, and the Research Council details are left out
+(LEFT_OUT).
 """
 
 import datetime
@@ -24,9 +25,8 @@ TEMPLATE = HERE / "projects_page_template.html"
 OUTPUT = HERE.parent / "site" / "projects.html"
 
 
-# Left out of the page: funding amounts, and the project partners, which are
-# still to be verified
-LEFT_OUT = ("partners", "rcn")
+# Left out of the page: the Research Council details, which include funding
+LEFT_OUT = ("rcn",)
 
 
 def collect(here=HERE):

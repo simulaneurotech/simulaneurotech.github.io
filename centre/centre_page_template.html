@@ -227,7 +227,7 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
     <div class="links">
       <a class="card" href="coauthorship.html">Who publishes with whom<span>How the investigators publish together, and the co-authors who link them</span></a>
       <a class="card" href="collaborators.html">Who we publish with<span>Collaborating institutions nationally and internationally</span></a>
-      <a class="card" href="projects.html">Projects<span>The centre's research projects and their funders</span></a>
+      <a class="card" href="projects.html">Projects we lead<span>Research projects led by the centre's investigators, with their funders and collaborators</span></a>
     </div>
   </section>
 
@@ -522,7 +522,7 @@ function select(p) {
   row("Years", p.start == null ? "Not listed" : `${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
   row("Investigators", p.investigators.join(", "));
   row("Funding", [p.funders.join(", "), p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
-  row("Partners", p.partners.join(", "));
+  row("Collaborators at", p.collaborators.join(", "));
   if (p.rcn) {
     const r = p.rcn;
     row("Research Council funding", [

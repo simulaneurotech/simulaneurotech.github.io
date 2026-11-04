@@ -20,9 +20,10 @@ in a browser.
 
 **Projects page:** <https://simulaneurotech.github.io/projects.html>, built
 by `build_projects_page.py` into [`../site/projects.html`](../site/projects.html),
-shows the centre's projects on a timeline by funder, with their investigators
-and details. Funding amounts and the project partners (still to be verified)
-are left out. It is linked from the overview page.
+shows the centre's projects on a timeline by funder, with their leaders,
+participants, funders and the institutions they collaborate with, as listed by
+official sources. Funding amounts are left out. It is linked from the overview
+page.
 
 The scripts read the investigators and their publications from
 [`../nva/`](../nva/), so run the NVA pipeline there first.
@@ -52,7 +53,7 @@ The scripts read the investigators and their publications from
 | `simula_colleagues.csv` | **Curated by hand**: co-authors who are Simula colleagues although OpenAlex does not give a Simula Group institution as their main one (`author`, `openalex_author_id`); left out like other colleagues on both the overview and the partners page |
 | `institution_kinds.csv` | **Curated by hand**: kinds of institution that override the institution's type in OpenAlex (`kind`, such as QB3 as a university), and the field of research institutes and companies (`discipline`), for the co-authors page |
 | `coauthor_corrections.csv` | **Curated by hand**: a co-author's institution, department and discipline where OpenAlex has none or the wrong one (`author`, `openalex_author_id`, `institution`, `department`, `discipline`); the institution counts on all the pages |
-| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects to show as centre projects (`include`), with investigators, funders, grants and partners checked, and `short`, a short name for the timeline where the one from the title does not suit. Seeded from `simula_projects.csv` with the projects naming an investigator and those about the brain, heart or neuroscience. `nva_project_id` links a project to the NVA project register; `partners` combines the partners on Simula's page with the institutions of NVA participants who are not centre investigators (Simula Group left out) |
+| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects led by a centre investigator, or where an investigator leads Simula's part of a project led elsewhere. Columns: `include` (no = left out, with the reason in `note`), `relevance` (core, related), `leader` and `leader_role` (lead, Simula lead or contact), `host`, `participants` (other centre investigators), `funders`, `scheme`, `grants`, `funding` and `funding_source` (not shown on the pages), `collaborators` and `collaborator_countries` with `collaborator_source` (only as listed by official sources: Simula's project pages, the NVA project register, Prosjektbanken, CORDIS or the funder), `short` (a short name for the timeline) and `note`. Dates are the funder's where the sources differ |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
 | `nva_projects.csv` | NVA projects with a centre investigator: dates, funder and grant number, coordinating institution, participants |
 | `nva_project_participants.csv` | Everyone taking part in those projects, with their unit (department) and the institution it belongs to |
