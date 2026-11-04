@@ -31,7 +31,7 @@ python3 build_centre_page.py   # writes ../site/index.html
 ## Key figures
 
 Given since 2024, 2021 and 2016 (`SINCE` in `build_centre_page.py`), each up
-to today:
+to the date the publications were fetched (shown on the page):
 
 - **Publications:** the investigators' journal articles, conference papers,
   book chapters and books in NVA, with duplicates merged and each
@@ -54,15 +54,16 @@ the countries (with their institutions). `build_centre_page.py` works out the
 lists together with the numbers, so they always agree.
 
 All the investigators' publications are used, not only those marked
-relevant in `../partners/publication_relevance.csv`. The partners page
+relevant in `../partners/publication_relevance.csv`. "Who we publish with"
 counts institutions and countries the same way, with the same function
-(`main_institutions` in `../partners/build_partners_page.py`), and a test
-checks that the two pages agree.
+(`main_institutions` in `../partners/build_partners_page.py`), and tests
+check that the two pages agree, also on the number of publications and
+co-authors by research area.
 
 Under "More about the centre", the page links to the pages listed in
-`LINKED_PAGES` in `build_centre_page.py`: currently the collaborations page
-(`collaborators.html`) and the projects page (`projects.html`), but not yet the
-co-authorship page (`coauthorship.html`).
+`LINKED_PAGES` in `build_centre_page.py`: currently "Who we publish with"
+(`collaborators.html`) and "Projects we lead" (`projects.html`), but not yet
+"Who publishes with whom" (`coauthorship.html`).
 
 ## Tests
 
@@ -73,5 +74,5 @@ python3 -m pytest
 
 The tests use small made-up inputs and need no network access. One test also
 checks that the template and `../site/index.html` load nothing from other
-sites, only files in `../site/`. All of them run
-daily on GitHub Actions with the tests in `../nva/` and `../partners/`.
+sites, only files in `../site/`. They run daily on GitHub Actions with the
+tests in `../nva/` and `../partners/`.
