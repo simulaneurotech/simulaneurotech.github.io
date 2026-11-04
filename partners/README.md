@@ -7,7 +7,7 @@ the centre for external stakeholders. Projects, merges and exclusions have
 been curated by hand; the investigators should still check their own
 projects and collaborators before the page is published.
 
-**Draft page:** <https://simulaneurotech.github.io/partners.html>, built
+**Collaborations page:** <https://simulaneurotech.github.io/partners.html>, built
 from [`../site/partners.html`](../site/partners.html), shows where the centre's co-authors are, what kinds of institutions they
 work at, and clinical collaborators (hospitals with joint publications), with
 a switch for the publication period (since 2024, 2021 or 2016). Selecting an

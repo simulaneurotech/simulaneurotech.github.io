@@ -11,12 +11,12 @@ institutions and countries. It is built from [`site/index.html`](site/index.html
 shows the institutions the centre's co-authors are at, nationally and internationally:
 where they are, what kinds of institutions they are, the clinical
 collaborators, and their departments by research area. Institutions and
-countries are counted as on the overview page. It is a draft for review, and
-is built from [`site/partners.html`](site/partners.html).
+countries are counted as on the overview page. It is built from
+[`site/partners.html`](site/partners.html).
 
 **Projects page:** <https://simulaneurotech.github.io/projects.html>
 shows the centre's research projects since 2016 on a timeline by funder, with
-the investigators on each. It is a draft for review, and is built from
+the investigators on each. It is built from
 [`site/projects.html`](site/projects.html).
 
 **Intracentre collaboration:** <https://simulaneurotech.github.io/coauthorship.html>
