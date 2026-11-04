@@ -1,7 +1,8 @@
 name: Refresh data
 
-# Weekly: fetches new publication data from NVA, OpenAlex and ORCID and
-# rebuilds the pages with refresh.sh. If anything changed, it opens (or
+# Weekly: tags main as it is (before-refresh-YYYY-MM-DD, a restore point),
+# fetches new publication data from NVA, OpenAlex and ORCID and rebuilds the
+# pages with refresh.sh. If anything changed, it opens (or
 # updates) a pull request to review; nothing is published until the pull
 # request is merged.
 
@@ -23,11 +24,32 @@ jobs:
         with:
           python-version: "3.14"
       - run: pip install pytest
+      - name: Tag main before the refresh
+        # A restore point, pushed to GitHub. Skipped when main has not changed
+        # since it was last tagged; the time is added when today's tag exists.
+        run: |
+          head=$(git rev-parse HEAD)
+          tag="before-refresh-$(date -u +%Y-%m-%d)"
+          tags=$(git ls-remote --tags origin)
+          if grep -q "^$head" <<<"$tags"; then
+            tag=$(grep "^$head" <<<"$tags" | head -n 1 | sed -E 's#.*refs/tags/##; s#\^\{\}$##')
+            echo "main is already tagged as $tag"
+          else
+            if grep -q "refs/tags/$tag$" <<<"$tags"; then
+              tag="$tag-$(date -u +%H%M)"
+            fi
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$tag" -m "main before the weekly refresh"
+            git push origin "$tag"
+          fi
+          echo "RESTORE_TAG=$tag" >> "$GITHUB_ENV"
       - name: Refresh and rebuild
         run: |
           ./refresh.sh | tee refresh.log
           {
             echo "Publication data refreshed from NVA, OpenAlex and ORCID by the weekly workflow."
+            echo "\`main\` before the refresh is tagged \`$RESTORE_TAG\`."
             echo
             echo "Before merging, check the changes, in particular:"
             echo
