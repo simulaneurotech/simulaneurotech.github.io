@@ -26,7 +26,7 @@ def test_short_name_and_funder_group():
     assert bpp.short_name("aCleanBrain: The Brain Fluids") == "aCleanBrain"
     assert bpp.short_name("Wireless Access Points (DISCO)") == "DISCO"
     assert bpp.short_name("SIMENT - Simulating mental illness") == "SIMENT"
-    assert bpp.funder_group(["ERC", "EU"]) == "European Union"
+    assert bpp.funder_group(["ERC", "EU"]) == "European Research Council"
     assert bpp.funder_group(["Novo Nordisk Foundation"]) == "Foundations"
     assert bpp.funder_group(["Wellcome Trust"]) == "Foundations"
     assert bpp.funder_group(["NordForsk"]) == "Other"
