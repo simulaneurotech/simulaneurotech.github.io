@@ -1,3 +1,5 @@
 author,openalex_author_id,institution,department,discipline,note
 "Jensenius, Alexander Refsum",,University of Oslo,"Department of Musicology, RITMO",Other,"Music technology; OpenAlex has no institution"
 "Laczkó, Bálint",,University of Oslo,"Department of Musicology, RITMO",Other,"Music technology; OpenAlex has no institution"
+"Dukefoss, Didrik B.",A5087731830,University of Oslo,"Letten Centre/GliaLab, Institute of Basic Medical Sciences, Faculty of Medicine",Experimental & basic medicine,"Basic medicine; OpenAlex lost the department on a 2022 paper"
+"Enger, Rune",A5082633387,University of Oslo,"Letten Centre/GliaLab, Institute of Basic Medical Sciences, Faculty of Medicine",Experimental & basic medicine,"Basic medicine; OpenAlex lost the department on a 2022 paper and gives the wrong institution on a 2026 paper"
