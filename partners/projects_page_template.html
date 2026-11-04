@@ -24,6 +24,7 @@
   --f-other: #9aa3ae;
   --today: #141820;
   --logo-tile: #ffffff;
+  --logo-light-tile: #ffffff;
   --font-display: "Spectral", Georgia, "Times New Roman", serif;
   --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -32,14 +33,14 @@
   :root:not([data-theme="light"]) {
     --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
     --line: #2a3038; --soft: #1e2329; --link: #3987e5;
-    --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface);
+    --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface); --logo-light-tile: #b0b8c2;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
   --line: #2a3038; --soft: #1e2329; --link: #3987e5;
-  --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface);
+  --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4; --logo-tile: var(--surface); --logo-light-tile: #b0b8c2;
   color-scheme: dark;
 }
 
@@ -101,9 +102,10 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 #timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
 #timeline .today line { stroke: var(--today); stroke-dasharray: 3 3; }
 #timeline .today text { font: 500 11px var(--font-data); fill: var(--ink); }
-/* Logos: on a white tile, except in dark mode for logos with a version for
-   dark backgrounds (or that work on dark as they are) */
-#timeline .chip, #timeline .bar:hover rect.chip, #timeline .bar.on rect.chip { fill: #fff; stroke: var(--line); stroke-width: 1; }
+/* Logos: on a white tile (mid grey in dark mode, so it does not glare), except
+   in dark mode for logos with a version for dark backgrounds, or that work on
+   dark as they are */
+#timeline .chip, #timeline .bar:hover rect.chip, #timeline .bar.on rect.chip { fill: var(--logo-light-tile); stroke: var(--line); stroke-width: 1; }
 #timeline .chip.adapts, #timeline .bar:hover rect.chip.adapts, #timeline .bar.on rect.chip.adapts { fill: var(--logo-tile); }
 .dark-only { display: none; }
 @media (prefers-color-scheme: dark) {
@@ -117,7 +119,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .funders { display: grid; gap: 10px; }
 .funders h3 { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 .funder-logos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.funder-logos img { width: 132px; height: 48px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.funder-logos img { width: 132px; height: 48px; object-fit: contain; background: var(--logo-light-tile); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
 .funder-logos img.adapts { background: var(--logo-tile); }
 .funders p { font-size: 0.85rem; color: var(--ink-2); }
 .undated { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.86rem; color: var(--ink-2); }
