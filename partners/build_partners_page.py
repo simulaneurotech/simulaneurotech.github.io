@@ -78,8 +78,8 @@ KINDS = {
 }
 FUNDER_GROUPS = [
     ("Research Council of Norway", "Research Council of Norway"),
-    ("ERC", "European Union"),
-    ("EU", "European Union"),
+    ("ERC", "European Research Council"),
+    ("EU", "European Research Council"),
     ("K. G. Jebsen Foundation", "Foundations"),
     ("Novo Nordisk Foundation", "Foundations"),
     ("Wellcome Trust", "Foundations"),

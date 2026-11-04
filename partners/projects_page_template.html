@@ -181,7 +181,7 @@ const DATA = __DATA__;
 const LAST_YEAR = +DATA.generated.slice(0, 4);
 const FUNDERS = [
   ["Research Council of Norway", "--f-rcn"],
-  ["European Union", "--f-eu"],
+  ["European Research Council", "--f-eu"],
   ["Foundations", "--f-found"],
   ["Other", "--f-other"],
 ];
@@ -215,7 +215,7 @@ function renderSummary() {
   const by = g => DATA.projects.filter(p => p.funderGroup === g).length;
   const funders = [
     [by("Research Council of Norway"), "the Research Council of Norway"],
-    [by("European Union"), "the European Union"],
+    [by("European Research Council"), "the European Research Council"],
     [by("Foundations"), "private foundations"],
     [by("Other"), "other sources"],
   ].filter(([k]) => k).map(([k, who], i) => `${k} ${i === 0 ? "funded mainly " : ""}by ${who}`);
