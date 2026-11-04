@@ -313,7 +313,7 @@ for (const [key, what, how] of [
   }
 }
 document.getElementById("figures-note").textContent =
-  `Each period runs to today (${DATA.generated}). Co-authors, institutions and countries come from the publications with a DOI found in OpenAlex. Select a number to see the list behind it.`;
+  `Each period runs to ${DATA.fetched.nva_publications}, when the publications were fetched from NVA. Co-authors, institutions and countries come from the publications with a DOI found in OpenAlex. Select a number to see the list behind it.`;
 
 // The lists behind the key figures
 const countryName = (() => {
@@ -554,7 +554,8 @@ document.getElementById("projects-method").hidden = !DATA.showProjects;
 for (const a of document.querySelectorAll("#links-section a.card")) a.hidden = !DATA.linkedPages.includes(a.getAttribute("href"));
 document.getElementById("links-section").hidden = !DATA.linkedPages.length;
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
-document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+document.getElementById("generated").textContent =
+  `Publications fetched from NVA on ${DATA.fetched.nva_publications}; co-authors and their institutions from OpenAlex on ${DATA.fetched.openalex}.`;
 if (DATA.showProjects) {
   renderProjects();
   renderRcnSummary();

@@ -25,6 +25,8 @@ from pathlib import Path
 NVA_DIR = Path(__file__).resolve().parent.parent / "nva"
 
 sys.path.insert(0, str(NVA_DIR))
+import fetch_log
+
 from fetch_nva import API, get, last_segment
 
 PROJECT_FIELDS = [
@@ -174,6 +176,7 @@ def main():
         names = institution_names(ids)
         for k in order:
             writer.writerows(participants(projects[k], names))
+    fetch_log.record(output_dir / "fetched.csv", "nva_projects")
     shared = sum(1 for k in order if len(members[k]) > 1)
     print(f"{len(projects)} projects, {shared} with two or more investigators")
 

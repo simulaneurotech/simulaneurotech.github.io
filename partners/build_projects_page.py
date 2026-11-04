@@ -17,7 +17,7 @@ import json
 import sys
 from pathlib import Path
 
-from build_partners_page import FIRST_PROJECT_YEAR, projects, read_csv
+from build_partners_page import FIRST_PROJECT_YEAR, fetch_dates, projects, read_csv
 
 HERE = Path(__file__).resolve().parent
 TEMPLATE = HERE / "projects_page_template.html"
@@ -32,6 +32,7 @@ LEFT_OUT = ("partners", "rcn")
 def collect(here=HERE):
     return {
         "generated": datetime.date.today().isoformat(),
+        "fetched": fetch_dates(here),
         "firstYear": FIRST_PROJECT_YEAR,
         "projects": [
             {k: v for k, v in p.items() if k not in LEFT_OUT}

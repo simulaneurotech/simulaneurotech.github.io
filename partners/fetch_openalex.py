@@ -45,6 +45,8 @@ from pathlib import Path
 NVA_DIR = Path(__file__).resolve().parent.parent / "nva"
 
 sys.path.insert(0, str(NVA_DIR))
+import fetch_log
+
 from fetch_nva import ascii_fold
 from publication_data import compatible, doi_key, id_order, load
 from publication_relevance import text_flags
@@ -312,6 +314,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=INSTITUTION_FIELDS)
         writer.writeheader()
         writer.writerows(institutions)
+    fetch_log.record(output_dir / "fetched.csv", "openalex")
     found = sum(1 for doi in with_doi.values() if doi in works)
     print(
         f"{len(investigators)} publications, {len(with_doi)} with a DOI, "

@@ -592,7 +592,8 @@ segmented(document.getElementById("kind"), kinds, "kind", () => { tip.hidden = t
 for (const [b, [value]] of [...document.getElementById("kind").children].map((b, i) => [b, kinds[i]])) {
   if (value !== "all") b.prepend(el("i", { class: "dot", style: `background:var(--${value})` }));
 }
-document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+document.getElementById("generated").textContent =
+  `Publications fetched from NVA on ${DATA.fetched.nva_publications}; co-authors and their institutions from OpenAlex on ${DATA.fetched.openalex}; co-authors' departments from ORCID and OpenAlex on ${DATA.fetched.coauthor_details}.`;
 renderAll();
 </script>
 </body>

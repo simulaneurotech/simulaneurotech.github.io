@@ -39,6 +39,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+import fetch_log
+
 API = "https://api.nva.unit.no"
 
 # Simula (Simula Research Laboratory), SimulaMet, Simula UiB
@@ -372,6 +374,8 @@ def main():
         ["part_of", "cristin_person_id", "first_name", "surname"],
         editors,
     )
+    # Next to the publications folder: nva/fetched.csv
+    fetch_log.record(publications_dir.parent / "fetched.csv", "nva_publications")
     print(
         f"{len(kept)} publications, {len(contributors)} author rows, "
         f"{len(institution_ids)} institutions, {len(chapters)} chapters"

@@ -270,7 +270,8 @@ function select(p) {
 }
 
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
-document.getElementById("generated").textContent = `Data collected ${DATA.generated}.`;
+document.getElementById("generated").textContent =
+  `Projects fetched from Simula's project pages on ${DATA.fetched.simula_projects} and the NVA project register on ${DATA.fetched.nva_projects}.`;
 renderFacts();
 renderProjects();
 </script>
