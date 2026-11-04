@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Refresh the data and rebuild the pages in site/.
+# Refresh the publication data and rebuild the pages in site/.
 #
 # Usage: ./refresh.sh [--no-fetch]
 #

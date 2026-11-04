@@ -53,8 +53,9 @@ daily and can be started manually from the Actions tab.
 ./refresh.sh
 ```
 
-fetches the investigators' publications from NVA and their co-authors'
-institutions from OpenAlex, rebuilds the three pages in `site/`, runs the
+refreshes the publication data: it fetches the investigators' publications
+from NVA, their co-authors' institutions from OpenAlex and details about new
+co-authors from OpenAlex and ORCID, rebuilds the pages in `site/`, runs the
 tests and prints the key figures before and after. `./refresh.sh --no-fetch`
 rebuilds from the data already in the repository. Pages whose only change is
 the date they were generated are left as they were. Nothing is committed:
@@ -68,9 +69,9 @@ institution or department is missing or wrong
 (`partners/coauthor_corrections.csv`), then commit and push to publish.
 
 A weekly workflow (`.github/workflows/refresh.yml`, Mondays at 04:00 UTC, or
-started manually from the Actions tab) runs `refresh.sh` and, if anything
-changed, opens a pull request with the key figures. Nothing is published
-until the pull request is merged. It needs "Allow GitHub Actions to create
+started manually from the Actions tab) runs `refresh.sh` to refresh the
+publication data and, if anything changed, opens a pull request with the key
+figures. Nothing is published until the pull request is merged. It needs "Allow GitHub Actions to create
 and approve pull requests" to be switched on in the repository's (and the
 organisation's) Settings → Actions → General.
 
