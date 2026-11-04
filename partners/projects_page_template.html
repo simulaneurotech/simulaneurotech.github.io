@@ -147,6 +147,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
   <section>
     <div class="section-head">
       <h2>Timeline</h2>
+      <p id="timeline-summary"></p>
     </div>
     <div class="card timeline-card">
       <div class="top">
@@ -207,6 +208,30 @@ function segmented(container, options, key, onChange) {
 }
 
 // Headline numbers
+// A summary of the projects above the timeline: by main funder and status
+function renderSummary() {
+  // "more than 20" for 21-25 projects, and so on; the exact number below 11
+  const roughly = k => (k > 10 ? `more than ${Math.floor((k - 1) / 5) * 5}` : `${k}`);
+  const by = g => DATA.projects.filter(p => p.funderGroup === g).length;
+  const funders = [
+    [by("Research Council of Norway"), "the Research Council of Norway"],
+    [by("European Union"), "the European Union"],
+    [by("Foundations"), "private foundations"],
+    [by("Other"), "other sources"],
+  ].filter(([k]) => k).map(([k, who], i) => `${k} ${i === 0 ? "funded mainly " : ""}by ${who}`);
+  const list = funders.length > 1 ? `${funders.slice(0, -1).join(", ")} and ${funders[funders.length - 1]}` : funders[0];
+  const status = s => DATA.projects.filter(p => p.status === s);
+  const upcoming = status("upcoming");
+  const parts = [
+    `${status("active").length} ${status("active").length === 1 ? "is" : "are"} running now`,
+    ...(upcoming.length ? [`${upcoming.length} ${upcoming.length === 1 ? "starts" : "start"} in ${Math.floor(Math.min(...upcoming.map(p => p.start)))}`] : []),
+    `${status("ended").length} ${status("ended").length === 1 ? "has" : "have"} ended`,
+  ];
+  document.getElementById("timeline-summary").textContent =
+    `Since ${DATA.firstYear}, the centre's investigators have led ${roughly(DATA.projects.length)} research projects, ` +
+    `or Simula's part of them: ${list}. ${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}.`;
+}
+
 function renderFacts() {
   const facts = document.getElementById("facts");
   const count = s => DATA.projects.filter(p => p.status === s).length;
@@ -346,6 +371,7 @@ function renderFunders() {
 }
 
 renderFacts();
+renderSummary();
 renderProjects();
 renderFunders();
 </script>
