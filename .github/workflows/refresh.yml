@@ -1,8 +1,9 @@
 name: Refresh data
 
-# Weekly: fetches new data from NVA and OpenAlex and rebuilds the pages with
-# refresh.sh. If anything changed, it opens (or updates) a pull request to
-# review; nothing is published until the pull request is merged.
+# Weekly: fetches new publication data from NVA, OpenAlex and ORCID and
+# rebuilds the pages with refresh.sh. If anything changed, it opens (or
+# updates) a pull request to review; nothing is published until the pull
+# request is merged.
 
 on:
   schedule:
@@ -26,7 +27,7 @@ jobs:
         run: |
           ./refresh.sh | tee refresh.log
           {
-            echo "Data refreshed from NVA and OpenAlex by the weekly workflow."
+            echo "Publication data refreshed from NVA, OpenAlex and ORCID by the weekly workflow."
             echo
             echo "Before merging, check the changes, in particular:"
             echo
