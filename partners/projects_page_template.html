@@ -348,7 +348,7 @@ function select(p) {
 
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent =
-  `Projects fetched from Simula's project pages on ${DATA.fetched.simula_projects} and the NVA project register on ${DATA.fetched.nva_projects}.`;
+  `Projects checked by hand on ${DATA.fetched.projects_checked} against Simula's project pages, the NVA project register, Prosjektbanken, CORDIS and the funders' own pages.`;
 // Funder logos, for the funders of the projects on the page; the others by name
 function renderFunders() {
   const used = new Set(DATA.projects.flatMap(p => p.funders));
