@@ -22,13 +22,8 @@ def test_recording_one_source_keeps_the_others(tmp_path):
     ]
 
 
-def test_records_today_by_default(tmp_path, monkeypatch):
-    class Day:
-        @staticmethod
-        def today():
-            return fetch_log.datetime.date(2026, 11, 4)
-
-    monkeypatch.setattr(fetch_log.datetime, "date", Day)
+def test_records_today_by_default(tmp_path):
     path = tmp_path / "fetched.csv"
     fetch_log.record(path, "nva_publications")
-    assert fetch_log.read(path) == {"nva_publications": "2026-11-04"}
+    today = fetch_log.datetime.date.today().isoformat()
+    assert fetch_log.read(path) == {"nva_publications": today}
