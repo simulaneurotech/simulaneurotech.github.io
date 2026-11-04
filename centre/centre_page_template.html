@@ -7,7 +7,7 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
-/* Layout: one reading column; key figures as a table across three periods, investigators, then the project timeline. Same language as the centre's other pages. */
+/* Layout: one reading column; key figures as a table across three periods, investigators, then links to the other pages. Same language as the centre's other pages. */
 :root {
   --bg: #f6f7f9;
   --surface: #ffffff;
@@ -22,12 +22,6 @@
   --uni: #2a78d6;
   --hosp: #eb6834;
   --other: #1baf7a;
-  /* funders on the project timeline */
-  --f-rcn: #00b0b8; /* the teal-green of the EMIx logo */
-  --f-eu: #003399; /* EU flag blue */
-  --f-found: #e87ba4;
-  --f-other: #9aa3ae;
-  --today: #141820;
   --font-display: "Spectral", Georgia, "Times New Roman", serif;
   --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -37,7 +31,6 @@
     --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
     --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
     --uni: #3987e5; --hosp: #d95926; --other: #199e70;
-    --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
     color-scheme: dark;
   }
 }
@@ -45,7 +38,6 @@
   --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
   --line: #2a3038; --land: #232a32; --land-edge: #313a45; --soft: #1e2329;
   --uni: #3987e5; --hosp: #d95926; --other: #199e70;
-  --f-rcn: #2ec4ca; --f-eu: #3b6fe0; --f-found: #d55181; --f-other: #6b7482; --today: #eef1f4;
   color-scheme: dark;
 }
 
@@ -72,10 +64,6 @@ header { display: grid; gap: 12px; }
 .draft { justify-self: start; font-size: 0.82rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
 
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.84rem; color: var(--ink-2); }
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
-.seg button { font: 500 0.8rem var(--font-body); background: none; border: 0; padding: 5px 11px; color: var(--ink-2); cursor: pointer; }
-.seg button + button { border-left: 1px solid var(--line); }
-.seg button[aria-pressed="true"] { background: var(--soft); color: var(--ink); }
 
 .facts { display: flex; flex-wrap: wrap; gap: 8px 32px; }
 .fact { display: grid; gap: 2px; }
@@ -87,16 +75,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .section-head { display: grid; gap: 6px; }
 .section-head p { max-width: 65ch; color: var(--ink-2); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-.sq { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
 
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.82rem; color: var(--ink-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sq { width: 12px; height: 10px; border-radius: 2px; display: inline-block; }
-.map-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; }
 
 /* Key figures */
 .figures-card { padding: 8px 16px 16px; }
@@ -146,27 +125,6 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
 .links a span { font-size: 0.84rem; color: var(--ink-2); }
 .links a:hover { border-color: var(--ink-2); }
 
-/* Projects */
-.timeline-card { padding: 16px; display: grid; gap: 12px; }
-.timeline-wrap { overflow-x: auto; }
-#timeline { display: block; width: 100%; min-width: 640px; height: auto; }
-#timeline .axis text { font: 400 11px var(--font-data); fill: var(--muted); }
-#timeline .grid line { stroke: var(--line); }
-#timeline .label { font: 500 12.5px var(--font-body); fill: var(--ink); }
-#timeline .who { font: 400 11.5px var(--font-body); fill: var(--muted); }
-#timeline .bar { cursor: pointer; }
-#timeline .bar rect { rx: 4; }
-#timeline .bar:hover rect, #timeline .bar.on rect { stroke: var(--ink); stroke-width: 1.5; }
-#timeline .today line { stroke: var(--today); stroke-dasharray: 3 3; }
-#timeline .today text { font: 500 11px var(--font-data); fill: var(--ink); }
-.undated { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.86rem; color: var(--ink-2); }
-.chip { font: 500 0.82rem var(--font-body); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
-.details { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 0.9rem; }
-.details dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
-.details dt { color: var(--muted); font-size: 0.82rem; }
-.details dd { margin: 0; overflow-wrap: anywhere; }
-.pill { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; color: var(--ink-2); }
-
 .method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
 .method h2 { font-size: 1.1rem; }
 .method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
@@ -205,23 +163,6 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
     </div>
   </section>
 
-  <section id="projects-section">
-    <div class="section-head">
-      <h2>Projects</h2>
-      <p>Research projects with the centre's investigators that started in 2016 or later, coloured by main funder. Select a project for details.</p>
-      <p class="note" id="rcn-summary"></p>
-    </div>
-    <div class="card timeline-card">
-      <div class="map-top">
-        <div class="legend" id="funder-legend"></div>
-        <div class="seg" role="group" aria-label="Which projects" id="project-view"></div>
-      </div>
-      <div class="timeline-wrap"><svg id="timeline" role="img" aria-label="Project timeline"></svg></div>
-      <div class="undated" id="undated"></div>
-      <div class="details" id="details" hidden></div>
-    </div>
-  </section>
-
   <section id="links-section">
     <div class="section-head"><h2>More about the centre</h2></div>
     <div class="links">
@@ -235,7 +176,6 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
     <h2>How this was made</h2>
     <p>Publications are the investigators' journal articles, conference papers, book chapters and books in <a href="https://nva.sikt.no/" target="_blank" rel="noopener">NVA</a> (Nasjonalt vitenarkiv), with duplicates merged and each publication counted once however many investigators are on it.</p>
     <p>Co-authors are everyone on these publications other than the centre's investigators, from <a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex</a>, which covers the publications with a DOI. Each co-author is counted once, at their main institution: the one they are listed at most often on these publications. Colleagues whose main institution is in the Simula Group, and the Simula Group institutions themselves, are not counted.</p>
-    <p id="projects-method">Projects come from Simula's project pages and the NVA project register, selected and checked by hand; Research Council funding comes from its project bank.</p>
     <p id="generated"></p>
   </section>
 </div>
@@ -243,17 +183,9 @@ table.figures { border-collapse: collapse; width: 100%; min-width: 520px; }
 <script src="assets/d3.min.js"></script>
 <script>
 const DATA = __DATA__;
-const LAST_YEAR = +DATA.generated.slice(0, 4);
-const FUNDERS = [
-  ["Research Council of Norway", "--f-rcn"],
-  ["European Research Council", "--f-eu"],
-  ["Foundations", "--f-found"],
-  ["Other", "--f-other"],
-];
 // Surnames of more than one word, as on the co-authorship page
 const SURNAMES = { "Evrim Acar Ataman": "Acar Ataman" };
 const surname = n => SURNAMES[n] || n.split(" ").slice(-1)[0];
-const state = { projects: "active", selected: null };
 
 function el(tag, attrs = {}, parent) {
   const e = document.createElement(tag);
@@ -261,17 +193,6 @@ function el(tag, attrs = {}, parent) {
   if (parent) parent.appendChild(e);
   return e;
 }
-function segmented(container, options, key, onChange) {
-  for (const [value, label] of options) {
-    const b = el("button", { type: "button", "aria-pressed": String(state[key] === value), text: label }, container);
-    b.addEventListener("click", () => {
-      state[key] = value;
-      for (const x of container.children) x.setAttribute("aria-pressed", String(x === b));
-      onChange();
-    });
-  }
-}
-
 // Header
 const count = a => DATA.investigators.filter(i => i.affiliation === a).length;
 const affiliations = [...new Set(DATA.investigators.map(i => i.affiliation))].sort((a, b) => count(b) - count(a));
@@ -281,7 +202,6 @@ document.getElementById("lede").textContent =
 const facts = document.getElementById("facts");
 for (const [v, label] of [
   [DATA.investigators.length, "investigators"],
-  ...(DATA.showProjects ? [[DATA.projects.filter(p => p.status === "active").length, "active projects"]] : []),
   [DATA.figures[2021].publications, "publications since 2021"],
   [DATA.figures[2021].countries, "countries of co-authors since 2021"],
 ]) {
@@ -450,118 +370,10 @@ for (const i of DATA.investigators) {
   if (i.role) el("span", { class: "role", text: i.role }, li);
 }
 
-// Projects timeline
-const funderColor = g => `var(${(FUNDERS.find(f => f[0] === g) || FUNDERS[3])[1]})`;
-const legend = document.getElementById("funder-legend");
-for (const [name, color] of FUNDERS) {
-  const s = el("span", {}, legend);
-  const sw = el("i", { class: "sq" }, s); sw.style.background = `var(${color})`;
-  s.append(name);
-}
-function renderProjects() {
-  const today = LAST_YEAR + (new Date(DATA.generated).getMonth() + 1) / 12;
-  const shown = DATA.projects.filter(p => state.projects === "all" || p.status !== "ended");
-  const dated = shown.filter(p => p.start != null).sort((a, b) => a.start - b.start || (a.end ?? today) - (b.end ?? today));
-  const undated = shown.filter(p => p.start == null);
-  const svgT = d3.select("#timeline");
-  svgT.selectAll("*").remove();
-  const L = 200, R = 190, T = 26, row = 30, B = 24;
-  const Wt = 960, Ht = T + dated.length * row + B;
-  svgT.attr("viewBox", `0 0 ${Wt} ${Ht}`);
-  const x0 = Math.floor(Math.min(today - 1, ...dated.map(p => p.start)));
-  const x1 = Math.ceil(Math.max(today + 1, ...dated.map(p => p.end ?? today)));
-  const x = d3.scaleLinear().domain([x0, x1]).range([L, Wt - R]);
-  const step = x1 - x0 > 12 ? 2 : 1;
-  const ticks = d3.range(Math.ceil(x0 / step) * step, x1 + 1, step);
-  const grid = svgT.append("g").attr("class", "grid");
-  const axis = svgT.append("g").attr("class", "axis");
-  for (const t of ticks) {
-    grid.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", T - 6).attr("y2", Ht - B);
-    axis.append("text").attr("x", x(t)).attr("y", 14).attr("text-anchor", "middle").text(t);
-  }
-  dated.forEach((p, i) => {
-    const y = T + i * row;
-    const g = svgT.append("g").attr("class", "bar").attr("tabindex", 0).attr("role", "button")
-      .attr("aria-label", `${p.title}, ${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
-    g.append("text").attr("class", "label").attr("x", L - 10).attr("y", y + 16).attr("text-anchor", "end").text(p.short.length > 28 ? p.short.slice(0, 27) + "…" : p.short);
-    const end = p.end ?? today;
-    g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
-      .attr("fill", funderColor(p.funderGroup));
-    const who = p.investigators.map(surname).join(", ");
-    g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16).text(p.end == null ? `ongoing · ${who}` : who);
-    g.append("title").text(`${p.title} · ${p.funders.join(", ") || "funder not listed"}`);
-    g.on("click", () => select(p)).on("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(p); } });
-    if (state.selected === p.title) g.classed("on", true);
-  });
-  const t = svgT.append("g").attr("class", "today");
-  t.append("line").attr("x1", x(today)).attr("x2", x(today)).attr("y1", T - 6).attr("y2", Ht - B + 4);
-  t.append("text").attr("x", x(today)).attr("y", Ht - 8).attr("text-anchor", "middle").text("Today");
-
-  const und = document.getElementById("undated");
-  und.replaceChildren();
-  if (undated.length) {
-    el("span", { text: "Ongoing, dates not listed:" }, und);
-    for (const p of undated) {
-      const c = el("button", { type: "button", class: "chip" }, und);
-      const sw = el("i", { class: "sq" }, c); sw.style.background = funderColor(p.funderGroup);
-      c.append(p.short);
-      c.addEventListener("click", () => select(p));
-    }
-  }
-}
-function select(p) {
-  state.selected = p.title;
-  renderProjects();
-  const d = document.getElementById("details");
-  d.replaceChildren();
-  d.hidden = false;
-  const head = el("div", {}, d);
-  const a = el("a", { href: p.url, target: "_blank", rel: "noopener", text: p.title }, el("h3", {}, head));
-  a.style.color = "inherit";
-  const dl = el("dl", {}, d);
-  const row = (k, v) => { if (v) { el("dt", { text: k }, dl); el("dd", { text: v }, dl); } };
-  row("Status", p.status === "active" ? "Active" : p.status === "upcoming" ? "Starting soon" : "Ended");
-  row("Years", p.start == null ? "Not listed" : `${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
-  row("Investigators", p.investigators.join(", "));
-  row("Funding", [p.funders.join(", "), p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
-  row("Collaborators at", p.collaborators.join(", "));
-  if (p.rcn) {
-    const r = p.rcn;
-    row("Research Council funding", [
-      r.funding ? `NOK ${(r.funding / 1e6).toFixed(1)} million for the whole project` : "Amount not yet listed",
-      [r.programmes.join(", "), r.scheme].filter(Boolean).join(" · "),
-    ].filter(Boolean).join(" · "));
-    if (!r.ledHere) row("Led by", `${r.lead}, ${r.institution}`);
-    if (r.effects) row("Results reported", r.effects);
-    const link = el("a", { href: `https://prosjektbanken.forskningsradet.no/project/FORISS/${r.grant}`, target: "_blank", rel: "noopener", text: `Project ${r.grant} in the Research Council's project bank` }, d);
-    link.style.fontSize = "0.85rem";
-  }
-}
-
-// Research Council of Norway funding to projects led at Simula
-function renderRcnSummary() {
-  const rcnProjects = DATA.projects.filter(p => p.funderGroup === "Research Council of Norway");
-  const counted = rcnProjects.filter(p => p.rcn && p.rcn.ledHere && p.rcn.funding);
-  const total = counted.reduce((n, p) => n + p.rcn.funding, 0);
-  const rest = rcnProjects.length - counted.length;
-  document.getElementById("rcn-summary").textContent = counted.length
-    ? `Research Council of Norway funding listed in its project bank for projects led at Simula: NOK ${(total / 1e6).toFixed(1)} million (${counted.map(p => p.short).join(", ")}). ` +
-      `Amounts for the other ${rest} Research Council project${rest === 1 ? "" : "s"} are not included: some are new or led elsewhere, and some grant numbers are still missing.`
-    : "";
-}
-
-// Projects are shown only when SHOW_PROJECTS is set in build_centre_page.py
-document.getElementById("projects-section").hidden = !DATA.showProjects;
-document.getElementById("projects-method").hidden = !DATA.showProjects;
 for (const a of document.querySelectorAll("#links-section a.card")) a.hidden = !DATA.linkedPages.includes(a.getAttribute("href"));
 document.getElementById("links-section").hidden = !DATA.linkedPages.length;
-segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);
 document.getElementById("generated").textContent =
   `Publications fetched from NVA on ${DATA.fetched.nva_publications}; co-authors and their institutions from OpenAlex on ${DATA.fetched.openalex}.`;
-if (DATA.showProjects) {
-  renderProjects();
-  renderRcnSummary();
-}
 </script>
 </body>
 </html>

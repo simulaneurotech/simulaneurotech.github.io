@@ -54,7 +54,7 @@ The scripts read the investigators and their publications from
 | `simula_colleagues.csv` | **Curated by hand**: co-authors who are Simula colleagues although OpenAlex does not give a Simula Group institution as their main one (`author`, `openalex_author_id`); left out like other colleagues on both the overview and the partners page |
 | `institution_kinds.csv` | **Curated by hand**: kinds of institution that override the institution's type in OpenAlex (`kind`, such as QB3 as a university), and the field of research institutes and companies (`discipline`), for the co-authors page |
 | `coauthor_corrections.csv` | **Curated by hand**: a co-author's institution, department and discipline where OpenAlex has none or the wrong one (`author`, `openalex_author_id`, `institution`, `department`, `discipline`); the institution counts on all the pages |
-| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects led by a centre investigator, or where an investigator leads Simula's part of a project led elsewhere. Columns: `include` (no = left out, with the reason in `note`), `relevance` (core, related), `leader` and `leader_role` (lead, Simula lead or contact), `host`, `participants` (other centre investigators), `funders`, `scheme`, `grants`, `funding` and `funding_source` (not shown on the pages), `collaborators` and `collaborator_countries` with `collaborator_source` (only as listed by official sources: Simula's project pages, the NVA project register, Prosjektbanken, CORDIS or the funder), `short` (a short name for the timeline) and `note`. Dates are the funder's where the sources differ |
+| `centre_projects.csv` | **Curated by hand**, not written by any script: the projects led by a centre investigator, or where an investigator leads Simula's part of a project led elsewhere. Columns: `include` (no = left out, with the reason in `note`), `relevance` (core, related), `leader` and `leader_role` (lead, Simula lead or contact), `host`, `participants` (other centre investigators), `funders`, `scheme`, `grants`, `funding` and `funding_source` (not shown on the pages), `collaborators` and `collaborator_countries` with `collaborator_source` (only as listed by official sources: Simula's project pages, the NVA project register, Prosjektbanken, CORDIS or the funder), `short` (a short name for the timeline), `status` (empty: worked out from the dates; `ended` for a project that ended early) and `note`. Dates are the funder's where the sources differ |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
 | `nva_projects.csv` | NVA projects with a centre investigator: dates, funder and grant number, coordinating institution, participants |
 | `nva_project_participants.csv` | Everyone taking part in those projects, with their unit (department) and the institution it belongs to |
@@ -94,11 +94,15 @@ and countries. Investigators are recognised among a
 paper's OpenAlex authors by name (column `investigator` in
 `openalex_affiliations.csv`). Projects come from `centre_projects.csv`;
 rows with `include` set to `no` are left out, and so are projects that
-started before 2016 (`FIRST_PROJECT_YEAR` in `build_partners_page.py`), and the `status` column
-(active, upcoming, ended) decides which projects show as active. A duration
-with only a start ("2022–") is an ongoing project. Funders are grouped for
-colour as `FUNDER_GROUPS` in `build_partners_page.py` says; others show as
-"Other". Project partners on the page are the `partners` column. Clinical
+started before 2016 (`FIRST_PROJECT_YEAR` in `build_partners_page.py`). A
+project's status (upcoming, active, ended) is worked out from its dates on the
+day the page is built (`project_status`), so the pages keep up as projects
+start and end; set the `status` column to `ended` only for a project that
+ended before its dates say. A duration with only a start ("2022–") is an
+ongoing project. Funders are grouped for colour as `FUNDER_GROUPS` in
+`build_partners_page.py` says; others show as "Other". The institutions a
+project collaborates with are the `collaborators` column, with their source
+in `collaborator_source`. Clinical
 collaborators need at least `MIN_CLINICAL` joint publications in the period
 (currently 1), set in the page template.
 
@@ -184,8 +188,9 @@ department a person belongs to, not necessarily their research area.
   so it may change). Projects are looked up by grant number, so projects
   without one in `centre_projects.csv` are not covered, and very new
   projects may be missing or have no amount yet. Funding is for the whole
-  project, including partners' shares; the total on the page counts only
-  projects led at Simula. There are no partner institutions.
+  project, including partners' shares, and is kept in `centre_projects.csv`
+  only: the pages show no amounts. There are no partner institutions, only
+  partner countries for some projects.
 - **OpenAlex.** Covers publications with a DOI (about 70%; older
   publications often have none). Institutions are as OpenAlex matched them
   from the papers. An investigator listed under an unusual form of their
@@ -193,8 +198,9 @@ department a person belongs to, not necessarily their research area.
   partner.
 - **Formal partners** beyond projects (agreements with hospitals, industry or
   other centres) are not in any of these sources and need to come from the
-  centre. Project partners are only as complete as Simula's pages and the
-  NVA project register; several projects list none.
+  centre. The collaborators on the projects page are only as complete as
+  Simula's project pages, the NVA project register, Prosjektbanken, CORDIS
+  and the funders' own pages; several projects list none.
 
 ## Tests
 

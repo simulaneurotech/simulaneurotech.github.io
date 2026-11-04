@@ -7,10 +7,8 @@ which loads its fonts and d3 from ../site/assets.
 
 Reads the investigators and their publications from ../nva (after merging
 duplicates), the co-authors and their institutions from
-../partners/openalex_affiliations.csv, and the projects from
-../partners/centre_projects.csv (with Research Council funding from
-../partners/prosjektbanken_projects.csv), and fills
-centre_page_template.html. Investigators link to their Simula pages from
+../partners/openalex_affiliations.csv, and fills centre_page_template.html.
+The projects are on their own page (../partners/build_projects_page.py). Investigators link to their Simula pages from
 investigator_pages.csv (checked by hand).
 
 Key figures are given since each year in SINCE:
@@ -39,8 +37,6 @@ PARTNERS_DIR = HERE.parent / "partners"
 TEMPLATE = HERE / "centre_page_template.html"
 OUTPUT = HERE.parent / "site" / "index.html"
 SINCE = [2024, 2021, 2016]
-# The project timeline is hidden for now; set to True to show it again
-SHOW_PROJECTS = False
 # Pages linked under "More about the centre"; the co-authorship page
 # (coauthorship.html) is not linked yet
 LINKED_PAGES = ["collaborators.html", "projects.html"]
@@ -51,7 +47,6 @@ sys.path.insert(0, str(PARTNERS_DIR))
 from build_partners_page import (
     fetch_dates,
     main_institutions,
-    projects,
     read_colleagues,
     read_corrections,
     read_person_merges,
@@ -230,9 +225,6 @@ def collect():
         (r["author"], r["institution"])
         for r in read_csv(PARTNERS_DIR / "affiliation_exclusions.csv")
     ]
-    prosjektbanken = {
-        r["grant"]: r for r in read_csv(PARTNERS_DIR / "prosjektbanken_projects.csv")
-    }
     return {
         "generated": datetime.date.today().isoformat(),
         "fetched": fetch_dates(PARTNERS_DIR),
@@ -263,12 +255,7 @@ def collect():
                 if r["institution"]
             },
         ),
-        "showProjects": SHOW_PROJECTS,
         "linkedPages": LINKED_PAGES,
-        "projects": projects(
-            read_csv(PARTNERS_DIR / "centre_projects.csv"),
-            prosjektbanken=prosjektbanken,
-        ),
     }
 
 
@@ -279,9 +266,7 @@ def main():
         "__DATA__", json.dumps(data, ensure_ascii=False)
     )
     output.write_text(html, encoding="utf-8")
-    print(
-        f"{output.name}: {len(data['investigators'])} investigators, {len(data['projects'])} projects"
-    )
+    print(f"{output.name}: {len(data['investigators'])} investigators")
     for start, f in data["figures"].items():
         print(
             f"  since {start}: "
