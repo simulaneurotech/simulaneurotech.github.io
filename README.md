@@ -121,6 +121,5 @@ from these sources, under their own terms:
 
 Publication abstracts are not stored, as they are usually copyrighted. Email
 addresses are stored only for the centre's investigators (to recognise them
-on Simula's project pages); others are removed. Funding amounts are kept in
-`partners/centre_projects.csv` but not shown on the pages. Names of
+on Simula's project pages); others are removed. Names of
 co-authors and their institutions are public bibliographic information.

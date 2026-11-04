@@ -28,7 +28,6 @@ Simula's part, coloured by main funder, with each project's logo and its
 leader (in bold) and participants. Selecting a project shows its leader,
 host, participants, funder and scheme, and the institutions it collaborates
 with, with their source. The funders' logos are shown under the timeline.
-Funding amounts are not shown.
 
 Both pages can also be opened locally in a browser.
 
@@ -60,7 +59,7 @@ hand (see Projects).
 |---|---|
 | `fetch_openalex.py` | Looks up the institution and country of every author of the investigators' publications in [OpenAlex](https://openalex.org), by DOI, with each publication's research field. Abstracts are only scanned for terms, not stored, and email addresses are removed from affiliation texts |
 | `fetch_coauthor_details.py` | For the co-authors at universities, research institutes and companies: their ORCID iD and main research field from OpenAlex, their public ORCID employment records (organisation, department, years only) and, where those name no department, the affiliation texts naming their institution on their other papers since 2016. Only co-authors not fetched before are looked up (`--all` fetches everyone again); when OpenAlex's daily quota is used up, it saves what it has and leaves the rest for the next run |
-| `publication_relevance.py` | Suggests which publications are relevant to the centre (see Relevant publications) |
+| `publication_relevance.py` | Suggests which publications are relevant to the centre (keep, review or drop, with the reason); the pages do not use this at present |
 | `coauthor_fields.py` | Each co-author's kind of institution and research area (see Kinds of institution and research areas) |
 | `build_partners_page.py` | Builds `../site/collaborators.html`; also has the functions shared with the other builders, such as `main_institutions` and `projects` |
 | `partners_page_template.html` | Template for "Who we publish with" |
@@ -182,37 +181,13 @@ fetched project files above help with that. After checking, set
 | `leader`, `leader_role`, `host` | The investigator leading the project, as `lead`, `Simula lead` (the project is led elsewhere, by the `host`) or `contact` |
 | `participants` | The other centre investigators on the project |
 | `funders`, `scheme`, `grants` | Funders, as named in `FUNDER_GROUPS` in `build_partners_page.py` for the colours (Research Council of Norway, ERC and EU, the foundations); others show as Other |
-| `funding`, `funding_source` | The amount and where it comes from; not shown on the pages |
+| `funding`, `funding_source` | The amount and where it comes from |
 | `collaborators`, `collaborator_countries`, `collaborator_source` | The institutions (or only countries) the project collaborates with, only as listed by official sources, and which |
 | `nva_project_id`, `simula_id`, `found_by`, `note` | Links to the sources, and notes on decisions |
 
 Projects that started before 2016 (`FIRST_PROJECT_YEAR` in
 `build_partners_page.py`) are kept in the file but not shown. The banner on
 "Who we publish with" counts the active projects.
-
-## Relevant publications
-
-The pages currently use all the investigators' publications. To limit them
-to publications relevant to the centre (core mathematical, computational and
-technological research, including general data mining, and methods work with
-a physiological application), `publication_relevance.py` suggests a decision
-for each publication, in this order:
-
-1. Wireless networks or the Internet of Things in the title: drop.
-2. Methods terms (model, simulation, computational, ...) and a physiological
-   subject (brain, cells, heart, ...) in the title or abstract: keep.
-3. Wireless networks or IoT only in the abstract, or OpenAlex's subfield
-   "Computer Networks and Communications": review.
-4. Main research field Mathematics, Computer Science, Engineering, Physics or
-   Decision Sciences: keep.
-5. Only methods terms, or only a physiological subject: review.
-6. Neither: drop.
-
-A publication counts as relevant when its `decision` is `keep`, or when it
-has no decision and the suggestion is `keep` (`relevant` in
-`publication_relevance.py`). Fill in `decision` in
-`publication_relevance.csv` for the reviews and for any suggestion you
-disagree with. The pages do not use this at present.
 
 ## Sources and limitations
 
