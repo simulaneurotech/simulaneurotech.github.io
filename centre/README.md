@@ -1,7 +1,8 @@
 # Centre overview
 
 An overview page for the Centre for Digital Neurotechnology: the
-investigators, key figures on publications and co-authors, and the projects.
+investigators, key figures on publications and co-authors, and links to the
+centre's other pages.
 
 **Page:** <https://simulaneurotech.github.io/>,
 published from [`../site/index.html`](../site/index.html). You can also open
@@ -15,7 +16,7 @@ The page is built from the data in [`../nva/`](../nva/) and
 | File | Contents |
 |---|---|
 | `build_centre_page.py` | Builds `../site/index.html` |
-| `centre_page_template.html` | Page template: layout, key figures, investigators and project timeline |
+| `centre_page_template.html` | Page template: layout, key figures, investigators and links to the other pages |
 | `investigator_pages.csv` | **Checked by hand**: each investigator's page on simula.no, linked from their name |
 
 ## Usage
@@ -57,12 +58,6 @@ relevant in `../partners/publication_relevance.csv`. The partners page
 counts institutions and countries the same way, with the same function
 (`main_institutions` in `../partners/build_partners_page.py`), and a test
 checks that the two pages agree.
-
-The project timeline is hidden for now (`SHOW_PROJECTS = False` in
-`build_centre_page.py`); set it to `True` to show it again. Projects are the
-same as on the partners page: `../partners/centre_projects.csv`,
-projects that started in 2016 or later, with Research Council funding from
-`../partners/prosjektbanken_projects.csv`.
 
 Under "More about the centre", the page links to the pages listed in
 `LINKED_PAGES` in `build_centre_page.py`: currently the collaborations page

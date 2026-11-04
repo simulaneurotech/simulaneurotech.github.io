@@ -168,9 +168,35 @@ def split(text):
     return [x.strip() for x in (text or "").split(";") if x.strip()]
 
 
-def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
+def fractional_year(day):
+    """A date as a year with a fraction, as parse_duration gives them."""
+    start = datetime.date(day.year, 1, 1)
+    length = (datetime.date(day.year + 1, 1, 1) - start).days
+    return day.year + (day - start).days / length
+
+
+def project_status(dates, ended=False, today=None):
+    """ "upcoming", "active" or "ended" on the day today (default: today),
+    from the project's (start, end) as parse_duration gives them; ended set
+    by hand for a project that ended before its dates say."""
+    now = fractional_year(today or datetime.date.today())
+    if not dates:
+        return "ended" if ended else "active"
+    start, end = dates
+    if start > now:
+        return "upcoming"
+    if ended or (end is not None and end <= now):
+        return "ended"
+    return "active"
+
+
+def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None, today=None):
     """Included projects that started in first_year or later, with Research
     Council of Norway details from prosjektbanken ({grant: row}) when known.
+
+    The status (upcoming, active, ended) is worked out from the dates on the
+    day today (default: today); a status column set to "ended" marks a
+    project that ended before its dates say.
 
     Each project has its leader among the investigators and their role
     ("lead", "Simula lead" for a project led elsewhere, or "contact"), the
@@ -193,7 +219,9 @@ def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
                 "short": (r.get("short") or "").strip()
                 or short_name(r["title"].strip()),
                 "url": r["url"],
-                "status": r["status"],
+                "status": project_status(
+                    dates, r.get("status", "").strip() == "ended", today
+                ),
                 "start": dates[0] if dates else None,
                 "end": dates[1] if dates else None,
                 "leader": leader,

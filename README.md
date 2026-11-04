@@ -31,7 +31,7 @@ through co-authors outside the centre. It is built from [`site/coauthorship.html
 | [`centre/`](centre/) | Builds the centre's overview page from the data in `nva/` and `partners/`. See [`centre/README.md`](centre/README.md). |
 | [`site/`](site/) | The website published on GitHub Pages: the overview page (`index.html`), the collaborations page (`collaborators.html`, with a redirect from the old address `partners.html`), the projects page (`projects.html`) and the intracentre collaboration page (`coauthorship.html`), all generated, and the fonts and scripts they use (`assets/`). |
 | [`nva/`](nva/) | Investigators' publication lists from NVA (formerly Cristin), co-authorship analysis and the interactive page. See [`nva/README.md`](nva/README.md). |
-| [`partners/`](partners/) | Projects, funding, project partners and collaborating institutions from Simula's website, NVA and OpenAlex. See [`partners/README.md`](partners/README.md). |
+| [`partners/`](partners/) | Projects, funding, project collaborators and collaborating institutions from Simula's website, NVA, Prosjektbanken, CORDIS and OpenAlex. See [`partners/README.md`](partners/README.md). |
 
 ## Tests
 
