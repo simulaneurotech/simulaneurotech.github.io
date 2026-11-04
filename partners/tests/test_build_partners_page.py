@@ -40,10 +40,17 @@ def test_projects_leave_out_excluded_rows():
         "url": "u",
         "duration": "2016-2020",
         "status": "ended",
-        "investigators": "Kent-Andre Mardal; Marie E. Rognes",
+        "leader": "Marie E. Rognes",
+        "leader_role": "lead",
+        "host": "Simula Research Laboratory",
+        "participants": "Kent-Andre Mardal",
         "funders": "Research Council of Norway",
+        "scheme": "Researcher Project",
         "grants": "250731",
-        "partners": "University of Oslo | Oslo University Hospital",
+        "funding": "NOK 7000992",
+        "collaborators": "University of Oslo; Oslo University Hospital",
+        "collaborator_countries": "",
+        "collaborator_source": "Simula's project page",
     }
     projects = bpp.projects(
         [
@@ -61,7 +68,10 @@ def test_projects_leave_out_excluded_rows():
         2021.0,
         "Research Council of Norway",
     )
-    assert p["partners"] == ["University of Oslo", "Oslo University Hospital"]
+    assert p["investigators"] == ["Marie E. Rognes", "Kent-Andre Mardal"]
+    assert p["collaborators"] == ["University of Oslo", "Oslo University Hospital"]
+    # Funding amounts stay in the CSV file
+    assert not any("funding" in k.lower() for k in p)
 
 
 def test_simula_group():

@@ -105,6 +105,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .details dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 0; }
 .details dt { color: var(--muted); font-size: 0.82rem; }
 .details dd { margin: 0; overflow-wrap: anywhere; }
+.details dd.source { font-size: 0.8rem; color: var(--muted); margin-top: -2px; }
 
 .method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
 .method h2 { font-size: 1.1rem; }
@@ -116,9 +117,9 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 <div class="page">
   <header>
     <div class="eyebrow"><a href="index.html">Centre for Digital Neurotechnology</a> · Simula</div>
-    <h1>Projects</h1>
+    <h1>Projects we lead</h1>
     <p class="lede" id="lede"></p>
-    <p class="draft">Data automatically extracted from public sources, not manually verified by the Centre investigators.</p>
+    <p class="draft">Data automatically extracted from public sources.</p>
     <div class="facts" id="facts"></div>
   </header>
 
@@ -140,7 +141,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 
   <section class="method">
     <h2>How this was made</h2>
-    <p>Projects come from Simula's project pages and the NVA project register, selected and checked by hand. Funders are shown as listed on the project pages.</p>
+    <p>Projects come from Simula's project pages, the NVA project register, <a href="https://prosjektbanken.forskningsradet.no" target="_blank" rel="noopener">Prosjektbanken</a> (the Research Council of Norway's project database) and <a href="https://cordis.europa.eu" target="_blank" rel="noopener">CORDIS</a> (the EU's), selected and checked by hand. Collaborators are the institutions these sources, or the funder, list for each project; the source is given with each project. Dates are the funder's where the sources differ.</p>
     <p id="generated"></p>
   </section>
 </div>
@@ -190,7 +191,7 @@ function renderFacts() {
     el("b", { text: v }, f); el("span", { text: label }, f);
   }
   document.getElementById("lede").textContent =
-    `Research projects with the centre's investigators that started in ${DATA.firstYear} or later, with their funders.`;
+    `Research projects led by the centre's investigators, or where an investigator leads Simula's part, that started in ${DATA.firstYear} or later.`;
 }
 
 // Timeline
@@ -265,8 +266,17 @@ function select(p) {
   const row = (k, v) => { if (v) { el("dt", { text: k }, dl); el("dd", { text: v }, dl); } };
   row("Status", p.status === "active" ? "Active" : p.status === "upcoming" ? "Starting soon" : "Ended");
   row("Years", p.start == null ? "Not listed" : `${Math.floor(p.start)}–${p.end == null ? "ongoing" : Math.ceil(p.end) - 1}`);
-  row("Investigators", p.investigators.join(", "));
-  row("Funded by", [p.funders.join(", "), p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
+  const role = { "Simula lead": "Simula lead", contact: "Contact" }[p.leaderRole] || "Project leader";
+  row(role, p.leader);
+  row(p.leaderRole === "Simula lead" ? "Led by" : "Host", p.host);
+  row("Participants", p.participants.join(", "));
+  row("Funded by", [p.funders.join(", "), p.scheme, p.grants && `grant ${p.grants}`].filter(Boolean).join(" · "));
+  if (p.collaborators.length) row("Collaborators at", p.collaborators.join(", "));
+  else if (p.collaboratorCountries.length) row("Collaborators in", p.collaboratorCountries.join(", "));
+  if (p.collaborators.length || p.collaboratorCountries.length) {
+    el("dt", { text: "" }, dl);
+    el("dd", { class: "source", text: `As listed by: ${p.collaboratorSource}` }, dl);
+  }
 }
 
 segmented(document.getElementById("project-view"), [["active", "Active"], ["all", "Active and past"]], "projects", renderProjects);

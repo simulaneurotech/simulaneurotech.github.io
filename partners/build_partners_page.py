@@ -163,9 +163,20 @@ def rcn_details(grants, prosjektbanken):
     return None
 
 
+def split(text):
+    """The items of a "; "-separated list in a CSV cell."""
+    return [x.strip() for x in (text or "").split(";") if x.strip()]
+
+
 def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
     """Included projects that started in first_year or later, with Research
-    Council of Norway details from prosjektbanken ({grant: row}) when known."""
+    Council of Norway details from prosjektbanken ({grant: row}) when known.
+
+    Each project has its leader among the investigators and their role
+    ("lead", "Simula lead" for a project led elsewhere, or "contact"), the
+    host institution, the other investigators taking part, and the
+    institutions it collaborates with as listed by official sources (with
+    those sources). Funding amounts are not included."""
     prosjektbanken = prosjektbanken or {}
     out = []
     for r in rows:
@@ -174,7 +185,8 @@ def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
         dates = parse_duration(r["duration"])
         if dates and dates[0] < first_year:
             continue
-        funders = [f.strip() for f in r["funders"].split(";") if f.strip()]
+        funders = split(r["funders"])
+        leader, participants = r["leader"].strip(), split(r["participants"])
         out.append(
             {
                 "title": r["title"].strip(),
@@ -184,15 +196,18 @@ def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None):
                 "status": r["status"],
                 "start": dates[0] if dates else None,
                 "end": dates[1] if dates else None,
-                "investigators": [
-                    x.strip() for x in r["investigators"].split(";") if x.strip()
-                ],
+                "leader": leader,
+                "leaderRole": r["leader_role"].strip() or "lead",
+                "host": r["host"].strip(),
+                "participants": participants,
+                "investigators": [leader, *participants],
                 "funders": funders,
                 "funderGroup": funder_group(funders),
+                "scheme": r["scheme"].strip(),
                 "grants": r["grants"],
-                "partners": [
-                    x.strip() for x in re.split(r"[;|]", r["partners"]) if x.strip()
-                ],
+                "collaborators": split(r["collaborators"]),
+                "collaboratorCountries": split(r["collaborator_countries"]),
+                "collaboratorSource": r["collaborator_source"].strip(),
                 "rcn": rcn_details(r["grants"], prosjektbanken),
             }
         )
