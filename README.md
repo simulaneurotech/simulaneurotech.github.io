@@ -69,7 +69,9 @@ institution or department is missing or wrong
 (`partners/coauthor_corrections.csv`), then commit and push to publish.
 
 A weekly workflow (`.github/workflows/refresh.yml`, Mondays at 04:00 UTC, or
-started manually from the Actions tab) runs `refresh.sh` to refresh the
+started manually from the Actions tab) first tags `main` as it is
+(`before-refresh-YYYY-MM-DD`, pushed to GitHub, so the state before the
+refresh can always be recovered), then runs `refresh.sh` to refresh the
 publication data and, if anything changed, opens a pull request with the key
 figures. Nothing is published until the pull request is merged. It needs "Allow GitHub Actions to create
 and approve pull requests" to be switched on in the repository's (and the
