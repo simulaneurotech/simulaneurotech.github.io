@@ -275,7 +275,7 @@ const count = a => DATA.investigators.filter(i => i.affiliation === a).length;
 const affiliations = [...new Set(DATA.investigators.map(i => i.affiliation))].sort((a, b) => count(b) - count(a));
 document.getElementById("lede").textContent =
   "The Centre for Digital Neurotechnology performs groundbreaking research in computational and digital technologies to discover how the brain works and to improve brain health. " +
-  `${DATA.investigators.length} named investigators and their research groups at ${affiliations.join(" and ")} form the Centre core.`;
+  `The core of the Centre is formed by ${DATA.investigators.length} named investigators and their research groups at ${affiliations.join(" and ")}.`;
 const facts = document.getElementById("facts");
 for (const [v, label] of [
   [DATA.investigators.length, "investigators"],
