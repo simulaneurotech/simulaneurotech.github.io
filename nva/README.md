@@ -1,17 +1,19 @@
 # Publications and co-authorships
 
 Publication lists for the investigators of the
-[Centre for Digital Neurotechnology](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology),
+[Centre for Digital Neurotechnology](https://www.simula.no/research/research-centres/centre-digital-neurotechnology),
 fetched from [NVA](https://nva.sikt.no/) (Nasjonalt vitenarkiv, which
 replaced Cristin), with shared publications between investigators and their
 co-authors outside the centre. The data keeps its Cristin person and result
 IDs, which NVA carries over.
 
-**Interactive page:** [`../site/coauthorship.html`](../site/coauthorship.html) shows the co-authorship network with the outside co-authors who link
-investigators, direct and indirect links between all pairs, and co-authored
-against total publications over time. It is published on the website at
-<https://simulaneurotech.github.io/coauthorship.html>, but not yet linked
-from the overview page. You can also open it locally in a browser.
+**Page:** "Who publishes with whom",
+<https://simulaneurotech.github.io/coauthorship.html>, built into
+[`../site/coauthorship.html`](../site/coauthorship.html), shows the
+co-authorship network with the outside co-authors who link investigators,
+direct and indirect links between all pairs, and co-authored against total
+publications over time. It is published but not yet linked from the
+overview page. You can also open the file locally in a browser.
 
 ## Files
 
@@ -19,7 +21,7 @@ from the overview page. You can also open it locally in a browser.
 |---|---|
 | `investigators.csv` | Centre investigators and leadership, from the [announcement](https://www.simula.no/about/news/simula-establishes-centre-digital-neurotechnology); `extra_cristin_ids` lists second Cristin profiles |
 | `fetch_nva.py` | Fetches each person's results, author lists, institutions and book editors from the NVA API |
-| `fetch_log.py`, `fetched.csv` | When each source was last fetched: the fetch scripts here and in `../partners/` record the date, and the pages show it |
+| `fetch_log.py`, `fetched.csv` | When each source was last fetched: the fetch scripts here and in `../partners/` record the date with `fetch_log.py`, and the pages show it |
 | `publication_data.py` | Merges duplicate publications and name variants; used by the scripts below |
 | `coauthorship.py` | Counts shared publications between each pair of investigators |
 | `external_collaborators.py` | Finds co-authors outside the centre, and those shared by several investigators |
@@ -123,6 +125,6 @@ cd nva
 python3 -m pytest
 ```
 
-The tests use fake NVA data and need no network access. They also run daily
-on GitHub Actions (`../.github/workflows/tests.yml`) and can be started manually
+The tests use fake NVA data and need no network access. They run daily on
+GitHub Actions (`../.github/workflows/tests.yml`), and can be started by hand
 from the Actions tab.
