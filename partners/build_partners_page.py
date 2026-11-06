@@ -131,6 +131,14 @@ def funder_group(funders):
     return "Other"
 
 
+def funder_groups(funders):
+    """The groups of all the listed funders, the main group (funder_group)
+    first and without repeats, for striping a project funded from more than
+    one group."""
+    groups = [funder_group(funders)] + [funder_group([f]) for f in funders]
+    return list(dict.fromkeys(groups))
+
+
 def short_name(title):
     """A project's acronym or short name: the part before ":" or " - ",
     or a trailing "(ACRONYM)"."""
@@ -231,6 +239,7 @@ def projects(rows, first_year=FIRST_PROJECT_YEAR, prosjektbanken=None, today=Non
                 "investigators": [leader, *participants],
                 "funders": funders,
                 "funderGroup": funder_group(funders),
+                "funderGroups": funder_groups(funders),
                 "scheme": r["scheme"].strip(),
                 "grants": r["grants"],
                 "collaborators": split(r["collaborators"]),
