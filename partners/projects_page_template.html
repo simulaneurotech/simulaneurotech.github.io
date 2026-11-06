@@ -160,7 +160,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
       <div class="undated" id="undated"></div>
       <div class="details" id="details" hidden aria-live="polite"></div>
     </div>
-    <p class="explain">Each bar is a project, coloured by main funder, with its leader in bold and the other centre investigators taking part. Select a project for details.</p>
+    <p class="explain">Each bar is a project, coloured by funder and striped where its funders are of more than one kind, with its leader in bold and the other centre investigators taking part. Select a project for details.</p>
     <div class="funders">
       <h3>Funded by</h3>
       <div class="funder-logos" id="funder-logos"></div>
@@ -171,7 +171,7 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
   <section class="method">
     <h2>How this was made</h2>
     <p>The projects are those that started in 2016 or later and are led by one of the centre's investigators, or where an investigator leads Simula's part of a project led elsewhere. They come from Simula's project pages, the NVA project register, <a href="https://prosjektbanken.forskningsradet.no" target="_blank" rel="noopener">Prosjektbanken</a> (the Research Council of Norway's project database) and <a href="https://cordis.europa.eu" target="_blank" rel="noopener">CORDIS</a> (the EU's), and are selected and checked by hand. Where the sources give different dates, the funder's are used.</p>
-    <p>Leaders and participants are the centre's investigators; other people on the projects are not listed. Collaborators are the institutions that these sources, or the funder, list for each project, and the source is given with each project. Bars are coloured by the project's main funder. The logos are the projects' and funders' own.</p>
+    <p>Leaders and participants are the centre's investigators; other people on the projects are not listed. Collaborators are the institutions that these sources, or the funder, list for each project, and the source is given with each project. Bars are coloured by the project's funder, with stripes in each colour where a project is funded from more than one of the groups in the legend. The logos are the projects' and funders' own.</p>
     <p id="generated"></p>
   </section>
 </div>
@@ -252,6 +252,26 @@ function renderFacts() {
 
 // Timeline
 const funderColor = g => `var(${(FUNDERS.find(f => f[0] === g) || FUNDERS[3])[1]})`;
+// Diagonal stripes in each funder group's colour, for a project funded from
+// more than one group; the main funder's colour alone otherwise
+const STRIPE = 5;
+const stripes = p => p.funderGroups && p.funderGroups.length > 1 ? p.funderGroups : null;
+function stripePattern(defs, groups) {
+  const id = "stripes-" + groups.map(g => FUNDERS.findIndex(f => f[0] === g)).join("-");
+  if (defs.select(`#${id}`).empty()) {
+    const pat = defs.append("pattern").attr("id", id).attr("patternUnits", "userSpaceOnUse")
+      .attr("width", STRIPE * groups.length).attr("height", 10).attr("patternTransform", "rotate(45)");
+    groups.forEach((g, i) => pat.append("rect").attr("x", i * STRIPE).attr("width", STRIPE).attr("height", 10)
+      .style("fill", funderColor(g)));
+  }
+  return `url(#${id})`;
+}
+const funderSwatch = p => {
+  const groups = stripes(p);
+  if (!groups) return funderColor(p.funderGroup);
+  const stops = groups.map((g, i) => `${funderColor(g)} ${i * 3}px ${(i + 1) * 3}px`);
+  return `repeating-linear-gradient(45deg, ${stops.join(", ")})`;
+};
 const legend = document.getElementById("funder-legend");
 for (const [name, color] of FUNDERS) {
   const s = el("span", {}, legend);
@@ -268,6 +288,7 @@ function renderProjects() {
   const L = 250, R = 190, T = 26, row = 30, B = 24;
   const Wt = 960, Ht = T + dated.length * row + B;
   svgT.attr("viewBox", `0 0 ${Wt} ${Ht}`);
+  const defs = svgT.append("defs");
   const x0 = Math.floor(Math.min(today - 1, ...dated.map(p => p.start)));
   const x1 = Math.ceil(Math.max(today + 1, ...dated.map(p => p.end ?? today)));
   const x = d3.scaleLinear().domain([x0, x1]).range([L, Wt - R]);
@@ -296,7 +317,7 @@ function renderProjects() {
     }
     const end = p.end ?? today;
     g.append("rect").attr("x", x(p.start)).attr("y", y + 5).attr("width", Math.max(4, x(end) - x(p.start))).attr("height", row - 12)
-      .attr("fill", funderColor(p.funderGroup));
+      .attr("fill", stripes(p) ? stripePattern(defs, stripes(p)) : funderColor(p.funderGroup));
     // The project leader in bold, then the other investigators taking part
     const who = g.append("text").attr("class", "who").attr("x", x(end) + 8).attr("y", y + 16);
     if (p.end == null) who.append("tspan").text("ongoing · ");
@@ -316,7 +337,7 @@ function renderProjects() {
     el("span", { text: "Ongoing, dates not listed:" }, und);
     for (const p of undated) {
       const c = el("button", { type: "button", class: "chip" }, und);
-      const sw = el("i", { class: "sq" }, c); sw.style.background = funderColor(p.funderGroup);
+      const sw = el("i", { class: "sq" }, c); sw.style.background = funderSwatch(p);
       c.append(p.short);
       c.addEventListener("click", () => select(p));
     }
