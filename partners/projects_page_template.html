@@ -64,7 +64,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .eyebrow a { color: inherit; }
 .lede { max-width: 65ch; color: var(--ink-2); }
 header { display: grid; gap: 12px; }
-.draft { justify-self: start; font-size: 0.82rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
 
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--surface); }
 .seg button { font: 500 0.8rem var(--font-body); background: none; border: 0; padding: 5px 11px; color: var(--ink-2); cursor: pointer; }
@@ -118,7 +117,9 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 /* Funder logos, side by side under the timeline */
 .funders { display: grid; gap: 10px; }
 .funders h3 { font: 500 0.72rem var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-.funder-logos { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+/* Four to a row (two on narrow screens): seven logos as 4 + 3 */
+.funder-logos { display: grid; grid-template-columns: repeat(4, max-content); gap: 12px; align-items: center; }
+@media (max-width: 720px) { .funder-logos { grid-template-columns: repeat(2, max-content); } }
 .funder-logos img { width: 132px; height: 48px; object-fit: contain; background: var(--logo-light-tile); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
 .funder-logos img.adapts { background: var(--logo-tile); }
 .funders p { font-size: 0.85rem; color: var(--ink-2); }
@@ -142,13 +143,12 @@ section { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
     <div class="eyebrow"><a href="index.html">Centre for Digital Neurotechnology</a> · Simula</div>
     <h1>Projects we lead</h1>
     <p class="lede" id="lede"></p>
-    <p class="draft">Data from public sources.</p>
     <div class="facts" id="facts"></div>
   </header>
 
   <section>
     <div class="section-head">
-      <h2>Timeline</h2>
+      <h2>Over time</h2>
       <p id="timeline-summary"></p>
     </div>
     <div class="card timeline-card">
