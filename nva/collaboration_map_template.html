@@ -9,6 +9,10 @@
 <style>
 /* Layout: one reading column; network + detail panel side by side on wide screens, then matrix and timeline below */
 :root {
+  /* Simula orange (simula.no's --color-primary-simula): --accent for strips and
+     underlines, --accent-ink (darker in light mode) for text */
+  --accent: #f15d23;
+  --accent-ink: #b93f0e;
   --bg: #f6f7f9;
   --surface: #ffffff;
   --ink: #141820;
@@ -31,13 +35,13 @@
   :root:not([data-theme="light"]) {
     --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
     --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
-    color-scheme: dark;
+    --accent-ink: #fa7646; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f1215; --surface: #171b20; --ink: #eef1f4; --ink-2: #c2c8d0; --muted: #949dab;
   --line: #2a3038; --edge: #6b7482; --srl: #3987e5; --srl-soft: #3a4656; --ext: #199e70; --met: #d95926; --hi: #eef1f4; --seq-0: #1e2329;
-  color-scheme: dark;
+  --accent-ink: #fa7646; color-scheme: dark;
 }
 
 body {
@@ -176,6 +180,11 @@ table.matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.78re
 
 .method { font-size: 0.88rem; color: var(--ink-2); display: grid; gap: 8px; max-width: 70ch; }
 .method h2 { font-size: 1.1rem; }
+/* Simula orange accent: a strip along the top, the key figures and the
+   selected buttons */
+html { border-top: 4px solid var(--accent); }
+.fact b { color: var(--accent-ink); }
+.seg button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--accent); }
 </style>
 </head>
 <body>
