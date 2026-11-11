@@ -65,9 +65,13 @@ header { display: grid; gap: 14px; }
 .lede { color: var(--ink-2); font-size: 1.05rem; }
 .status { justify-self: start; font-size: 0.85rem; color: var(--ink-2); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 10px; background: var(--surface); }
 nav.contents { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; display: grid; gap: 8px; }
-nav.contents ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 6px 24px; }
+nav.contents ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 12px 32px; }
 nav.contents li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 6px; }
 nav.contents .k { font: 600 0.95rem var(--font-display); color: var(--accent); }
+nav.contents li > div { display: grid; gap: 2px; align-content: start; }
+nav.contents a.ct { font-weight: 600; }
+nav.contents .cd { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+nav.contents .cd a { color: var(--ink-2); }
 .summary { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--simula); border-radius: 10px; padding: 20px 22px; }
 .summary h2 { font-size: 1.35rem; }
 .summary .lead { font-size: 1.02rem; color: var(--ink); max-width: none; }
@@ -302,13 +306,13 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
   <nav class="contents" aria-label="Contents">
     <div class="eyebrow">Contents</div>
     <ol>
-      <li><span class="k">1</span><a href="#start">Where we stand: research base and innovation record</a></li>
-      <li><span class="k">2</span><a href="#landscape">The Norwegian landscape</a></li>
-      <li><span class="k">3</span><a href="#tracks">Four tracks to innovation and industry</a></li>
-      <li><span class="k">4</span><a href="#people">The people who make it happen</a></li>
-      <li><span class="k">5</span><a href="#europe">Nordic and European funding and calls</a></li>
-      <li><span class="k">6</span><a href="#instruments">Norwegian instruments and support</a></li>
-      <li><span class="k">7</span><a href="#opportunities">Seven candidate innovation opportunities</a></li>
+      <li><span class="k">1</span><div><a class="ct" href="#start">Where we stand</a><span class="cd"><a href="#companies">Companies with roots at Simula</a>, <a href="#patents">patents</a>, <a href="#open-source">open-source software</a>, <a href="#support">innovation support</a></span></div></li>
+      <li><span class="k">2</span><div><a class="ct" href="#landscape">The Norwegian landscape</a><span class="cd"><a href="#regions">Where neurotechnology succeeds</a>; <a href="#norway">what Norway has and lacks</a></span></div></li>
+      <li><span class="k">3</span><div><a class="ct" href="#tracks">Four tracks to innovation and industry</a><span class="cd"><a href="#track1">Collaborators' networks</a>, <a href="#track2">large companies</a>, <a href="#track3">Nordic neurotech companies</a>, <a href="#track4">spin-outs</a></span></div></li>
+      <li><span class="k">4</span><div><a class="ct" href="#people">The people who make it happen</a><span class="cd">Who leads, who does the work, and how to bring people in, track by track</span></div></li>
+      <li><span class="k">5</span><div><a class="ct" href="#europe">Nordic and European funding and calls</a><span class="cd">EU, ERC, EIC, IHI and Nordic calls, with 2027 dates</span></div></li>
+      <li><span class="k">6</span><div><a class="ct" href="#instruments">Norwegian instruments and support</a><span class="cd">Research Council schemes, SkatteFUNN, industrial PhDs and Simula Innovation</span></div></li>
+      <li><span class="k">7</span><div><a class="ct" href="#opportunities">Seven candidate innovation opportunities</a><span class="cd"><a href="#opp1">Heart-to-brain drug testing</a>, <a href="#opp2">clearance biomarkers</a>, <a href="#opp3">digital-twin engineering</a>, <a href="#opp4">model-guided brain stimulation</a>, <a href="#opp5">aneurysm and device simulation</a>, <a href="#opp6">health-data fusion</a>, <a href="#opp7">brain-inspired AI</a></span></div></li>
     </ol>
   </nav>
 
@@ -324,7 +328,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
       <div class="figure"><b>21</b><span>projects led since 2016</span></div>
     </div>
 
-    <section>
+    <section id="companies">
       <h3>Companies with roots at Simula – of relevance for the centre</h3>
       <p class="intro">Companies in scientific computing or medicine that started at Simula or that Simula has owned shares in, from the shareholding notes in Simula's annual accounts (2003–2025) and the Brønnøysund registers.</p>
       <div class="table-wrap"><table class="cotable">
@@ -341,7 +345,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
       <p class="note srcpara"><b>Sources.</b> <b>Kalkulo</b>: <a href="https://cms.simula.no/sites/default/files/2023-04/2005-annual-report.pdf" target="_blank" rel="noopener">annual report 2005</a>; <a href="https://cms.simula.no/sites/default/files/2023-04/2018-annual-report.pdf" target="_blank" rel="noopener">annual report 2018</a>; <a href="https://cms.simula.no/sites/default/files/2023-04/2019-annual-report.pdf" target="_blank" rel="noopener">annual report 2019</a>; <a href="https://web-backend.simula.no/sites/default/files/simula_companies_20180604.pdf" target="_blank" rel="noopener">portfolio brochure 2018</a>; <a href="https://mergr.com/transaction/bluware-acquires-kalkulo-as" target="_blank" rel="noopener">Mergr</a>. <b>Expert Analytics</b>: <a href="https://cms.simula.no/sites/default/files/2023-04/2015-annual-report.pdf" target="_blank" rel="noopener">annual report 2015</a>; <a href="https://virksomhet.brreg.no/oppslag/enheter/924651946" target="_blank" rel="noopener">Brønnøysund</a>; <a href="https://marketscreener.com/insider/OLA-SKAVHAUG-A16XE7" target="_blank" rel="noopener">MarketScreener</a>. <b>Simula Consulting</b>: <a href="https://cms.simula.no/sites/default/files/2023-04/2020-annual-report.pdf" target="_blank" rel="noopener">annual report 2020</a>; <a href="https://cms.simula.no/sites/default/files/2025-04/2024-annual-english.pdf" target="_blank" rel="noopener">annual report 2024</a>. <b>Insilicomed</b>: <a href="https://cms.simula.no/sites/default/files/2023-04/2008-annual-report.pdf" target="_blank" rel="noopener">annual report 2008</a>; <a href="https://health.uconn.edu/quantitative-medicine/wp-content/uploads/sites/117/2019/05/McCulloch_Modeling.pdf" target="_blank" rel="noopener">McCulloch disclosure</a>; <a href="https://insilicomed.com" target="_blank" rel="noopener">company site</a>. <b>Organos</b>: <a href="https://cms.simula.no/sites/default/files/2023-08/2021-a%CC%8Arsrapport.pdf" target="_blank" rel="noopener">annual accounts 2021</a>; <a href="https://cms.simula.no/sites/default/files/2026-04/2025-a%CC%8Arsrapport.pdf" target="_blank" rel="noopener">annual accounts 2025</a>; <a href="https://www.organosinc.com" target="_blank" rel="noopener">company site</a>. <b>DeepTech Consulting</b>: <a href="https://virksomhet.brreg.no/oppslag/enheter/927379147" target="_blank" rel="noopener">Brønnøysund</a>.</p>
     </section>
 
-    <section>
+    <section id="patents">
       <h3>Patents</h3>
       <p class="intro">Patent families with Simula inventors in the centre's fields, found by inventor and owner searches in Google Patents (November 2026). Centre investigators in bold. Related papers are the centre inventors' own publications (in NVA) on the same method, published within a year or so of the filing.</p>
       <div class="table-wrap"><table class="pattable">
@@ -356,12 +360,12 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
       </table></div>
     </section>
 
-    <section>
+    <section id="open-source">
       <h3>Open-source software</h3>
       <p>FEniCS and related tools for simulation (Rognes, Mardal, Kuchta, Daversin-Catty, Valen-Sendstad); FEniCS-in-the-Wild is funded by Wellcome's Essential Open Source Software for Science programme.</p>
     </section>
 
-    <section>
+    <section id="support">
       <h3>Innovation support at Simula</h3>
       <p>Simula Innovation manages Simula's shares in companies and supports commercialisation; Simula Garage hosts start-ups; the early-phase innovation platform (Research Council grant 355868, 2025–2027).</p>
     </section>
@@ -371,7 +375,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
   <div class="part" id="landscape">
     <div class="part-head"><div class="eyebrow">Part 2</div><h2>The Norwegian landscape</h2></div>
     <p class="intro">Where neurotechnology succeeds, and what Norway has and lacks, from public reports and news (November 2026).</p>
-    <section>
+    <section id="regions">
       <h3>Where neurotechnology succeeds, and why</h3>
       <ul>
         <li><b>United States.</b> Most of the capital and the large rounds (<a href="https://techcrunch.com/2025/06/02/elon-musks-neuralink-closes-a-650m-series-e" target="_blank" rel="noopener">Neuralink</a>, Synchron, Precision), the first regulatory approvals (<a href="https://www.biospace.com/press-releases/precision-neuroscience-receives-fda-clearance-for-high-resolution-cortical-electrode-array" target="_blank" rel="noopener">Precision Neuroscience</a>, <a href="https://news.medtronic.com/2025-02-24-Medtronic-earns-U-S-FDA-approval-for-the-worlds-first-Adaptive-deep-brain-stimulation-system-for-people-with-Parkinsons" target="_blank" rel="noopener">Medtronic's adaptive deep brain stimulation</a>, 2025), and large device companies that buy start-ups (<a href="https://novoholdings.com/news/novo-holdings-announces-acquisition-of-portfolio-company-nalu-medical-by-boston-scientific" target="_blank" rel="noopener">Boston Scientific and Nalu</a>).</li>
@@ -382,7 +386,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
       </ul>
       <p class="note">Common factors: translational institutes that take technical risk, specialist and foundation capital, large companies that buy start-ups, a fast regulatory route to a first market, and university hospitals willing to run first-in-human studies.</p>
     </section>
-    <div class="two">
+    <div class="two" id="norway">
       <div class="box">
         <h3>What Norway has</h3>
         <ul>
@@ -423,7 +427,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     </table></div>
 
     <!-- Track 1 -->
-    <div class="track-section t1">
+    <div class="track-section t1" id="track1">
       <div class="tracks"><span class="track t1">Track 1 · Network</span></div>
       <h3>Collaborators' industry networks</h3>
       <p class="sub">Industry through the people and centres the centre already works with.</p>
@@ -544,7 +548,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     </div>
 
     <!-- Track 2 -->
-    <div class="track-section t2">
+    <div class="track-section t2" id="track2">
       <div class="tracks"><span class="track t2">Track 2 · Large companies</span></div>
       <h3>Partnerships with established medtech and pharma</h3>
       <p class="sub">Direct collaboration with large companies, built on a problem they need solved.</p>
@@ -576,7 +580,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     </div>
 
     <!-- Track 3 -->
-    <div class="track-section t3">
+    <div class="track-section t3" id="track3">
       <div class="tracks"><span class="track t3">Track 3 · Neurotech companies</span></div>
       <h3>Co-development with Nordic neurotech companies</h3>
       <p class="sub">Small and growing companies in the Oslo area, the rest of Norway and the Nordics.</p>
@@ -757,7 +761,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     </div>
 
     <!-- Track 4 -->
-    <div class="track-section t4">
+    <div class="track-section t4" id="track4">
       <div class="tracks"><span class="track t4">Track 4 · Spin-outs</span></div>
       <h3>Spin-outs from the centre's results</h3>
       <p class="sub">New companies, when a result is protectable and has a customer.</p>
@@ -858,7 +862,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     <p class="intro">Where the centre's strengths meet a need, drawing on the companies, patents and partners mapped above, and ordered by readiness, with neurotechnology first where they are close. Maturity: how close the research is to use. Pull: a named user with the problem and a budget. Partners: committed partners outside research.</p>
     <div class="opps">
 
-      <article class="opp">
+      <article class="opp" id="opp1">
         <div class="opp-head"><h3>1 · Heart-to-brain drug testing</h3><p class="opp-sub">In-silico translation of drug effects from stem-cell-derived tissue to adult human heart and brain cells</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span><span class="track t3">3 · Neurotech companies</span><span class="track t4">4 · Spin-outs</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="h">high</i></span><span class="rating">Pull <i class="h">high</i></span><span class="rating">Partners <i class="h">high</i></span></div></div>
@@ -872,7 +876,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp2">
         <div class="opp-head"><h3>2 · Clearance biomarkers</h3><p class="opp-sub">MRI-based measures of brain-fluid flow and clearance, for drug trials first and the clinic later</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span><span class="track t3">3 · Neurotech companies</span><span class="track t4">4 · Spin-outs</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="m">medium</i></span><span class="rating">Pull <i class="h">high</i></span><span class="rating">Partners <i class="m">medium</i></span></div></div>
@@ -886,7 +890,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp3">
         <div class="opp-head"><h3>3 · Digital-twin engineering</h3><p class="opp-sub">Patient- and cell-specific simulation models built and validated for others, on open-source software</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span><span class="track t4">4 · Spin-outs</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="h">high</i></span><span class="rating">Pull <i class="m">medium</i></span><span class="rating">Partners <i class="l">low</i></span></div></div>
@@ -899,7 +903,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp4">
         <div class="opp-head"><h3>4 · Model-guided brain stimulation</h3><p class="opp-sub">Personalising where and how strongly to stimulate the brain</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span><span class="track t3">3 · Neurotech companies</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="m">medium</i></span><span class="rating">Pull <i class="m">medium</i></span><span class="rating">Partners <i class="l">low</i></span></div></div>
@@ -912,7 +916,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp5">
         <div class="opp-head"><h3>5 · Aneurysm and device simulation</h3><p class="opp-sub">High-fidelity flow simulation and uncertainty quantification for neurovascular devices</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span><span class="track t3">3 · Neurotech companies</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="m">medium</i></span><span class="rating">Pull <i class="m">medium</i></span><span class="rating">Partners <i class="l">low</i></span></div></div>
@@ -925,7 +929,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp6">
         <div class="opp-head"><h3>6 · Health-data fusion</h3><p class="opp-sub">Tensor methods that combine clinical, imaging and molecular data over time</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t2">2 · Large companies</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="m">medium</i></span><span class="rating">Pull <i class="m">medium</i></span><span class="rating">Partners <i class="m">medium</i></span></div></div>
@@ -937,7 +941,7 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
         </dl>
       </article>
 
-      <article class="opp">
+      <article class="opp" id="opp7">
         <div class="opp-head"><h3>7 · Brain-inspired AI</h3><p class="opp-sub">Brain-inspired and trustworthy AI, and tools for large neural data sets</p>
           <div class="tracks"><span class="track t1">1 · Network</span><span class="track t3">3 · Neurotech companies</span></div>
           <div class="ratings"><span class="rating">Maturity <i class="l">low</i></span><span class="rating">Pull <i class="l">low</i></span><span class="rating">Partners <i class="h">high</i></span></div></div>
