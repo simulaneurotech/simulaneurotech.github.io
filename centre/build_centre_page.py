@@ -39,7 +39,7 @@ OUTPUT = HERE.parent / "site" / "index.html"
 SINCE = [2024, 2021, 2016]
 # Pages linked under "More about the centre"; the co-authorship page
 # (coauthorship.html) is not linked yet
-LINKED_PAGES = ["collaborators.html", "projects.html"]
+LINKED_PAGES = ["collaborators.html", "projects.html", "innovation-map.html"]
 AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))

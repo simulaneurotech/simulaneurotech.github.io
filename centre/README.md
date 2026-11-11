@@ -62,7 +62,8 @@ co-authors by research area.
 
 Under "More about the centre", the page links to the pages listed in
 `LINKED_PAGES` in `build_centre_page.py`: currently "Who we publish with"
-(`collaborators.html`) and "Projects we lead" (`projects.html`), but not yet
+(`collaborators.html`), "Projects we lead" (`projects.html`) and "Routes to
+innovation" (`innovation-map.html`, written by hand), but not yet
 "Who publishes with whom" (`coauthorship.html`).
 
 ## Tests
