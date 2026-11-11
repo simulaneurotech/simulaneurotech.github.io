@@ -10,8 +10,8 @@ projects that started before FIRST_PROJECT_YEAR are left out; the column
 short gives a short name where the title's own is not suitable) and fills
 projects_page_template.html, with the project and funder logos listed in
 logos.csv (files in ../site/assets/logos, with where each came from).
-Funding amounts are not shown: they stay in
-centre_projects.csv, and the Research Council details are left out
+Funding amounts are not shown: centre_projects.csv has none, and the
+Research Council details, which include the total funding, are left out
 (LEFT_OUT).
 """
 

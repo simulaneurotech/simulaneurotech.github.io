@@ -70,7 +70,7 @@ def test_projects_leave_out_excluded_rows():
     )
     assert p["investigators"] == ["Marie E. Rognes", "Kent-Andre Mardal"]
     assert p["collaborators"] == ["University of Oslo", "Oslo University Hospital"]
-    # Funding amounts stay in the CSV file
+    # A funding column, should one be added to the CSV file, is not passed on
     assert not any("funding" in k.lower() for k in p)
 
 

@@ -181,9 +181,10 @@ fetched project files above help with that. After checking, set
 | `leader`, `leader_role`, `host` | The investigator leading the project, as `lead`, `Simula lead` (the project is led elsewhere, by the `host`) or `contact` |
 | `participants` | The other centre investigators on the project |
 | `funders`, `scheme`, `grants` | Funders, as named in `FUNDER_GROUPS` in `build_partners_page.py` for the colours (Research Council of Norway, ERC and EU, the foundations); others show as Other |
-| `funding`, `funding_source` | The amount and where it comes from |
 | `collaborators`, `collaborator_countries`, `collaborator_source` | The institutions (or only countries) the project collaborates with, only as listed by official sources, and which |
 | `nva_project_id`, `simula_id`, `found_by`, `note` | Links to the sources, and notes on decisions |
+
+The file has no funding amounts.
 
 Projects that started before 2016 (`FIRST_PROJECT_YEAR` in
 `build_partners_page.py`) are kept in the file but not shown. The banner on
