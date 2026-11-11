@@ -78,6 +78,10 @@ nav.contents .k { font: 600 0.95rem var(--font-display); color: var(--accent); }
 .brief-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 @media (max-width: 640px) { .brief-grid { grid-template-columns: minmax(0, 1fr); } }
 .brief-grid > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; display: grid; gap: 6px; align-content: start; }
+.brief-lead { color: var(--ink-2); max-width: 75ch; }
+.brief-grid ul { margin: 0; padding-left: 1.1em; display: grid; gap: 5px; font-size: 0.9rem; color: var(--ink-2); }
+.brief-grid li { max-width: none; }
+.brief-grid li b { color: var(--ink); font-weight: 600; }
 .brief-grid h3 { font-size: 1.02rem; }
 .brief { display: grid; gap: 12px; }
 .brief-h { font-size: 1.35rem; }
@@ -267,13 +271,31 @@ footer { font-size: 0.84rem; color: var(--muted); display: grid; gap: 8px; borde
     <p class="status">11 November 2026. Built from public data (publications, projects, patents, funders' and companies' pages). Ratings and interpretations are a first proposal for discussion.</p>
   </header>
 
-  <section class="brief" aria-label="Summary">
-    <h2 class="brief-h">Summary</h2>
+  <section class="brief" aria-labelledby="brief-h">
+    <h2 class="brief-h" id="brief-h">Executive summary</h2>
+    <p class="brief-lead">The centre combines strong computational neuroscience with close clinical links, but its research rarely reaches companies directly. This page maps where it stands, the Norwegian context, four routes to industry and seven candidate opportunities.</p>
     <div class="brief-grid">
-      <div><h3>Where the centre stands</h3><p>Strong science and clinical links, few direct industry links: of 400 publications since 2016, 62 have a hospital co-author and 6 a company co-author. One US patent granted (2023), and a record of Simula companies in scientific computing (Kalkulo, Expert Analytics) and cardiac modelling (Organos, Insilicomed).</p></div>
-      <div><h3>Four tracks</h3><p>Collaborators already publish with 73 companies, and partner centres such as ProCardio bring GE HealthCare and Medtronic close. Large companies need a defined problem and credible models. Of 119 Nordic neurotech companies mapped, 29 are active and a high fit. Spin-outs need protectable results and founders.</p></div>
-      <div><h3>Leading opportunities</h3><p><b>Heart-to-brain drug testing</b>: patents, Organos, and regulators moving away from animal testing. <b>Clearance biomarkers</b>: strong clinical need and no validated biomarker yet. <b>Digital-twin engineering</b>: mature software and Simula's record of consultancies.</p></div>
-      <div><h3>What it takes</h3><p>People more than instruments: a contact for each relationship, research software engineers, and founders, often postdocs or students. Funding within reach: ERC Proof of Concept, the EU virtual human twin call (June 2027), industrial PhDs and SkatteFUNN.</p></div>
+      <div><h3>Where the centre stands</h3><ul>
+        <li><b>400</b> publications since 2016: <b>62</b> with a hospital co-author, only <b>6</b> with a company co-author.</li>
+        <li><b>4</b> patent families on in-silico drug testing; one granted in the US (2023), held by Organos.</li>
+        <li><b>6</b> companies with roots at Simula in scientific computing or medicine, among them Kalkulo (sold 2019) and Expert Analytics (about 40 staff).</li>
+      </ul></div>
+      <div><h3>The Norwegian landscape</h3><ul>
+        <li><b>Strengths:</b> world-class neuroscience (Kavli), linked health registries, one public hospital system, medtech in imaging and signals.</li>
+        <li><b>Gaps:</b> the lowest venture capital in the Nordics, few specialist health investors, and no neurotechnology exits found.</li>
+        <li>Successful regions combine translational institutes, specialist or foundation capital and hospitals ready for first-in-human studies.</li>
+      </ul></div>
+      <div><h3>Four tracks</h3><ul>
+        <li><b>Collaborators</b> publish with <b>73</b> companies; partner centres such as ProCardio bring GE HealthCare and Medtronic close.</li>
+        <li><b>Large companies</b> need a defined problem and models with documented credibility.</li>
+        <li><b>Nordic neurotech:</b> <b>119</b> companies mapped, <b>29</b> active and a high fit, such as Mentice, SyntheticMR, Cercare and Nexstim.</li>
+        <li><b>Spin-outs</b> need protectable results, founders and early funding.</li>
+      </ul></div>
+      <div><h3>Opportunities and what they take</h3><ul>
+        <li>Of <b>7</b> candidates, heart-to-brain drug testing, clearance biomarkers and digital-twin engineering are furthest along.</li>
+        <li><b>People:</b> a contact for each relationship, research software engineers, and founders, often postdocs or students.</li>
+        <li><b>Funding:</b> ERC Proof of Concept, the EU virtual human twin call (opens 3 June 2027), industrial PhDs and SkatteFUNN.</li>
+      </ul></div>
     </div>
   </section>
 
