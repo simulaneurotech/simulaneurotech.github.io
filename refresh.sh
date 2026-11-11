@@ -9,9 +9,12 @@
 # prints the key figures before and after. With --no-fetch, the pages are
 # rebuilt from the data already in the repository.
 #
+# The data about individual co-authors is kept in the folder CENTRE_DATA
+# points to (see nva/coauthor_data.py).
+#
 # Nothing is committed: check the changes (git diff, in particular the review
 # files written by nva/publication_data.py and any new institutions to merge
-# or exclude in partners/), then commit and push to publish.
+# or exclude), then commit and push to publish.
 
 set -euo pipefail
 
@@ -25,6 +28,13 @@ done
 
 cd "$(dirname "$0")"
 python=${PYTHON:-python3}
+
+CENTRE_DATA=${CENTRE_DATA:-$(cd .. && pwd)/centre-data}
+export CENTRE_DATA
+if [ ! -d "$CENTRE_DATA/partners" ] || [ ! -d "$CENTRE_DATA/nva/contributors" ]; then
+    echo "No co-author data at $CENTRE_DATA: set CENTRE_DATA to where it is." >&2
+    exit 1
+fi
 
 # Key figures from the built pages, one line per period
 figures() {

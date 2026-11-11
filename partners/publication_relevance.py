@@ -3,7 +3,8 @@
 Usage: python publication_relevance.py
 
 Reads openalex_works.csv and openalex_affiliations.csv (from
-fetch_openalex.py) and writes publication_relevance.csv, one row per
+fetch_openalex.py; the latter in the co-author data, see
+../nva/coauthor_data.py) and writes publication_relevance.csv, one row per
 publication with a suggestion (keep, review or drop) and the reason. The
 decision column is filled in by hand and overrides the suggestion; decisions
 and notes already in the file are kept when it is written again.
@@ -30,10 +31,15 @@ all publications, so this is not applied at present.
 
 import csv
 import re
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+NVA_DIR = HERE.parent / "nva"
+sys.path.insert(0, str(NVA_DIR))
+import coauthor_data
+
 FIELDS = [
     "result_id",
     "year",
@@ -140,7 +146,7 @@ def read_csv(path):
 def main():
     works = read_csv(HERE / "openalex_works.csv")
     investigators = defaultdict(str)
-    for r in read_csv(HERE / "openalex_affiliations.csv"):
+    for r in read_csv(coauthor_data.PARTNERS / "openalex_affiliations.csv"):
         investigators[r["result_id"]] = r["investigators"]
     previous = {r["result_id"]: r for r in read_csv(HERE / "publication_relevance.csv")}
 

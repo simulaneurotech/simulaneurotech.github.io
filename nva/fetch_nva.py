@@ -2,6 +2,8 @@
 
 Usage: python fetch_nva.py [investigators.csv] [publications_dir] [contributors_dir]
 
+contributors_dir is in the co-author data by default (see coauthor_data.py).
+
 NVA replaced Cristin and keeps Cristin's person IDs, and the Cristin result ID
 of records registered there. For each investigator, the person with a Simula,
 SimulaMet or Simula UiB affiliation is found, and all their results are
@@ -26,7 +28,8 @@ and to contributors_dir:
 - editors.csv: the editors of those books
 
 Some chapter records list the book's editors among the authors; the editors
-are used by publication_data.py to remove them.
+are used by publication_data.py to remove them. People who have opted out
+are left out (see coauthor_data.py).
 """
 
 import csv
@@ -39,6 +42,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+import coauthor_data
 import fetch_log
 
 API = "https://api.nva.unit.no"
@@ -285,9 +289,11 @@ def write_csv(path, fieldnames, rows):
 def main():
     investigators_csv = Path(sys.argv[1] if len(sys.argv) > 1 else "investigators.csv")
     publications_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "publications")
-    contributors_dir = Path(sys.argv[3] if len(sys.argv) > 3 else "contributors")
+    contributors_dir = (
+        Path(sys.argv[3]) if len(sys.argv) > 3 else coauthor_data.CONTRIBUTORS
+    )
     publications_dir.mkdir(exist_ok=True)
-    contributors_dir.mkdir(exist_ok=True)
+    contributors_dir.mkdir(parents=True, exist_ok=True)
 
     with investigators_csv.open(encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
@@ -330,7 +336,9 @@ def main():
         ids,
     )
 
-    contributors = [row for hit in kept.values() for row in contributor_rows(hit)]
+    contributors = coauthor_data.drop_opted_out(
+        row for hit in kept.values() for row in contributor_rows(hit)
+    )
     write_csv(contributors_dir / "contributors.csv", CONTRIBUTOR_FIELDS, contributors)
 
     institution_ids = sorted(
@@ -372,7 +380,7 @@ def main():
     write_csv(
         contributors_dir / "editors.csv",
         ["part_of", "cristin_person_id", "first_name", "surname"],
-        editors,
+        coauthor_data.drop_opted_out(editors),
     )
     # Next to the publications folder: nva/fetched.csv
     fetch_log.record(publications_dir.parent / "fetched.csv", "nva_publications")

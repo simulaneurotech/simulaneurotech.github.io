@@ -2,6 +2,8 @@
 
 Usage: python collaboration_map.py [publications_dir] [contributors_dir] [output.html]
 
+contributors_dir is in the co-author data by default (see coauthor_data.py).
+
 Writes ../site/coauthorship.html by default, a page on the website next to
 the overview page, which loads its fonts from ../site/assets.
 
@@ -20,6 +22,7 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+import coauthor_data
 from external_collaborators import external_counts, indirect_links
 from publication_data import PAPER_FIELDS, id_order, load
 
@@ -112,7 +115,9 @@ def collect(data):
 
 def main():
     publications_dir = Path(sys.argv[1] if len(sys.argv) > 1 else "publications")
-    contributors_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "contributors")
+    contributors_dir = (
+        Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.CONTRIBUTORS
+    )
     output = Path(sys.argv[3]) if len(sys.argv) > 3 else OUTPUT
 
     data = collect(load(publications_dir, contributors_dir))

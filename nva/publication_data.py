@@ -2,6 +2,9 @@
 
 Usage: python publication_data.py [publications_dir] [contributors_dir]
 
+contributors_dir is in the co-author data by default (see coauthor_data.py);
+people who have opted out are left out.
+
 Used by coauthorship.py, collaboration_map.py and external_collaborators.py.
 Run on its own, it writes two files for reviewing the merges:
 publications_dir/duplicate_publications.csv, contributors_dir/merged_names.csv
@@ -39,6 +42,7 @@ from dataclasses import dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
 
+import coauthor_data
 from fetch_nva import ascii_fold, file_stem
 
 PAPER_FIELDS = ["year", "title", "category", "journal", "doi", "nva_id", "venue"]
@@ -350,7 +354,7 @@ def strip_editors(rows, editors):
 
 def load(
     publications_dir=Path("publications"),
-    contributors_dir=Path("contributors"),
+    contributors_dir=coauthor_data.CONTRIBUTORS,
     investigators_csv=Path("investigators.csv"),
 ):
     affiliation = {
@@ -382,7 +386,10 @@ def load(
         for row in read_csv(contributors_dir / "chapters.csv", optional=True)
     }
     editors = defaultdict(list)
-    for row in read_csv(contributors_dir / "editors.csv", optional=True):
+    opt_outs = coauthor_data.read_opt_outs()
+    for row in coauthor_data.drop_opted_out(
+        read_csv(contributors_dir / "editors.csv", optional=True), opt_outs
+    ):
         if row["surname"]:
             editors[row["part_of"]].append(row)
     linked = {
@@ -410,12 +417,27 @@ def load(
     }
     id_key, name_key = resolve_people(contributors, investigators)
 
+    def key_of(row):
+        pid = row["cristin_person_id"]
+        return id_key[pid] if pid else name_key[(row["first_name"], row["surname"])]
+
+    # People who asked to be left out (see coauthor_data.py), with
+    # all their records, also those under a name variant without an ID
+    left_out = {
+        key_of(r)
+        for r in contributors
+        if opt_outs.match(r) and not key_of(r).startswith("inv:")
+    }
+    contributors = [r for r in contributors if key_of(r) not in left_out]
+    removed_editors = [
+        e for e in removed_editors if not opt_outs.match({"editor": e[1]})
+    ]
+
     names, institutions = defaultdict(Counter), defaultdict(Counter)
     for name in investigators:
         names[investigator_key(name)][name] += 1
     for row in contributors:
-        pid = row["cristin_person_id"]
-        k = id_key[pid] if pid else name_key[(row["first_name"], row["surname"])]
+        k = key_of(row)
         rid = canonical[row["cristin_result_id"]]
         papers[rid]["authors"].add(k)
         if k.startswith("inv:"):
@@ -446,7 +468,9 @@ def load(
 
 def main():
     publications_dir = Path(sys.argv[1] if len(sys.argv) > 1 else "publications")
-    contributors_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "contributors")
+    contributors_dir = (
+        Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.CONTRIBUTORS
+    )
     data = load(publications_dir, contributors_dir)
 
     with (publications_dir / "duplicate_publications.csv").open(

@@ -2,6 +2,8 @@
 
 Usage: python coauthorship.py [publications_dir] [contributors_dir]
 
+contributors_dir is in the co-author data by default (see coauthor_data.py).
+
 Two investigators have co-authored a publication if both are among its
 authors, after merging duplicate publications (see publication_data.py).
 Writes coauthorship_edges.csv (one row per pair with at least one shared
@@ -14,12 +16,15 @@ import sys
 from itertools import combinations
 from pathlib import Path
 
+import coauthor_data
 from publication_data import load
 
 
 def main():
     publications_dir = Path(sys.argv[1] if len(sys.argv) > 1 else "publications")
-    contributors_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "contributors")
+    contributors_dir = (
+        Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.CONTRIBUTORS
+    )
     data = load(publications_dir, contributors_dir)
     papers_of = data.papers_of
     names = list(data.investigators)

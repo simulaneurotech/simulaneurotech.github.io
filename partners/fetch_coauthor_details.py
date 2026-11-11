@@ -21,6 +21,9 @@ a weekly refresh makes few requests. OpenAlex allows a limited number of
 requests a day: when that is used up, what has been fetched is saved and the
 rest is left for the next run.
 
+The files are written to the co-author data (see ../nva/coauthor_data.py);
+people who have opted out are not looked up.
+
 Run after fetch_openalex.py; build_partners_page.py reads these files.
 """
 
@@ -47,9 +50,12 @@ from coauthor_fields import coauthors, names_institution
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "nva"))
 import fetch_log
 
+import coauthor_data
 from fetch_openalex import without_emails
 
 HERE = Path(__file__).resolve().parent
+# Where the co-authors' data is kept (see ../nva/coauthor_data.py)
+COAUTHORS_DIR = coauthor_data.PARTNERS
 # Kinds of institution whose co-authors are sorted by their department
 WITH_DEPARTMENTS = ("Universities", "Research institutes", "Companies")
 OPENALEX = "https://api.openalex.org"
@@ -201,26 +207,28 @@ def wanted_coauthors():
         for r in read_csv(HERE / "institution_merges.csv")
     }
     employments = {}
-    for r in read(HERE / "coauthor_employments.csv"):
+    for r in read(COAUTHORS_DIR / "coauthor_employments.csv"):
         employments.setdefault(r["openalex_author_id"], []).append(r)
     out = {}
     for c in coauthors(
-        read_csv(HERE / "openalex_affiliations.csv"),
+        coauthor_data.drop_opted_out(
+            read_csv(COAUTHORS_DIR / "openalex_affiliations.csv")
+        ),
         min(SINCE),
         merges,
         [
             (r["author"], r["institution"])
-            for r in read_csv(HERE / "affiliation_exclusions.csv")
+            for r in read_csv(COAUTHORS_DIR / "affiliation_exclusions.csv")
         ],
-        read_person_merges(HERE / "person_merges.csv"),
-        read_colleagues(HERE / "simula_colleagues.csv"),
+        read_person_merges(COAUTHORS_DIR / "person_merges.csv"),
+        read_colleagues(COAUTHORS_DIR / "simula_colleagues.csv"),
         {
             r["institution"]: r["kind"]
             for r in read(HERE / "institution_kinds.csv")
             if r["kind"]
         },
         employments=employments,
-        corrections=read_corrections(HERE / "coauthor_corrections.csv"),
+        corrections=read_corrections(COAUTHORS_DIR / "coauthor_corrections.csv"),
     ):
         if c["kind"] in WITH_DEPARTMENTS and c["id"].startswith("A"):
             out[c["id"]] = (c["institution"], c["needs_other_papers"])
@@ -238,7 +246,7 @@ def main():
         if refetch
         else {
             r["openalex_author_id"]: {f: r.get(f, "") for f in PROFILE_FIELDS}
-            for r in read(HERE / "coauthor_profiles.csv")
+            for r in read(COAUTHORS_DIR / "coauthor_profiles.csv")
             if r["openalex_author_id"] in wanted
         }
     )
@@ -247,7 +255,7 @@ def main():
         if refetch
         else [
             r
-            for r in read(HERE / "coauthor_employments.csv")
+            for r in read(COAUTHORS_DIR / "coauthor_employments.csv")
             if r["openalex_author_id"] in profiles
         ]
     )
@@ -256,7 +264,7 @@ def main():
         if refetch
         else without_emails_in(
             r
-            for r in read(HERE / "coauthor_affiliations.csv")
+            for r in read(COAUTHORS_DIR / "coauthor_affiliations.csv")
             if r["openalex_author_id"] in profiles
         )
     )
@@ -265,17 +273,17 @@ def main():
 
     def save():
         write(
-            HERE / "coauthor_profiles.csv",
+            COAUTHORS_DIR / "coauthor_profiles.csv",
             PROFILE_FIELDS,
             [profiles[a] for a in sorted(profiles)],
         )
         write(
-            HERE / "coauthor_employments.csv",
+            COAUTHORS_DIR / "coauthor_employments.csv",
             EMPLOYMENT_FIELDS,
             sorted(employments, key=lambda r: r["openalex_author_id"]),
         )
         write(
-            HERE / "coauthor_affiliations.csv",
+            COAUTHORS_DIR / "coauthor_affiliations.csv",
             AFFILIATION_FIELDS,
             sorted(own, key=lambda r: (r["openalex_author_id"], r["affiliation"])),
         )

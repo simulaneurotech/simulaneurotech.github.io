@@ -23,6 +23,10 @@ Simula Group (institutions with "Simula" in their name) are not counted, and
 neither are the investigators' own affiliations on their papers. All the
 investigators' publications found in OpenAlex are used. Project dates are
 read from the free-text durations on Simula's pages.
+
+The co-authors' data and the corrections for individual people are read
+from the co-author data (see ../nva/coauthor_data.py), leaving out people
+who have opted out.
 """
 
 import csv
@@ -36,6 +40,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 NVA_DIR = HERE.parent / "nva"
+sys.path.insert(0, str(NVA_DIR))
+import coauthor_data
+
+# The co-authors' data and the corrections for individual people (see
+# ../nva/coauthor_data.py)
+COAUTHORS_DIR = coauthor_data.PARTNERS
 TEMPLATE = HERE / "partners_page_template.html"
 OUTPUT = HERE.parent / "site" / "collaborators.html"
 
@@ -498,21 +508,28 @@ def read_optional(path):
     return read_csv(path) if path.exists() else []
 
 
-def field_data(affiliations, here, **args):
+def field_data(affiliations, coauthors_dir, **args):
     """For each period, the co-authors' institutions with their kind and the
     departments by research area (see coauthor_fields.py), from the curated
     files in args and the files written by fetch_coauthor_details.py:
     {"kinds", "fields", "areas": {start: {"institutions", "departments"}}}."""
     from coauthor_fields import FIELDS, KIND_ORDER, coauthors, group
 
+    opt_outs = coauthor_data.read_opt_outs()
     employments, own = defaultdict(list), defaultdict(list)
-    for r in read_optional(here / "coauthor_employments.csv"):
+    for r in coauthor_data.drop_opted_out(
+        read_optional(coauthors_dir / "coauthor_employments.csv"), opt_outs
+    ):
         employments[r["openalex_author_id"]].append(r)
-    for r in read_optional(here / "coauthor_affiliations.csv"):
+    for r in coauthor_data.drop_opted_out(
+        read_optional(coauthors_dir / "coauthor_affiliations.csv"), opt_outs
+    ):
         own[r["openalex_author_id"]].append(r["affiliation"])
     profiles = {
         r["openalex_author_id"]: r
-        for r in read_optional(here / "coauthor_profiles.csv")
+        for r in coauthor_data.drop_opted_out(
+            read_optional(coauthors_dir / "coauthor_profiles.csv"), opt_outs
+        )
     }
     areas = {}
     for start in SINCE:
@@ -528,13 +545,12 @@ def field_data(affiliations, here, **args):
     return {"kinds": KIND_ORDER, "fields": FIELDS, "areas": areas}
 
 
-def collect(here=HERE):
-    sys.path.insert(0, str(NVA_DIR))
+def collect(here=HERE, coauthors_dir=COAUTHORS_DIR):
     from publication_data import load
 
     data = load(
         NVA_DIR / "publications",
-        NVA_DIR / "contributors",
+        coauthor_data.CONTRIBUTORS,
         NVA_DIR / "investigators.csv",
     )
     investigators = list(data.investigators)
@@ -551,12 +567,14 @@ def collect(here=HERE):
     }
     exclusions = [
         (r["author"], r["institution"])
-        for r in read_csv(here / "affiliation_exclusions.csv")
+        for r in read_csv(coauthors_dir / "affiliation_exclusions.csv")
     ]
-    affiliations = read_csv(here / "openalex_affiliations.csv")
-    people = read_person_merges(here / "person_merges.csv")
-    colleagues = read_colleagues(here / "simula_colleagues.csv")
-    corrections = read_corrections(here / "coauthor_corrections.csv")
+    affiliations = coauthor_data.drop_opted_out(
+        read_csv(coauthors_dir / "openalex_affiliations.csv")
+    )
+    people = read_person_merges(coauthors_dir / "person_merges.csv")
+    colleagues = read_colleagues(coauthors_dir / "simula_colleagues.csv")
+    corrections = read_corrections(coauthors_dir / "coauthor_corrections.csv")
     institution_kinds = read_optional(here / "institution_kinds.csv")
     kinds = {r["institution"]: r["kind"] for r in institution_kinds if r["kind"]}
     publications, institutions = partner_data(
@@ -573,7 +591,7 @@ def collect(here=HERE):
     )
     research_areas = field_data(
         affiliations,
-        here,
+        coauthors_dir,
         merges=merges,
         exclusions=exclusions,
         people=people,

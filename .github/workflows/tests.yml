@@ -20,5 +20,5 @@ jobs:
         working-directory: partners
       - run: python -m pytest -v
         working-directory: centre
-      # Rebuilding from the saved data must reproduce the committed files
-      - run: python -m pytest -v tests
+      # Tests that need the co-author data are skipped here, as is the full
+      # rebuild in tests/

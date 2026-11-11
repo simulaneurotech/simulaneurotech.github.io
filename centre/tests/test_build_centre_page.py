@@ -1,6 +1,14 @@
 import re
 
+import pytest
+
 import build_centre_page as bcp
+import coauthor_data
+
+needs_coauthor_data = pytest.mark.skipif(
+    not coauthor_data.available(),
+    reason="needs the co-author data (see nva/coauthor_data.py)",
+)
 
 
 def aff(rid, year, author, institution, country="NO", investigator="", author_id=""):
@@ -149,6 +157,7 @@ def test_page_loads_nothing_from_other_sites():
         assert (site / "assets" / url).exists(), url
 
 
+@needs_coauthor_data
 def test_partners_page_counts_institutions_as_the_overview():
     import build_partners_page as bpp
 
@@ -167,6 +176,7 @@ def test_partners_page_counts_institutions_as_the_overview():
         assert partners["publicationCounts"][start] == figures[start]["publications"]
 
 
+@needs_coauthor_data
 def test_research_areas_count_coauthors_as_the_overview():
     import build_partners_page
 

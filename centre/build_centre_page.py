@@ -7,7 +7,9 @@ which loads its fonts and d3 from ../site/assets.
 
 Reads the investigators and their publications from ../nva (after merging
 duplicates), the co-authors and their institutions from
-../partners/openalex_affiliations.csv, and fills centre_page_template.html.
+openalex_affiliations.csv in the co-author data (see ../nva/coauthor_data.py;
+people who have opted out are left out), and fills
+centre_page_template.html.
 The projects are on their own page (../partners/build_projects_page.py). Investigators link to their Simula pages from
 investigator_pages.csv (checked by hand).
 
@@ -44,6 +46,7 @@ AFFILIATIONS = {"SRL": "Simula Research Laboratory", "SimulaMet": "SimulaMet"}
 
 sys.path.insert(0, str(NVA_DIR))
 sys.path.insert(0, str(PARTNERS_DIR))
+import coauthor_data
 from build_partners_page import (
     fetch_dates,
     main_institutions,
@@ -52,6 +55,9 @@ from build_partners_page import (
     read_person_merges,
 )
 from publication_data import id_order, load
+
+# The co-authors' data and the corrections for individual people
+COAUTHORS_DIR = coauthor_data.PARTNERS
 
 
 def read_csv(path):
@@ -192,7 +198,7 @@ def publication_records(papers, papers_of, first_year, authors=None):
 def collect():
     data = load(
         NVA_DIR / "publications",
-        NVA_DIR / "contributors",
+        coauthor_data.CONTRIBUTORS,
         NVA_DIR / "investigators.csv",
     )
     pub_years = {
@@ -223,7 +229,7 @@ def collect():
     }
     exclusions = [
         (r["author"], r["institution"])
-        for r in read_csv(PARTNERS_DIR / "affiliation_exclusions.csv")
+        for r in read_csv(COAUTHORS_DIR / "affiliation_exclusions.csv")
     ]
     return {
         "generated": datetime.date.today().isoformat(),
@@ -234,23 +240,27 @@ def collect():
             data.papers_of,
             min(SINCE),
             author_lists(
-                read_csv(NVA_DIR / "contributors" / "contributors.csv"),
+                coauthor_data.drop_opted_out(
+                    read_csv(coauthor_data.CONTRIBUTORS / "contributors.csv")
+                ),
                 {pid for info in data.investigators.values() for pid in info["ids"]},
                 [(rid, name) for rid, name, _ in data.removed_editors],
             ),
         ),
         "figures": key_figures(
             pub_years,
-            read_csv(PARTNERS_DIR / "openalex_affiliations.csv"),
+            coauthor_data.drop_opted_out(
+                read_csv(COAUTHORS_DIR / "openalex_affiliations.csv")
+            ),
             SINCE,
             merges,
             exclusions,
-            read_person_merges(PARTNERS_DIR / "person_merges.csv"),
-            read_colleagues(PARTNERS_DIR / "simula_colleagues.csv"),
+            read_person_merges(COAUTHORS_DIR / "person_merges.csv"),
+            read_colleagues(COAUTHORS_DIR / "simula_colleagues.csv"),
             {
                 k: r["institution"]
                 for k, r in read_corrections(
-                    PARTNERS_DIR / "coauthor_corrections.csv"
+                    COAUTHORS_DIR / "coauthor_corrections.csv"
                 ).items()
                 if r["institution"]
             },

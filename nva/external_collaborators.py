@@ -2,6 +2,8 @@
 
 Usage: python external_collaborators.py [publications_dir] [contributors_dir]
 
+contributors_dir is in the co-author data by default (see coauthor_data.py).
+
 Uses the merged publication and author data from publication_data.py and
 writes, to contributors_dir:
 
@@ -20,6 +22,7 @@ from collections import Counter, defaultdict
 from itertools import combinations
 from pathlib import Path
 
+import coauthor_data
 from publication_data import id_order, load
 
 
@@ -79,7 +82,9 @@ def bridges(shared):
 
 def main():
     publications_dir = Path(sys.argv[1] if len(sys.argv) > 1 else "publications")
-    contributors_dir = Path(sys.argv[2] if len(sys.argv) > 2 else "contributors")
+    contributors_dir = (
+        Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.CONTRIBUTORS
+    )
     data = load(publications_dir, contributors_dir)
     shared = external_counts(data)
 

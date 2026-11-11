@@ -1,6 +1,6 @@
 """Look up the institutions and countries of all authors in OpenAlex.
 
-Usage: python fetch_openalex.py [output_dir]
+Usage: python fetch_openalex.py [output_dir] [coauthors_dir]
 
 OpenAlex (https://openalex.org) is a free, open index of research output that
 records each author's institution, with its country, type (education,
@@ -14,7 +14,8 @@ university) are recorded but not counted. Investigators are recognised among
 a paper's authors by surname and compatible first name, comparing only with
 the investigators known to be on that paper.
 
-Writes to output_dir:
+Writes to coauthors_dir (by default the co-author data, see
+../nva/coauthor_data.py), leaving out people who have opted out:
 
 - openalex_affiliations.csv: one row per author per institution per
   publication: result ID, year, DOI, author position and name, OpenAlex
@@ -22,6 +23,9 @@ Writes to output_dir:
   country, institution type, the affiliation text on the paper (such as
   "Department of Neurosurgery, Oslo University Hospital", without any email
   addresses), and the centre investigators on the publication
+
+and to output_dir (by default this folder):
+
 - openalex_works.csv: one row per publication: research field and subfield
   of its main topic, the fields of all its topics, title, and whether the
   title or abstract has methods terms, physiological terms or wireless
@@ -47,6 +51,7 @@ NVA_DIR = Path(__file__).resolve().parent.parent / "nva"
 sys.path.insert(0, str(NVA_DIR))
 import fetch_log
 
+import coauthor_data
 from fetch_nva import ascii_fold
 from publication_data import compatible, doi_key, id_order, load
 from publication_relevance import text_flags
@@ -266,9 +271,10 @@ def partner_institutions(rows, places):
 
 def main():
     output_dir = Path(sys.argv[1] if len(sys.argv) > 1 else ".")
+    coauthors_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.PARTNERS
     data = load(
         NVA_DIR / "publications",
-        NVA_DIR / "contributors",
+        coauthor_data.CONTRIBUTORS,
         NVA_DIR / "investigators.csv",
     )
     investigators = defaultdict(list)
@@ -282,15 +288,15 @@ def main():
     }
     works = fetch_works(sorted(set(with_doi.values())))
 
-    rows = [
+    rows = coauthor_data.drop_opted_out(
         row
         for rid, doi in with_doi.items()
         if doi in works
         for row in affiliation_rows(
             rid, data.papers[rid]["year"], doi, works[doi], investigators[rid]
         )
-    ]
-    with (output_dir / "openalex_affiliations.csv").open(
+    )
+    with (coauthors_dir / "openalex_affiliations.csv").open(
         "w", encoding="utf-8", newline=""
     ) as f:
         writer = csv.DictWriter(f, fieldnames=AFFILIATION_FIELDS)

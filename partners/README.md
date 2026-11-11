@@ -37,12 +37,12 @@ Requires Python 3 (standard library only). Run from this folder:
 
 ```sh
 cd partners
-python3 fetch_openalex.py          # writes openalex_*.csv, partner_institutions.csv
-python3 fetch_coauthor_details.py  # writes coauthor_*.csv
+python3 fetch_openalex.py          # writes openalex_works.csv, partner_institutions.csv
+python3 fetch_coauthor_details.py  # looks up the co-authors' departments
 python3 publication_relevance.py   # writes publication_relevance.csv (keeps decisions)
 python3 build_partners_page.py     # writes ../site/collaborators.html
 python3 fetch_simula_projects.py   # writes simula_projects.csv
-python3 fetch_nva_projects.py      # writes nva_projects.csv, nva_project_participants.csv
+python3 fetch_nva_projects.py      # writes nva_projects.csv
 python3 fetch_prosjektbanken.py    # writes prosjektbanken_projects.csv
 python3 build_projects_page.py     # writes ../site/projects.html
 ```
@@ -76,10 +76,6 @@ hand (see Projects).
 | `centre_projects.csv` | The projects (see Projects) |
 | `logos.csv` | The project and funder logos on the projects page: their files in `../site/assets/logos/` (resized copies), a version for dark backgrounds (`file_dark`: a file, `same` when the logo works on dark as it is, or empty for a white tile), alt text, and where each came from |
 | `institution_merges.csv` | Institutions to merge or rename (`institution` as in OpenAlex, `use_name` to show), such as the Sørlandet sykehus hospitals, and Gentofte Hospital as part of Copenhagen University Hospital |
-| `affiliation_exclusions.csv` | Affiliations OpenAlex has wrong for individual co-authors (`author`, `institution`), left out |
-| `person_merges.csv` | OpenAlex records of the same person (`author`, `openalex_author_id`, empty when a paper has no author ID), counted as the record with OpenAlex author ID `same_as` |
-| `simula_colleagues.csv` | Co-authors who are Simula colleagues although OpenAlex does not give a Simula Group institution as their main one (`author`, `openalex_author_id`); left out like other colleagues |
-| `coauthor_corrections.csv` | A co-author's institution, department and research area where OpenAlex has none or the wrong one (`author`, `openalex_author_id`, `institution`, `department`, `discipline`) |
 | `institution_kinds.csv` | Kinds of institution that override the institution's type in OpenAlex (`kind`, such as QB3 as a university), and the research area of research institutes and companies (`discipline`) |
 | `publication_relevance.csv` | Written by `publication_relevance.py`, with a `decision` column (keep or drop) set by hand that overrides the suggestion; re-running the script keeps the decisions and notes |
 | `investigator_emails.csv` | Each investigator's Simula email address, used to recognise them on Simula's project pages; `confirmed` says whether the address has been checked |
@@ -91,13 +87,10 @@ overview.
 
 | File | Contents |
 |---|---|
-| `openalex_affiliations.csv` | One row per author per institution per publication, with the affiliation text on the paper |
 | `openalex_works.csv` | One row per publication: research field and subfield, title, and whether the title or abstract has methods, physiological or wireless terms |
 | `partner_institutions.csv` | Institutions where the investigators' co-authors are (not the investigators' own affiliations): country, type (education, healthcare, company, ...), ROR ID, city and coordinates, number of joint publications and which investigators |
-| `coauthor_profiles.csv`, `coauthor_employments.csv`, `coauthor_affiliations.csv` | Written by `fetch_coauthor_details.py` (see above) |
 | `simula_projects.csv` | All Simula projects: duration, research areas, centre investigators, and the funding and partner sections of the description as text (contact emails are not stored) |
 | `nva_projects.csv` | NVA projects with a centre investigator: dates, funder and grant number, coordinating institution, participants |
-| `nva_project_participants.csv` | Everyone taking part in those projects, with their unit (department) and the institution it belongs to |
 | `prosjektbanken_projects.csv` | Research Council of Norway projects: titles, project leader and lead institution, years, total funding of the whole project (NOK), programmes, scheme, funding ministries, summary and reported results |
 | `fetched.csv` | When each source here was last fetched, written by the fetch scripts with `../nva/fetch_log.py` and shown on the pages; and `projects_checked`, set by hand, when `centre_projects.csv` was last checked against its sources |
 | `world-110m.json` | Country outlines for the map, from the [world-atlas](https://github.com/topojson/world-atlas) package (ISC licence, built from Natural Earth) |
@@ -112,8 +105,7 @@ publications are all those of the co-authors who are mainly there.
 Colleagues whose main institution is in the Simula Group (institutions with
 "Simula" in their name) are not counted, and neither are the investigators'
 own other affiliations on their papers, such as a university position.
-Investigators are recognised among a paper's OpenAlex authors by name
-(column `investigator` in `openalex_affiliations.csv`). All the
+Investigators are recognised among a paper's OpenAlex authors by name. All the
 investigators' publications found in OpenAlex are used, and tests check
 that the two pages give the same institutions, countries and publication
 counts.
@@ -156,8 +148,7 @@ that names one:
 Areas from 6 are shown as an uncertain classification. At hospitals, a
 department or institute (1 to 5) decides, and otherwise clinical medicine.
 Co-authors with none of these, and those whose institution is unknown, count
-as other, also uncertain. `coauthor_corrections.csv` overrides all of these
-for the co-authors it lists. In hand checks of samples, 1 to 3 were nearly
+as other, also uncertain. Corrections made by hand override all of these. In hand checks of samples, 1 to 3 were nearly
 always right, 5 about three times in four, and 6 about half the time;
 OpenAlex's research field labels people by topic rather than department (its
 "Medicine" was mostly biomedical engineers). The area is that of the
@@ -230,5 +221,8 @@ cd partners
 python3 -m pytest
 ```
 
-The tests use small made-up inputs and need no network access. They run
-daily on GitHub Actions together with the other tests.
+The tests use small made-up inputs and need no network access, except one
+that checks that `../site/projects.html` is up to date with
+`centre_projects.csv` (it fails on the day a project starts or ends, until
+the pages are rebuilt). They run daily on GitHub Actions together with the
+other tests.

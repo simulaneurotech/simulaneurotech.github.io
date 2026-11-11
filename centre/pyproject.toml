@@ -7,5 +7,6 @@ testpaths = ["tests"]
 known-first-party = [
     "build_centre_page",
     "build_partners_page",
+    "coauthor_data",
     "publication_data",
 ]

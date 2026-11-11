@@ -32,15 +32,6 @@ overview page. You can also open the file locally in a browser.
 | `publications/duplicate_publications.csv` | Publications registered more than once, and which record was kept |
 | `publications/coauthorship_edges.csv` | Pairs with at least one shared publication |
 | `publications/coauthorship_matrix.csv` | Shared publications for all pairs; the diagonal is each person's total |
-| `contributors/contributors.csv` | One row per author per publication (authors only, not editors or other roles) |
-| `contributors/institutions.csv` | Names of the Norwegian institutions authors belong to |
-| `contributors/chapters.csv` | For each chapter, the NVA record of the book it is part of |
-| `contributors/editors.csv` | Editors of those books |
-| `contributors/removed_editors.csv` | Book editors removed from chapter author lists, for review |
-| `contributors/merged_names.csv` | Name variants merged into one person, for review |
-| `contributors/external_coauthors.csv` | Each investigator's outside co-authors and number of shared publications |
-| `contributors/bridges.csv` | Outside co-authors shared by two or more investigators |
-| `contributors/indirect_links.csv` | Pairs of investigators linked through an outside co-author on separate papers |
 
 ## Usage
 
@@ -48,10 +39,10 @@ Requires Python 3 (standard library only). Run from this folder:
 
 ```sh
 cd nva
-python3 fetch_nva.py               # writes publications/ and contributors/
+python3 fetch_nva.py               # writes publications/ and the author lists
 python3 publication_data.py        # writes the duplicate, name and editor review files
 python3 coauthorship.py            # writes publications/coauthorship_*.csv
-python3 external_collaborators.py  # writes contributors/external_coauthors.csv, bridges.csv, indirect_links.csv
+python3 external_collaborators.py  # finds the outside co-authors who link investigators
 python3 collaboration_map.py       # writes ../site/coauthorship.html
 ```
 
@@ -90,15 +81,14 @@ Each script takes optional paths; see the docstring at the top of each file.
   first name ("A." matches "Andreas", "Aditya" does not match "Amrendra"),
   only when exactly one known person fits. Investigators are recognised by all
   their Cristin IDs and by name, so papers where they are listed without an ID
-  still count. Check `contributors/merged_names.csv`.
+  still count.
 - **Book editors.** Some records list a book's editors after the
   authors of every chapter. When a chapter lists all of its book's editors,
   the editors at the end of its author list are removed, each at most once and
   never all contributors, so editors who wrote the chapter stay. A chapter
   record without a link to its book is ignored when a duplicate of it has one.
   Each investigator's publications come from these cleaned author lists, so
-  chapters someone only edited do not count. Check
-  `contributors/removed_editors.csv`.
+  chapters someone only edited do not count.
 - **Co-authorship.** Two investigators share a publication when both are among
   its authors.
 - **Indirect links.** An outside co-author links two investigators when they
@@ -125,6 +115,6 @@ cd nva
 python3 -m pytest
 ```
 
-The tests use fake NVA data and need no network access. They run daily on
-GitHub Actions (`../.github/workflows/tests.yml`), and can be started by hand
-from the Actions tab.
+The tests use fake NVA data and need no network access. They run daily on GitHub Actions
+(`../.github/workflows/tests.yml`), and can be started by hand from the
+Actions tab.

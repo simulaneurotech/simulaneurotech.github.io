@@ -42,9 +42,8 @@ to the date the publications were fetched (shown on the page):
   left out; co-authors with no known institution are counted.
 - **Institutions:** each co-author's main institution, the one they are
   listed at most often on these publications, counted once. Simula Group
-  institutions are not counted, and the merges and exclusions in
-  `../partners/` (`institution_merges.csv`, `affiliation_exclusions.csv`)
-  apply.
+  institutions are not counted, and the institution merges in
+  `../partners/institution_merges.csv` apply.
 - **Countries:** the countries of these institutions.
 
 On the page, each number can be selected to show the list behind it: the
@@ -75,5 +74,6 @@ python3 -m pytest
 
 The tests use small made-up inputs and need no network access. One test also
 checks that the template and `../site/index.html` load nothing from other
-sites, only files in `../site/`. They run daily on GitHub Actions with the
-tests in `../nva/` and `../partners/`.
+sites, only files in `../site/`. Two check that this page and "Who we
+publish with" agree. The tests run daily on GitHub Actions with the tests in
+`../nva/` and `../partners/`.

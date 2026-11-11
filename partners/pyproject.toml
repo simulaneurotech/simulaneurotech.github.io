@@ -15,5 +15,6 @@ known-first-party = [
     "fetch_nva_projects",
     "fetch_openalex",
     "fetch_simula_projects",
+    "coauthor_data",
     "publication_data",
 ]
