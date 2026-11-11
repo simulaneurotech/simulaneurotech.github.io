@@ -1,79 +1,37 @@
 # Centre overview
 
-An overview page for the Centre for Digital Neurotechnology: the
+The **[overview page](https://simulaneurotech.github.io/)**: the
 investigators, key figures on publications and co-authors, and links to the
-centre's other pages.
-
-**Page:** <https://simulaneurotech.github.io/>,
-published from [`../site/index.html`](../site/index.html). You can also open
-that file locally in a browser.
-
-The page is built from the data in [`../nva/`](../nva/) and
+centre's other pages. It is built from the data in [`../nva/`](../nva/) and
 [`../partners/`](../partners/), so update those first.
-
-## Files
-
-| File | Contents |
-|---|---|
-| `build_centre_page.py` | Builds `../site/index.html` |
-| `centre_page_template.html` | Page template: layout, key figures, investigators and links to the other pages |
-| `investigator_pages.csv` | **Checked by hand**: each investigator's page on simula.no, linked from their name |
 
 ## Usage
 
-Requires Python 3 (standard library only). Run from this folder:
+Python 3, standard library only. Run from this folder:
 
 ```sh
-cd centre
 python3 build_centre_page.py   # writes ../site/index.html
+python3 -m pytest              # tests
 ```
+
+| File | Contents |
+|---|---|
+| `build_centre_page.py` | Builds the page; `SINCE` sets the periods and `LINKED_PAGES` the links under "More about the centre" |
+| `centre_page_template.html` | Page template |
+| `investigator_pages.csv` | Each investigator's page on simula.no, edited by hand |
 
 ## Key figures
 
-Given since 2024, 2021 and 2016 (`SINCE` in `build_centre_page.py`), each up
-to the date the publications were fetched (shown on the page):
+For the periods since 2024, 2021 and 2016:
 
-- **Publications:** the investigators' journal articles, conference papers,
-  book chapters and books in NVA, with duplicates merged and each
-  publication counted once.
-- **Co-authors:** everyone other than the investigators on these
-  publications, from OpenAlex (publications with a DOI only), each counted
-  once. Colleagues whose main institution (below) is in the Simula Group are
-  left out; co-authors with no known institution are counted.
+- **Publications:** the investigators' publications in NVA, each counted
+  once.
+- **Co-authors:** everyone else on these publications, from OpenAlex
+  (publications with a DOI), each counted once; Simula Group colleagues are
+  left out.
 - **Institutions:** each co-author's main institution, the one they are
-  listed at most often on these publications, counted once. Simula Group
-  institutions are not counted, and the institution merges in
-  `../partners/institution_merges.csv` apply.
+  listed at most often on these publications.
 - **Countries:** the countries of these institutions.
 
-On the page, each number can be selected to show the list behind it: the
-publications, the co-authors (with their main institution and joint
-publications), the institutions (with their co-authors and publications) or
-the countries (with their institutions). `build_centre_page.py` works out the
-lists together with the numbers, so they always agree.
-
-All the investigators' publications are used, not only those marked
-relevant in `../partners/publication_relevance.csv`. "Who we publish with"
-counts institutions and countries the same way, with the same function
-(`main_institutions` in `../partners/build_partners_page.py`), and tests
-check that the two pages agree, also on the number of publications and
-co-authors by research area.
-
-Under "More about the centre", the page links to the pages listed in
-`LINKED_PAGES` in `build_centre_page.py`: currently "Who we publish with"
-(`collaborators.html`), "Projects we lead" (`projects.html`) and "Routes to
-innovation" (`innovation-map.html`, written by hand), but not yet
-"Who publishes with whom" (`coauthorship.html`).
-
-## Tests
-
-```sh
-cd centre
-python3 -m pytest
-```
-
-The tests use small made-up inputs and need no network access. One test also
-checks that the template and `../site/index.html` load nothing from other
-sites, only files in `../site/`. Two check that this page and "Who we
-publish with" agree. The tests run daily on GitHub Actions with the tests in
-`../nva/` and `../partners/`.
+Each number can be selected on the page to show the list behind it. "Who we
+publish with" counts the same way, and tests check that the two pages agree.
