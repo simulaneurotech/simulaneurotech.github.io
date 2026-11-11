@@ -18,12 +18,12 @@ none) and nearly the same title (at least 85% alike in the same year, 95% one
 year apart, with the same numbers, so "Part I" and "Part II" stay apart). The
 published version is kept.
 
-People: authors are identified by Cristin person ID. Two IDs are the same
+People: authors are identified by person ID. Two IDs are the same
 person when they appear with exactly the same full name. Authors without an
-ID are matched by surname and a compatible first name ("A." matches "Andreas",
-"Hans" matches "Hans Petter", "Aditya" does not match "Amrendra"), and only
+ID are matched by surname and a compatible first name ("K." matches "Kari",
+"Jon" matches "Jon Erik", "Siri" does not match "Sunniva"), and only
 when exactly one known person fits. Investigators are recognised by all of
-their Cristin IDs (including extra_cristin_ids) and by name.
+their person IDs (including extra_person_ids) and by name.
 
 Book editors: some chapter records list the book's editors after the
 authors. When a chapter's contributors include all of its book's editors, the
@@ -52,7 +52,7 @@ PREPRINT_DOI_PREFIXES = ("10.48550/", "10.1101/")
 
 @dataclass
 class Data:
-    # name -> {"aff": affiliation, "ids": Cristin person IDs}
+    # name -> {"aff": affiliation, "ids": person IDs}
     investigators: dict
     # canonical result ID -> paper fields plus "authors": set of person keys
     papers: dict
@@ -76,7 +76,7 @@ class Data:
 
 
 def id_order(rid):
-    """Sort key for result IDs: Cristin numbers first, then NVA identifiers."""
+    """Sort key for result IDs: numeric IDs first, then NVA identifiers."""
     return (0, int(rid), "") if rid.isdigit() else (1, 0, rid)
 
 
@@ -228,7 +228,7 @@ def full_name_key(first_name, surname):
 
 
 def resolve_people(rows, investigators):
-    """Return {Cristin person ID: key} and {(first, surname): key} for
+    """Return {person ID: key} and {(first, surname): key} for
     contributor rows without an ID."""
     # Group IDs that appear with exactly the same full name (first name not
     # just an initial), and IDs belonging to the same investigator
@@ -249,11 +249,11 @@ def resolve_people(rows, investigators):
             union(pid, investigator_key(name))
     ids_by_full_name = defaultdict(set)
     for row in rows:
-        if row["cristin_person_id"]:
-            find(row["cristin_person_id"])
+        if row["person_id"]:
+            find(row["person_id"])
             first, surname = full_name_key(row["first_name"], row["surname"])
             if len(first.split(" ")[0]) > 1:
-                ids_by_full_name[(first, surname)].add(row["cristin_person_id"])
+                ids_by_full_name[(first, surname)].add(row["person_id"])
     for ids in ids_by_full_name.values():
         ids = sorted(ids)
         for pid in ids[1:]:
@@ -272,8 +272,8 @@ def resolve_people(rows, investigators):
     # Known people by surname, with the first names seen for each
     known = defaultdict(lambda: defaultdict(set))
     for row in rows:
-        if row["cristin_person_id"]:
-            k = id_key[row["cristin_person_id"]]
+        if row["person_id"]:
+            k = id_key[row["person_id"]]
             known[surname_key(row["surname"])][k].add(row["first_name"])
     for name in investigators:
         *first, surname = name.split(" ")
@@ -282,9 +282,7 @@ def resolve_people(rows, investigators):
     # Match authors without an ID, full first names before initials
     name_key = {}
     no_id = {
-        (row["first_name"], row["surname"])
-        for row in rows
-        if not row["cristin_person_id"]
+        (row["first_name"], row["surname"]) for row in rows if not row["person_id"]
     }
 
     def is_initial(name):
@@ -319,11 +317,8 @@ def read_csv(path, optional=False):
 
 
 def same_person(row, editor):
-    """Same Cristin ID, or (for missing or second profiles) a compatible name."""
-    if (
-        row["cristin_person_id"]
-        and row["cristin_person_id"] == editor["cristin_person_id"]
-    ):
+    """Same person ID, or (for missing or second profiles) a compatible name."""
+    if row["person_id"] and row["person_id"] == editor["person_id"]:
         return True
     return surname_key(row["surname"]) == surname_key(editor["surname"]) and compatible(
         row["first_name"], editor["first_name"]
@@ -363,17 +358,17 @@ def load(
         if "Investigator" in row["role"]
     }
     investigators, records = {}, {}
-    for row in read_csv(publications_dir / "cristin_ids.csv"):
-        if row["name"] not in affiliation or not row["cristin_person_id"]:
+    for row in read_csv(publications_dir / "person_ids.csv"):
+        if row["name"] not in affiliation or not row["person_id"]:
             continue
-        extra = [i for i in row.get("extra_cristin_ids", "").split(";") if i]
+        extra = [i for i in row.get("extra_person_ids", "").split(";") if i]
         investigators[row["name"]] = {
             "aff": affiliation[row["name"]],
-            "ids": [row["cristin_person_id"], *extra],
+            "ids": [row["person_id"], *extra],
         }
         rows = read_csv(publications_dir / f"{file_stem(row['name'])}.csv")
         for r in rows:
-            records[r["cristin_result_id"]] = {k: r.get(k, "") for k in PAPER_FIELDS}
+            records[r["result_id"]] = {k: r.get(k, "") for k in PAPER_FIELDS}
 
     canonical = merge_duplicates(records)
     papers = {
@@ -382,7 +377,7 @@ def load(
     papers_of = {name: set() for name in investigators}
 
     part_of = {
-        row["cristin_result_id"]: row["part_of"]
+        row["result_id"]: row["part_of"]
         for row in read_csv(contributors_dir / "chapters.csv", optional=True)
     }
     editors = defaultdict(list)
@@ -398,8 +393,8 @@ def load(
 
     by_result = defaultdict(list)
     for row in read_csv(contributors_dir / "contributors.csv"):
-        if row["cristin_result_id"] in canonical:
-            by_result[row["cristin_result_id"]].append(row)
+        if row["result_id"] in canonical:
+            by_result[row["result_id"]].append(row)
     contributors, removed_editors = [], []
     for rid, rows in by_result.items():
         if rid in part_of and not part_of[rid] and canonical[rid] in linked:
@@ -412,13 +407,13 @@ def load(
             for r in removed
         )
     institution_name = {
-        row["cristin_institution_id"]: row["name"]
+        row["institution_id"]: row["name"]
         for row in read_csv(contributors_dir / "institutions.csv")
     }
     id_key, name_key = resolve_people(contributors, investigators)
 
     def key_of(row):
-        pid = row["cristin_person_id"]
+        pid = row["person_id"]
         return id_key[pid] if pid else name_key[(row["first_name"], row["surname"])]
 
     # People who asked to be left out (see coauthor_data.py), with
@@ -438,7 +433,7 @@ def load(
         names[investigator_key(name)][name] += 1
     for row in contributors:
         k = key_of(row)
-        rid = canonical[row["cristin_result_id"]]
+        rid = canonical[row["result_id"]]
         papers[rid]["authors"].add(k)
         if k.startswith("inv:"):
             papers_of[k.removeprefix("inv:")].add(rid)
@@ -504,7 +499,7 @@ def main():
         "w", encoding="utf-8", newline=""
     ) as f:
         writer = csv.writer(f)
-        writer.writerow(["cristin_result_id", "editor", "chapter"])
+        writer.writerow(["result_id", "editor", "chapter"])
         for row in sorted(data.removed_editors, key=lambda r: id_order(r[0])):
             writer.writerow(row)
 

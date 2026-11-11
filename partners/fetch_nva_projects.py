@@ -2,11 +2,11 @@
 
 Usage: python fetch_nva_projects.py [output_dir] [coauthors_dir]
 
-NVA (which replaced Cristin) has a project register with participants,
+NVA has a project register with participants,
 dates, funding (with grant numbers) and the coordinating institution. It is
 incomplete: not all projects are registered, and some investigators have
-none. Projects are found for every Cristin ID of each investigator in
-../nva/publications/cristin_ids.csv.
+none. Projects are found for every person ID of each investigator in
+../nva/publications/person_ids.csv.
 
 Writes to output_dir (by default this folder):
 
@@ -46,7 +46,7 @@ PROJECT_FIELDS = [
 ]
 PARTICIPANT_FIELDS = [
     "nva_project_id",
-    "cristin_person_id",
+    "person_id",
     "name",
     "role",
     "institution_id",
@@ -112,7 +112,7 @@ def participants(project, names=None):
             rows.append(
                 {
                     "nva_project_id": last_segment(project["id"]),
-                    "cristin_person_id": last_segment(identity.get("id", "")),
+                    "person_id": last_segment(identity.get("id", "")),
                     "name": name,
                     "role": role.get("type", "") if isinstance(role, dict) else "",
                     "institution_id": institution_id,
@@ -141,17 +141,17 @@ def to_row(project, investigators):
 def main():
     output_dir = Path(sys.argv[1] if len(sys.argv) > 1 else ".")
     coauthors_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else coauthor_data.PARTNERS
-    with (NVA_DIR / "publications" / "cristin_ids.csv").open(encoding="utf-8") as f:
+    with (NVA_DIR / "publications" / "person_ids.csv").open(encoding="utf-8") as f:
         people = [
             (
                 r["name"],
                 [
-                    r["cristin_person_id"],
-                    *[i for i in r["extra_cristin_ids"].split(";") if i],
+                    r["person_id"],
+                    *[i for i in r["extra_person_ids"].split(";") if i],
                 ],
             )
             for r in csv.DictReader(f)
-            if r["cristin_person_id"]
+            if r["person_id"]
         ]
 
     projects, members = {}, {}

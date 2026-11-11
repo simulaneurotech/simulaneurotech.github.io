@@ -23,7 +23,7 @@ PARTNERS = ROOT / "partners"
 OPT_OUTS = ROOT / "opt_outs.csv"
 OPT_OUT_FIELDS = [
     "names",
-    "cristin_person_id",
+    "nva_person_id",
     "openalex_author_id",
     "orcid",
     "requested",
@@ -63,17 +63,17 @@ class OptOuts:
                 if v.strip()
             ]
 
-        self.cristin = set(values("cristin_person_id"))
+        self.person_ids = set(values("nva_person_id"))
         self.openalex = set(values("openalex_author_id"))
         self.orcid = {orcid_key(v) for v in values("orcid")}
         self.names = {name_key(v) for v in values("names")} - {""}
 
     def __bool__(self):
-        return bool(self.cristin or self.openalex or self.orcid or self.names)
+        return bool(self.person_ids or self.openalex or self.orcid or self.names)
 
     def match(self, row):
         """True if a data row (a dict) is about someone who opted out."""
-        if row.get("cristin_person_id") and row["cristin_person_id"] in self.cristin:
+        if row.get("person_id") and row["person_id"] in self.person_ids:
             return True
         if row.get("openalex_author_id") and row["openalex_author_id"] in self.openalex:
             return True

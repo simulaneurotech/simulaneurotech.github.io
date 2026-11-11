@@ -54,31 +54,28 @@ def test_affiliations_and_partner_institutions():
 
 
 def test_which_investigator():
-    on_paper = ["Kent-Andre Mardal", "Marie E. Rognes", "Evrim Acar Ataman"]
+    on_paper = ["Jon-Andre Lund", "Kari T. Lunde", "Selin Kaya Demir"]
     assert (
-        fetch_openalex.which_investigator("Kent\u2010André Mardal", on_paper)
-        == "Kent-Andre Mardal"
+        fetch_openalex.which_investigator("Jon\u2010André Lund", on_paper)
+        == "Jon-Andre Lund"
     )
     assert (
-        fetch_openalex.which_investigator("Rognes, Marie E.", on_paper)
-        == "Marie E. Rognes"
+        fetch_openalex.which_investigator("Lunde, Kari T.", on_paper) == "Kari T. Lunde"
     )
+    assert fetch_openalex.which_investigator("K. T. Lunde", on_paper) == "Kari T. Lunde"
     assert (
-        fetch_openalex.which_investigator("M. E. Rognes", on_paper) == "Marie E. Rognes"
-    )
-    assert (
-        fetch_openalex.which_investigator("Evrim Acar", on_paper) == "Evrim Acar Ataman"
+        fetch_openalex.which_investigator("Selin Kaya", on_paper) == "Selin Kaya Demir"
     )
     # Same surname, different first name, or not on the paper: not an investigator
-    assert fetch_openalex.which_investigator("Torbjørn Rognes", on_paper) == ""
-    assert fetch_openalex.which_investigator("Aslak Tveito", on_paper) == ""
+    assert fetch_openalex.which_investigator("Torbjørn Lunde", on_paper) == ""
+    assert fetch_openalex.which_investigator("Odd Vik", on_paper) == ""
 
 
 def test_investigators_own_affiliations_are_not_partners():
     work = {
         "authorships": [
             {
-                "author": {"display_name": "Marie E. Rognes"},
+                "author": {"display_name": "Kari T. Lunde"},
                 "institutions": [
                     {
                         "display_name": "University of Bergen",
@@ -102,9 +99,9 @@ def test_investigators_own_affiliations_are_not_partners():
         ]
     }
     rows = fetch_openalex.affiliation_rows(
-        "10", "2022", "10.1/x", work, ["Marie E. Rognes"]
+        "10", "2022", "10.1/x", work, ["Kari T. Lunde"]
     )
-    assert [r["investigator"] for r in rows] == ["Marie E. Rognes", ""]
+    assert [r["investigator"] for r in rows] == ["Kari T. Lunde", ""]
     out = fetch_openalex.partner_institutions(rows, {})
     assert [r["institution"] for r in out] == ["Charité"]
 

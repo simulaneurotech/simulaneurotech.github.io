@@ -20,26 +20,26 @@ def opt_out(**fields):
 def test_matches_by_any_id():
     opted = OptOuts(
         [
-            opt_out(cristin_person_id="11"),
+            opt_out(nva_person_id="11"),
             opt_out(openalex_author_id="A22; A23"),
             opt_out(orcid="https://orcid.org/0000-0001-2345-6789"),
         ]
     )
-    assert opted.match({"cristin_person_id": "11"})
+    assert opted.match({"person_id": "11"})
     assert opted.match({"openalex_author_id": "A22"})
     assert opted.match({"openalex_author_id": "A23"})
     assert opted.match({"orcid": "0000-0001-2345-6789"})
-    assert not opted.match({"cristin_person_id": "12", "openalex_author_id": "A2"})
+    assert not opted.match({"person_id": "12", "openalex_author_id": "A2"})
     # Empty IDs never match
-    assert not opted.match({"cristin_person_id": "", "openalex_author_id": ""})
+    assert not opted.match({"person_id": "", "openalex_author_id": ""})
 
 
 def test_matches_name_variants_without_accents_or_punctuation():
-    opted = OptOuts([opt_out(names="Åse Ødegård; A. Odegard")])
-    assert opted.match({"author": "Ase Odegard"})
-    assert opted.match({"first_name": "A.", "surname": "Ødegård"})
-    assert opted.match({"coauthor": "ÅSE  ØDEGÅRD"})
-    assert not opted.match({"author": "Åse Ødegård-Berg"})
+    opted = OptOuts([opt_out(names="Åse Øvrebø; A. Ovrebo")])
+    assert opted.match({"author": "Ase Ovrebo"})
+    assert opted.match({"first_name": "A.", "surname": "Øvrebø"})
+    assert opted.match({"coauthor": "ÅSE  ØVREBØ"})
+    assert not opted.match({"author": "Åse Øvrebø-Berg"})
     assert not opted.match({"author": "", "openalex_author_id": ""})
 
 
@@ -73,8 +73,8 @@ def test_purge_removes_rows_and_keeps_the_files_format(tmp_path):
     contributors = tmp_path / "nva" / "contributors" / "contributors.csv"
     write_csv(
         contributors,
-        ["cristin_person_id", "first_name", "surname"],
-        [{"cristin_person_id": "", "first_name": "Ola", "surname": "Nordmann"}],
+        ["person_id", "first_name", "surname"],
+        [{"person_id": "", "first_name": "Ola", "surname": "Nordmann"}],
         newline="\n",
     )
     untouched = tmp_path / "partners" / "person_merges.csv"
@@ -94,7 +94,7 @@ def test_purge_removes_rows_and_keeps_the_files_format(tmp_path):
     assert affiliations.read_bytes() == (
         b'author,openalex_author_id,affiliation\r\nKari Nordmann,A2,"z, w"\r\n'
     )
-    assert contributors.read_bytes() == b"cristin_person_id,first_name,surname\n"
+    assert contributors.read_bytes() == b"person_id,first_name,surname\n"
     assert untouched.read_bytes() == before
     # A second run finds nothing more to remove
     assert purge(tmp_path) == {}
@@ -128,7 +128,7 @@ def test_load_leaves_out_opted_out_coauthors(dataset, tmp_path, monkeypatch):
     assert everyone.papers["101"]["authors"] < everyone.papers["100"]["authors"]
 
     opt_outs = tmp_path / "opt_outs.csv"
-    write_csv(opt_outs, coauthor_data.OPT_OUT_FIELDS, [opt_out(cristin_person_id="7")])
+    write_csv(opt_outs, coauthor_data.OPT_OUT_FIELDS, [opt_out(nva_person_id="7")])
     monkeypatch.setattr(coauthor_data, "OPT_OUTS", opt_outs)
     data = load(publications, contributors)
     assert len(data.papers["100"]["authors"]) == 2

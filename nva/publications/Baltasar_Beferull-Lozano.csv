@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,[2609.16472] Online Gradient Computation for Warping Gaussian Process Transformations,Compendium,,,10505457,01a0ec46287f-2bf852a1-785a-4a1b-b3ce-87353ff46644,
 2026,Topological Kalman Filtering on Cell Complexes,Academic article,IEEE Transactions on Signal Processing,https://arxiv.org/abs/2605.15955,10457559,019f12ab6b61-2287a69e-c10c-4d79-b621-9c71e642b966,IEEE Transactions on Signal Processing
 2026,Distributed online learning of higher-order cellular models,Academic article,European Signal Processing Conference (EUSIPCO),,10457556,019f12aa02e7-5c29c2cf-a535-460d-8e49-4901d0b41f7c,European Signal Processing Conference (EUSIPCO)

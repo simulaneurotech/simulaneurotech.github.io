@@ -47,14 +47,14 @@ def test_an_opted_out_coauthor_is_named_on_no_page(tmp_path, monkeypatch):
         for r in rows(coauthor_data.PARTNERS / "openalex_affiliations.csv")
         if not r["investigator"] and r["openalex_author_id"]
     ]
-    cristin_ids = {}
+    person_ids = {}
     for r in contributors:
-        if r["cristin_person_id"]:
+        if r["person_id"]:
             name = f"{r['first_name']} {r['surname']}"
-            cristin_ids.setdefault(name, set()).add(r["cristin_person_id"])
+            person_ids.setdefault(name, set()).add(r["person_id"])
     # A co-author in both NVA and OpenAlex under the same name, named on the
     # pages, with a name no other name contains
-    names = sorted({r["author"] for r in affiliations} & set(cristin_ids))
+    names = sorted({r["author"] for r in affiliations} & set(person_ids))
     name = next(
         n
         for n in names
@@ -70,7 +70,7 @@ def test_an_opted_out_coauthor_is_named_on_no_page(tmp_path, monkeypatch):
         writer.writerow(
             {
                 "names": name,
-                "cristin_person_id": ";".join(sorted(cristin_ids[name])),
+                "nva_person_id": ";".join(sorted(person_ids[name])),
                 "openalex_author_id": ";".join(
                     sorted(
                         {

@@ -93,7 +93,7 @@ def main():
     ) as f:
         writer = csv.writer(f)
         writer.writerow(
-            ["investigator", "coauthor", "cristin_person_id", "institution", "shared"]
+            ["investigator", "coauthor", "person_id", "institution", "shared"]
         )
         for name in data.investigators:
             for k, n in shared[name].most_common():

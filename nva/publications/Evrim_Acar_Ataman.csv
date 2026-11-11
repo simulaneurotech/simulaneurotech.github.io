@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,Knowledge-guided Pattern Discovery via Coupled Tensor Factorizations,Academic article,IEEE International Workshop on Machine Learning for Signal Processing,https://arxiv.org/abs/2608.13234,10505053,01a0e88e26f6-fc3c3cd8-0405-4223-a7dc-27f403b5daae,IEEE International Workshop on Machine Learning for Signal Processing
 2026,All-At-Once Optimization for Coupled Generalized Tensor Decompositions,Academic article,European Signal Processing Conference (EUSIPCO),https://www.eurasip.org/Proceedings/Eusipco/Eusipco2026/pdfs/0001087.pdf,10505043,01a0e887222d-3380016e-1f71-4047-a31d-e15d0baf39d2,European Signal Processing Conference (EUSIPCO)
 2026,Revealing Subject-Specific Temporal Patterns from Longitudinal Data,Academic article,Bioinformatics,https://doi.org/10.1093/bioinformatics/btag658,10504485,01a0e7681ce2-edc8f9b8-2a05-4aea-b363-64cec5412d0d,Bioinformatics

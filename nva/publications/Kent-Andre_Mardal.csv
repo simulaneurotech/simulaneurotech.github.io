@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,Fully mixed virtual element schemes for a new model of steady-state poroelastic stress-assisted diffusion in the brain,Academic article,Computer Methods in Applied Mechanics and Engineering,https://doi.org/10.1016/j.cma.2026.119475,10519171,01a17880f664-ea4429f6-1545-4bbb-b812-e36b0f99d6cb,Computer Methods in Applied Mechanics and Engineering
 2026,Data regularization and deconvolution for non-intrusive reduced-order modeling of transport-dominated problems,Academic article,Results in Applied Mathematics,https://doi.org/10.1016/j.rinam.2026.100775,10516715,01a158dc870c-1c564608-35b2-47df-9d7d-aa44937e6074,Results in Applied Mathematics
 2026,Multiphasic transport in the human cranial dura: how meningeal lymphatic vessels drive waste clearance from brain cerebrospinal fluid,Academic article,Fluids and Barriers of the CNS,https://doi.org/10.1186/s12987-026-00861-y,10487711,01a05ccc4cae-40c88264-1c66-44d8-940d-1da49eafb607,Fluids and Barriers of the CNS

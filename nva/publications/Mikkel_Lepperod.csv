@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,A bio-inspired minimal model for non-stationary K-armed bandits,Academic article,Biological cybernetics,https://doi.org/10.1007/s00422-026-01037-5,10432858,019daf26f112-b8ede6f7-2648-4acb-a244-644bed254b59,Biological cybernetics
 2026,Sensor movement drives emergent attention and scalability in active neural cellular automata,Academic article,Neural Networks,https://doi.org/10.1016/j.neunet.2026.108798,10431959,019d9aa4c73a-ecbbe21e-7fac-496c-b3bc-1a6e4d018470,Neural Networks
 2026,Task and Behavior-Related Variables Are Encoded by the Postrhinal and Medial Entorhinal Cortex During Non-Spatial Associative Learning,Academic article,eLIFE,https://doi.org/10.7554/elife.106095.1,10287770,019a9b5d08b6-07dba0d8-1184-47e8-b211-94045e9e7de0,eLIFE

@@ -498,7 +498,7 @@ function showPerson(name) {
   el("h3", { text: name }, panel);
   const sub = el("p", { class: "sub" }, panel);
   sub.append(`${affName(p.aff)} · ${p.total} publications in NVA, ${p.shared} with another investigator · `);
-  el("a", { href: `https://nva.sikt.no/research-profile?id=${encodeURIComponent(`https://api.nva.unit.no/cristin/person/${p.cristin}`)}`, target: "_blank", rel: "noopener", text: "NVA profile" }, sub);
+  el("a", { href: `https://nva.sikt.no/research-profile?id=${encodeURIComponent(`https://api.nva.unit.no/cristin/person/${p.personId}`)}`, target: "_blank", rel: "noopener", text: "NVA profile" }, sub);
   if (mine.length) {
     el("p", { class: "sub", text: `Shared publications with ${mine.length} other investigator${mine.length > 1 ? "s" : ""}:` }, panel);
     pairRows(mine, panel, q => (q.a === name ? q.b : q.a));

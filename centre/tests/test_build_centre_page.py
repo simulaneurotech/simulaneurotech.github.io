@@ -35,25 +35,23 @@ def test_key_figures():
         # A Simula colleague is neither a co-author nor a collaborating institution
         aff("2", "2022", "Sim S", "Simula Research Laboratory", author_id="A2"),
         # Merged and excluded affiliations
-        aff("3", "2017", "Geir R", "Sørlandet Hospital Arendal", author_id="A3"),
+        aff("3", "2017", "Gro H", "Sørlandet Hospital Arendal", author_id="A3"),
         aff(
             "3",
             "2017",
-            "Ricardo Ruíz‐Baier",
-            "Sechenov University",
+            "Paulo Reís‐Lima",
+            "Wrong University",
             "RU",
             author_id="A4",
         ),
-        aff(
-            "3", "2017", "Ricardo Ruíz‐Baier", "Monash University", "AU", author_id="A4"
-        ),
+        aff("3", "2017", "Paulo Reís‐Lima", "Home University", "AU", author_id="A4"),
     ]
     figures = bcp.key_figures(
         pub_years,
         affiliations,
         [2024, 2021, 2016],
         merges={"Sørlandet Hospital Arendal": "Sørlandet sykehus"},
-        exclusions=[("Ricardo Ruiz-Baier", "Sechenov University")],
+        exclusions=[("Paulo Reis-Lima", "Wrong University")],
     )
     counts = {
         y: {k: v for k, v in f.items() if k != "lists"} for y, f in figures.items()
@@ -91,11 +89,11 @@ def test_key_figures():
 def test_author_lists_and_et_al():
     def c(rid, order, first, surname, pid=""):
         return {
-            "cristin_result_id": rid,
+            "result_id": rid,
             "order": str(order),
             "first_name": first,
             "surname": surname,
-            "cristin_person_id": pid,
+            "person_id": pid,
         }
 
     contributors = [c("1", 2, "Ann", "Berg", "11"), c("1", 1, "Carl", "Co")]
@@ -121,16 +119,14 @@ def test_author_lists_and_et_al():
 def test_surname_first_names_are_turned_round():
     contributors = [
         {
-            "cristin_result_id": "1",
+            "result_id": "1",
             "order": "1",
-            "first_name": "Zikatanov,",
-            "surname": "Ludmil T.",
-            "cristin_person_id": "",
+            "first_name": "Lunde,",
+            "surname": "Kari T.",
+            "person_id": "",
         }
     ]
-    assert bcp.author_lists(contributors, set())["1"] == [
-        ["Ludmil T. Zikatanov", False]
-    ]
+    assert bcp.author_lists(contributors, set())["1"] == [["Kari T. Lunde", False]]
 
 
 def test_page_loads_nothing_from_other_sites():

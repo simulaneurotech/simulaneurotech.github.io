@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2025,Cardiac 3D electromechanical tissue simulations for cardiac safety analysis,Academic article,Journal of pharmacological and toxicological methods,https://doi.org/10.1016/j.vascn.2025.107637,10425747,019d2af65ab7-0c37c970-2ad7-400f-941a-257b39a4e21d,Journal of pharmacological and toxicological methods
 2025,Integration of electrophysiological and mechanical biomarkers in cardiac risk assessment models,Academic article,Computer Methods and Programs in Biomedicine,https://doi.org/10.1016/j.cmpb.2025.108896,10268047,0199b98b1335-523a26f0-f72d-46b0-99d5-430c721e4534,Computer Methods and Programs in Biomedicine
 2025,Impact of segregation scheme on performance of a strongly coupled cardiac electromechanical solver,Academic article,Computer Methods in Applied Mechanics and Engineering,https://doi.org/10.1016/j.cma.2025.118270,10268043,0199b988a052-240d7896-f184-4f22-80ba-88aa604f1a9d,Computer Methods in Applied Mechanics and Engineering

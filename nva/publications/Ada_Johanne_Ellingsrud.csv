@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,Computing for Life: Modeling and Simulation of Electrodiffusion in Dense Reconstructions of Cerebral Tissue,Academic chapter/article/Conference paper,,https://doi.org/10.1007/978-3-032-33428-2_14,10493237,01a0902d2def-0c489cd5-12f9-41a5-8cc3-357e7f01d871,In: Numerical Analysis and Scientific Computing: an Anthology (Lecture Notes in Computational Science and Engineering)
 2025,"A SPLITTING, DISCONTINUOUS GALERKIN SOLVER FOR THE CELL-BY-CELL ELECTRONEUTRAL NERNST-PLANCK FRAMEWORK",Academic article,SIAM Journal on Scientific Computing,https://doi.org/10.1137/24M1653367,10419162,019ce1691aef-40a01502-6885-4084-beaa-9db5ce75f1ec,SIAM Journal on Scientific Computing
 2025,Advection versus diffusion in brain ventricular transport,Academic article,Fluids and Barriers of the CNS,https://doi.org/10.1186/s12987-025-00692-3,10309054,019b94722999-07d597a2-d061-4be0-8110-7d8f30216abc,Fluids and Barriers of the CNS

@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,Mechanochemical modeling of exercise-induced skeletal muscle hypertrophy,Academic article,PLoS Computational Biology,https://doi.org/10.1371/journal.pcbi.1014691,10493975,01a09f1f50f4-52ca80e6-1569-41f0-88fe-baa88ecdf9d7,PLoS Computational Biology
 2026,Computing for Life: Modeling and Simulation of Electrodiffusion in Dense Reconstructions of Cerebral Tissue,Academic chapter/article/Conference paper,,https://doi.org/10.1007/978-3-032-33428-2_14,10493237,01a0902d2def-0c489cd5-12f9-41a5-8cc3-357e7f01d871,In: Numerical Analysis and Scientific Computing: an Anthology (Lecture Notes in Computational Science and Engineering)
 2026,In-silico solute transport via perivascular networks in the human intracranial space,Academic article,Nature Communications,https://doi.org/10.1038/s41467-026-77174-z,10493231,01a0902a9b0e-dda63504-a338-435a-bd85-ec35f13b3835,Nature Communications

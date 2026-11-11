@@ -88,13 +88,13 @@ def test_merge_duplicates():
 
 
 def test_compatible_first_names():
-    assert compatible("A.", "Andreas")
-    assert compatible("Hans", "Hans Petter")
-    assert compatible("Per-Kristian", "Per Kristian")
-    assert compatible("Jorgen S.", "Jørgen")
-    assert compatible("AE", "Alf Emil")
-    assert not compatible("Aditya", "Amrendra P.")
-    assert not compatible("Xue", "Xiulin")
+    assert compatible("K.", "Kari")
+    assert compatible("Jon", "Jon Erik")
+    assert compatible("Ole-Martin", "Ole Martin")
+    assert compatible("Bjorn S.", "Bjørn")
+    assert compatible("OE", "Odd Einar")
+    assert not compatible("Siri", "Sunniva P.")
+    assert not compatible("Siv", "Sigrid")
 
 
 def test_load_recognises_people(dataset):
@@ -102,7 +102,7 @@ def test_load_recognises_people(dataset):
         [
             ("Ann A. Berg", "SRL", INV, "1", "9"),
             ("Bo Dahl", "SimulaMet", INV, "2", ""),
-            ("Rachel Thomas", "", "Director for Strategy and Development", "3", ""),
+            ("Siri Lie", "", "Director", "3", ""),
         ],
         [
             # Ann under her second profile (9), Bo by ID
@@ -120,8 +120,8 @@ def test_load_recognises_people(dataset):
                 "authors": [
                     ("Ann", "Berg", "1"),
                     ("B.", "Dahl", ""),
-                    ("Xue", "Wang", ""),
-                    ("Xiulin", "Wang", ""),
+                    ("Siv", "Holm", ""),
+                    ("Sigrid", "Holm", ""),
                 ],
             },
             # Outside author with an ID, and the same person as an initial elsewhere
@@ -142,18 +142,18 @@ def test_load_recognises_people(dataset):
 
     data = load(publications, contributors)
 
-    # Rachel Thomas is not an investigator
+    # Siri Lie is not an investigator
     assert set(data.investigators) == {"Ann A. Berg", "Bo Dahl"}
     assert data.investigators["Ann A. Berg"]["ids"] == ["1", "9"]
     # Paper 11 counts for Bo, found by name; paper 10 for Ann, via ID 9
     assert data.papers_of["Ann A. Berg"] == {"10", "11", "12"}
     assert data.papers_of["Bo Dahl"] == {"10", "11", "13"}
-    # Xue and Xiulin Wang stay separate; C. Eng is Carl Eng (ID 50)
+    # Siv and Sigrid Holm stay separate; C. Eng is Carl Eng (ID 50)
     assert data.papers["11"]["authors"] == {
         "inv:Ann A. Berg",
         "inv:Bo Dahl",
-        "name:xue|wang",
-        "name:xiulin|wang",
+        "name:siv|holm",
+        "name:sigrid|holm",
     }
     assert data.papers["13"]["authors"] == {"inv:Bo Dahl", "id:50"}
     assert data.display("id:50") == "Carl Eng"
@@ -161,7 +161,7 @@ def test_load_recognises_people(dataset):
 
 
 def person(first, surname, pid=""):
-    return {"first_name": first, "surname": surname, "cristin_person_id": pid}
+    return {"first_name": first, "surname": surname, "person_id": pid}
 
 
 def test_strip_editors():
@@ -173,7 +173,7 @@ def test_strip_editors():
         person("Kai", "Mard", "2"),
     ]
     assert strip_editors(rows, editors) == (rows[:1], rows[1:])
-    # An editor who is first author stays; matched by name across Cristin IDs
+    # An editor who is first author stays; matched by name across person IDs
     rows = [
         person("Kai", "Mard", "2"),
         person("Bo", "B"),
@@ -198,7 +198,7 @@ def test_strip_editors():
 
 
 def test_load_removes_book_editors(dataset):
-    book = "https://api.cristin.no/v2/results/book"
+    book = "https://api.nva.unit.no/publication/book"
     publications, contributors = dataset(
         [("Ann Berg", "SRL", INV, "1", ""), ("Tor Veit", "SRL", INV, "2", "")],
         [

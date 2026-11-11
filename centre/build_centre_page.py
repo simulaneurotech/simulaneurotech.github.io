@@ -147,7 +147,7 @@ def author_lists(contributors, investigator_ids, removed=()):
     removed = set(removed)
     rows = defaultdict(list)
     for r in contributors:
-        rows[r["cristin_result_id"]].append(r)
+        rows[r["result_id"]].append(r)
     out = {}
     for rid, rs in rows.items():
         authors = []
@@ -155,10 +155,10 @@ def author_lists(contributors, investigator_ids, removed=()):
             name = f"{r['first_name']} {r['surname']}".strip()
             if (rid, name) in removed:
                 continue
-            if "," in name:  # "Zikatanov, Ludmil T." -> "Ludmil T. Zikatanov"
+            if "," in name:  # "Lunde, Kari T." -> "Kari T. Lunde"
                 last, _, first = name.partition(",")
                 name = f"{first.strip()} {last.strip()}"
-            authors.append([name, r["cristin_person_id"] in investigator_ids])
+            authors.append([name, r["person_id"] in investigator_ids])
         out[rid] = authors
     return out
 

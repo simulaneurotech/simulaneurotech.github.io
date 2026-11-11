@@ -4,20 +4,20 @@ Usage: python fetch_nva.py [investigators.csv] [publications_dir] [contributors_
 
 contributors_dir is in the co-author data by default (see coauthor_data.py).
 
-NVA replaced Cristin and keeps Cristin's person IDs, and the Cristin result ID
-of records registered there. For each investigator, the person with a Simula,
-SimulaMet or Simula UiB affiliation is found, and all their results are
-fetched, together with those of any extra Cristin IDs (duplicate profiles) in
-the extra_cristin_ids column of investigators.csv, separated by semicolons.
+NVA identifies people and older publications by their former Cristin IDs.
+For each investigator, the person with a Simula, SimulaMet or Simula UiB
+affiliation is found, and all their results are fetched, together with those
+of any extra person IDs (duplicate profiles) in the extra_person_ids column
+of investigators.csv, separated by semicolons.
 
 Writes to publications_dir:
 
 - <Name>.csv: one file per person: year, title, category, journal, DOI,
-  result ID (the Cristin result ID, or the NVA identifier for records without
-  one), NVA identifier and venue (the journal; for a chapter or conference
+  result ID (the older numeric result ID, or the NVA identifier for records
+  without one), NVA identifier and venue (the journal; for a chapter or conference
   paper "In: " the book or proceedings and its series; for a book the
   publisher and series)
-- cristin_ids.csv: the Cristin person IDs used for each name
+- person_ids.csv: the person IDs used for each name
 
 and to contributors_dir:
 
@@ -50,8 +50,8 @@ API = "https://api.nva.unit.no"
 # Simula (Simula Research Laboratory), SimulaMet, Simula UiB
 SIMULA_INSTITUTIONS = {"7498", "20277", "20428"}
 
-# NVA publication types to keep, with the category names used before (from
-# Cristin): journal articles, conference papers, chapters and books
+# NVA publication types to keep, with their earlier category names: journal
+# articles, conference papers, chapters and books
 CATEGORIES = {
     "AcademicArticle": "Academic article",
     "AcademicLiteratureReview": "Academic literature review",
@@ -70,14 +70,14 @@ FIELDS = [
     "category",
     "journal",
     "doi",
-    "cristin_result_id",
+    "result_id",
     "nva_id",
     "venue",
 ]
 CONTRIBUTOR_FIELDS = [
-    "cristin_result_id",
+    "result_id",
     "order",
-    "cristin_person_id",
+    "person_id",
     "first_name",
     "surname",
     "institutions",
@@ -144,7 +144,7 @@ def count_results(person_id):
 
 
 def find_person(name):
-    """Return the Cristin person ID for name with a Simula affiliation, or None.
+    """Return the person ID for name with a Simula affiliation, or None.
     If several match, the one with most results is used."""
     for query in name_queries(name):
         people = get(f"{API}/cristin/person", {"name": query, "results": 100})
@@ -180,7 +180,7 @@ def instance_type(hit):
 
 
 def result_id(hit):
-    """The Cristin result ID, or the NVA identifier if the record has none."""
+    """The older numeric result ID, or the NVA identifier if the record has none."""
     for identifier in hit.get("additionalIdentifiers", []):
         if identifier.get("type") == "CristinIdentifier":
             return identifier["value"]
@@ -221,7 +221,7 @@ def to_row(hit):
         "category": CATEGORIES[instance_type(hit)],
         "journal": journal,
         "doi": reference.get("doi", ""),
-        "cristin_result_id": result_id(hit),
+        "result_id": result_id(hit),
         "nva_id": hit["identifier"],
         "venue": venue(context),
     }
@@ -242,9 +242,9 @@ def contributor_rows(hit):
         )
         rows.append(
             {
-                "cristin_result_id": result_id(hit),
+                "result_id": result_id(hit),
                 "order": c.get("sequence", ""),
-                "cristin_person_id": last_segment(person)
+                "person_id": last_segment(person)
                 if "/cristin/person/" in person
                 else "",
                 "first_name": first,
@@ -256,7 +256,7 @@ def contributor_rows(hit):
 
 
 def book_editors(url):
-    """Return (Cristin person ID, first name, surname) for the editors of a book."""
+    """Return (person ID, first name, surname) for the editors of a book."""
     book = get(url)
     editors = []
     for c in (book.get("entityDescription") or {}).get("contributors", []):
@@ -273,7 +273,7 @@ def institution_name(institution_id):
     labels = organization.get("labels", {})
     name = labels.get("en") or next(iter(labels.values()), "")
     return {
-        "cristin_institution_id": institution_id,
+        "institution_id": institution_id,
         "name": name,
         "country": organization.get("country", ""),
     }
@@ -301,7 +301,7 @@ def main():
     ids, kept = [], {}
     for row in rows:
         name = row["name"]
-        extra_ids = [i for i in row.get("extra_cristin_ids", "").split(";") if i]
+        extra_ids = [i for i in row.get("extra_person_ids", "").split(";") if i]
         person_id = find_person(name)
         results = {}
         if person_id is None:
@@ -311,7 +311,7 @@ def main():
                 for hit in search_results(pid):
                     if instance_type(hit) in CATEGORIES:
                         results[hit["identifier"]] = hit
-            print(f"{name}: Cristin person ID {person_id}, {len(results)} results")
+            print(f"{name}: person ID {person_id}, {len(results)} results")
         kept.update(results)
         write_csv(
             publications_dir / f"{file_stem(name)}.csv",
@@ -325,14 +325,14 @@ def main():
         ids.append(
             {
                 "name": name,
-                "cristin_person_id": person_id or "",
-                "extra_cristin_ids": ";".join(extra_ids),
+                "person_id": person_id or "",
+                "extra_person_ids": ";".join(extra_ids),
                 "n_results": len(results),
             }
         )
     write_csv(
-        publications_dir / "cristin_ids.csv",
-        ["name", "cristin_person_id", "extra_cristin_ids", "n_results"],
+        publications_dir / "person_ids.csv",
+        ["name", "person_id", "extra_person_ids", "n_results"],
         ids,
     )
 
@@ -347,13 +347,13 @@ def main():
     )
     write_csv(
         contributors_dir / "institutions.csv",
-        ["cristin_institution_id", "name", "country"],
+        ["institution_id", "name", "country"],
         [institution_name(i) for i in institution_ids],
     )
 
     chapters = [
         {
-            "cristin_result_id": result_id(hit),
+            "result_id": result_id(hit),
             "part_of": hit["entityDescription"]["reference"]
             .get("publicationContext", {})
             .get("id", ""),
@@ -361,9 +361,7 @@ def main():
         for hit in kept.values()
         if instance_type(hit) in CHAPTER_TYPES
     ]
-    write_csv(
-        contributors_dir / "chapters.csv", ["cristin_result_id", "part_of"], chapters
-    )
+    write_csv(contributors_dir / "chapters.csv", ["result_id", "part_of"], chapters)
 
     editors = []
     for url in sorted({c["part_of"] for c in chapters if c["part_of"]}):
@@ -371,7 +369,7 @@ def main():
             editors.append(
                 {
                     "part_of": url,
-                    "cristin_person_id": pid,
+                    "person_id": pid,
                     "first_name": first,
                     "surname": surname,
                 }
@@ -379,7 +377,7 @@ def main():
         time.sleep(0.2)
     write_csv(
         contributors_dir / "editors.csv",
-        ["part_of", "cristin_person_id", "first_name", "surname"],
+        ["part_of", "person_id", "first_name", "surname"],
         coauthor_data.drop_opted_out(editors),
     )
     # Next to the publications folder: nva/fetched.csv

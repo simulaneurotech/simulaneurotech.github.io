@@ -179,10 +179,10 @@ def test_corrections_set_institution_department_and_discipline():
             "University of Oslo",
             "Department of Physics, University of Oslo",
         ),
-        {**row("2", "Jensenius, Alexander Refsum", "", ""), "type": ""},
+        {**row("2", "Lie, Anders Holm", "", ""), "type": ""},
     ]
     corrections = {
-        "jensenius, alexander refsum": {
+        "lie, anders holm": {
             "institution": "University of Oslo",
             "department": "Department of Musicology, RITMO",
             "discipline": "Other",
@@ -191,7 +191,7 @@ def test_corrections_set_institution_department_and_discipline():
     found = {
         c["name"]: c for c in cf.coauthors(affiliations, 2016, corrections=corrections)
     }
-    j = found["Jensenius, Alexander Refsum"]
+    j = found["Lie, Anders Holm"]
     # At the University of Oslo (a university, from the other row naming it)
     assert (j["institution"], j["country"], j["kind"]) == (
         "University of Oslo",

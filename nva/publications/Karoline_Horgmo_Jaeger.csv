@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,Wave propagation enhances extracellular signal strength in small excitable tissues,Academic article,Scientific Reports,https://doi.org/10.1038/s41598-026-51791-6,10459903,019f40ed453c-7b20c959-2f4b-47be-b894-257d6bf6cf80,Scientific Reports
 2026,Sometimes extracellular recordings fail for good reasons,Academic article,npj Systems Biology and Applications,https://doi.org/10.1038/s41540-026-00730-2,10459898,019f40e8f88d-418bedc8-1f9b-456a-aad5-d20ffd462ad9,npj Systems Biology and Applications
 2026,Accurate computation of ionic concentrations in the synaptic cleft requires the full Poisson–Nernst–Planck (PNP) equations,Academic article,PLoS Computational Biology,https://doi.org/10.1371/journal.pcbi.1014341,10453364,019ecf7dac2a-9434ccd0-0b30-469c-a7ff-14720a58eccc,PLoS Computational Biology

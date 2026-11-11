@@ -40,10 +40,10 @@ def test_projects_leave_out_excluded_rows():
         "url": "u",
         "duration": "2016-2020",
         "status": "ended",
-        "leader": "Marie E. Rognes",
+        "leader": "Kari Lunde",
         "leader_role": "lead",
         "host": "Simula Research Laboratory",
-        "participants": "Kent-Andre Mardal",
+        "participants": "Per-Arne Lund",
         "funders": "Research Council of Norway",
         "scheme": "Researcher Project",
         "grants": "250731",
@@ -68,7 +68,7 @@ def test_projects_leave_out_excluded_rows():
         2021.0,
         "Research Council of Norway",
     )
-    assert p["investigators"] == ["Marie E. Rognes", "Kent-Andre Mardal"]
+    assert p["investigators"] == ["Kari Lunde", "Per-Arne Lund"]
     assert p["collaborators"] == ["University of Oslo", "Oslo University Hospital"]
     # A funding column, should one be added to the CSV file, is not passed on
     assert not any("funding" in k.lower() for k in p)
@@ -198,33 +198,31 @@ def test_coauthors_count_only_at_their_main_institution():
 
 def test_excluded_affiliations_are_left_out():
     affiliations = [
-        aff("1", "2022", "Ricardo Ruíz\u2010Baier", "Sechenov University", "s"),
-        aff("1", "2022", "Ricardo Ruíz\u2010Baier", "Monash University", "m"),
-        aff("2", "2022", "Ivan Other", "Sechenov University", "s"),
+        aff("1", "2022", "Paulo Reís\u2010Lima", "Wrong University", "s"),
+        aff("1", "2022", "Paulo Reís\u2010Lima", "Home University", "m"),
+        aff("2", "2022", "Ivan Other", "Wrong University", "s"),
     ]
     institutions = [
-        inst("Sechenov University", "s", country="RU"),
-        inst("Monash University", "m", country="AU"),
+        inst("Wrong University", "s", country="RU"),
+        inst("Home University", "m", country="AU"),
     ]
     _, out = bpp.partner_data(
         affiliations,
         institutions,
         ["Ann A"],
-        exclusions=[("Ricardo Ruiz-Baier", "Sechenov University")],
+        exclusions=[("Paulo Reis-Lima", "Wrong University")],
     )
-    # Ruiz-Baier counts only for Monash; Sechenov stays for another co-author
+    # Reis-Lima counts only for Home; Wrong stays for another co-author
     assert {i["name"]: i["coauthors"] for i in out} == {
-        "Monash University": [[["Ricardo Ruíz\u2010Baier", [2021, 2016]]]],
-        "Sechenov University": [[["Ivan Other", [2021, 2016]]]],
+        "Home University": [[["Paulo Reís\u2010Lima", [2021, 2016]]]],
+        "Wrong University": [[["Ivan Other", [2021, 2016]]]],
     }
 
 
 def test_merged_institutions_are_counted_once():
     affiliations = [
-        aff(
-            "1", "2023", "Geir R", "Sørlandet Hospital Arendal", "a", type="healthcare"
-        ),
-        aff("1", "2023", "Geir R", "Sørlandet Sykehus", "b", type="healthcare"),
+        aff("1", "2023", "Gro H", "Sørlandet Hospital Arendal", "a", type="healthcare"),
+        aff("1", "2023", "Gro H", "Sørlandet Sykehus", "b", type="healthcare"),
         aff("2", "2023", "Per E", "Sørlandet Hospital Arendal", "a", type="healthcare"),
         # The investigator's own affiliation is not a collaborating institution
         aff("2", "2023", "Ann A", "University of Bergen", "c", investigator="Ann A"),
@@ -252,7 +250,7 @@ def test_merged_institutions_are_counted_once():
             "Arendal",
             [0, 1],
             [
-                [["Geir R", [2021, 2016]]],
+                [["Gro H", [2021, 2016]]],
                 [["Per E", [2021, 2016]]],
             ],
         )
@@ -265,7 +263,7 @@ def test_research_council_details():
         "total_funding_nok": "7000992",
         "programmes": "FRINATEK",
         "application_type": "Forskerprosjekt",
-        "lead": "Marie Elisabeth Rognes",
+        "lead": "Kari Lunde",
         "title_no": "",
         "achieved_effects": "",
     }
@@ -315,20 +313,20 @@ def test_records_of_the_same_person_are_merged(tmp_path):
     path = tmp_path / "person_merges.csv"
     path.write_text(
         "author,openalex_author_id,same_as,note\n"
-        "Sylvia Saalfield,A2,A1,misspelt\n"
-        "Kei Yamamoto,,A3,no ID on one paper\n",
+        "Ingrid Brekk,A2,A1,misspelt\n"
+        "Ken Ito,,A3,no ID on one paper\n",
         encoding="utf-8",
     )
     people = bpp.read_person_merges(path)
-    assert people == {"A2": "A1", "kei yamamoto": "A3"}
+    assert people == {"A2": "A1", "ken ito": "A3"}
     affiliations = [
-        aff("1", "2023", "Sylvia Saalfield", "Magdeburg", "m", openalex_author_id="A2"),
-        aff("2", "2023", "Sylvia Saalfeld", "Magdeburg", "m", openalex_author_id="A1"),
-        aff("3", "2023", "Kei Yamamoto", "UiO", "u"),
+        aff("1", "2023", "Ingrid Brekk", "Bergen", "m", openalex_author_id="A2"),
+        aff("2", "2023", "Ingrid Brekke", "Bergen", "m", openalex_author_id="A1"),
+        aff("3", "2023", "Ken Ito", "UiO", "u"),
         aff(
             "4",
             "2023",
-            "Kei Yamamoto",
+            "Ken Ito",
             "Simula Research Laboratory",
             "s",
             openalex_author_id="A3",
@@ -336,17 +334,17 @@ def test_records_of_the_same_person_are_merged(tmp_path):
         aff(
             "5",
             "2023",
-            "Kei Yamamoto",
+            "Ken Ito",
             "Simula Research Laboratory",
             "s",
             openalex_author_id="A3",
         ),
     ]
     found, _ = bpp.main_institutions(affiliations, 2016, people=people)
-    # One Sylvia Saalfeld, named as in the record kept, with both papers;
-    # Kei Yamamoto is one person, mainly at Simula, so not a co-author
+    # One Ingrid Brekke, named as in the record kept, with both papers;
+    # Ken Ito is one person, mainly at Simula, so not a co-author
     assert {c: (v["name"], len(v["rows"])) for c, v in found.items()} == {
-        "A1": ("Sylvia Saalfeld", 2)
+        "A1": ("Ingrid Brekke", 2)
     }
     assert bpp.read_person_merges(tmp_path / "missing.csv") == {}
 
@@ -354,7 +352,7 @@ def test_records_of_the_same_person_are_merged(tmp_path):
 def test_listed_simula_colleagues_are_left_out(tmp_path):
     path = tmp_path / "simula_colleagues.csv"
     path.write_text(
-        "author,openalex_author_id,note\nBastian Zapf,A1,Simula\nNo Id,,Simula\n",
+        "author,openalex_author_id,note\nJonas Falk,A1,Simula\nNo Id,,Simula\n",
         encoding="utf-8",
     )
     colleagues = bpp.read_colleagues(path)
@@ -363,7 +361,7 @@ def test_listed_simula_colleagues_are_left_out(tmp_path):
         aff(
             "1",
             "2023",
-            "Bastian Zapf",
+            "Jonas Falk",
             "University of Oslo",
             "u",
             openalex_author_id="A1",

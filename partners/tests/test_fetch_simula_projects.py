@@ -4,11 +4,11 @@ BODY = """
 <p>Intro text.</p>
 <h2>Funding source:</h2>
 <p>Research Council of Norway, FRINATEK</p>
-<p>meg@simula.no</p>
+<p>kari@example.org</p>
 <h2>aCleanBrain project partners</h2>
 <ul><li>University of Oslo (Norway)</li><li>Oslo University Hospital (Norway)</li></ul>
 <p>Contact</p>
-<p>kent-and@simula.no</p>
+<p>per-arne@example.org</p>
 <h3>Media</h3>
 <p>Not a section we read.</p>
 """
@@ -26,18 +26,18 @@ def test_sections_read_funding_and_partners():
 
 def test_investigators_found_by_email_or_name():
     emails = {
-        "Marie E. Rognes": "meg@simula.no",
-        "Kent-Andre Mardal": "kent-and@simula.no",
+        "Kari T. Lunde": "kari@example.org",
+        "Per-Arne Lund": "per-arne@example.org",
     }
     names = [
-        "Marie E. Rognes",
-        "Kent-Andre Mardal",
-        "Aslak Tveito",
-        "Karoline Horgmo Jæger",
+        "Kari T. Lunde",
+        "Per-Arne Lund",
+        "Odd Vik",
+        "Siri Holm Sæther",
     ]
-    text = "Contact: meg@simula.no. Led by Aslak Tveito with Karoline Jaeger."
+    text = "Contact: kari@example.org. Led by Odd Vik with Siri Saether."
     assert fsp.investigators_in(text, emails, names) == [
-        "Marie E. Rognes",
-        "Aslak Tveito",
-        "Karoline Horgmo Jæger",
+        "Kari T. Lunde",
+        "Odd Vik",
+        "Siri Holm Sæther",
     ]

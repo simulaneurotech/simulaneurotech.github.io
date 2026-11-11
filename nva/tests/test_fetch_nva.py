@@ -16,10 +16,10 @@ def person(name, pid="", role="Creator", inst=""):
     return contributor
 
 
-def hit(identifier, kind, title, contributors, cristin_id="", context=None):
+def hit(identifier, kind, title, contributors, old_id="", context=None):
     for i, c in enumerate(contributors, 1):
         c["sequence"] = str(i)
-    ids = [{"type": "CristinIdentifier", "value": cristin_id}] if cristin_id else []
+    ids = [{"type": "CristinIdentifier", "value": old_id}] if old_id else []
     return {
         "identifier": identifier,
         "additionalIdentifiers": ids,
@@ -49,7 +49,7 @@ def test_fetch_writes_publications_authors_and_editors(tmp_path, monkeypatch):
                 "a",
                 "AcademicArticle",
                 "Article",
-                [person("Ann Berg", "1", inst="7498"), person("Geert van der Ploeg")],
+                [person("Ann Berg", "1", inst="7498"), person("Pieter van den Bosch")],
                 "100",
                 journal,
             ),
@@ -65,7 +65,7 @@ def test_fetch_writes_publications_authors_and_editors(tmp_path, monkeypatch):
                 {"id": BOOK},
             ),
         ],
-        # Ann's second profile; record "d" is only in NVA, without a Cristin ID
+        # Ann's second profile; record "d" is only in NVA, without an older ID
         "9": [hit("d", "Textbook", "Book", [person("Ann Berg", "9")])],
     }
     responses = {
@@ -86,7 +86,7 @@ def test_fetch_writes_publications_authors_and_editors(tmp_path, monkeypatch):
 
     investigators = tmp_path / "investigators.csv"
     investigators.write_text(
-        "name,affiliation,role,extra_cristin_ids\nAnn Berg,SRL,Investigator,9\n",
+        "name,affiliation,role,extra_person_ids\nAnn Berg,SRL,Investigator,9\n",
         encoding="utf-8",
     )
     publications, contributors = tmp_path / "publications", tmp_path / "contributors"
@@ -98,34 +98,34 @@ def test_fetch_writes_publications_authors_and_editors(tmp_path, monkeypatch):
     fetch_nva.main()
 
     rows = read(publications / "Ann_Berg.csv")
-    assert {(r["cristin_result_id"], r["category"], r["nva_id"]) for r in rows} == {
+    assert {(r["result_id"], r["category"], r["nva_id"]) for r in rows} == {
         ("100", "Academic article", "a"),
         ("102", "Academic chapter/article/Conference paper", "c"),
         ("d", "Textbook", "d"),
     }
     assert next(r for r in rows if r["nva_id"] == "a")["journal"] == "J. Num."
-    assert read(publications / "cristin_ids.csv")[0]["extra_cristin_ids"] == "9"
+    assert read(publications / "person_ids.csv")[0]["extra_person_ids"] == "9"
 
     authors = {
-        (r["cristin_result_id"], r["first_name"], r["surname"], r["cristin_person_id"])
+        (r["result_id"], r["first_name"], r["surname"], r["person_id"])
         for r in read(contributors / "contributors.csv")
     }
     assert authors == {
         ("100", "Ann", "Berg", "1"),
-        ("100", "Geert", "van der Ploeg", ""),
+        ("100", "Pieter", "van den Bosch", ""),
         ("102", "Ann", "Berg", "1"),
         ("d", "Ann", "Berg", "9"),
     }
     assert read(contributors / "institutions.csv") == [
-        {"cristin_institution_id": "7498", "name": "Simula", "country": "NO"}
+        {"institution_id": "7498", "name": "Simula", "country": "NO"}
     ]
     assert read(contributors / "chapters.csv") == [
-        {"cristin_result_id": "102", "part_of": BOOK}
+        {"result_id": "102", "part_of": BOOK}
     ]
     assert read(contributors / "editors.csv") == [
         {
             "part_of": BOOK,
-            "cristin_person_id": "2",
+            "person_id": "2",
             "first_name": "Tor",
             "surname": "Veit",
         }
@@ -133,11 +133,11 @@ def test_fetch_writes_publications_authors_and_editors(tmp_path, monkeypatch):
 
 
 def test_split_name():
-    assert fetch_nva.split_name("Kent-Andre Mardal") == ("Kent-Andre", "Mardal")
-    assert fetch_nva.split_name("Marc de Kamps") == ("Marc", "de Kamps")
-    assert fetch_nva.split_name("Geert Roelof van der Ploeg") == (
-        "Geert Roelof",
-        "van der Ploeg",
+    assert fetch_nva.split_name("Per-Arne Lund") == ("Per-Arne", "Lund")
+    assert fetch_nva.split_name("Anna de Vries") == ("Anna", "de Vries")
+    assert fetch_nva.split_name("Pieter Jan van den Bosch") == (
+        "Pieter Jan",
+        "van den Bosch",
     )
     assert fetch_nva.split_name("Plato") == ("", "Plato")
 

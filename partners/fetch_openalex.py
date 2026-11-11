@@ -181,7 +181,7 @@ def which_investigator(author_name, investigators):
     compatible. Dashes of all kinds count as hyphens, and "Last, First" is
     read as "First Last"."""
     author_name = author_name.translate(DASHES)
-    if "," in author_name:  # "Rognes, Marie E."
+    if "," in author_name:  # "Lunde, Kari T."
         last_part, _, first_part = author_name.partition(",")
         author_name = f"{first_part} {last_part}"
     tokens = author_name.split()

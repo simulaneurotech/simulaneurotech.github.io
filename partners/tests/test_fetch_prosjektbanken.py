@@ -11,7 +11,7 @@ def page(state):
 PROJECT = {
     "title": "The Numerical Waterscape of the Brain",
     "alternativeTitle": "Beregninger av hjernens vannveier",
-    "leadName": "Marie Elisabeth Rognes",
+    "leadName": "Kari Lunde",
     "organisation": [
         [
             "Instituttsektor",
@@ -48,7 +48,7 @@ def test_page_project_and_row():
     row = fp.to_row("250731", project)
     assert row["found"] == "yes"
     assert (row["lead"], row["lead_institution"]) == (
-        "Marie Elisabeth Rognes",
+        "Kari Lunde",
         "Simula Research Laboratory AS",
     )
     assert (row["start"], row["end"], row["total_funding_nok"]) == (2016, 2020, 7000992)

@@ -16,9 +16,9 @@ PROJECT = {
     "contributors": [
         {
             "identity": {
-                "id": "https://api.nva.unit.no/cristin/person/588528",
-                "firstName": "Baltasar",
-                "lastName": "Beferull-Lozano",
+                "id": "https://api.nva.unit.no/cristin/person/100001",
+                "firstName": "Kari",
+                "lastName": "Lunde",
             },
             "roles": [
                 {
@@ -35,7 +35,7 @@ PROJECT = {
 
 
 def test_project_row_and_participants():
-    row = fnp.to_row(PROJECT, ["Baltasar Beferull-Lozano"])
+    row = fnp.to_row(PROJECT, ["Kari Lunde"])
     assert row == {
         "nva_project_id": "123",
         "title": "SURE-AI",
@@ -44,13 +44,13 @@ def test_project_row_and_participants():
         "funding": "Research Council of Norway (RCN) 357482",
         "coordinator": "Simula",
         "n_participants": 1,
-        "investigators": "Baltasar Beferull-Lozano",
+        "investigators": "Kari Lunde",
     }
     assert fnp.participants(PROJECT) == [
         {
             "nva_project_id": "123",
-            "cristin_person_id": "588528",
-            "name": "Baltasar Beferull-Lozano",
+            "person_id": "100001",
+            "name": "Kari Lunde",
             "role": "ProjectManager",
             "institution_id": "7498",
             "institution": "SimulaMet",

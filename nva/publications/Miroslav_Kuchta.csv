@@ -1,4 +1,4 @@
-year,title,category,journal,doi,cristin_result_id,nva_id,venue
+year,title,category,journal,doi,result_id,nva_id,venue
 2026,In-silico solute transport via perivascular networks in the human intracranial space,Academic article,Nature Communications,https://doi.org/10.1038/s41467-026-77174-z,10493231,01a0902a9b0e-dda63504-a338-435a-bd85-ec35f13b3835,Nature Communications
 2026,Parameter-Robust Preconditioners for a Cell-by-Cell Poroelasticity Model with Interface Coupling,Academic article,SIAM Journal on Scientific Computing,https://doi.org/10.1137/25m1770151,10493213,01a09021a553-f16676be-40d5-495d-aabc-518760b66986,SIAM Journal on Scientific Computing
 2026,Spectral analysis of the stiffness matrix sequence in the approximated Stokes equation,Academic article,Boletín de la Sociedad Matemática Mexicana,https://doi.org/10.1007/s40590-026-00935-9,10483495,01a01e5f584a-7b8cd8db-b4e2-4fab-8246-61af6852d206,Boletín de la Sociedad Matemática Mexicana

@@ -71,7 +71,7 @@ def collect(data):
             "aff": info["aff"],
             "total": len(data.papers_of[name]),
             "shared": len(data.papers_of[name] & shared.keys()),
-            "cristin": info["ids"][0],
+            "personId": info["ids"][0],
         }
         for name, info in data.investigators.items()
     ]

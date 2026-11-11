@@ -13,7 +13,7 @@ def make_fixture(dataset):
             ("Ann A", "SRL", INV, "1", ""),
             ("Bø Bee", "SimulaMet", INV, "2", ""),
             ("Cee C", "SRL", INV, "3", ""),
-            ("Rachel Thomas", "", "Director for Strategy and Development", "4", ""),
+            ("Siri Lie", "", "Director", "4", ""),
         ],
         [
             {
@@ -24,7 +24,7 @@ def make_fixture(dataset):
                     ("Ann", "A", "1"),
                     ("Bø", "Bee", "2"),
                     ("Cee", "C", "3"),
-                    ("Rachel", "Thomas", "4"),
+                    ("Siri", "Lie", "4"),
                 ],
             },
             {
@@ -52,11 +52,17 @@ def make_fixture(dataset):
 def test_collect_finds_shared_papers_pairs_and_years(dataset):
     data = collaboration_map.collect(load(*make_fixture(dataset)))
 
-    # Rachel Thomas is left out, even though she appears on paper 10
+    # Siri Lie is left out, even though she appears on paper 10
     assert data["people"] == [
-        {"name": "Ann A", "aff": "SRL", "total": 3, "shared": 2, "cristin": "1"},
-        {"name": "Bø Bee", "aff": "SimulaMet", "total": 2, "shared": 2, "cristin": "2"},
-        {"name": "Cee C", "aff": "SRL", "total": 2, "shared": 1, "cristin": "3"},
+        {"name": "Ann A", "aff": "SRL", "total": 3, "shared": 2, "personId": "1"},
+        {
+            "name": "Bø Bee",
+            "aff": "SimulaMet",
+            "total": 2,
+            "shared": 2,
+            "personId": "2",
+        },
+        {"name": "Cee C", "aff": "SRL", "total": 2, "shared": 1, "personId": "3"},
     ]
     # Only papers with two or more investigators, with all of them listed
     assert set(data["papers"]) == {"10", "11"}
